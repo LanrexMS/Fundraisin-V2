@@ -1,0 +1,410 @@
+CrmSvcUtil Error: 2 : Exiting Microsoft.Crm.Services.Utility.ICommandLineArgumentSource.OnInvalidArgument: Found string DynamicsDemo@LanrexIT.onmicrosoft.com in arguments array that could not be parsed.
+CrmSvcUtil Error: 2 : Exiting Microsoft.Crm.Services.Utility.ICommandLineArgumentSource.OnInvalidArgument: Found string DynamicsDemo@LanrexIT.onmicrosoft.com in arguments array that could not be parsed.
+CrmSvcUtil Error: 2 : Exiting Microsoft.Crm.Services.Utility.ICommandLineArgumentSource.OnInvalidArgument: Found string Marie in arguments array that could not be parsed.
+CrmSvcUtil Error: 2 : Exiting Microsoft.Crm.Services.Utility.ICommandLineArgumentSource.OnInvalidArgument: Found string DynamicsDemo@LanrexIT.onmicrosoft.com in arguments array that could not be parsed.
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : ERROR REQUESTING Token FROM THE Authentication context - General ADAL Error
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:27:37 pm
+Error	: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Stack Trace	: at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.<AcquireTokenCommonAsync>d__37.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContextIntegratedAuthExtensions.<AcquireTokenAsync>d__0.MoveNext()
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: mscorlib
+Method	: ThrowForNonSuccess
+Date	: 13/09/2024
+Time	: 1:27:37 pm
+Error	: A task was canceled.
+Stack Trace	: at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to connect to CRM: A task was canceled.
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:27:37 pm
+Error	: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Stack Trace	: at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ProcessAdalExecption(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier& user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, CrmLogEntry logSink, Boolean useDefaultCreds, String& authToken, AdalException adalEx)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ExecuteAuthenticateServiceProcess(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, UserIdentifier& userIdent, CrmLogEntry logSink, Boolean useDefaultCreds, SecureString clientSecret)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ConnectAndInitCrmOrgService(OrganizationDetail orgdata, Boolean IsOnPrem, Uri homeRealmUri)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DoDirectLogin(Boolean IsOnPrem)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.InitCRM2011Service()
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: mscorlib
+Method	: ThrowForNonSuccess
+Date	: 13/09/2024
+Time	: 1:27:37 pm
+Error	: A task was canceled.
+Stack Trace	: at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to Login to Dynamics CRM
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to Login to Dynamics CRM
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:27:37 pm
+Error	: Unable to Login to Dynamics CRM
+Stack Trace	: Not Provided
+======================================================================================================================
+
+CrmSvcUtil Error: 2 : Exiting program with exit code 2 due to exception : System.Exception: Connection to Dataverse is not established. Aborting process.
+   at Microsoft.Crm.Services.Utility.SdkMetadataProviderService.LoadMetadata(IServiceProvider service)
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Run()
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Main(String[] args)
+CrmSvcUtil Error: 2 : ===== DETAIL ======
+CrmSvcUtil Error: 2 : Source	: CrmSvcUtil
+Method	: LoadMetadata
+Date	: 1:27:37 pm
+Time	: 13/09/2024
+Error	: Connection to Dataverse is not established. Aborting process.
+Stack Trace	: at Microsoft.Crm.Services.Utility.SdkMetadataProviderService.LoadMetadata(IServiceProvider service)
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Run()
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Main(String[] args)
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : ERROR REQUESTING Token FROM THE Authentication context - USER intervention required but not permitted by prompt behavior
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:31:12 pm
+Error	: AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: 0e034096-8ae1-47c9-be1e-c5ccd9a70d00 Correlation ID: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b Timestamp: 2024-09-13 05:31:11Z
+Stack Trace	: at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__22`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<HandleDeviceAuthChallengeAsync>d__25`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__22`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__21`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendHttpMessageAsync>d__72.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendTokenRequestAsync>d__69.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<CheckAndAcquireTokenUsingBrokerAsync>d__59.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.<AcquireTokenCommonAsync>d__37.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContextIntegratedAuthExtensions.<AcquireTokenAsync>d__0.MoveNext()
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:31:12 pm
+Error	: Response status code does not indicate success: 400 (BadRequest).
+Stack Trace	: Not Provided
+======================================================================================================================
+Inner Exception Level 2	: 
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:31:12 pm
+Error	: {"error":"interaction_required","error_description":"AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: 0e034096-8ae1-47c9-be1e-c5ccd9a70d00 Correlation ID: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b Timestamp: 2024-09-13 05:31:11Z","error_codes":[50076],"timestamp":"2024-09-13 05:31:11Z","trace_id":"0e034096-8ae1-47c9-be1e-c5ccd9a70d00","correlation_id":"ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b","error_uri":"https://login.microsoftonline.com/error?code=50076","suberror":"basic_action"}: Unknown error
+Stack Trace	: Not Provided
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to connect to CRM: Response status code does not indicate success: 400 (BadRequest).
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:31:12 pm
+Error	: AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: 0e034096-8ae1-47c9-be1e-c5ccd9a70d00 Correlation ID: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b Timestamp: 2024-09-13 05:31:11Z
+Stack Trace	: at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ProcessAdalExecption(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier& user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, CrmLogEntry logSink, Boolean useDefaultCreds, String& authToken, AdalException adalEx)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ExecuteAuthenticateServiceProcess(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, UserIdentifier& userIdent, CrmLogEntry logSink, Boolean useDefaultCreds, SecureString clientSecret)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ConnectAndInitCrmOrgService(OrganizationDetail orgdata, Boolean IsOnPrem, Uri homeRealmUri)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DoDirectLogin(Boolean IsOnPrem)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.InitCRM2011Service()
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:31:12 pm
+Error	: Response status code does not indicate success: 400 (BadRequest).
+Stack Trace	: Not Provided
+======================================================================================================================
+Inner Exception Level 2	: 
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:31:12 pm
+Error	: {"error":"interaction_required","error_description":"AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: 0e034096-8ae1-47c9-be1e-c5ccd9a70d00 Correlation ID: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b Timestamp: 2024-09-13 05:31:11Z","error_codes":[50076],"timestamp":"2024-09-13 05:31:11Z","trace_id":"0e034096-8ae1-47c9-be1e-c5ccd9a70d00","correlation_id":"ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b","error_uri":"https://login.microsoftonline.com/error?code=50076","suberror":"basic_action"}: Unknown error
+Stack Trace	: Not Provided
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to Login to Dynamics CRM
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to Login to Dynamics CRM
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:31:12 pm
+Error	: Unable to Login to Dynamics CRM
+Stack Trace	: Not Provided
+======================================================================================================================
+
+CrmSvcUtil Error: 2 : Exiting program with exit code 2 due to exception : System.Exception: Connection to Dataverse is not established. Aborting process.
+   at Microsoft.Crm.Services.Utility.SdkMetadataProviderService.LoadMetadata(IServiceProvider service)
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Run()
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Main(String[] args)
+CrmSvcUtil Error: 2 : ===== DETAIL ======
+CrmSvcUtil Error: 2 : Source	: CrmSvcUtil
+Method	: LoadMetadata
+Date	: 1:31:12 pm
+Time	: 13/09/2024
+Error	: Connection to Dataverse is not established. Aborting process.
+Stack Trace	: at Microsoft.Crm.Services.Utility.SdkMetadataProviderService.LoadMetadata(IServiceProvider service)
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Run()
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Main(String[] args)
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : ERROR REQUESTING Token FROM THE Authentication context - General ADAL Error
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:33:58 pm
+Error	: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Stack Trace	: at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.<AcquireTokenCommonAsync>d__37.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContextIntegratedAuthExtensions.<AcquireTokenAsync>d__0.MoveNext()
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: mscorlib
+Method	: ThrowForNonSuccess
+Date	: 13/09/2024
+Time	: 1:33:58 pm
+Error	: A task was canceled.
+Stack Trace	: at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.CrmConnectControl Error: 2 : Exception while trying to connect Discovery Server, (Global Discovery) URI is = https://globaldisco.crm.dynamics.com/api/discovery/v2.0/Instances. Exception message: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Microsoft.Xrm.Tooling.CrmConnectControl Error: 2 : Error Message: Exception logged by the CRM Connector control:
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:33:58 pm
+Error	: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Stack Trace	: at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ProcessAdalExecption(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier& user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, CrmLogEntry logSink, Boolean useDefaultCreds, String& authToken, AdalException adalEx)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ExecuteAuthenticateServiceProcess(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, UserIdentifier& userIdent, CrmLogEntry logSink, Boolean useDefaultCreds, SecureString clientSecret)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DiscoverGlobalOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, X509Certificate2 loginCertificate, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& userOut, CrmLogEntry logSink, Boolean useGlobalDisco, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DiscoverOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& userOut, CrmLogEntry logSink, Boolean useGlobalDisco, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.Connector.CrmServiceClient.DiscoverGlobalOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, UserIdentifier user, String clientId, Uri redirectUri, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& foundUser, PromptBehavior promptBehavior, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.QueryOAuthDiscoveryServer(Uri discoServer, ClientCredentials liveCreds, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean useGlobalDisco)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.QueryOnlineServerList(ObservableCollection`1 svrs, OrganizationDetailCollection col, ClientCredentials liveCreds, Uri trimToDiscoveryUri, Uri globalDiscoUriToUse)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.FindCrmOnlineDiscoveryServer(ClientCredentials liveCreds)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.ValidateServerConnection(CrmOrgByServer selectedOrg)
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: mscorlib
+Method	: ThrowForNonSuccess
+Date	: 13/09/2024
+Time	: 1:33:58 pm
+Error	: A task was canceled.
+Stack Trace	: at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.CrmConnectControl Error: 2 : Error Message: Can't connect to Microsoft Dataverse - .
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:33:58 pm
+Error	: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Stack Trace	: at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ProcessAdalExecption(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier& user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, CrmLogEntry logSink, Boolean useDefaultCreds, String& authToken, AdalException adalEx)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ExecuteAuthenticateServiceProcess(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, UserIdentifier& userIdent, CrmLogEntry logSink, Boolean useDefaultCreds, SecureString clientSecret)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DiscoverGlobalOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, X509Certificate2 loginCertificate, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& userOut, CrmLogEntry logSink, Boolean useGlobalDisco, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DiscoverOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& userOut, CrmLogEntry logSink, Boolean useGlobalDisco, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.Connector.CrmServiceClient.DiscoverGlobalOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, UserIdentifier user, String clientId, Uri redirectUri, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& foundUser, PromptBehavior promptBehavior, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.QueryOAuthDiscoveryServer(Uri discoServer, ClientCredentials liveCreds, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean useGlobalDisco)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.QueryOnlineServerList(ObservableCollection`1 svrs, OrganizationDetailCollection col, ClientCredentials liveCreds, Uri trimToDiscoveryUri, Uri globalDiscoUriToUse)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.FindCrmOnlineDiscoveryServer(ClientCredentials liveCreds)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.ValidateServerConnection(CrmOrgByServer selectedOrg)
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: mscorlib
+Method	: ThrowForNonSuccess
+Date	: 13/09/2024
+Time	: 1:33:58 pm
+Error	: A task was canceled.
+Stack Trace	: at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : ERROR REQUESTING Token FROM THE Authentication context - General ADAL Error
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:37:59 pm
+Error	: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Stack Trace	: at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.<AcquireTokenCommonAsync>d__37.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContextIntegratedAuthExtensions.<AcquireTokenAsync>d__0.MoveNext()
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: mscorlib
+Method	: ThrowForNonSuccess
+Date	: 13/09/2024
+Time	: 1:37:59 pm
+Error	: A task was canceled.
+Stack Trace	: at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.CrmConnectControl Error: 2 : Exception while trying to connect Discovery Server, (Global Discovery) URI is = https://globaldisco.crm.dynamics.com/api/discovery/v2.0/Instances. Exception message: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Microsoft.Xrm.Tooling.CrmConnectControl Error: 2 : Error Message: Exception logged by the CRM Connector control:
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:37:59 pm
+Error	: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Stack Trace	: at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ProcessAdalExecption(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier& user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, CrmLogEntry logSink, Boolean useDefaultCreds, String& authToken, AdalException adalEx)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ExecuteAuthenticateServiceProcess(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, UserIdentifier& userIdent, CrmLogEntry logSink, Boolean useDefaultCreds, SecureString clientSecret)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DiscoverGlobalOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, X509Certificate2 loginCertificate, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& userOut, CrmLogEntry logSink, Boolean useGlobalDisco, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DiscoverOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& userOut, CrmLogEntry logSink, Boolean useGlobalDisco, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.Connector.CrmServiceClient.DiscoverGlobalOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, UserIdentifier user, String clientId, Uri redirectUri, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& foundUser, PromptBehavior promptBehavior, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.QueryOAuthDiscoveryServer(Uri discoServer, ClientCredentials liveCreds, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean useGlobalDisco)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.QueryOnlineServerList(ObservableCollection`1 svrs, OrganizationDetailCollection col, ClientCredentials liveCreds, Uri trimToDiscoveryUri, Uri globalDiscoUriToUse)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.FindCrmOnlineDiscoveryServer(ClientCredentials liveCreds)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.ValidateServerConnection(CrmOrgByServer selectedOrg)
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: mscorlib
+Method	: ThrowForNonSuccess
+Date	: 13/09/2024
+Time	: 1:37:59 pm
+Error	: A task was canceled.
+Stack Trace	: at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.CrmConnectControl Error: 2 : Error Message: Can't connect to Microsoft Dataverse - .
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 13/09/2024
+Time	: 1:37:59 pm
+Error	: accessing_ws_metadata_exchange_failed: Accessing WS metadata exchange failed
+Stack Trace	: at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ProcessAdalExecption(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier& user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, CrmLogEntry logSink, Boolean useDefaultCreds, String& authToken, AdalException adalEx)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ExecuteAuthenticateServiceProcess(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, UserIdentifier& userIdent, CrmLogEntry logSink, Boolean useDefaultCreds, SecureString clientSecret)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DiscoverGlobalOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, X509Certificate2 loginCertificate, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& userOut, CrmLogEntry logSink, Boolean useGlobalDisco, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DiscoverOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& userOut, CrmLogEntry logSink, Boolean useGlobalDisco, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.Connector.CrmServiceClient.DiscoverGlobalOrganizations(Uri discoveryServiceUri, ClientCredentials clientCredentials, UserIdentifier user, String clientId, Uri redirectUri, String tokenCachePath, Boolean isOnPrem, String authority, UserIdentifier& foundUser, PromptBehavior promptBehavior, Boolean useDefaultCreds)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.QueryOAuthDiscoveryServer(Uri discoServer, ClientCredentials liveCreds, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean useGlobalDisco)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.QueryOnlineServerList(ObservableCollection`1 svrs, OrganizationDetailCollection col, ClientCredentials liveCreds, Uri trimToDiscoveryUri, Uri globalDiscoUriToUse)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.FindCrmOnlineDiscoveryServer(ClientCredentials liveCreds)
+   at Microsoft.Xrm.Tooling.CrmConnectControl.CrmConnectionManager.ValidateServerConnection(CrmOrgByServer selectedOrg)
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: mscorlib
+Method	: ThrowForNonSuccess
+Date	: 13/09/2024
+Time	: 1:37:59 pm
+Error	: A task was canceled.
+Stack Trace	: at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+======================================================================================================================
+

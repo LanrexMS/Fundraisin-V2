@@ -1,0 +1,319 @@
+Microsoft.IdentityModel.Clients.ActiveDirectory Error: 2 : 2024-09-13T05:27:37.7369442Z: e0540978-f333-4b82-99ee-0ba7533ff242 - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalServiceException, ErrorCode: accessing_ws_metadata_exchange_failed, StatusCode: 0 ---> Exception type: System.Threading.Tasks.TaskCanceledException
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Microsoft.IdentityModel.Clients.ActiveDirectory Error: 2 : 2024-09-13T05:27:37.7369442Z: e0540978-f333-4b82-99ee-0ba7533ff242 - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalServiceException, ErrorCode: accessing_ws_metadata_exchange_failed, StatusCode: 0 ---> Exception type: System.Threading.Tasks.TaskCanceledException
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:27:37 pm
+Error	: 2024-09-13T05:27:37.7369442Z: e0540978-f333-4b82-99ee-0ba7533ff242 - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalServiceException, ErrorCode: accessing_ws_metadata_exchange_failed, StatusCode: 0 ---> Exception type: System.Threading.Tasks.TaskCanceledException
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Stack Trace	: Not Provided
+======================================================================================================================
+
+Microsoft.IdentityModel.Clients.ActiveDirectory Error: 2 : 2024-09-13T05:31:12.4583521Z: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalClaimChallengeException, ErrorCode: interaction_required, StatusCode: 400 ---> Exception type: System.Net.Http.HttpRequestException ---> Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalException, ErrorCode: {"error":"interaction_required","error_description":"AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: 0e034096-8ae1-47c9-be1e-c5ccd9a70d00 Correlation ID: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b Timestamp: 2024-09-13 05:31:11Z","error_codes":[50076],"timestamp":"2024-09-13 05:31:11Z","trace_id":"0e034096-8ae1-47c9-be1e-c5ccd9a70d00","correlation_id":"ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b","error_uri":"https://login.microsoftonline.com/error?code=50076","suberror":"basic_action"}
+--- End of inner exception stack trace ---
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__22`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<HandleDeviceAuthChallengeAsync>d__25`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__22`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__21`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendHttpMessageAsync>d__72.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendTokenRequestAsync>d__69.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<CheckAndAcquireTokenUsingBrokerAsync>d__59.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Microsoft.IdentityModel.Clients.ActiveDirectory Error: 2 : 2024-09-13T05:31:12.4583521Z: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalClaimChallengeException, ErrorCode: interaction_required, StatusCode: 400 ---> Exception type: System.Net.Http.HttpRequestException ---> Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalException, ErrorCode: {"error":"interaction_required","error_description":"AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: 0e034096-8ae1-47c9-be1e-c5ccd9a70d00 Correlation ID: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b Timestamp: 2024-09-13 05:31:11Z","error_codes":[50076],"timestamp":"2024-09-13 05:31:11Z","trace_id":"0e034096-8ae1-47c9-be1e-c5ccd9a70d00","correlation_id":"ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b","error_uri":"https://login.microsoftonline.com/error?code=50076","suberror":"basic_action"}
+--- End of inner exception stack trace ---
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__22`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<HandleDeviceAuthChallengeAsync>d__25`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__22`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__21`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendHttpMessageAsync>d__72.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendTokenRequestAsync>d__69.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<CheckAndAcquireTokenUsingBrokerAsync>d__59.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:31:12 pm
+Error	: 2024-09-13T05:31:12.4583521Z: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalClaimChallengeException, ErrorCode: interaction_required, StatusCode: 400 ---> Exception type: System.Net.Http.HttpRequestException ---> Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalException, ErrorCode: {"error":"interaction_required","error_description":"AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: 0e034096-8ae1-47c9-be1e-c5ccd9a70d00 Correlation ID: ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b Timestamp: 2024-09-13 05:31:11Z","error_codes":[50076],"timestamp":"2024-09-13 05:31:11Z","trace_id":"0e034096-8ae1-47c9-be1e-c5ccd9a70d00","correlation_id":"ac35bc5c-1d88-4473-a094-c0c1a9ba0a3b","error_uri":"https://login.microsoftonline.com/error?code=50076","suberror":"basic_action"}
+--- End of inner exception stack trace ---
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__22`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<HandleDeviceAuthChallengeAsync>d__25`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__22`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__21`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendHttpMessageAsync>d__72.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendTokenRequestAsync>d__69.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<CheckAndAcquireTokenUsingBrokerAsync>d__59.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Stack Trace	: Not Provided
+======================================================================================================================
+
+Microsoft.IdentityModel.Clients.ActiveDirectory Error: 2 : 2024-09-13T05:33:58.2272194Z: 418fe83e-1bdd-4173-be67-b9b46907cfda - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalServiceException, ErrorCode: accessing_ws_metadata_exchange_failed, StatusCode: 0 ---> Exception type: System.Threading.Tasks.TaskCanceledException
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Microsoft.IdentityModel.Clients.ActiveDirectory Error: 2 : 2024-09-13T05:33:58.2272194Z: 418fe83e-1bdd-4173-be67-b9b46907cfda - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalServiceException, ErrorCode: accessing_ws_metadata_exchange_failed, StatusCode: 0 ---> Exception type: System.Threading.Tasks.TaskCanceledException
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:33:58 pm
+Error	: 2024-09-13T05:33:58.2272194Z: 418fe83e-1bdd-4173-be67-b9b46907cfda - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalServiceException, ErrorCode: accessing_ws_metadata_exchange_failed, StatusCode: 0 ---> Exception type: System.Threading.Tasks.TaskCanceledException
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Stack Trace	: Not Provided
+======================================================================================================================
+
+Microsoft.IdentityModel.Clients.ActiveDirectory Error: 2 : 2024-09-13T05:37:59.6275331Z: 1e15c599-bcbd-4513-851a-81a0bdd4bedd - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalServiceException, ErrorCode: accessing_ws_metadata_exchange_failed, StatusCode: 0 ---> Exception type: System.Threading.Tasks.TaskCanceledException
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Microsoft.IdentityModel.Clients.ActiveDirectory Error: 2 : 2024-09-13T05:37:59.6275331Z: 1e15c599-bcbd-4513-851a-81a0bdd4bedd - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalServiceException, ErrorCode: accessing_ws_metadata_exchange_failed, StatusCode: 0 ---> Exception type: System.Threading.Tasks.TaskCanceledException
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Source	: Not Provided
+Method	: Not Provided
+Date	: 13/09/2024
+Time	: 1:37:59 pm
+Error	: 2024-09-13T05:37:59.6275331Z: 1e15c599-bcbd-4513-851a-81a0bdd4bedd - LoggerBase.cs: Exception type: Microsoft.IdentityModel.Clients.ActiveDirectory.AdalServiceException, ErrorCode: accessing_ws_metadata_exchange_failed, StatusCode: 0 ---> Exception type: System.Threading.Tasks.TaskCanceledException
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.HttpClientWrapper.<GetResponseAsync>d__31.MoveNext()
+--- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchMexAsync>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.WsTrust.MexParser.<FetchWsTrustAddressFromMexAsync>d__1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenNonInteractiveHandler.<PreTokenRequestAsync>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+Stack Trace	: Not Provided
+======================================================================================================================
+

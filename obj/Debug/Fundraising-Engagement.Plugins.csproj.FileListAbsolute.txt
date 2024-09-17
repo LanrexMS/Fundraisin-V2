@@ -1,0 +1,12 @@
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\bin\Debug\Fundraising-Engagement.Plugins.dll.config
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\bin\Debug\Fundraising-Engagement.Plugins.dll
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\bin\Debug\Fundraising-Engagement.Plugins.pdb
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\bin\Debug\System.ValueTuple.dll
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.csproj.AssemblyReference.cache
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.csproj.CoreCompileInputs.cache
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.csproj.CopyComplete
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.dll
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.pdb
