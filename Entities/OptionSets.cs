@@ -391,6 +391,103 @@ namespace CrmEarlyBound
 		Wholesale = 33,
 	}
 	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_LRx_AskPreferences
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("EOFY Appeal Only Ask", 3)]
+		EofyAppealOnlyAsk = 856660003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Appeals Ask", 2)]
+		NoAppealsAsk = 856660002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Bequest Ask", 4)]
+		NoBequestAsk = 856660004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No event Ask", 5)]
+		NoEventAsk = 856660005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Regular Giving Ask", 0)]
+		NoRegularGivingAsk = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Regular Giving Upgrade Ask", 1)]
+		NoRegularGivingUpgradeAsk = 856660001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_LRx_DoNoTallowBulkEmail
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Allow", 0)]
+		Allow = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Do Not Allow", 1)]
+		DoNotAllow = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Bulk Email Ask", 2)]
+		NoBulkEmailAsk = 856660002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_LRx_DoNoTallowEmail
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Allow", 0)]
+		Allow = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Do Not Allow", 1)]
+		DoNotAllow = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Email Ask", 2)]
+		NoEmailAsk = 856660002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_LRx_DoNoTallowMail
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Allow", 0)]
+		Allow = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Do Not Allow", 1)]
+		DoNotAllow = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Mail Ask", 2)]
+		NoMailAsk = 856660002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_LRx_DoNoTallowPhoneCall
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Allow", 0)]
+		Allow = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Do Not Allow", 1)]
+		DoNotAllow = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Phone Ask", 2)]
+		NoPhoneAsk = 856660002,
+	}
+	
 	/// <summary>
 	/// Manually populated field Indicating the lead source for acquiring this Account.
 	/// </summary>
@@ -535,11 +632,7 @@ namespace CrmEarlyBound
 		Email = 2,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Fax", 3)]
-		Fax = 4,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Mail", 4)]
+		[OptionSetMetadataAttribute("Mail", 3)]
 		Mail = 5,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1215,6 +1308,19 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Selected records on current page", 0, null, "Send direct email only to the records you selected on this page.")]
 		SelectedRecordsOnCurrentPage = 1,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Campaign_CR9CB_CampaignOutcome
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Goals Met", 0)]
+		GoalsMet = 166100000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Goals Missed ", 1)]
+		GoalsMissed = 166100001,
 	}
 	
 	/// <summary>
@@ -2160,8 +2266,24 @@ namespace CrmEarlyBound
 		Female = 2,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Intersex or Indeterminate ", 4)]
+		IntersexOrIndeterminate = 856660003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Male", 0)]
 		Male = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Transgender", 2)]
+		Transgender = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Unknown Gender ", 5)]
+		UnknownGender = 856660004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("X not Male or Female", 3)]
+		XNotMaleOrFemale = 856660002,
 	}
 	
 	/// <summary>
@@ -2189,12 +2311,105 @@ namespace CrmEarlyBound
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	public enum Contact_LRx_HouseholdRelationship
+	public enum Contact_LRx_AskPreferences
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Deceased", 3)]
-		Deceased = 856660003,
+		[OptionSetMetadataAttribute("EOFY Appeal Only Ask", 3)]
+		EofyAppealOnlyAsk = 856660003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Appeal Ask", 2)]
+		NoAppealAsk = 856660002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Bequest Ask", 4)]
+		NoBequestAsk = 856660004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Event Ask", 5)]
+		NoEventAsk = 856660005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Regular Giving Ask", 0)]
+		NoRegularGivingAsk = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Regular Giving Upgrade Ask", 1)]
+		NoRegularGivingUpgradeAsk = 856660001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_LRx_DoNoTallowBulkEmail
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Allow", 0)]
+		Allow = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Do Not Allow", 1)]
+		DoNotAllow = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Bulk Email Ask", 2)]
+		NoBulkEmailAsk = 856660002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_LRx_DoNoTallowEmail
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Allow", 0)]
+		Allow = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Do Not Allow", 1)]
+		DoNotAllow = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Email Ask", 2)]
+		NoEmailAsk = 856660002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_LRx_DoNoTallowMail
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Allow", 0)]
+		Allow = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Do Not Allow", 1)]
+		DoNotAllow = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Mail Ask", 2)]
+		NoMailAsk = 856660002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_LRx_DoNoTallowPhoneCall
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Allow", 0)]
+		Allow = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Do Not Allow", 1)]
+		DoNotAllow = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Phone Ask", 2)]
+		NoPhoneAsk = 856660002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_LRx_HouseholdRelationship
+	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Member", 1)]
@@ -2261,8 +2476,128 @@ namespace CrmEarlyBound
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("DaysOfMonth", 0)]
-		Daysofmonth = 100000000,
+		[OptionSetMetadataAttribute("1", 0)]
+		_1 = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("10", 9)]
+		_10 = 856660009,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("11", 10)]
+		_11 = 856660010,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("12", 11)]
+		_12 = 856660011,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("13", 12)]
+		_13 = 856660012,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("14", 13)]
+		_14 = 856660013,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("15", 14)]
+		_15 = 856660014,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("16", 15)]
+		_16 = 856660015,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("17", 16)]
+		_17 = 856660016,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("18", 17)]
+		_18 = 856660017,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("19", 18)]
+		_19 = 856660018,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("2", 1)]
+		_2 = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("20", 19)]
+		_20 = 856660019,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("21", 20)]
+		_21 = 856660020,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("22", 21)]
+		_22 = 856660021,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("23", 22)]
+		_23 = 856660022,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("24", 23)]
+		_24 = 856660023,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("25", 24)]
+		_25 = 856660024,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("26", 25)]
+		_26 = 856660025,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("27", 26)]
+		_27 = 856660026,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("28", 27)]
+		_28 = 856660027,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("29", 28)]
+		_29 = 856660028,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("3", 2)]
+		_3 = 856660002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("30", 29)]
+		_30 = 856660029,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("31", 30)]
+		_31 = 856660030,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("4", 3)]
+		_4 = 856660003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("5", 4)]
+		_5 = 856660004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("6", 5)]
+		_6 = 856660005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("7", 6)]
+		_7 = 856660006,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("8", 7)]
+		_8 = 856660007,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("9", 8)]
+		_9 = 856660008,
 	}
 	
 	/// <summary>
@@ -2273,8 +2608,52 @@ namespace CrmEarlyBound
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("MonthNames", 0)]
-		Monthnames = 100000000,
+		[OptionSetMetadataAttribute("April", 3)]
+		April = 856660003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("August", 7)]
+		August = 856660007,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("December ", 11)]
+		December = 856660011,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("February ", 1)]
+		February = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("January ", 0)]
+		January = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("July", 6)]
+		July = 856660006,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("June", 5)]
+		June = 856660005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("March", 2)]
+		March = 856660002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("May", 4)]
+		May = 856660004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("November ", 10)]
+		November = 856660010,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("October", 9)]
+		October = 856660009,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("September", 8)]
+		September = 856660008,
 	}
 	
 	/// <summary>
@@ -2421,11 +2800,7 @@ namespace CrmEarlyBound
 		Email = 2,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Fax", 3)]
-		Fax = 4,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Mail", 4)]
+		[OptionSetMetadataAttribute("Mail", 3)]
 		Mail = 5,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -3684,6 +4059,31 @@ namespace CrmEarlyBound
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum LRx_AtSi
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No", 0)]
+		No = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Response", 4)]
+		NoResponse = 856660004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Yes, Aboriginal", 1)]
+		YesAboriginal = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Yes, Both Aboriginal and Torres Strait Islander", 3)]
+		YesBothAboriginalAndTorresStraitIslander = 856660003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Yes, Torres Strait Islander", 2)]
+		YesTorresStraitIslander = 856660002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
 	public enum LRx_BpfOptions
 	{
 		
@@ -3809,6 +4209,166 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Social", 5)]
 		Social = 856660005,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum LRx_EventType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Appearance ", 9)]
+		Appearance = 856660009,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Attraction", 8)]
+		Attraction = 856660008,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Class", 0)]
+		Class = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Convention", 7)]
+		Convention = 856660007,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Expo", 10)]
+		Expo = 856660010,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Festival", 2)]
+		Festival = 856660002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Gala", 4)]
+		Gala = 856660004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Game", 5)]
+		Game = 856660005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Networking", 14)]
+		Networking = 856660014,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Party", 15)]
+		Party = 856660015,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Performance", 13)]
+		Performance = 856660013,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Race", 1)]
+		Race = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Screening", 6)]
+		Screening = 856660006,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Seminar", 12)]
+		Seminar = 856660012,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Tour", 11)]
+		Tour = 856660011,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Tournament ", 3)]
+		Tournament = 856660003,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum LRx_OrganisationType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Community Partners", 2)]
+		CommunityPartners = 856660002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Corporates", 1)]
+		Corporates = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Government", 3)]
+		Government = 856660003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Trusts and Foundations", 0)]
+		TrustsAndFoundations = 856660000,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum LRx_ProductType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Auction", 2)]
+		Auction = 856660002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Merchandise", 0)]
+		Merchandise = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Raffles", 1)]
+		Raffles = 856660001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum LRx_Pronouns
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("He/Him", 1)]
+		HeHim = 856660001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 3)]
+		Other = 856660003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("She/Her", 0)]
+		SheHer = 856660000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("They/Them", 2)]
+		TheyThem = 856660002,
+	}
+	
+	/// <summary>
+	/// Status of the Refund
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum LRx_Refund_StateCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Active", 0)]
+		Active = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Inactive", 1)]
+		Inactive = 1,
+	}
+	
+	/// <summary>
+	/// Reason for the status of the Refund
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum LRx_Refund_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Active", 0)]
+		Active = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Inactive", 1)]
+		Inactive = 2,
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -3966,6 +4526,10 @@ namespace CrmEarlyBound
 		BookingTimestamp = 11095,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Campaign Process", 138)]
+		CampaignProcess = 11399,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Case", 34)]
 		Case = 112,
 		
@@ -4004,6 +4568,10 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("ContactLeads", 19)]
 		Contactleads = 22,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Copilot knowledge interaction", 136)]
+		CopilotKnowledgeInteraction = 11397,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Currency", 66)]
@@ -4064,6 +4632,10 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Functional Location Type Template Association", 102)]
 		FunctionalLocationTypeTemplateAssociation = 10393,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Funding Agreement Process", 137)]
+		FundingAgreementProcess = 11398,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Geolocation Settings", 132)]
@@ -4198,6 +4770,10 @@ namespace CrmEarlyBound
 		KnowledgeArticleViews = 9955,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Knowledge Harvest Job Record", 141)]
+		KnowledgeHarvestJobRecord = 11403,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Lead", 20)]
 		Lead = 4,
 		
@@ -4220,6 +4796,14 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("MobileSource", 134)]
 		Mobilesource = 11188,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("msdyn_historicalcaseharvestbatch", 139)]
+		MsdynHistoricalcaseharvestbatch = 11401,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("msdyn_historicalcaseharvestrun", 140)]
+		MsdynHistoricalcaseharvestrun = 11402,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Note", 2)]
@@ -6284,6 +6868,22 @@ namespace CrmEarlyBound
 	}
 	
 	/// <summary>
+	/// Whether this entity is tagged for solution harvesting or not.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Msdyn_HarvestingTag
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Not Required", 0, "#0000ff")]
+		NotRequired = 192350000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Solution Harvesting", 1, "#0000ff")]
+		SolutionHarvesting = 192350001,
+	}
+	
+	/// <summary>
 	/// Indicates model's status
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -6399,6 +6999,26 @@ namespace CrmEarlyBound
 		NotStarted = 192350000,
 	}
 	
+	/// <summary>
+	/// Source of the Intent or Intent Attributes
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Msdyn_Intent_Source
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Data Execution Run", 0, "#0000ff")]
+		DataExecutionRun = 192350000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Manually Edited", 2, "#0000ff")]
+		ManuallyEdited = 192350002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Simulation", 1, "#0000ff")]
+		Simulation = 192350001,
+	}
+	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	public enum Msdyn_InventoryJournalType
 	{
@@ -6447,6 +7067,39 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("WO Product", 2)]
 		WoProduct = 690970002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Msdyn_InviteStatus
+	{
+		
+		/// <summary>
+		/// The customer feedback survey invite has been created
+		/// </summary>
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Created", 0, "#0000ff", "The customer feedback survey invite has been created")]
+		Created = 357891000,
+		
+		/// <summary>
+		/// The customer feedback survey invite is invalid
+		/// </summary>
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Invalid", 3, "#0000ff", "The customer feedback survey invite is invalid")]
+		Invalid = 357891003,
+		
+		/// <summary>
+		/// The customer feedback survey invite has been responded
+		/// </summary>
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Responded", 2, "#0000ff", "The customer feedback survey invite has been responded")]
+		Responded = 357891002,
+		
+		/// <summary>
+		/// The customer feedback survey invite has been sent
+		/// </summary>
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Sent", 1, "#0000ff", "The customer feedback survey invite has been sent")]
+		Sent = 357891001,
 	}
 	
 	/// <summary>
@@ -6763,6 +7416,32 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("SkillIdentified", 4, "#0000ff", "This event is triggered when a skill is updated during chat.")]
 		Skillidentified = 192350005,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Msdyn_McSBotStatus
+	{
+		
+		/// <summary>
+		/// The bot is disconnected
+		/// </summary>
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Disconnected", 2, "#0000ff", "The bot is disconnected")]
+		Disconnected = 357890002,
+		
+		/// <summary>
+		/// The bot is still provisioning
+		/// </summary>
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("InProgress", 0, "#0000ff", "The bot is still provisioning")]
+		Inprogress = 357890000,
+		
+		/// <summary>
+		/// The bot is ready
+		/// </summary>
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Ready", 1, "#0000ff", "The bot is ready")]
+		Ready = 357890001,
 	}
 	
 	/// <summary>
@@ -9396,6 +10075,26 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("System - Agreement Schedule", 1)]
 		SystemAgreementSchedule = 690970005,
+	}
+	
+	/// <summary>
+	/// review state of intent or intent attributes
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Msdyn_ReviewState
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Approved", 1, "#0000ff")]
+		Approved = 192350001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Discarded", 2, "#0000ff")]
+		Discarded = 192350002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Pending", 0, "#0000ff")]
+		Pending = 192350000,
 	}
 	
 	/// <summary>
@@ -14400,6 +15099,10 @@ namespace CrmEarlyBound
 		InProgress = 856660006,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Partial Refund", 9)]
+		PartialRefund = 856660008,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Refund", 6)]
 		Refund = 856660005,
 		
@@ -15244,36 +15947,60 @@ namespace CrmEarlyBound
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Approval", 7)]
+		[OptionSetMetadataAttribute("Approval", 13)]
 		Approval = 7,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Close", 3)]
-		Close = 3,
+		[OptionSetMetadataAttribute("BQ Confirmed", 6, "#0000ff")]
+		BqConfirmed = 12,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Develop", 1)]
-		Develop = 1,
+		[OptionSetMetadataAttribute("BQ Distribution", 0, "#0000ff")]
+		BqDistribution = 13,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Identify", 4)]
-		Identify = 4,
+		[OptionSetMetadataAttribute("BQ Intender", 5, "#0000ff")]
+		BqIntender = 11,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Propose", 2)]
+		[OptionSetMetadataAttribute("BQ Interest", 4, "#0000ff")]
+		BqInterest = 10,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Close/Stewardship", 8)]
+		CloseStewardship = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Cultivation", 11)]
+		Cultivation = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Identification", 10)]
+		Identification = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Prepare", 2)]
+		Prepare = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Prepare to Solicit", 9, "#0000ff")]
+		PrepareToSolicit = 8,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Propose", 7)]
 		Propose = 2,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Qualify", 0)]
+		[OptionSetMetadataAttribute("Qualify", 1)]
 		Qualify = 0,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Research", 5)]
-		Research = 5,
+		[OptionSetMetadataAttribute("Resolve", 12)]
+		Resolve = 6,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Resolve", 6)]
-		Resolve = 6,
+		[OptionSetMetadataAttribute("Solicitation", 3, "#0000ff")]
+		Solicitation = 9,
 	}
 	
 	/// <summary>
@@ -15745,6 +16472,23 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("User", 0)]
 		User = 0,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum RestApiAuthType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("APIKey", 2)]
+		Apikey = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("EntraSSO", 1)]
+		Entrasso = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("OAuth2", 0)]
+		Oauth2 = 0,
 	}
 	
 	/// <summary>

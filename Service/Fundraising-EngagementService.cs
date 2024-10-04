@@ -26,6 +26,22 @@ namespace Fundraising_Engagement.Plugins.Service
             _tracingService = tracingService;
         }
 
+        public void AutoCompleteCashTransactions(MsnFp_Transaction transaction)
+        {
+            MsnFp_Transaction transactionrecord = (MsnFp_Transaction)RetrieveRecord(MsnFp_Transaction.EntityLogicalName, transaction.Id, MsnFp_Transaction.Fields.SiFund_PaymentTypeCode);
+
+            if (transactionrecord.SiFund_PaymentTypeCode != null && transactionrecord.SiFund_PaymentTypeCode == SiFund_PaymentTypeCode.Cash)
+            {
+                var updateTransaction = new MsnFp_Transaction
+                {
+                    Id = transaction.Id,
+                    StatusCode = MsnFp_Transaction_StatusCode.Completed
+                };
+
+                _service.Update(updateTransaction);
+            }
+        }
+
 
         public void YearlyGiving(MsnFp_Transaction transaction)
         {
@@ -118,20 +134,96 @@ namespace Fundraising_Engagement.Plugins.Service
            
         }
 
-        public void CampaignPerformanceTransaction(MsnFp_Transaction transaction)
+        
+
+        public void UpdateLatestTransaction(MsnFp_Transaction transaction)
         {
             MsnFp_Transaction transactionrecord = (MsnFp_Transaction)RetrieveRecord(
-                MsnFp_Transaction.EntityLogicalName, 
-                transaction.Id, 
-                MsnFp_Transaction.Fields.LRx_Campaign,
-                MsnFp_Transaction.Fields.SiFund_Appeal,
-                MsnFp_Transaction.Fields.SiFund_Package
+               MsnFp_Transaction.EntityLogicalName,
+               transaction.Id,
+               MsnFp_Transaction.Fields.SiFund_Donor
+           );
+
+            ColumnSet filterFields = new ColumnSet(
+             MsnFp_Transaction.Fields.MsnFp_BookDate);
+
+            var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
+            {
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+            };
+
+
+            if (transactionrecord.SiFund_Donor != null && (transactionrecord.SiFund_Donor.Id != Guid.Empty)){
+                var donorId = transactionrecord.SiFund_Donor.Id;
+
+                EntityCollection childRecords = RetrieveChildRecords(
+                    MsnFp_Transaction.EntityLogicalName,
+                    MsnFp_Transaction.Fields.SiFund_Donor,
+                    donorId,
+                    filterFields,
+                    donationCriteria,
+                    orderByField: MsnFp_Transaction.Fields.MsnFp_BookDate,
+                    isAscending: false
+                    );
+
+                // Check if any child transactions found
+                if (childRecords.Entities.Any())
+                {
+                   
+                    var mostRecentTransaction = childRecords.Entities.FirstOrDefault();
+
+                    DateTime mostRecentBookDate = mostRecentTransaction.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate);
+                    
+                    EntityReference mostRecentTransactionReference = new EntityReference(
+                        MsnFp_Transaction.EntityLogicalName,
+                        mostRecentTransaction.Id
+                    );
+
+                   
+                    if (transactionrecord.SiFund_Donor.LogicalName == Contact.EntityLogicalName)
+                    {
+                        var parentContact = new Contact
+                        {
+                            Id = donorId,
+                            LRx_LastTransactionDate = mostRecentBookDate, // Set the most recent MsnFp_BookDate
+                            LRx_LastTransaction = mostRecentTransactionReference // Set the most recent transaction as a lookup field
+                        };
+
+                        // Update the contact record
+                        _service.Update(parentContact);
+                    }
+                    else if (transactionrecord.SiFund_Donor.LogicalName == Account.EntityLogicalName)
+                    {
+                        var parentAccount = new Account
+                        {
+                            Id = donorId,
+                            LRx_LastTransactionDate = mostRecentBookDate,
+                            LRx_LastTransactionId= mostRecentTransactionReference
+
+                        };
+
+                        _service.Update(parentAccount);
+
+                    }
+                }
+
+            };
+
+        }
+
+        public void DonorCommitmentPaid(MsnFp_Transaction transaction)
+        {
+            MsnFp_Transaction transactionrecord = (MsnFp_Transaction)RetrieveRecord(
+              MsnFp_Transaction.EntityLogicalName,
+              transaction.Id,
+              MsnFp_Transaction.Fields.SiFund_RelatedDonorCommitment
             );
 
             ColumnSet filterFields = new ColumnSet(
-                   MsnFp_Transaction.Fields.StatusCode,
-                   MsnFp_Transaction.Fields.MsnFp_Amount,
-                   MsnFp_Transaction.Fields.SiFund_TypeCode
+                    MsnFp_Transaction.Fields.StatusCode,
+                    MsnFp_Transaction.Fields.MsnFp_Amount,
+                    MsnFp_Transaction.Fields.SiFund_TypeCode
              );
 
             var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
@@ -140,73 +232,122 @@ namespace Fundraising_Engagement.Plugins.Service
                     { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
             };
 
+            if(transactionrecord.SiFund_RelatedDonorCommitment != null && (transactionrecord.SiFund_RelatedDonorCommitment.Id != Guid.Empty))
+            {
+                var donorCommitmentId = transactionrecord.SiFund_RelatedDonorCommitment.Id;
+
+                decimal donorCommitmentPaidAmount = CalculateGivingRollup(MsnFp_DonorCommitment.EntityLogicalName, donorCommitmentId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_RelatedDonorCommitment, MsnFp_Transaction.Fields.MsnFp_Amount,
+              filterFields, donationCriteria);
+
+                var parentDonorCommitment = new MsnFp_DonorCommitment
+                {
+                    Id = donorCommitmentId,
+                    LRx_TotalAmountPaid = new Money(donorCommitmentPaidAmount),
+
+                };
+                _service.Update(parentDonorCommitment);
+            }
+
+            
+        }
+
+        public void CampaignPerformanceTransaction(MsnFp_Transaction transaction)
+        {
+
+            MsnFp_Transaction transactionrecord = (MsnFp_Transaction)RetrieveRecord(
+                MsnFp_Transaction.EntityLogicalName,
+                transaction.Id,
+                MsnFp_Transaction.Fields.LRx_Campaign,
+                MsnFp_Transaction.Fields.SiFund_Appeal,
+                MsnFp_Transaction.Fields.SiFund_Package
+            );
+
             // Total Donations for Campaign
             if (transactionrecord.LRx_Campaign != null && transactionrecord.LRx_Campaign.Id != Guid.Empty)
             {
-                Guid campaignId = transactionrecord.LRx_Campaign.Id;
-
-                decimal campaignDonationsAmount = CalculateGivingRollup(Campaign.EntityLogicalName, campaignId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.LRx_Campaign, MsnFp_Transaction.Fields.MsnFp_Amount,
-                   filterFields, donationCriteria);
-
-                decimal campaignDonationsCount = CalculateCount(Campaign.EntityLogicalName, campaignId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.LRx_Campaign,
-                   filterFields, donationCriteria);
-
-                var parentCampaign = new Campaign
-                {
-                    Id = campaignId,
-                    LRx_TotalDonations = new Money(campaignDonationsAmount),
-                    LRx_DonationCount = (int)campaignDonationsCount
-                };
-
-                _service.Update(parentCampaign);
-
+                DonationsRollup(Campaign.EntityLogicalName, transactionrecord.LRx_Campaign.Id, MsnFp_Transaction.Fields.LRx_Campaign);
             }
 
             // Total Donations for Appeal
             if (transactionrecord.SiFund_Appeal != null && transactionrecord.SiFund_Appeal.Id != Guid.Empty)
             {
-                Guid appealId = transactionrecord.SiFund_Appeal.Id;
-
-                decimal appealDonationsAmount = CalculateGivingRollup(SiFund_Appeal.EntityLogicalName, appealId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Appeal, MsnFp_Transaction.Fields.MsnFp_Amount,
-                   filterFields, donationCriteria);
-
-                decimal appealDonationsCount = CalculateCount(SiFund_Appeal.EntityLogicalName, appealId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Appeal,
-                   filterFields, donationCriteria);
-
-                var parentAppeal = new SiFund_Appeal
-                {
-                    Id = appealId,
-                    LRx_TotalDonations = new Money(appealDonationsAmount),
-                    LRx_DonationCount = (int)appealDonationsCount
-                };
-
-                _service.Update(parentAppeal);
-
+                DonationsRollup(SiFund_Appeal.EntityLogicalName, transactionrecord.SiFund_Appeal.Id, MsnFp_Transaction.Fields.SiFund_Appeal);
             }
 
             // Total Donations for Package
             if (transactionrecord.SiFund_Package != null && transactionrecord.SiFund_Package.Id != Guid.Empty)
             {
-                Guid packageId = transactionrecord.SiFund_Package.Id;
-
-                decimal packageDonationsAmount = CalculateGivingRollup(SiFund_Package.EntityLogicalName, packageId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Package, MsnFp_Transaction.Fields.MsnFp_Amount,
-                   filterFields, donationCriteria);
-
-                decimal packageDonationsCount = CalculateCount(SiFund_Package.EntityLogicalName, packageId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Package,
-                   filterFields, donationCriteria);
-
-                var parentPackage = new SiFund_Package
-                {
-                    Id = packageId,
-                    LRx_TotalDonations = new Money(packageDonationsAmount),
-                    LRx_DonationCount = (int)packageDonationsCount
-                };
-
-                _service.Update(parentPackage);
-
+                DonationsRollup(SiFund_Package.EntityLogicalName, transactionrecord.SiFund_Package.Id, MsnFp_Transaction.Fields.SiFund_Package);
+               
             }
 
         }
+
+        public void DonationsRollup(String entityLogicalName, Guid entityId, String parentFieldName)
+        {
+            ColumnSet filterFields = new ColumnSet(
+                  MsnFp_Transaction.Fields.StatusCode,
+                  MsnFp_Transaction.Fields.MsnFp_Amount,
+                  MsnFp_Transaction.Fields.SiFund_TypeCode
+            );
+
+            var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
+            {
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+            };
+
+            if(entityId != Guid.Empty)
+            {
+                decimal donationsAmount = CalculateGivingRollup(entityLogicalName, entityId, MsnFp_Transaction.EntityLogicalName, parentFieldName, MsnFp_Transaction.Fields.MsnFp_Amount,
+                   filterFields, donationCriteria);
+
+                decimal donationsCount = CalculateCount(entityLogicalName, entityId, MsnFp_Transaction.EntityLogicalName, parentFieldName,
+                   filterFields, donationCriteria);
+
+
+                if (entityLogicalName == Campaign.EntityLogicalName)
+                {
+                    var parentCampaign = new Campaign
+                    {
+                        Id = entityId,
+                        LRx_TotalDonations = new Money(donationsAmount),
+                        LRx_DonationCount = (int)donationsCount
+
+                    };
+                    _service.Update(parentCampaign);
+                }
+
+                if (entityLogicalName == SiFund_Package.EntityLogicalName)
+                {
+                    var parentPackage = new SiFund_Package
+                    {
+                        Id = entityId,
+                        LRx_TotalDonations = new Money(donationsAmount),
+                        LRx_DonationCount = (int)donationsCount
+
+                    };
+
+                    _service.Update(parentPackage);
+                }
+
+                if (entityLogicalName == SiFund_Appeal.EntityLogicalName)
+                {
+                    var parentAppeal = new SiFund_Appeal
+                    {
+                        Id = entityId,
+                        LRx_TotalDonations = new Money(donationsAmount),
+                        LRx_DonationCount = (int)donationsCount
+
+                    };
+
+                    _service.Update(parentAppeal);
+                }
+            }
+
+        }
+
+
 
         public void CampaignPerformanceDonorCommitment(Guid donorCommitmentId)
         {
@@ -219,9 +360,33 @@ namespace Fundraising_Engagement.Plugins.Service
                 MsnFp_DonorCommitment.Fields.SiFund_Package
             );
 
+            // Total Pledges for Campaign
+            if (commitmentRecord.LRx_Campaign != null && commitmentRecord.LRx_Campaign.Id != Guid.Empty)
+            {
+                PledgesRollup(Campaign.EntityLogicalName,commitmentRecord.LRx_Campaign.Id, MsnFp_DonorCommitment.Fields.LRx_Campaign);
+            }
+
+            // Total Pledges for Package
+            if (commitmentRecord.SiFund_Package != null && commitmentRecord.SiFund_Package.Id != Guid.Empty)
+            {
+                PledgesRollup(SiFund_Package.EntityLogicalName, commitmentRecord.SiFund_Package.Id, MsnFp_DonorCommitment.Fields.SiFund_Package);
+            }
+
+            // Total Pledges for Appeal
+            if (commitmentRecord.SiFund_Appeal != null && commitmentRecord.SiFund_Appeal.Id != Guid.Empty)
+            {
+                PledgesRollup(SiFund_Appeal.EntityLogicalName, commitmentRecord.SiFund_Appeal.Id, MsnFp_DonorCommitment.Fields.SiFund_Appeal);
+            }
+
+        }
+
+        //Roll up for Campaign Pledges
+        public void PledgesRollup(String entityLogicalName,Guid entityId, String parentFieldName)
+        {
+
             ColumnSet filterFields = new ColumnSet(
                    MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount,
-                   MsnFp_DonorCommitment.Fields.SiFund_TotalAmount_Balance
+                   MsnFp_DonorCommitment.Fields.LRx_TotalAmountBalance
              );
 
             var commitmentCriteria = new Dictionary<string, (ConditionOperator, object)>
@@ -229,81 +394,60 @@ namespace Fundraising_Engagement.Plugins.Service
                 //add filtering criteria for commitment if any   
             };
 
-            // Total Pledges for Campaign
-            if (commitmentRecord.LRx_Campaign != null && commitmentRecord.LRx_Campaign.Id != Guid.Empty)
+            if (entityId != Guid.Empty)
             {
-                Guid campaignId = commitmentRecord.LRx_Campaign.Id;
-
-                decimal campaignPledgesAmount = CalculateGivingRollup(Campaign.EntityLogicalName, campaignId, MsnFp_DonorCommitment.EntityLogicalName, MsnFp_DonorCommitment.Fields.LRx_Campaign, MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount,
+                
+                decimal pledgesAmount = CalculateGivingRollup(entityLogicalName, entityId, MsnFp_DonorCommitment.EntityLogicalName, parentFieldName, MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount,
                    filterFields, commitmentCriteria);
 
-                decimal campiangPledgesCount = CalculateCount(Campaign.EntityLogicalName, campaignId, MsnFp_DonorCommitment.EntityLogicalName, MsnFp_DonorCommitment.Fields.LRx_Campaign,
+                decimal pledgesCount = CalculateCount(entityLogicalName, entityId, MsnFp_DonorCommitment.EntityLogicalName, parentFieldName,
                    filterFields, commitmentCriteria);
 
-                decimal campaignAmountBalance = CalculateGivingRollup(Campaign.EntityLogicalName, campaignId, MsnFp_DonorCommitment.EntityLogicalName, MsnFp_DonorCommitment.Fields.LRx_Campaign, MsnFp_DonorCommitment.Fields.SiFund_TotalAmount_Balance,
+                decimal pledgesBalance = CalculateGivingRollup(entityLogicalName, entityId, MsnFp_DonorCommitment.EntityLogicalName, parentFieldName, MsnFp_DonorCommitment.Fields.LRx_TotalAmountBalance,
                    filterFields, commitmentCriteria);
 
-                var parentCampaign = new Campaign
+
+                if(entityLogicalName == Campaign.EntityLogicalName)
                 {
-                    Id = campaignId,
-                    LRx_TotalPledges = new Money(campaignPledgesAmount),
-                    LRx_PledgeCount = (int)campiangPledgesCount,
-                    LRx_TotalOutstandingPledges = new Money(campaignAmountBalance),
-                };
-                _service.Update(parentCampaign);
-            }
+                    var parentCampaign = new Campaign
+                    {
+                        Id = entityId,
+                        LRx_TotalPledges = new Money(pledgesAmount),
+                        LRx_PledgeCount = (int)pledgesCount,
+                        LRx_TotalOutstandingPledges = new Money(pledgesBalance),
+                    };
+                    _service.Update(parentCampaign);
+                }
 
-            // Total Pledges for Package
-            if (commitmentRecord.SiFund_Package != null && commitmentRecord.SiFund_Package.Id != Guid.Empty)
-            {
-                Guid packageId = commitmentRecord.SiFund_Package.Id;
-
-                decimal packagePledgesAmount = CalculateGivingRollup(SiFund_Package.EntityLogicalName, packageId, MsnFp_DonorCommitment.EntityLogicalName, MsnFp_DonorCommitment.Fields.SiFund_Package, MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount,
-                   filterFields, commitmentCriteria);
-
-                decimal packagePledgesCount = CalculateCount(SiFund_Package.EntityLogicalName, packageId, MsnFp_DonorCommitment.EntityLogicalName, MsnFp_DonorCommitment.Fields.SiFund_Package,
-                   filterFields, commitmentCriteria);
-
-                decimal packageAmountBalance = CalculateGivingRollup(SiFund_Package.EntityLogicalName, packageId, MsnFp_DonorCommitment.EntityLogicalName, MsnFp_DonorCommitment.Fields.SiFund_Package, MsnFp_DonorCommitment.Fields.SiFund_TotalAmount_Balance,
-                   filterFields, commitmentCriteria);
-
-                var parentPackage = new SiFund_Package
+                if (entityLogicalName == SiFund_Package.EntityLogicalName)
                 {
-                    Id = packageId,
-                    LRx_TotalPledges = new Money(packagePledgesAmount),
-                    LRx_PledgeCount = (int)packagePledgesCount,
-                    LRx_TotalOutstandingPledges= new Money(packageAmountBalance),
+                    var parentPackage = new SiFund_Package
+                    {
+                        Id = entityId,
+                        LRx_TotalPledges = new Money(pledgesAmount),
+                        LRx_PledgeCount = (int)pledgesCount,
+                        LRx_TotalOutstandingPledges = new Money(pledgesBalance),
 
-                };
+                    };
 
-                _service.Update(parentPackage);
+                    _service.Update(parentPackage);
+                }
 
-            }
-
-            // Total Pledges for Appeal
-            if (commitmentRecord.SiFund_Appeal != null && commitmentRecord.SiFund_Appeal.Id != Guid.Empty)
-            {
-                Guid appealId = commitmentRecord.SiFund_Appeal.Id;
-
-                decimal appealPledgesAmount = CalculateGivingRollup(SiFund_Appeal.EntityLogicalName, appealId, MsnFp_DonorCommitment.EntityLogicalName, MsnFp_DonorCommitment.Fields.SiFund_Appeal, MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount,
-                   filterFields, commitmentCriteria);
-
-                decimal appealPledgesCount = CalculateCount(SiFund_Appeal.EntityLogicalName, appealId, MsnFp_DonorCommitment.EntityLogicalName, MsnFp_DonorCommitment.Fields.SiFund_Appeal,
-                   filterFields, commitmentCriteria);
-
-                decimal appealAmountBalance = CalculateGivingRollup(SiFund_Appeal.EntityLogicalName, appealId, MsnFp_DonorCommitment.EntityLogicalName, MsnFp_DonorCommitment.Fields.SiFund_Appeal, MsnFp_DonorCommitment.Fields.SiFund_TotalAmount_Balance,
-                   filterFields, commitmentCriteria);
-
-                var parentAppeal = new SiFund_Appeal
+                if (entityLogicalName == SiFund_Appeal.EntityLogicalName)
                 {
-                    Id = appealId,
-                    LRx_TotalPledges = new Money(appealPledgesAmount),
-                    LRx_PledgeCount = (int)appealPledgesCount,
-                    LRx_TotalOutstandingPledges = new Money(appealAmountBalance),
-                };
-                _service.Update(parentAppeal);
-            }
+                    var parentAppeal = new SiFund_Appeal
+                    {
+                        Id = entityId,
+                        LRx_TotalPledges = new Money(pledgesAmount),
+                        LRx_PledgeCount = (int)pledgesCount,
+                        LRx_TotalOutstandingPledges = new Money(pledgesBalance),
 
+                    };
+
+                    _service.Update(parentAppeal);
+                }
+
+            }
         }
 
         public void WriteOff(Guid writeOffId)
@@ -321,24 +465,188 @@ namespace Fundraising_Engagement.Plugins.Service
 
             var writeOffCriteria = new Dictionary<string, (ConditionOperator, object)>
             {
-                //add filtering criteria for commitment if any   
+                //add filtering criteria for writeoff if any   
             };
 
             // Total Writeoff for DonorCommitment
             if (writeOffRecord.LRx_MsnFp_DonorCommitment != null && writeOffRecord.LRx_MsnFp_DonorCommitment.Id != Guid.Empty)
             {
-                Guid donnorCommitmentId = writeOffRecord.LRx_MsnFp_DonorCommitment.Id;
+                Guid donorCommitmentId = writeOffRecord.LRx_MsnFp_DonorCommitment.Id;
 
-                decimal writeOffAmount = CalculateGivingRollup(MsnFp_DonorCommitment.EntityLogicalName, donnorCommitmentId, LRx_WriteOff.EntityLogicalName, LRx_WriteOff.Fields.LRx_MsnFp_DonorCommitment, LRx_WriteOff.Fields.LRx_WriteOffAmount,
+                decimal writeOffAmount = CalculateGivingRollup(MsnFp_DonorCommitment.EntityLogicalName, donorCommitmentId, LRx_WriteOff.EntityLogicalName, LRx_WriteOff.Fields.LRx_MsnFp_DonorCommitment, LRx_WriteOff.Fields.LRx_WriteOffAmount,
                    filterFields, writeOffCriteria);
 
                 var parentDonorCommitment = new MsnFp_DonorCommitment
                 {
-                    Id = donnorCommitmentId,
+                    Id = donorCommitmentId,
                     LRx_TotalAmountWRiTenOff = new Money(writeOffAmount),
                   
                 };
                 _service.Update(parentDonorCommitment);
+            }
+
+        }
+
+        public void Refund(Guid refundId)
+        {
+            LRx_Refund refundRecord = (LRx_Refund)RetrieveRecord(
+               LRx_Refund.EntityLogicalName,
+               refundId,
+               LRx_Refund.Fields.LRx_Transaction,
+               LRx_Refund.Fields.LRx_AmountReceiptAbleRefund,
+               LRx_Refund.Fields.LRx_AmountNonreceiptAbleRefund,
+               LRx_Refund.Fields.LRx_AmountMembershipRefund,
+               LRx_Refund.Fields.LRx_AmountTaxRefunded
+           );
+
+            ColumnSet filterFields = new ColumnSet(
+                   LRx_Refund.Fields.LRx_TotalAmountPaidRefund,
+                   LRx_Refund.Fields.LRx_AmountNonreceiptAbleRefund,
+                   LRx_Refund.Fields.LRx_AmountReceiptAbleRefund,
+                   LRx_Refund.Fields.LRx_AmountMembershipRefund,
+                   LRx_Refund.Fields.LRx_AmountTaxRefunded
+             );
+
+            var refundCriteria = new Dictionary<string, (ConditionOperator, object)>
+            {
+                //add filtering criteria for refunds if any   
+            };
+
+            // Total Writeoff for DonorCommitment
+            if (refundRecord.LRx_Transaction != null && refundRecord.LRx_Transaction.Id != Guid.Empty)
+            {
+                Guid transactionRecordId = refundRecord.LRx_Transaction.Id;
+
+                decimal totalAmountPaidRefund = CalculateGivingRollup(MsnFp_Transaction.EntityLogicalName, transactionRecordId,LRx_Refund.EntityLogicalName, LRx_Refund.Fields.LRx_Transaction, LRx_Refund.Fields.LRx_TotalAmountPaidRefund,
+                   filterFields, refundCriteria);
+
+                decimal totalAmountNonReceiptablRefund = CalculateGivingRollup(MsnFp_Transaction.EntityLogicalName, transactionRecordId, LRx_Refund.EntityLogicalName, LRx_Refund.Fields.LRx_Transaction, LRx_Refund.Fields.LRx_AmountNonreceiptAbleRefund,
+                   filterFields, refundCriteria);
+
+                decimal totalAmountReceiptableRefund = CalculateGivingRollup(MsnFp_Transaction.EntityLogicalName, transactionRecordId, LRx_Refund.EntityLogicalName, LRx_Refund.Fields.LRx_Transaction, LRx_Refund.Fields.LRx_AmountReceiptAbleRefund,
+                   filterFields, refundCriteria);
+
+                decimal totalAmountMembershipRefund = CalculateGivingRollup(MsnFp_Transaction.EntityLogicalName, transactionRecordId, LRx_Refund.EntityLogicalName, LRx_Refund.Fields.LRx_Transaction, LRx_Refund.Fields.LRx_AmountMembershipRefund,
+                   filterFields, refundCriteria);
+
+                decimal totalAmountTaxRefund = CalculateGivingRollup(MsnFp_Transaction.EntityLogicalName, transactionRecordId, LRx_Refund.EntityLogicalName, LRx_Refund.Fields.LRx_Transaction, LRx_Refund.Fields.LRx_AmountTaxRefunded,
+                  filterFields, refundCriteria);
+
+                MsnFp_Transaction transactionRecord = (MsnFp_Transaction)RetrieveRecord(
+                       MsnFp_Transaction.EntityLogicalName,
+                       transactionRecordId,
+                       MsnFp_Transaction.Fields.MsnFp_Amount,
+                       MsnFp_Transaction.Fields.SiFund_Amount_Receipted,
+                       MsnFp_Transaction.Fields.SiFund_Amount_NonreceiptAble,
+                       MsnFp_Transaction.Fields.LRx_AmountMembership,
+                       MsnFp_Transaction.Fields.SiFund_Amount_Tax
+                       
+                );
+
+                Money amount = transactionRecord.MsnFp_Amount;
+                Money totalAmountRefunded = new Money(totalAmountPaidRefund);
+
+                //perform new amounts for transaction
+                decimal newAmountReceipted = (transactionRecord.SiFund_Amount_Receipted?.Value ?? 0m) - (refundRecord.LRx_AmountReceiptAbleRefund?.Value ?? 0m);
+                decimal newAmountNonReceipted = (transactionRecord.SiFund_Amount_NonreceiptAble?.Value ?? 0m) - (refundRecord.LRx_AmountNonreceiptAbleRefund?.Value ?? 0m);
+                decimal newAmountMembership = (transactionRecord.LRx_AmountMembership?.Value ?? 0m) - (refundRecord.LRx_AmountMembershipRefund?.Value ?? 0m);
+                decimal newAmountTax = (transactionRecord.SiFund_Amount_Tax?.Value ?? 0m) - (refundRecord.LRx_AmountTaxRefunded?.Value ?? 0m);
+
+
+                decimal refundedValue = totalAmountRefunded != null ? totalAmountRefunded.Value : 0m;
+                decimal amountValue = amount != null ? amount.Value : 0m;
+
+                // Set the status code based on the comparison.
+                MsnFp_Transaction_StatusCode statusCode = refundedValue >= amountValue
+                    ? MsnFp_Transaction_StatusCode.Refund
+                    : MsnFp_Transaction_StatusCode.PartialRefund;
+
+
+                var parentTransaction = new MsnFp_Transaction
+                {
+                    Id = transactionRecordId,
+                    LRx_TotalAmountRefunded = new Money(totalAmountPaidRefund),
+                    LRx_AmountRefunded= new Money(totalAmountReceiptableRefund),
+                    LRx_AmountMembershipRefunded = new Money(totalAmountMembershipRefund),
+                    LRx_AmountTaxRefunded= new Money(totalAmountTaxRefund),
+                    LRx_AmountNonreceiptAbleRefunded= new Money(totalAmountNonReceiptablRefund),
+                    SiFund_Amount_Receipted = new Money(newAmountReceipted),
+                    SiFund_Amount_NonreceiptAble = new Money(newAmountNonReceipted),
+                    LRx_AmountMembership = new Money(newAmountMembership),
+                    SiFund_Amount_Tax= new Money(newAmountTax),
+                    StatusCode = statusCode
+
+                };
+                _service.Update(parentTransaction);
+            }
+
+        }
+
+        public void CreatePledgeCommitments(MsnFp_PaymentSchedule paymentSchedule)
+        {
+            MsnFp_PaymentSchedule paymentScheduleRecord = (MsnFp_PaymentSchedule)RetrieveRecord(
+              MsnFp_PaymentSchedule.EntityLogicalName,
+              paymentSchedule.Id,
+              MsnFp_PaymentSchedule.Fields.MsnFp_FirstPaymentDate,
+              MsnFp_PaymentSchedule.Fields.MsnFp_FrequencyInterval,
+              MsnFp_PaymentSchedule.Fields.MsnFp_Frequency,
+              MsnFp_PaymentSchedule.Fields.MsnFp_RecurringAmount,
+              MsnFp_PaymentSchedule.Fields.SiFund_ScheduleTypeCode,
+              MsnFp_PaymentSchedule.Fields.SiFund_Donor,
+              MsnFp_PaymentSchedule.Fields.LRx_Campaign
+          ); 
+
+            //run code only for pledge schedule
+            if (paymentScheduleRecord.SiFund_ScheduleTypeCode == MsnFp_PaymentSchedule_SiFund_ScheduleTypeCode.PledgeSchedule)
+            {
+                if( paymentScheduleRecord.MsnFp_FrequencyInterval!=null && paymentScheduleRecord.MsnFp_Frequency != null && paymentSchedule.MsnFp_RecurringAmount !=null)
+                {
+
+                    //set frequency interval variables
+                    var startDate = paymentScheduleRecord.MsnFp_FirstPaymentDate ?? DateTime.Today;
+                    var frequency = paymentScheduleRecord.MsnFp_Frequency;
+                    int? intervals = paymentScheduleRecord.MsnFp_FrequencyInterval;
+                    Money amount = paymentSchedule.MsnFp_RecurringAmount;
+
+                    decimal commitmentAmount = (amount?.Value ?? 0m) / (intervals ?? 1);
+
+                  
+                    for (int i = 0; i < (intervals ?? 1); i++)
+                    {
+                        // Calculate the `msnfp_bookdate` based on frequency
+                        var bookDate = startDate;
+
+                        switch (frequency)
+                        {
+                            case MsnFp_PaymentSchedule_MsnFp_Frequency.Days:
+                                bookDate = startDate.AddDays(i);
+                                break;
+                            case MsnFp_PaymentSchedule_MsnFp_Frequency.Weeks:
+                                bookDate = startDate.AddDays(i * 7);
+                                break;
+                            case MsnFp_PaymentSchedule_MsnFp_Frequency.Months:
+                                bookDate = startDate.AddMonths(i);
+                                break;
+                            case MsnFp_PaymentSchedule_MsnFp_Frequency.Years:
+                                bookDate = startDate.AddYears(i);
+                                break;
+                            default:
+                                throw new ArgumentException("Invalid frequency value");
+                        }
+
+                        // Create the child commitment record
+                        var childCommitment = new MsnFp_DonorCommitment
+                        {
+                            SiFund_RelatedSchedule = paymentScheduleRecord.ToEntityReference(),
+                            SiFund_Donor = paymentScheduleRecord.SiFund_Donor,
+                            LRx_Campaign = paymentScheduleRecord.LRx_Campaign,
+                            MsnFp_TotalAmount = new Money(commitmentAmount),
+                            MsnFp_BookDate = bookDate 
+                        };
+
+                        _service.Create(childCommitment);
+                    }
+                }
             }
 
         }
@@ -420,6 +728,34 @@ namespace Fundraising_Engagement.Plugins.Service
             decimal count = childRecords.Entities.Count;
 
             return count;
+        }
+
+        public EntityCollection RetrieveChildRecords(string childEntityLogicalName, string childToParentLookupField, Guid parentId, ColumnSet filterFields,
+                Dictionary<string, (ConditionOperator, object)> criteria, string orderByField = null, bool isAscending = true)
+        {
+            QueryExpression query = new QueryExpression(childEntityLogicalName)
+            {
+                ColumnSet = filterFields,
+                Criteria = new FilterExpression
+                {
+                    Conditions =
+            {
+                new ConditionExpression(childToParentLookupField, ConditionOperator.Equal, parentId) // Link to parent record
+            }
+                }
+            };
+
+            foreach (var criterion in criteria)
+            {
+                query.Criteria.AddCondition(new ConditionExpression(criterion.Key, criterion.Value.Item1, criterion.Value.Item2));
+            }
+
+            if (!string.IsNullOrEmpty(orderByField))
+            {
+                query.AddOrder(orderByField, isAscending ? OrderType.Ascending : OrderType.Descending);
+            }
+
+            return _service.RetrieveMultiple(query);
         }
 
         public static Dictionary<string, (DateTime StartDate, DateTime EndDate)> GetFiscalYears(int numberOfYears)

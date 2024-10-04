@@ -1,17 +1,15 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using CrmEarlyBound;
+using Fundraising_Engagement.Plugins.Service;
+using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CrmEarlyBound;
-using Fundraising_Engagement.Plugins.Service;
-using System.IdentityModel.Metadata;
 
-
-namespace Fundraising_Engagement.Plugins
+namespace Fundraising_Engagement.Plugins.Plugins
 {
-    public class Transaction : IPlugin
+    public class Refund : IPlugin
     {
         public void Execute(IServiceProvider serviceProvider)
         {
@@ -25,28 +23,19 @@ namespace Fundraising_Engagement.Plugins
             {
                 var targetEntity = (Entity)context.InputParameters["Target"];
 
-                if (targetEntity.LogicalName == MsnFp_Transaction.EntityLogicalName)
+                if (targetEntity.LogicalName == LRx_Refund.EntityLogicalName)
                 {
-                  
-                    MsnFp_Transaction transaction = targetEntity.ToEntity<MsnFp_Transaction>();
+
+                    LRx_Refund refund = targetEntity.ToEntity<LRx_Refund>();
 
                     var fundraisingService = new FundraisingService(service, context, tracingService);
 
                     switch (context.MessageName)
                     {
                         case "Create":
-                            fundraisingService.AutoCompleteCashTransactions(transaction);
-                            fundraisingService.YearlyGiving(transaction);
-                            fundraisingService.UpdateLatestTransaction(transaction);
-                            fundraisingService.CampaignPerformanceTransaction(transaction);
-                            fundraisingService.DonorCommitmentPaid(transaction);
+                            fundraisingService.Refund(refund.Id);
                             break;
                         case "Update":
-                            //Plugin step should only trigger on update of statuscode (for refunds)
-                            fundraisingService.YearlyGiving(transaction);
-                            fundraisingService.UpdateLatestTransaction(transaction);
-                            fundraisingService.DonorCommitmentPaid(transaction);
-                            fundraisingService.CampaignPerformanceTransaction(transaction);
                             break;
                         default:
                             break;
@@ -54,6 +43,5 @@ namespace Fundraising_Engagement.Plugins
                 }
             }
         }
-
     }
 }

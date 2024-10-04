@@ -35,6 +35,36 @@ namespace Fundraising_Engagement.Plugins.Plugins
                             fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);
                             break;
                         case "Update":
+
+                            // Handle logic when lookup fields are updated (with previous value) 
+                            if (context.PreEntityImages != null && context.PreEntityImages.Contains("DonorCommitmentPreImage"))
+                            {
+                                // Retrieve the pre-image as an Entity
+                                var preImageEntity = context.PreEntityImages["DonorCommitmentPreImage"];
+
+                              
+                                var preImage = preImageEntity.ToEntity<MsnFp_DonorCommitment>();
+
+                                if (preImage.SiFund_Appeal != null)
+                                {
+                                    var siFundAppeal = preImage.SiFund_Appeal;
+                                    fundraisingService.PledgesRollup(SiFund_Appeal.EntityLogicalName, siFundAppeal.Id, MsnFp_DonorCommitment.Fields.SiFund_Appeal);
+
+                                }
+
+                                if(preImage.SiFund_Package != null)
+                                {
+                                    var siFundPackage = preImage.SiFund_Package;
+                                    fundraisingService.PledgesRollup(SiFund_Package.EntityLogicalName, siFundPackage.Id, MsnFp_DonorCommitment.Fields.SiFund_Package);
+                                }
+
+                                if(preImage.LRx_Campaign!= null)
+                                {
+                                    var lRxCampaign = preImage.LRx_Campaign;
+                                    fundraisingService.PledgesRollup(Campaign.EntityLogicalName, lRxCampaign.Id, MsnFp_DonorCommitment.Fields.LRx_Campaign);
+                                }
+                            }
+
                             fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);
                             break;
                         default:

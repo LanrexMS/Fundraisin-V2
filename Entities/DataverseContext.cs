@@ -62,6 +62,17 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_Refund"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.LRx_Refund> LRx_RefundSet
+		{
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.LRx_Refund>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_WriteOff"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<CrmEarlyBound.LRx_WriteOff> LRx_WriteOffSet

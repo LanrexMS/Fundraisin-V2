@@ -100,6 +100,8 @@
     <Compile Include="Entities\EntityOptionSetEnum.cs" />
     <Compile Include="Entities\OptionSets.cs" />
     <Compile Include="Plugins\DonorCommitment.cs" />
+    <Compile Include="Plugins\PaymentSchedule.cs" />
+    <Compile Include="Plugins\Refund.cs" />
     <Compile Include="Plugins\Transaction.cs" />
     <Compile Include="Plugins\WriteOff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
