@@ -36,6 +36,7 @@ namespace Fundraising_Engagement.Plugins
                     {
                         case "Create":
                             fundraisingService.AutoCompleteCashTransactions(transaction);
+                            fundraisingService.AutoPopulateRefundAmounts(transaction);
                             fundraisingService.YearlyGiving(transaction);
                             fundraisingService.UpdateLatestTransaction(transaction);
                             fundraisingService.CampaignPerformanceTransaction(transaction);

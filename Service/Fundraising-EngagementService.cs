@@ -42,6 +42,22 @@ namespace Fundraising_Engagement.Plugins.Service
             }
         }
 
+        public void AutoPopulateRefundAmounts(MsnFp_Transaction transaction)
+        {
+            MsnFp_Transaction transactionrecord = (MsnFp_Transaction)RetrieveRecord(MsnFp_Transaction.EntityLogicalName, transaction.Id, MsnFp_Transaction.Fields.MsnFp_Amount);
+
+            if(transactionrecord.MsnFp_Amount != null)
+            {
+                var updateTransaction = new MsnFp_Transaction
+                {
+                    Id = transaction.Id,
+                    SiFund_Amount_Receipted = transactionrecord.MsnFp_Amount,
+                };
+
+                _service.Update(updateTransaction);
+            }
+        }
+
 
         public void YearlyGiving(MsnFp_Transaction transaction)
         {
