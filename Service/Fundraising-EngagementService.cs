@@ -801,21 +801,21 @@ namespace Fundraising_Engagement.Plugins.Service
 
         public void UpdateEventProductRevenue(Guid productID)
         {
-            // Retrieve the registration record based on the registrationID
+
             LRx_Product productRecord = (LRx_Product)RetrieveRecord(
                 LRx_Product.EntityLogicalName,
                 productID,
                 LRx_Product.Fields.LRx_Event,
                 LRx_Product.Fields.LRx_EventProduct
             );
-            // Check if the registration record and event are valid
+
             if (productRecord != null &&
                 productRecord.LRx_Event != null &&
                 productRecord.LRx_Event.Id != Guid.Empty)
             {
                 decimal totalProductRevenue = 0;
                 int productCount = 0;
-                // Calculate the total registration revenue and get the count of records
+
                 totalProductRevenue = CalculateAmountRevenue(
                     LRx_Product.EntityLogicalName,
                     LRx_Product.Fields.LRx_ProductAmount,
@@ -896,21 +896,20 @@ namespace Fundraising_Engagement.Plugins.Service
 
         public void UpdateEventSponsorRevenue(Guid sponsortID)
         {
-            // Retrieve the registration record based on the registrationID
             LRx_Sponsorship sponsorRecord = (LRx_Sponsorship)RetrieveRecord(
                 LRx_Sponsorship.EntityLogicalName,
                 sponsortID,
                 LRx_Sponsorship.Fields.LRx_Event,
                 LRx_Sponsorship.Fields.LRx_EventSponsorship
             );
-            // Check if the registration record and event are valid
+
             if (sponsorRecord != null &&
                 sponsorRecord.LRx_Event != null &&
                 sponsorRecord.LRx_Event.Id != Guid.Empty)
             {
                 decimal totalSponsorRevenue = 0;
                 int sponsorCount = 0;
-                // Calculate the total registration revenue and get the count of records
+
                 totalSponsorRevenue = CalculateAmountRevenue(
                     LRx_Sponsorship.EntityLogicalName,
                     LRx_Sponsorship.Fields.LRx_PricePerSponsorship,
@@ -991,20 +990,20 @@ namespace Fundraising_Engagement.Plugins.Service
 
         public void UpdateEventTableRevenue(Guid tableID)
         {
-            // Retrieve the registration record based on the registrationID
+
             LRx_EventTable eventTableRecord = (LRx_EventTable)RetrieveRecord(
                 LRx_EventTable.EntityLogicalName,
                 tableID,
                 LRx_EventTable.Fields.LRx_Event
             );
-            // Check if the registration record and event are valid
+
             if (eventTableRecord != null &&
                 eventTableRecord.LRx_Event != null &&
                 eventTableRecord.LRx_Event.Id != Guid.Empty)
             {
                 decimal totalEventTableRevenue = 0;
                 int eventTableCount = 0;
-                // Calculate the total registration revenue and get the count of records
+
                 totalEventTableRevenue = CalculateAmountRevenue(
                     LRx_EventTable.EntityLogicalName,
                     LRx_EventTable.Fields.LRx_PricePerTable,
