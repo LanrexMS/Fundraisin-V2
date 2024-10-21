@@ -144,7 +144,8 @@ namespace Fundraising_Engagement.Plugins.Service
             MsnFp_Transaction transactionrecord = (MsnFp_Transaction)RetrieveRecord(
                MsnFp_Transaction.EntityLogicalName,
                transaction.Id,
-               MsnFp_Transaction.Fields.SiFund_Donor
+               MsnFp_Transaction.Fields.SiFund_Donor,
+               MsnFp_Transaction.Fields.LRx_Event
            );
 
             ColumnSet filterFields = new ColumnSet(
@@ -213,6 +214,60 @@ namespace Fundraising_Engagement.Plugins.Service
                 }
 
             };
+
+            if(transactionrecord.LRx_Event != null && transactionrecord.LRx_Event.Id != Guid.Empty)
+            {
+                QueryExpression query = new QueryExpression(MsnFp_Transaction.EntityLogicalName)
+                {
+                    ColumnSet = new ColumnSet(MsnFp_Transaction.Fields.MsnFp_Amount),
+                    Criteria = new FilterExpression
+                    {
+                        Conditions =
+                        {
+                            // Add condition to filter transactions by the related LRx_Event
+                            new ConditionExpression(MsnFp_Transaction.Fields.LRx_Event, ConditionOperator.Equal, transactionrecord.LRx_Event.Id),
+
+                            // Filter by status code (Completed)
+                            new ConditionExpression(MsnFp_Transaction.Fields.StatusCode, ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed),
+
+                            // Filter by type code (Donation)
+                            new ConditionExpression(MsnFp_Transaction.Fields.SiFund_TypeCode, ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)
+                        }
+                    }
+                };
+
+                EntityCollection donationRecords = _service.RetrieveMultiple(query);
+
+                // Get the count of records and store it in the out parameter
+                var donationCount = donationRecords.Entities.Count;
+
+                // Sum up the values using LINQ for cleaner code
+                decimal totalEventDonationRevenue = donationRecords.Entities
+                    .Where(record => record.Contains(MsnFp_Transaction.Fields.MsnFp_Amount) && record[MsnFp_Transaction.Fields.MsnFp_Amount] != null)
+                    .Sum(record =>
+                    {
+                        if (record[MsnFp_Transaction.Fields.MsnFp_Amount] is Money moneyValue)
+                        {
+                            return moneyValue.Value; // If it's of type Money, return the decimal value.
+                        }
+                        else if (record[MsnFp_Transaction.Fields.MsnFp_Amount] is int intValue)
+                        {
+                            return (decimal)intValue; // If it's an int, convert to decimal.
+                        }
+                        else
+                        {
+                            return 0m; // If it's neither Money nor int, return 0 or handle as appropriate.
+                        }
+                    });
+                var parentEventDonation = new LRx_Event
+                {
+                    Id = transactionrecord.LRx_Event.Id,
+                    LRx_TotalDonations = new Money(totalEventDonationRevenue),
+                    LRx_Donations = (int)donationCount
+                };
+                _service.Update(parentEventDonation);
+                
+            }
 
         }
 
@@ -350,8 +405,6 @@ namespace Fundraising_Engagement.Plugins.Service
             }
 
         }
-
-
 
         public void CampaignPerformanceDonorCommitment(Guid donorCommitmentId)
         {
