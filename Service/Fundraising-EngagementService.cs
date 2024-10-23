@@ -10,8 +10,10 @@ using System.Data.SqlTypes;
 using System.IdentityModel.Metadata;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 
 namespace Fundraising_Engagement.Plugins.Service
 {
@@ -1399,6 +1401,97 @@ namespace Fundraising_Engagement.Plugins.Service
                 _service.Update(parentPackage);
             }
 
+        }
+
+        public void UpdateFinancialSummary(Guid financialID) {
+            LRx_FinAnaCiaL financialRecord = (LRx_FinAnaCiaL)RetrieveRecord(
+                LRx_FinAnaCiaL.EntityLogicalName,
+                financialID,
+                LRx_FinAnaCiaL.Fields.LRx_OpportunityToFinancial,
+                LRx_FinAnaCiaL.Fields.LRx_AssetType
+            );
+
+            if(financialRecord != null)
+            {
+                // Define a QueryExpression to fetch financial records based on related opportunity
+                QueryExpression query = new QueryExpression(LRx_FinAnaCiaL.EntityLogicalName)
+                {
+                    ColumnSet = new ColumnSet(LRx_FinAnaCiaL.Fields.LRx_TotalAmount, LRx_FinAnaCiaL.Fields.LRx_AssetType),
+                    Criteria = new FilterExpression
+                    {
+                        Conditions =
+        {
+            // Filter by related opportunity
+            new ConditionExpression(LRx_FinAnaCiaL.Fields.LRx_OpportunityToFinancial, ConditionOperator.Equal, financialRecord.LRx_OpportunityToFinancial.Id),
+        }
+                    }
+                };
+
+                // Retrieve all financial records for the given opportunity
+                EntityCollection financialRecords = _service.RetrieveMultiple(query);
+
+                // Initialize totals for each asset type
+                decimal totalRealEstateAmount = 0m;
+                decimal totalBusinessAmount = 0m;
+                decimal totalIncomeCompensationAmount = 0m;
+                decimal totalSecuritiesAmount = 0m;
+                decimal totalOtherAssetsAmount = 0m;
+
+                // Sum the values by asset type
+                foreach (var record in financialRecords.Entities)
+                {
+                    if (record.Contains(LRx_FinAnaCiaL.Fields.LRx_TotalAmount) && record[LRx_FinAnaCiaL.Fields.LRx_TotalAmount] != null)
+                    {
+                        decimal amount = 0m;
+
+                        if (record[LRx_FinAnaCiaL.Fields.LRx_TotalAmount] is Money moneyValue)
+                        {
+                            amount = moneyValue.Value;
+                        }
+                        else if (record[LRx_FinAnaCiaL.Fields.LRx_TotalAmount] is int intValue)
+                        {
+                            amount = (decimal)intValue;
+                        }
+
+                        // Determine which asset type the record belongs to and update the corresponding total
+                        var assetType = (LRx_FinAnaCiaL_LRx_AssetType)((OptionSetValue)record[LRx_FinAnaCiaL.Fields.LRx_AssetType]).Value;
+
+                        switch (assetType)
+                        {
+                            case LRx_FinAnaCiaL_LRx_AssetType.RealEstate:
+                                totalRealEstateAmount += amount;
+                                break;
+                            case LRx_FinAnaCiaL_LRx_AssetType.Business:
+                                totalBusinessAmount += amount;
+                                break;
+                            case LRx_FinAnaCiaL_LRx_AssetType.IncomeCompensation:
+                                totalIncomeCompensationAmount += amount;
+                                break;
+                            case LRx_FinAnaCiaL_LRx_AssetType.Securities:
+                                totalSecuritiesAmount += amount;
+                                break;
+                            case LRx_FinAnaCiaL_LRx_AssetType.OtherAssets:
+                                totalOtherAssetsAmount += amount;
+                                break;
+                        }
+                    }
+                }
+
+                var parentOpportunity = new Opportunity
+                {
+                    Id = financialRecord.LRx_OpportunityToFinancial.Id,
+
+                    // Update the totals for each asset type if applicable
+                    LRx_RealestAteTotal = new Money(totalRealEstateAmount),
+                    LRx_BusinessesTotal = new Money(totalBusinessAmount),
+                    LRx_IncomeCompensationTotal = new Money(totalIncomeCompensationAmount),
+                    LRx_SecuritiesTotal = new Money(totalSecuritiesAmount),
+                    LRx_OtherAssetsTotal = new Money(totalOtherAssetsAmount)
+                };
+
+                // Now you can update the parentOpportunity in your service
+                _service.Update(parentOpportunity);
+            }
         }
         //-- START OF HELPER METHODS
         // Method to perform dynamic roll-up calculation for giving amounts

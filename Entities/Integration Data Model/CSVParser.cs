@@ -11,21 +11,21 @@ namespace Fundraising_Engagement.Plugins.Entities.Integration_Data_Model
 {
     public class CSVParser
     {
-        public List<DonationModel> ParseDonationRecords(string csvFilePath)
+        public List<DonationModel> ParseDonationRecordsFromString(string csvContent)
         {
             try
             {
-                using (var reader = new StreamReader(csvFilePath))
+                using (var reader = new StringReader(csvContent))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
-                    // Set up CSV configuration here if necessary (e.g., Delimiter, IgnoreBlankLines, etc.)
+                    // Set up CSV configuration if needed
                     var records = csv.GetRecords<DonationModel>();
                     return new List<DonationModel>(records);
                 }
             }
             catch (Exception ex)
             {
-                // Handle any parsing exceptions (e.g., log or rethrow)
+                // Handle parsing exceptions
                 Console.WriteLine($"Error occurred while parsing: {ex.Message}");
                 return null;
             }
