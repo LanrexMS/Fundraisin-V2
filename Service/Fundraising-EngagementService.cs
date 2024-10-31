@@ -147,7 +147,8 @@ namespace Fundraising_Engagement.Plugins.Service
                MsnFp_Transaction.EntityLogicalName,
                transaction.Id,
                MsnFp_Transaction.Fields.SiFund_Donor,
-               MsnFp_Transaction.Fields.LRx_Event
+               MsnFp_Transaction.Fields.LRx_Event,
+               MsnFp_Transaction.Fields.LRx_EventTeam
            );
 
             ColumnSet filterFields = new ColumnSet(
@@ -271,6 +272,58 @@ namespace Fundraising_Engagement.Plugins.Service
                 
             }
 
+            if (transactionrecord.LRx_EventTeam != null && transactionrecord.LRx_EventTeam.Id != Guid.Empty)
+            {
+                QueryExpression query = new QueryExpression(MsnFp_Transaction.EntityLogicalName)
+                {
+                    ColumnSet = new ColumnSet(MsnFp_Transaction.Fields.MsnFp_Amount),
+                    Criteria = new FilterExpression
+                    {
+                        Conditions =
+                        {
+                            // Add condition to filter transactions by the related LRx_Event
+                            new ConditionExpression(MsnFp_Transaction.Fields.LRx_EventTeam, ConditionOperator.Equal, transactionrecord.LRx_EventTeam.Id),
+
+                            // Filter by status code (Completed)
+                            new ConditionExpression(MsnFp_Transaction.Fields.StatusCode, ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed),
+
+                            // Filter by type code (Donation)
+                            new ConditionExpression(MsnFp_Transaction.Fields.SiFund_TypeCode, ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)
+                        }
+                    }
+                };
+
+                EntityCollection donationTeamRecords = _service.RetrieveMultiple(query);
+
+                // Get the count of records and store it in the out parameter
+                var donationCount = donationTeamRecords.Entities.Count;
+
+                // Sum up the values using LINQ for cleaner code
+                decimal totalTeamDonationRevenue = donationTeamRecords.Entities
+                    .Where(record => record.Contains(MsnFp_Transaction.Fields.MsnFp_Amount) && record[MsnFp_Transaction.Fields.MsnFp_Amount] != null)
+                    .Sum(record =>
+                    {
+                        if (record[MsnFp_Transaction.Fields.MsnFp_Amount] is Money moneyValue)
+                        {
+                            return moneyValue.Value; // If it's of type Money, return the decimal value.
+                        }
+                        else if (record[MsnFp_Transaction.Fields.MsnFp_Amount] is int intValue)
+                        {
+                            return (decimal)intValue; // If it's an int, convert to decimal.
+                        }
+                        else
+                        {
+                            return 0m; // If it's neither Money nor int, return 0 or handle as appropriate.
+                        }
+                    });
+                var parentTeamDonation = new LRx_EventTeam
+                {
+                    Id = transactionrecord.LRx_EventTeam.Id,
+                    LRx_Donations = new Money(totalTeamDonationRevenue)
+                };
+                _service.Update(parentTeamDonation);
+
+            }
         }
 
         public void DonorCommitmentPaid(MsnFp_Transaction transaction)
@@ -718,32 +771,78 @@ namespace Fundraising_Engagement.Plugins.Service
                 registrationID,
                 LRx_Registrations.Fields.LRx_Event,
                 LRx_Registrations.Fields.LRx_EventTicket,
-                LRx_Registrations.Fields.LRx_EventTable
+                LRx_Registrations.Fields.LRx_EventTable,
+                LRx_Registrations.Fields.LRx_EventTeam
             );
             // Check if the registration record and event are valid
-            if (registrationRecord != null &&
-                registrationRecord.LRx_Event != null &&
-                registrationRecord.LRx_Event.Id != Guid.Empty)
+            if (registrationRecord != null)
             {
-                decimal totalRegistrationRevenue = 0;
-                int registrationCount = 0;
-                // Calculate the total registration revenue and get the count of records
-                totalRegistrationRevenue = CalculateAmountRevenue(
-                    LRx_Registrations.EntityLogicalName,
-                    LRx_Registrations.Fields.LRx_PricePerRegistration,
-                    LRx_Registrations.Fields.LRx_Event,
-                    registrationRecord.LRx_Event.Id,
-                    out registrationCount
-                );
-                var parentEvent = new LRx_Event
+                if (registrationRecord.LRx_Event != null &&
+                    registrationRecord.LRx_Event.Id != Guid.Empty)
                 {
-                    Id = registrationRecord.LRx_Event.Id,
-                    LRx_TotalRegistrations = new Money(totalRegistrationRevenue),
-                    LRx_Registrations = (int)registrationCount
-                };
-                _service.Update(parentEvent);
-            }
+                    decimal totalRegistrationRevenue = 0;
+                    int registrationCount = 0;
+                    // Calculate the total registration revenue and get the count of records
+                    totalRegistrationRevenue = CalculateAmountRevenue(
+                        LRx_Registrations.EntityLogicalName,
+                        LRx_Registrations.Fields.LRx_PricePerRegistration,
+                        LRx_Registrations.Fields.LRx_Event,
+                        registrationRecord.LRx_Event.Id,
+                        out registrationCount
+                    );
+                    var parentEvent = new LRx_Event
+                    {
+                        Id = registrationRecord.LRx_Event.Id,
+                        LRx_TotalRegistrations = new Money(totalRegistrationRevenue),
+                        LRx_Registrations = (int)registrationCount
+                    };
+                    _service.Update(parentEvent);
+                }
 
+                if (registrationRecord.LRx_EventTable != null &&
+                    registrationRecord.LRx_EventTable.Id != Guid.Empty) 
+                {
+                    decimal totalRegistrationMemberPrice = 0;
+                    int registrationMemberCount = 0;
+
+                    totalRegistrationMemberPrice = CalculateAmountRevenue(
+                        LRx_Registrations.EntityLogicalName,
+                        LRx_Registrations.Fields.LRx_PricePerRegistration,
+                        LRx_Registrations.Fields.LRx_EventTable,
+                        registrationRecord.LRx_EventTable.Id,
+                        out registrationMemberCount
+                    );
+
+                    var parentEventTable = new LRx_EventTable
+                    {
+                        Id = registrationRecord.LRx_EventTable.Id,
+                        LRx_Members = (int)registrationMemberCount
+                    };
+                    _service.Update(parentEventTable);
+                }
+
+                if (registrationRecord.LRx_EventTeam != null &&
+                    registrationRecord.LRx_EventTeam.Id != Guid.Empty) 
+                {
+                    decimal totalRegistrationTeamMemberPrice = 0;
+                    int registrationTeamMemberCount = 0;
+
+                    totalRegistrationTeamMemberPrice = CalculateAmountRevenue(
+                        LRx_Registrations.EntityLogicalName,
+                        LRx_Registrations.Fields.LRx_PricePerRegistration,
+                        LRx_Registrations.Fields.LRx_EventTeam,
+                        registrationRecord.LRx_EventTeam.Id,
+                        out registrationTeamMemberCount
+                    );
+
+                    var parentEventTeamTable = new LRx_EventTeam
+                    {
+                        Id = registrationRecord.LRx_EventTeam.Id,
+                        LRx_TotalRegistrant = (int)registrationTeamMemberCount
+                    };
+                    _service.Update(parentEventTeamTable);
+                }             
+            }
 
             LRx_EventTicket eventTicketRecord;
 
@@ -1493,8 +1592,39 @@ namespace Fundraising_Engagement.Plugins.Service
                 _service.Update(parentOpportunity);
             }
         }
-        //-- START OF HELPER METHODS
-        // Method to perform dynamic roll-up calculation for giving amounts
+
+        public void ComputeDonorCommitmentPaid(Guid donorCommitmentId)
+        { 
+            MsnFp_DonorCommitment donorCommitmentRecord = (MsnFp_DonorCommitment)RetrieveRecord(
+                MsnFp_DonorCommitment.EntityLogicalName,
+                donorCommitmentId,
+                MsnFp_DonorCommitment.Fields.LRx_FundingAgreement
+            );
+
+            if (donorCommitmentRecord != null &&
+                donorCommitmentRecord.LRx_FundingAgreement != null &&
+                donorCommitmentRecord.LRx_FundingAgreement.Id != Guid.Empty) {
+
+                decimal totalAmountPaidRevenue = 0;
+                int amountPaidCount = 0;
+
+                totalAmountPaidRevenue = CalculateAmountRevenue(
+                    MsnFp_DonorCommitment.EntityLogicalName,
+                    MsnFp_DonorCommitment.Fields.LRx_TotalAmountPaid,
+                    MsnFp_DonorCommitment.Fields.LRx_FundingAgreement,
+                    donorCommitmentRecord.LRx_FundingAgreement.Id,
+                    out amountPaidCount
+                );
+                var parentEvent = new LRx_FundingAgreement
+                {
+                    Id = donorCommitmentRecord.LRx_FundingAgreement.Id,
+                    LRx_DonorCommitmentPaid = new Money(totalAmountPaidRevenue)
+                };
+                _service.Update(parentEvent);
+            }
+        }
+            //-- START OF HELPER METHODS
+            // Method to perform dynamic roll-up calculation for giving amounts
         public decimal CalculateAmountRevenue(string childEntityLogicalName, string fieldToBeComputed, string parentLookUpName, Guid eventID, out int recordCount)
         {
             // Create the query to retrieve all child records related to the parent eventID
