@@ -7,6 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 using CrmEarlyBound;
 
 namespace DataverseModel
@@ -66,10 +67,8 @@ namespace DataverseModel
 			public const string ImportSequenceNumber = "importsequencenumber";
 			public const string LRx_Date = "lrx_date";
 			public const string LRx_Event = "lrx_event";
-			public const string LRx_Event_LRx_Event_LRx_EventTable = "lrx_Event_lrx_Event_lrx_EventTable";
 			public const string LRx_EventId = "lrx_eventid";
 			public const string LRx_EventName = "lrx_eventname";
-			public const string LRx_EventTable_EventTicket_LRx_EventTicket = "lrx_eventtable_EventTicket_lrx_eventticket";
 			public const string LRx_EventTableId = "lrx_eventtableid";
 			public const string Id = "lrx_eventtableid";
 			public const string LRx_EventTableMigrationId = "lrx_eventtablemigrationid";
@@ -77,10 +76,10 @@ namespace DataverseModel
 			public const string LRx_EventTicketId = "lrx_eventticketid";
 			public const string LRx_EventTicketName = "lrx_eventticketname";
 			public const string LRx_ImportFilename = "lrx_importfilename";
+			public const string LRx_Members = "lrx_members";
 			public const string LRx_Name = "lrx_name";
 			public const string LRx_PricePerTable = "lrx_pricepertable";
 			public const string LRx_PricePerTable_Base = "lrx_pricepertable_base";
-			public const string LRx_Registrations_EventTable_LRx_EventTable = "LRx_Registrations_EventTable_LRx_EventTable";
 			public const string LRx_TableCapacity = "lrx_tablecapacity";
 			public const string LRx_TableName = "lrx_tablename";
 			public const string LRx_TableNumber = "lrx_tablenumber";
@@ -472,6 +471,21 @@ namespace DataverseModel
 			set
 			{
 				this.SetAttributeValue("lrx_importfilename", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_members")]
+		public System.Nullable<int> LRx_Members
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_members");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_members", value);
 			}
 		}
 		
@@ -998,62 +1012,6 @@ namespace DataverseModel
 		}
 		
 		/// <summary>
-		/// 1:N lrx_registrations_EventTable_lrx_eventtable
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lrx_registrations_EventTable_lrx_eventtable")]
-		public System.Collections.Generic.IEnumerable<DataverseModel.LRx_Registrations> LRx_Registrations_EventTable_LRx_EventTable
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<DataverseModel.LRx_Registrations>("lrx_registrations_EventTable_lrx_eventtable", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntities<DataverseModel.LRx_Registrations>("lrx_registrations_EventTable_lrx_eventtable", null, value);
-			}
-		}
-		
-		/// <summary>
-		/// N:1 lrx_Event_lrx_Event_lrx_EventTable
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_event")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lrx_Event_lrx_Event_lrx_EventTable")]
-		public DataverseModel.LRx_Event LRx_Event_LRx_Event_LRx_EventTable
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntity<DataverseModel.LRx_Event>("lrx_Event_lrx_Event_lrx_EventTable", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntity<DataverseModel.LRx_Event>("lrx_Event_lrx_Event_lrx_EventTable", null, value);
-			}
-		}
-		
-		/// <summary>
-		/// N:1 lrx_eventtable_EventTicket_lrx_eventticket
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_eventticket")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lrx_eventtable_EventTicket_lrx_eventticket")]
-		public DataverseModel.LRx_EventTicket LRx_EventTable_EventTicket_LRx_EventTicket
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntity<DataverseModel.LRx_EventTicket>("lrx_eventtable_EventTicket_lrx_eventticket", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntity<DataverseModel.LRx_EventTicket>("lrx_eventtable_EventTicket_lrx_eventticket", null, value);
-			}
-		}
-		
-		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
@@ -1066,7 +1024,7 @@ namespace DataverseModel
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

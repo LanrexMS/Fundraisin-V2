@@ -7,6 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 using CrmEarlyBound;
 
 namespace DataverseModel
@@ -65,12 +66,11 @@ namespace DataverseModel
 			public const string ExchangerAte = "exchangerate";
 			public const string ImportSequenceNumber = "importsequencenumber";
 			public const string LRx_DateRegistered = "lrx_dateregistered";
+			public const string LRx_Donations = "lrx_donations";
+			public const string LRx_Donations_Base = "lrx_donations_base";
 			public const string LRx_Event = "lrx_event";
-			public const string LRx_Event_LRx_Event_LRx_EventTeam = "lrx_Event_lrx_Event_lrx_EventTeam";
 			public const string LRx_EventName = "lrx_eventname";
 			public const string LRx_EventRanking = "lrx_eventranking";
-			public const string LRx_EventTeam_LRx_EventTeam_LRx_Registrations = "LRx_EventTeam_LRx_EventTeam_LRx_Registrations";
-			public const string LRx_EventTeam_LRx_EventTeam_MsnFp_Transaction = "LRx_EventTeam_LRx_EventTeam_MsnFp_Transaction";
 			public const string LRx_EventTeamId = "lrx_eventteamid";
 			public const string Id = "lrx_eventteamid";
 			public const string LRx_EventTeamNumber = "lrx_eventteamnumber";
@@ -91,6 +91,7 @@ namespace DataverseModel
 			public const string LRx_TotalDonations_Base = "lrx_totaldonations_base";
 			public const string LRx_TotalDonations_Date = "lrx_totaldonations_date";
 			public const string LRx_TotalDonations_State = "lrx_totaldonations_state";
+			public const string LRx_TotalRegistrant = "lrx_totalregistrant";
 			public const string ModifiedBy = "modifiedby";
 			public const string ModifiedByName = "modifiedbyname";
 			public const string ModifiedByYomiName = "modifiedbyyominame";
@@ -311,6 +312,34 @@ namespace DataverseModel
 			set
 			{
 				this.SetAttributeValue("lrx_dateregistered", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donations")]
+		public Microsoft.Xrm.Sdk.Money LRx_Donations
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_donations");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_donations", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Donations in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donations_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_Donations_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_donations_base");
 			}
 		}
 		
@@ -651,6 +680,21 @@ namespace DataverseModel
 			get
 			{
 				return this.GetAttributeValue<System.Nullable<int>>("lrx_totaldonations_state");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalregistrant")]
+		public System.Nullable<int> LRx_TotalRegistrant
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_totalregistrant");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalregistrant", value);
 			}
 		}
 		
@@ -1053,43 +1097,6 @@ namespace DataverseModel
 		}
 		
 		/// <summary>
-		/// 1:N lrx_EventTeam_lrx_EventTeam_lrx_Registrations
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lrx_EventTeam_lrx_EventTeam_lrx_Registrations")]
-		public System.Collections.Generic.IEnumerable<DataverseModel.LRx_Registrations> LRx_EventTeam_LRx_EventTeam_LRx_Registrations
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<DataverseModel.LRx_Registrations>("lrx_EventTeam_lrx_EventTeam_lrx_Registrations", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntities<DataverseModel.LRx_Registrations>("lrx_EventTeam_lrx_EventTeam_lrx_Registrations", null, value);
-			}
-		}
-		
-		/// <summary>
-		/// N:1 lrx_Event_lrx_Event_lrx_EventTeam
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_event")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lrx_Event_lrx_Event_lrx_EventTeam")]
-		public DataverseModel.LRx_Event LRx_Event_LRx_Event_LRx_EventTeam
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntity<DataverseModel.LRx_Event>("lrx_Event_lrx_Event_lrx_EventTeam", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntity<DataverseModel.LRx_Event>("lrx_Event_lrx_Event_lrx_EventTeam", null, value);
-			}
-		}
-		
-		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
@@ -1102,7 +1109,7 @@ namespace DataverseModel
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

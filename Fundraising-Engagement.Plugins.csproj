@@ -120,6 +120,7 @@
     <Compile Include="Entities\Event Entities\LRx_EventTeam.cs" />
     <Compile Include="Entities\Event Entities\LRx_EventTicket.cs" />
     <Compile Include="Entities\Event Entities\LRx_FinAnaCiaL.cs" />
+    <Compile Include="Entities\Event Entities\LRx_FundingAgreement.cs" />
     <Compile Include="Entities\Event Entities\LRx_Product.cs" />
     <Compile Include="Entities\Event Entities\LRx_Registrations.cs" />
     <Compile Include="Entities\Event Entities\LRx_Sponsorship.cs" />

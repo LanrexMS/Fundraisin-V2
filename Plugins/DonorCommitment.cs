@@ -32,11 +32,13 @@ namespace Fundraising_Engagement.Plugins.Plugins
                     switch (context.MessageName)
                     {
                         case "Create":
-                            fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);
+                            fundraisingService.ComputeDonorCommitmentPaid(donorCommitmentId);
+                            fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);                 
                             break;
                         case "Update":
-
                             // Handle logic when lookup fields are updated (with previous value) 
+                            fundraisingService.ComputeDonorCommitmentPaid(donorCommitmentId);
+
                             if (context.PreEntityImages != null && context.PreEntityImages.Contains("DonorCommitmentPreImage"))
                             {
                                 // Retrieve the pre-image as an Entity
@@ -66,6 +68,7 @@ namespace Fundraising_Engagement.Plugins.Plugins
                             }
 
                             fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);
+                            
                             break;
                         default:
                             break;
