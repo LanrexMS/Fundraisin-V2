@@ -125,8 +125,6 @@
     <Compile Include="Entities\Event Entities\LRx_Registrations.cs" />
     <Compile Include="Entities\Event Entities\LRx_Sponsorship.cs" />
     <Compile Include="Entities\Event Entities\Opportunity.cs" />
-    <Compile Include="Entities\Integration Data Model\Donation Model.cs" />
-    <Compile Include="Entities\Integration Data Model\Transaction Model.cs" />
     <Compile Include="Entities\OptionSets.cs" />
     <Compile Include="Plugins\DonorCommitment.cs" />
     <Compile Include="Plugins\EventProduct.cs" />
@@ -134,13 +132,11 @@
     <Compile Include="Plugins\EventSponsor.cs" />
     <Compile Include="Plugins\EventTable.cs" />
     <Compile Include="Plugins\Financial.cs" />
-    <Compile Include="Plugins\FundraisinIntegration.cs" />
     <Compile Include="Plugins\PaymentSchedule.cs" />
     <Compile Include="Plugins\Refund.cs" />
     <Compile Include="Plugins\Transaction.cs" />
     <Compile Include="Plugins\WriteOff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Fundraising-APIService.cs" />
     <Compile Include="Service\Fundraising-EngagementService.cs" />
   </ItemGroup>
   <ItemGroup>
