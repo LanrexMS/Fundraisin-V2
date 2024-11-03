@@ -33,6 +33,7 @@ namespace Fundraising_Engagement.Plugins.Plugins
                     {
                         case "Create":
                             fundraisingService.ComputeDonorCommitmentPaid(donorCommitmentId);
+                            fundraisingService.CheckPledgeMatch(donorCommitmentId, "pledge");
                             fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);                 
                             break;
                         case "Update":
