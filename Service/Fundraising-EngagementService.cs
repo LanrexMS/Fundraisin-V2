@@ -2,6 +2,8 @@
 using DataverseModel;
 using Fundraising_Engagement.Plugins.Plugins;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.PluginTelemetry;
 using Microsoft.Xrm.Sdk.Query;
 using System;
@@ -1519,10 +1521,10 @@ namespace Fundraising_Engagement.Plugins.Service
                     Criteria = new FilterExpression
                     {
                         Conditions =
-        {
-            // Filter by related opportunity
-            new ConditionExpression(LRx_FinAnaCiaL.Fields.LRx_OpportunityToFinancial, ConditionOperator.Equal, financialRecord.LRx_OpportunityToFinancial.Id),
-        }
+                        {
+                            // Filter by related opportunity
+                            new ConditionExpression(LRx_FinAnaCiaL.Fields.LRx_OpportunityToFinancial, ConditionOperator.Equal, financialRecord.LRx_OpportunityToFinancial.Id),
+                        }
                     }
                 };
 
@@ -1623,8 +1625,150 @@ namespace Fundraising_Engagement.Plugins.Service
                 _service.Update(parentEvent);
             }
         }
-            //-- START OF HELPER METHODS
-            // Method to perform dynamic roll-up calculation for giving amounts
+
+        public void CheckPledgeMatch(Guid targetId, string targetType)
+        { 
+            if (targetType.ToLower() == "pledge") {
+                
+                MsnFp_DonorCommitment donorCommitmentRecord = (MsnFp_DonorCommitment)RetrieveRecord(
+                    MsnFp_DonorCommitment.EntityLogicalName,
+                    targetId,
+                    MsnFp_DonorCommitment.Fields.SiFund_Donor,
+                    MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount,
+                    MsnFp_DonorCommitment.Fields.LRx_Campaign,
+                    MsnFp_DonorCommitment.Fields.MsnFp_BookDate
+                );
+
+                if (donorCommitmentRecord != null &&
+                    donorCommitmentRecord.SiFund_Donor != null &&
+                    donorCommitmentRecord.SiFund_Donor.Id != Guid.Empty)
+                {
+                    QueryExpression query = new QueryExpression(LRx_PledgeMatch.EntityLogicalName)
+                    {
+                        ColumnSet = new ColumnSet(LRx_PledgeMatch.Fields.LRx_CustomerToId, LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges, LRx_PledgeMatch.Fields.LRx_Percentage),
+                        Criteria = new FilterExpression
+                        {
+                            Conditions =
+                            {
+                                // Filter by related opportunity
+                                new ConditionExpression(LRx_PledgeMatch.Fields.LRx_CustomerFromId, ConditionOperator.Equal, donorCommitmentRecord.SiFund_Donor.Id)
+                            }
+                        }
+                    };
+
+                    // Retrieve all financial records for the given opportunity
+                    EntityCollection pledgeRecords = _service.RetrieveMultiple(query);
+                    if (pledgeRecords.Entities.Count > 0)
+                    {
+                        
+                        foreach (Entity pledgeRecord in pledgeRecords.Entities)
+                        {
+                            // Check if LRx_CustomerToId and LRx_Percentage are not null
+                            if (pledgeRecord.Contains(LRx_PledgeMatch.Fields.LRx_CustomerToId) &&
+                                pledgeRecord.Contains(LRx_PledgeMatch.Fields.LRx_Percentage))
+                            {
+                                int applyToDonationsOrPledgesValue = pledgeRecord.GetAttributeValue<OptionSetValue>(LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges).Value;
+                                string applyToDonationsOrPledgesText = GetOptionSetText(LRx_PledgeMatch.EntityLogicalName, LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges, applyToDonationsOrPledgesValue);
+                                
+                                // Check if the text is "Donations"
+                                if (!string.Equals(applyToDonationsOrPledgesText.Trim(), "Donations", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    // Calculate the pledge amount based on percentage
+                                    decimal totalAmount = (decimal)donorCommitmentRecord.MsnFp_TotalAmount.Value;
+                                    int percentage = (int)pledgeRecord[LRx_PledgeMatch.Fields.LRx_Percentage];
+                                    decimal percentageDecimal = (decimal)percentage;
+                                    EntityReference customerToId = (EntityReference)pledgeRecord[LRx_PledgeMatch.Fields.LRx_CustomerToId];
+                                    decimal computedAmount = (totalAmount * percentageDecimal) / 100;
+
+                                    var newDonorCommitment = new Entity(MsnFp_DonorCommitment.EntityLogicalName)
+                                    {
+                                        [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Contact.EntityLogicalName, customerToId.Id),
+                                        [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
+                                        [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = donorCommitmentRecord.MsnFp_BookDate.Value,
+                                        [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, donorCommitmentRecord.LRx_Campaign.Id)
+                                    };
+
+                                    // Create the donor commitment record in Dynamics 365
+                                    var donorCommitmentId = _service.Create(newDonorCommitment);
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            else // for donation
+            {
+                MsnFp_Transaction transactionRecord = (MsnFp_Transaction)RetrieveRecord(
+                    MsnFp_Transaction.EntityLogicalName,
+                    targetId,
+                    MsnFp_Transaction.Fields.SiFund_Donor,
+                    MsnFp_Transaction.Fields.MsnFp_Amount,
+                    MsnFp_Transaction.Fields.LRx_Campaign,
+                    MsnFp_Transaction.Fields.MsnFp_BookDate
+                );
+                if (transactionRecord != null &&
+                    transactionRecord.SiFund_Donor != null &&
+                    transactionRecord.SiFund_Donor.Id != Guid.Empty)
+                {
+                    QueryExpression query = new QueryExpression(LRx_PledgeMatch.EntityLogicalName)
+                    {
+                        ColumnSet = new ColumnSet(LRx_PledgeMatch.Fields.LRx_CustomerToId, LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges, LRx_PledgeMatch.Fields.LRx_Percentage),
+                        Criteria = new FilterExpression
+                        {
+                            Conditions =
+                            {
+                                // Filter by related opportunity
+                                new ConditionExpression(LRx_PledgeMatch.Fields.LRx_CustomerFromId, ConditionOperator.Equal, transactionRecord.SiFund_Donor.Id)
+                            }
+                        }
+                    };
+
+                    // Retrieve all financial records for the given opportunity
+                    EntityCollection transactionRecords = _service.RetrieveMultiple(query);
+                    if (transactionRecords.Entities.Count > 0)
+                    {
+
+                        foreach (Entity tRecord in transactionRecords.Entities)
+                        {
+                            // Check if LRx_CustomerToId and LRx_Percentage are not null
+                            if (tRecord.Contains(LRx_PledgeMatch.Fields.LRx_CustomerToId) &&
+                                tRecord.Contains(LRx_PledgeMatch.Fields.LRx_Percentage))
+                            {
+                                int applyToDonationsOrPledgesValue = tRecord.GetAttributeValue<OptionSetValue>(LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges).Value;
+                                string applyToDonationsOrPledgesText = GetOptionSetText(LRx_PledgeMatch.EntityLogicalName, LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges, applyToDonationsOrPledgesValue);
+
+                                // Check if the text is "Donations"
+                                if (!string.Equals(applyToDonationsOrPledgesText.Trim(), "Donations", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    // Calculate the pledge amount based on percentage
+                                    decimal totalAmount = (decimal)transactionRecord.MsnFp_Amount.Value;
+                                    int percentage = (int)tRecord[LRx_PledgeMatch.Fields.LRx_Percentage];
+                                    decimal percentageDecimal = (decimal)percentage;
+                                    EntityReference customerToId = (EntityReference)tRecord[LRx_PledgeMatch.Fields.LRx_CustomerToId];
+                                    decimal computedAmount = (totalAmount * percentageDecimal) / 100;
+
+                                    var newDonorCommitment = new Entity(MsnFp_DonorCommitment.EntityLogicalName)
+                                    {
+                                        [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Contact.EntityLogicalName, customerToId.Id),
+                                        [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
+                                        [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = transactionRecord.MsnFp_BookDate.Value,
+                                        [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, transactionRecord.LRx_Campaign.Id)
+                                    };
+
+                                    // Create the donor commitment record in Dynamics 365
+                                    var donorCommitmentId = _service.Create(newDonorCommitment);
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }       
+        }
+        //-- START OF HELPER METHODS
+        // Method to perform dynamic roll-up calculation for giving amounts
         public decimal CalculateAmountRevenue(string childEntityLogicalName, string fieldToBeComputed, string parentLookUpName, Guid eventID, out int recordCount)
         {
             // Create the query to retrieve all child records related to the parent eventID
@@ -1833,6 +1977,28 @@ namespace Fundraising_Engagement.Plugins.Service
 
                 _service.Update(updateTransaction);
             }
+        }
+        public string GetOptionSetText(string entityName, string attributeName, int optionSetValue)
+        {
+            RetrieveAttributeRequest attributeRequest = new RetrieveAttributeRequest
+            {
+                EntityLogicalName = entityName,
+                LogicalName = attributeName,
+                RetrieveAsIfPublished = true
+            };
+
+            RetrieveAttributeResponse attributeResponse = (RetrieveAttributeResponse)_service.Execute(attributeRequest);
+            PicklistAttributeMetadata picklistMetadata = (PicklistAttributeMetadata)attributeResponse.AttributeMetadata;
+
+            foreach (var option in picklistMetadata.OptionSet.Options)
+            {
+                if (option.Value == optionSetValue)
+                {
+                    return option.Label.UserLocalizedLabel.Label;
+                }
+            }
+
+            return null; // Return null if not found
         }
 
     }
