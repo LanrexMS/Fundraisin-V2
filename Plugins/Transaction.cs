@@ -64,6 +64,13 @@ namespace Fundraising_Engagement.Plugins
                 if (context.PreEntityImages != null && context.PreEntityImages.Contains("TransactionPreImage"))
                 {
                     var preImage = preImageEntity.ToEntity<MsnFp_Transaction>();
+
+                    //Yearly Giving
+                    if (preImage.SiFund_Donor != null && preImage.SiFund_Donor.Id != Guid.Empty)
+                    {
+                        fundraisingService.YearlyGivingRecalculation(preImage.SiFund_Donor.Id, preImage.SiFund_Donor.LogicalName);
+                    }
+
                     //Latest Transaction
                     if (preImage.SiFund_Donor != null && preImage.SiFund_Donor.Id != Guid.Empty)
                     {

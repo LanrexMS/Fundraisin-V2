@@ -50,6 +50,93 @@ namespace Fundraising_Engagement.Plugins.Service
             }
         }
 
+        public void YearlyGivingRecalculation(Guid donorId, string donorLogicalName)
+        {
+            var fiscalYears = GetFiscalYears(4);
+
+            //assign fiscal year date values
+            DateTime startDateCurrentYear = fiscalYears["Year 0"].StartDate;
+            DateTime endDateCurrentYear = fiscalYears["Year 0"].EndDate;
+            DateTime startDateLastYear = fiscalYears["Year 1"].StartDate;
+            DateTime endDateLastYear = fiscalYears["Year 1"].EndDate;
+            DateTime startDateThirdYear = fiscalYears["Year 2"].StartDate;
+            DateTime endDateThirdYear = fiscalYears["Year 2"].EndDate;
+            DateTime startDateFourthYear = fiscalYears["Year 3"].StartDate;
+            DateTime endDateFourthYear = fiscalYears["Year 3"].EndDate;
+            DateTime startDateFifthYear = fiscalYears["Year 4"].StartDate;
+            DateTime endDateFifthYear = fiscalYears["Year 4"].EndDate;
+
+            if (donorId != Guid.Empty)
+            {
+
+                ColumnSet filterFields = new ColumnSet(
+                    MsnFp_Transaction.Fields.StatusCode,
+                    MsnFp_Transaction.Fields.MsnFp_Amount,
+                    MsnFp_Transaction.Fields.MsnFp_BookDate,
+                    MsnFp_Transaction.Fields.SiFund_TypeCode
+                 );
+
+                // CurrentGiving Sum, All related transactions where statuscode = Completed, 
+                var givingCriteria = new Dictionary<string, (ConditionOperator, object)>
+                {
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+                };
+
+                decimal currentYearGivingAmount = CalculateGivingRollup(Contact.EntityLogicalName, donorId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Donor, MsnFp_Transaction.Fields.MsnFp_Amount,
+                    filterFields, givingCriteria, startDateCurrentYear, endDateCurrentYear);
+
+                decimal lastYearGivingAmount = CalculateGivingRollup(Contact.EntityLogicalName, donorId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Donor, MsnFp_Transaction.Fields.MsnFp_Amount,
+                    filterFields, givingCriteria, startDateLastYear, endDateLastYear);
+
+                decimal thirdYearGivingAmount = CalculateGivingRollup(Contact.EntityLogicalName, donorId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Donor, MsnFp_Transaction.Fields.MsnFp_Amount,
+                    filterFields, givingCriteria, startDateThirdYear, endDateThirdYear);
+
+                decimal fourthYearGivingAmount = CalculateGivingRollup(Contact.EntityLogicalName, donorId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Donor, MsnFp_Transaction.Fields.MsnFp_Amount,
+                    filterFields, givingCriteria, startDateFourthYear, endDateFourthYear);
+
+                decimal fifthYearGivingAmount = CalculateGivingRollup(Contact.EntityLogicalName, donorId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Donor, MsnFp_Transaction.Fields.MsnFp_Amount,
+                    filterFields, givingCriteria, startDateFifthYear, endDateFifthYear);
+
+                decimal lifetimeGivingAmount = CalculateGivingRollup(Contact.EntityLogicalName, donorId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Donor, MsnFp_Transaction.Fields.MsnFp_Amount,
+                    filterFields, givingCriteria);
+
+                //Updateding contact/account with giving values
+                if (donorLogicalName == Contact.EntityLogicalName)
+                {
+                    var parentContact = new Contact
+                    {
+                        Id = donorId,
+                        LRx_CurrentYearGiving = new Money(currentYearGivingAmount),
+                        LRx_LastYearsGiving = new Money(lastYearGivingAmount),
+                        LRx_ThirdYearGiving = new Money(thirdYearGivingAmount),
+                        LRx_FourthYearGiving = new Money(fourthYearGivingAmount),
+                        LRx_FifthYearGiving = new Money(fifthYearGivingAmount),
+                        LRx_LifetimeGivingSum = new Money(lifetimeGivingAmount)
+                    };
+
+                    _service.Update(parentContact);
+                }
+                else if (donorLogicalName == Account.EntityLogicalName)
+                {
+                    var parentAccount = new Account
+                    {
+                        Id = donorId,
+                        LRx_Year0_Giving = new Money(currentYearGivingAmount),
+                        LRx__Year1_Giving = new Money(lastYearGivingAmount),
+                        LRx__Year2_Giving = new Money(thirdYearGivingAmount),
+                        LRx__Year3_Giving = new Money(fourthYearGivingAmount),
+                        LRx__Year4_Giving = new Money(fifthYearGivingAmount),
+                        LRx_LifetimeGivingSum = new Money(lifetimeGivingAmount)
+                    };
+
+                    _service.Update(parentAccount);
+
+                }
+            }
+
+        }
+
 
         public void YearlyGiving(MsnFp_Transaction transaction)
         {
