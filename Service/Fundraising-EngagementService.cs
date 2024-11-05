@@ -8,6 +8,7 @@ using Microsoft.Xrm.Sdk.PluginTelemetry;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlTypes;
 using System.IdentityModel.Metadata;
 using System.Linq;
@@ -141,6 +142,76 @@ namespace Fundraising_Engagement.Plugins.Service
 
         }
 
+        public void LastestTransactionRecalculation(Guid donorId, string donorLogicalName)
+        {
+            ColumnSet filterFields = new ColumnSet(
+             MsnFp_Transaction.Fields.MsnFp_BookDate);
+
+            var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
+            {
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+            };
+
+
+            if (donorId != Guid.Empty)
+            {
+                //var donorId = transactionrecord.SiFund_Donor.Id;
+
+                EntityCollection childRecords = RetrieveChildRecords(
+                    MsnFp_Transaction.EntityLogicalName,
+                    MsnFp_Transaction.Fields.SiFund_Donor,
+                    donorId,
+                    filterFields,
+                    donationCriteria,
+                    orderByField: MsnFp_Transaction.Fields.MsnFp_BookDate,
+                    isAscending: false
+                    );
+
+                // Check if any child transactions found
+                if (childRecords.Entities.Any())
+                {
+
+                    var mostRecentTransaction = childRecords.Entities.FirstOrDefault();
+
+                    DateTime mostRecentBookDate = mostRecentTransaction.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate);
+
+                    EntityReference mostRecentTransactionReference = new EntityReference(
+                        MsnFp_Transaction.EntityLogicalName,
+                        mostRecentTransaction.Id
+                    );
+
+
+                    if (donorLogicalName == Contact.EntityLogicalName)
+                    {
+                        var parentContact = new Contact
+                        {
+                            Id = donorId,
+                            LRx_LastTransactionDate = mostRecentBookDate, // Set the most recent MsnFp_BookDate
+                            LRx_LastTransaction = mostRecentTransactionReference // Set the most recent transaction as a lookup field
+                        };
+
+                        // Update the contact record
+                        _service.Update(parentContact);
+                    }
+                    else if (donorLogicalName == Account.EntityLogicalName)
+                    {
+                        var parentAccount = new Account
+                        {
+                            Id = donorId,
+                            LRx_LastTransactionDate = mostRecentBookDate,
+                            LRx_LastTransactionId = mostRecentTransactionReference
+
+                        };
+
+                        _service.Update(parentAccount);
+
+                    }
+                }
+
+            };
+        }
+
 
 
         public void UpdateLatestTransaction(MsnFp_Transaction transaction)
@@ -163,7 +234,7 @@ namespace Fundraising_Engagement.Plugins.Service
             };
 
 
-            if (transactionrecord.SiFund_Donor != null && (transactionrecord.SiFund_Donor.Id != Guid.Empty))
+            if (transactionrecord.SiFund_Donor != null && transactionrecord.SiFund_Donor.Id != Guid.Empty)
             {
                 var donorId = transactionrecord.SiFund_Donor.Id;
 
@@ -220,7 +291,7 @@ namespace Fundraising_Engagement.Plugins.Service
 
             };
 
-            if(transactionrecord.LRx_Event != null && transactionrecord.LRx_Event.Id != Guid.Empty)
+            if (transactionrecord.LRx_Event != null && transactionrecord.LRx_Event.Id != Guid.Empty)
             {
                 QueryExpression query = new QueryExpression(MsnFp_Transaction.EntityLogicalName)
                 {
@@ -325,6 +396,37 @@ namespace Fundraising_Engagement.Plugins.Service
                 };
                 _service.Update(parentTeamDonation);
 
+            }
+        }
+
+        public void DonorCommitmentPaidRecalculation(Guid relatedDonorCommitment)
+        {
+            ColumnSet filterFields = new ColumnSet(
+                    MsnFp_Transaction.Fields.StatusCode,
+                    MsnFp_Transaction.Fields.MsnFp_Amount,
+                    MsnFp_Transaction.Fields.SiFund_TypeCode
+             );
+
+            var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
+            {
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+            };
+
+            if (relatedDonorCommitment != Guid.Empty)
+            {
+                var donorCommitmentId = relatedDonorCommitment;
+
+                decimal donorCommitmentPaidAmount = CalculateGivingRollup(MsnFp_DonorCommitment.EntityLogicalName, donorCommitmentId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_RelatedDonorCommitment, MsnFp_Transaction.Fields.MsnFp_Amount,
+              filterFields, donationCriteria);
+
+                var parentDonorCommitment = new MsnFp_DonorCommitment
+                {
+                    Id = donorCommitmentId,
+                    LRx_TotalAmountPaid = new Money(donorCommitmentPaidAmount),
+
+                };
+                _service.Update(parentDonorCommitment);
             }
         }
 
@@ -564,6 +666,35 @@ namespace Fundraising_Engagement.Plugins.Service
             }
         }
 
+        public void WriteOffRecalculation(Guid donorCommitmentId)
+        {
+            ColumnSet filterFields = new ColumnSet(
+                   LRx_WriteOff.Fields.LRx_WriteOffAmount
+             );
+
+            var writeOffCriteria = new Dictionary<string, (ConditionOperator, object)>
+            {
+                //add filtering criteria for writeoff if any   
+            };
+
+            // Total Writeoff for DonorCommitment
+            if (donorCommitmentId != Guid.Empty)
+            {
+                
+                decimal writeOffAmount = CalculateGivingRollup(MsnFp_DonorCommitment.EntityLogicalName, donorCommitmentId, LRx_WriteOff.EntityLogicalName, LRx_WriteOff.Fields.LRx_MsnFp_DonorCommitment, LRx_WriteOff.Fields.LRx_WriteOffAmount,
+                   filterFields, writeOffCriteria);
+
+                var parentDonorCommitment = new MsnFp_DonorCommitment
+                {
+                    Id = donorCommitmentId,
+                    LRx_TotalAmountWRiTenOff = new Money(writeOffAmount),
+
+                };
+                _service.Update(parentDonorCommitment);
+                CampaignPerformanceDonorCommitment(donorCommitmentId);
+            }
+        }
+
         public void WriteOff(Guid writeOffId)
         {
             LRx_WriteOff writeOffRecord = (LRx_WriteOff)RetrieveRecord(
@@ -597,6 +728,7 @@ namespace Fundraising_Engagement.Plugins.Service
 
                 };
                 _service.Update(parentDonorCommitment);
+                CampaignPerformanceDonorCommitment(donorCommitmentId);
             }
 
         }
@@ -1767,6 +1899,22 @@ namespace Fundraising_Engagement.Plugins.Service
                 }
             }       
         }
+
+        //Handle Delete event for Transactions
+        public void YearlyGivingReclaculation(Guid donorId, string transactionAmount)
+        {
+            //Testing
+            var contact = new Contact
+            {
+                ContactId = donorId,
+                LRx_InsTagRam = "Updated from Delete event" + transactionAmount
+            };
+            
+            _service.Update(contact);
+        }
+
+
+
         //-- START OF HELPER METHODS
         // Method to perform dynamic roll-up calculation for giving amounts
         public decimal CalculateAmountRevenue(string childEntityLogicalName, string fieldToBeComputed, string parentLookUpName, Guid eventID, out int recordCount)

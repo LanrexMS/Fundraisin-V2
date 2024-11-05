@@ -17,6 +17,7 @@ namespace Fundraising_Engagement.Plugins.Plugins
             var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             var service = serviceFactory.CreateOrganizationService(context.UserId);
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+            var fundraisingService = new FundraisingService(service, context, tracingService);
 
 
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
@@ -27,7 +28,7 @@ namespace Fundraising_Engagement.Plugins.Plugins
                 {
                     var donorCommitmentId = targetEntity.Id;
 
-                    var fundraisingService = new FundraisingService(service, context, tracingService);
+                    
 
                     switch (context.MessageName)
                     {
@@ -39,6 +40,7 @@ namespace Fundraising_Engagement.Plugins.Plugins
                         case "Update":
                             // Handle logic when lookup fields are updated (with previous value) 
                             fundraisingService.ComputeDonorCommitmentPaid(donorCommitmentId);
+                            fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);
 
                             if (context.PreEntityImages != null && context.PreEntityImages.Contains("DonorCommitmentPreImage"))
                             {
@@ -67,13 +69,43 @@ namespace Fundraising_Engagement.Plugins.Plugins
                                     fundraisingService.PledgesRollup(Campaign.EntityLogicalName, lRxCampaign.Id, MsnFp_DonorCommitment.Fields.LRx_Campaign);
                                 }
                             }
-
-                            fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);
                             
+
                             break;
                         default:
                             break;
                     }
+                }
+            }
+            else if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is EntityReference && context.MessageName == "Delete")
+            {
+                // Handle logic on donorcommitment deletion
+                var preImageEntity = context.PreEntityImages["DonorCommitmentPreImage"];
+
+                if (context.PreEntityImages != null && context.PreEntityImages.Contains("DonorCommitmentPreImage"))
+                {
+                    var preImage = preImageEntity.ToEntity<MsnFp_DonorCommitment>();
+
+                    if (preImage.SiFund_Appeal != null)
+                    {
+                        var siFundAppeal = preImage.SiFund_Appeal;
+                        fundraisingService.PledgesRollup(SiFund_Appeal.EntityLogicalName, siFundAppeal.Id, MsnFp_DonorCommitment.Fields.SiFund_Appeal);
+
+                    }
+
+                    if (preImage.SiFund_Package != null)
+                    {
+                        var siFundPackage = preImage.SiFund_Package;
+                        fundraisingService.PledgesRollup(SiFund_Package.EntityLogicalName, siFundPackage.Id, MsnFp_DonorCommitment.Fields.SiFund_Package);
+                    }
+
+                    if (preImage.LRx_Campaign != null)
+                    {
+                        var lRxCampaign = preImage.LRx_Campaign;
+                        fundraisingService.PledgesRollup(Campaign.EntityLogicalName, lRxCampaign.Id, MsnFp_DonorCommitment.Fields.LRx_Campaign);
+                    }
+
+
                 }
             }
         }

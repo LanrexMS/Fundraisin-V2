@@ -17,7 +17,7 @@ namespace Fundraising_Engagement.Plugins.Plugins
             var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             var service = serviceFactory.CreateOrganizationService(context.UserId);
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-
+            var fundraisingService = new FundraisingService(service, context, tracingService);
 
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
             {
@@ -28,7 +28,7 @@ namespace Fundraising_Engagement.Plugins.Plugins
 
                     LRx_WriteOff writeOff = targetEntity.ToEntity<LRx_WriteOff>();
 
-                    var fundraisingService = new FundraisingService(service, context, tracingService);
+                    
 
                     switch (context.MessageName)
                     {
@@ -43,6 +43,25 @@ namespace Fundraising_Engagement.Plugins.Plugins
                     }
                 }
             }
+            else if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is EntityReference && context.MessageName == "Delete")
+            {
+                // Handle logic on writeoff deletion
+                var preImageEntity = context.PreEntityImages["WriteOffPreImage"];
+                
+
+                if (context.PreEntityImages != null && context.PreEntityImages.Contains("WriteOffPreImage"))
+                {
+                    var preImage = preImageEntity.ToEntity<LRx_WriteOff>();
+                    //donorCommitment Writeoff amount
+                    if (preImage.LRx_MsnFp_DonorCommitment != null && preImage.LRx_MsnFp_DonorCommitment.Id != Guid.Empty)
+                    {
+                        fundraisingService.WriteOffRecalculation(preImage.LRx_MsnFp_DonorCommitment.Id);
+                    }
+
+
+                }
+            }
+
         }
     }
 }
