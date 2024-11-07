@@ -18,28 +18,51 @@ namespace Fundraising_Engagement.Plugins
             var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             var service = serviceFactory.CreateOrganizationService(context.UserId);
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+            var fundraisingService = new FundraisingService(service, context, tracingService);
 
-            
-           if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+            if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
             {    
                 var targetEntity = (Entity)context.InputParameters["Target"];
 
                 if (targetEntity.LogicalName == LRx_Sponsorship.EntityLogicalName)
                 {
                     var sponsorID = targetEntity.Id;
-                    var fundraisingService = new FundraisingService(service, context, tracingService);
-                    
+
+                    LRx_Sponsorship sponsorRecord = new LRx_Sponsorship();
+
                     switch (context.MessageName)
                     {
                         case "Create":
-                            fundraisingService.UpdateEventSponsorRevenue(sponsorID);
+                            fundraisingService.UpdateEventSponsorRevenue(sponsorID, sponsorRecord);
                             break;
                         case "Update":
-                            fundraisingService.UpdateEventSponsorRevenue(sponsorID);
+                            fundraisingService.UpdateEventSponsorRevenue(sponsorID, sponsorRecord);
                             break;
                         default:
                             break;
                     }
+                }
+            }
+            else if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is EntityReference && context.MessageName == "Delete")
+            {
+                // Handle logic on transaction deletion
+                var preImageEntity = context.PreEntityImages["SponsorPreImage"];
+
+                if (context.PreEntityImages != null && context.PreEntityImages.Contains("SponsorPreImage"))
+                {
+                    var preImage = preImageEntity.ToEntity<LRx_Sponsorship>();
+
+                    if (preImage != null)
+                    {
+                        // Initialize a new instance of the registration record
+                        LRx_Sponsorship sponsorRecord = new LRx_Sponsorship();
+
+                        sponsorRecord.LRx_Event = preImage.LRx_Event;
+                        sponsorRecord.LRx_EventSponsorship = preImage.LRx_EventSponsorship;
+
+                        fundraisingService.UpdateEventSponsorRevenue(Guid.Empty, sponsorRecord);
+                    }
+
                 }
             }
         }

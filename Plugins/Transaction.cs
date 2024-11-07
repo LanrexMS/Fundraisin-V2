@@ -30,7 +30,7 @@ namespace Fundraising_Engagement.Plugins
                   
                     MsnFp_Transaction transaction = targetEntity.ToEntity<MsnFp_Transaction>();
 
-                    
+                    MsnFp_Transaction transactionrecord = new MsnFp_Transaction();
 
                     switch (context.MessageName)
                     {
@@ -39,14 +39,14 @@ namespace Fundraising_Engagement.Plugins
                             fundraisingService.AutoCompleteCashTransactions(transaction);
                             fundraisingService.AutoPopulateRefundAmounts(transaction);
                             fundraisingService.YearlyGiving(transaction);
-                            fundraisingService.UpdateLatestTransaction(transaction);
+                            fundraisingService.UpdateLatestTransaction(transaction, transactionrecord);
                             fundraisingService.CampaignPerformanceTransaction(transaction);
                             fundraisingService.DonorCommitmentPaid(transaction);
                             break;
                         case "Update":
                             //Plugin step should only trigger on update of statuscode (for refunds)
                             fundraisingService.YearlyGiving(transaction);
-                            fundraisingService.UpdateLatestTransaction(transaction);
+                            fundraisingService.UpdateLatestTransaction(transaction, transactionrecord);
                             fundraisingService.DonorCommitmentPaid(transaction);
                             fundraisingService.CampaignPerformanceTransaction(transaction);
                             break;
@@ -102,7 +102,12 @@ namespace Fundraising_Engagement.Plugins
 
                     }
 
-
+                    MsnFp_Transaction transactionrecord = new MsnFp_Transaction();
+                    transactionrecord.SiFund_Donor = preImage.SiFund_Donor;
+                    transactionrecord.LRx_Event = preImage.LRx_Event;
+                    transactionrecord.LRx_EventTeam = preImage.LRx_EventTeam;
+                    transactionrecord.Id = Guid.Empty;
+                    fundraisingService.UpdateLatestTransaction(transactionrecord, transactionrecord);
                 }
             }
         }

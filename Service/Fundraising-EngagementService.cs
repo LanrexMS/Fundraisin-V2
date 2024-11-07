@@ -301,15 +301,17 @@ namespace Fundraising_Engagement.Plugins.Service
 
 
 
-        public void UpdateLatestTransaction(MsnFp_Transaction transaction)
+        public void UpdateLatestTransaction(MsnFp_Transaction transaction, MsnFp_Transaction transactionrecord)
         {
-            MsnFp_Transaction transactionrecord = (MsnFp_Transaction)RetrieveRecord(
-               MsnFp_Transaction.EntityLogicalName,
-               transaction.Id,
-               MsnFp_Transaction.Fields.SiFund_Donor,
-               MsnFp_Transaction.Fields.LRx_Event,
-               MsnFp_Transaction.Fields.LRx_EventTeam
-           );
+            if (transaction.Id != Guid.Empty) {
+               transactionrecord = (MsnFp_Transaction)RetrieveRecord(
+                   MsnFp_Transaction.EntityLogicalName,
+                   transaction.Id,
+                   MsnFp_Transaction.Fields.SiFund_Donor,
+                   MsnFp_Transaction.Fields.LRx_Event,
+                   MsnFp_Transaction.Fields.LRx_EventTeam
+               );
+            }
 
             ColumnSet filterFields = new ColumnSet(
              MsnFp_Transaction.Fields.MsnFp_BookDate);
@@ -984,17 +986,20 @@ namespace Fundraising_Engagement.Plugins.Service
 
         }
 
-        public void UpdateEventRegistrationRevenue(Guid registrationID)
+        public void UpdateEventRegistrationRevenue(Guid registrationID, LRx_Registrations registrationRecord)
         {
             // Retrieve the registration record based on the registrationID
-            LRx_Registrations registrationRecord = (LRx_Registrations)RetrieveRecord(
-                LRx_Registrations.EntityLogicalName,
-                registrationID,
-                LRx_Registrations.Fields.LRx_Event,
-                LRx_Registrations.Fields.LRx_EventTicket,
-                LRx_Registrations.Fields.LRx_EventTable,
-                LRx_Registrations.Fields.LRx_EventTeam
-            );
+            if (registrationID != Guid.Empty) {
+                registrationRecord = (LRx_Registrations)RetrieveRecord(
+                    LRx_Registrations.EntityLogicalName,
+                    registrationID,
+                    LRx_Registrations.Fields.LRx_Event,
+                    LRx_Registrations.Fields.LRx_EventTicket,
+                    LRx_Registrations.Fields.LRx_EventTable,
+                    LRx_Registrations.Fields.LRx_EventTeam
+                );
+            }
+            
             // Check if the registration record and event are valid
             if (registrationRecord != null)
             {
@@ -1233,16 +1238,17 @@ namespace Fundraising_Engagement.Plugins.Service
             }
         }
 
-        public void UpdateEventProductRevenue(Guid productID)
+        public void UpdateEventProductRevenue(Guid productID, LRx_Product productRecord)
         {
-
-            LRx_Product productRecord = (LRx_Product)RetrieveRecord(
-                LRx_Product.EntityLogicalName,
-                productID,
-                LRx_Product.Fields.LRx_Event,
-                LRx_Product.Fields.LRx_EventProduct
-            );
-
+            if (productID != Guid.Empty) {
+                productRecord = (LRx_Product)RetrieveRecord(
+                    LRx_Product.EntityLogicalName,
+                    productID,
+                    LRx_Product.Fields.LRx_Event,
+                    LRx_Product.Fields.LRx_EventProduct
+                );
+            }
+       
             if (productRecord != null &&
                 productRecord.LRx_Event != null &&
                 productRecord.LRx_Event.Id != Guid.Empty)
@@ -1399,14 +1405,16 @@ namespace Fundraising_Engagement.Plugins.Service
             }
         }
 
-        public void UpdateEventSponsorRevenue(Guid sponsortID)
+        public void UpdateEventSponsorRevenue(Guid sponsortID, LRx_Sponsorship sponsorRecord)
         {
-            LRx_Sponsorship sponsorRecord = (LRx_Sponsorship)RetrieveRecord(
-                LRx_Sponsorship.EntityLogicalName,
-                sponsortID,
-                LRx_Sponsorship.Fields.LRx_Event,
-                LRx_Sponsorship.Fields.LRx_EventSponsorship
-            );
+            if (sponsortID != Guid.Empty) {
+                sponsorRecord = (LRx_Sponsorship)RetrieveRecord(
+                    LRx_Sponsorship.EntityLogicalName,
+                    sponsortID,
+                    LRx_Sponsorship.Fields.LRx_Event,
+                    LRx_Sponsorship.Fields.LRx_EventSponsorship
+                );
+            }
 
             if (sponsorRecord != null &&
                 sponsorRecord.LRx_Event != null &&
@@ -1556,16 +1564,17 @@ namespace Fundraising_Engagement.Plugins.Service
             }
         }
 
-        public void UpdateEventTableRevenue(Guid tableID)
+        public void UpdateEventTableRevenue(Guid tableID, LRx_EventTable eventTableRecord)
         {
-
-            LRx_EventTable eventTableRecord = (LRx_EventTable)RetrieveRecord(
-                LRx_EventTable.EntityLogicalName,
-                tableID,
-                LRx_EventTable.Fields.LRx_Event,
-                LRx_EventTable.Fields.LRx_EventTableId
-            );
-
+            if (tableID != Guid.Empty) {
+                eventTableRecord = (LRx_EventTable)RetrieveRecord(
+                    LRx_EventTable.EntityLogicalName,
+                    tableID,
+                    LRx_EventTable.Fields.LRx_Event,
+                    LRx_EventTable.Fields.LRx_EventTableId
+                );
+            }
+            
             if (eventTableRecord != null &&
                 eventTableRecord.LRx_Event != null &&
                 eventTableRecord.LRx_Event.Id != Guid.Empty)
@@ -1723,13 +1732,16 @@ namespace Fundraising_Engagement.Plugins.Service
 
         }
 
-        public void UpdateFinancialSummary(Guid financialID) {
-            LRx_FinAnaCiaL financialRecord = (LRx_FinAnaCiaL)RetrieveRecord(
-                LRx_FinAnaCiaL.EntityLogicalName,
-                financialID,
-                LRx_FinAnaCiaL.Fields.LRx_OpportunityToFinancial,
-                LRx_FinAnaCiaL.Fields.LRx_AssetType
-            );
+        public void UpdateFinancialSummary(Guid financialID, LRx_FinAnaCiaL financialRecord) 
+        {
+            if (financialID != Guid.Empty) {
+                financialRecord = (LRx_FinAnaCiaL)RetrieveRecord(
+                    LRx_FinAnaCiaL.EntityLogicalName,
+                    financialID,
+                    LRx_FinAnaCiaL.Fields.LRx_OpportunityToFinancial,
+                    LRx_FinAnaCiaL.Fields.LRx_AssetType
+                );
+            }     
 
             if(financialRecord != null)
             {
@@ -1814,13 +1826,15 @@ namespace Fundraising_Engagement.Plugins.Service
             }
         }
 
-        public void ComputeDonorCommitmentPaid(Guid donorCommitmentId)
-        { 
-            MsnFp_DonorCommitment donorCommitmentRecord = (MsnFp_DonorCommitment)RetrieveRecord(
-                MsnFp_DonorCommitment.EntityLogicalName,
-                donorCommitmentId,
-                MsnFp_DonorCommitment.Fields.LRx_FundingAgreement
-            );
+        public void ComputeDonorCommitmentPaid(Guid donorCommitmentId, MsnFp_DonorCommitment donorCommitmentRecord)
+        {
+            if (donorCommitmentId != Guid.Empty) {
+                donorCommitmentRecord = (MsnFp_DonorCommitment)RetrieveRecord(
+                    MsnFp_DonorCommitment.EntityLogicalName,
+                    donorCommitmentId,
+                    MsnFp_DonorCommitment.Fields.LRx_FundingAgreement
+                );
+            }          
 
             if (donorCommitmentRecord != null &&
                 donorCommitmentRecord.LRx_FundingAgreement != null &&
@@ -1959,7 +1973,7 @@ namespace Fundraising_Engagement.Plugins.Service
                                 string applyToDonationsOrPledgesText = GetOptionSetText(LRx_PledgeMatch.EntityLogicalName, LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges, applyToDonationsOrPledgesValue);
 
                                 // Check if the text is "Donations"
-                                if (!string.Equals(applyToDonationsOrPledgesText.Trim(), "Donations", StringComparison.OrdinalIgnoreCase))
+                                if (!string.Equals(applyToDonationsOrPledgesText.Trim(), "Pledges", StringComparison.OrdinalIgnoreCase))
                                 {
                                     // Calculate the pledge amount based on percentage
                                     decimal totalAmount = (decimal)transactionRecord.MsnFp_Amount.Value;
@@ -1999,8 +2013,6 @@ namespace Fundraising_Engagement.Plugins.Service
             
             _service.Update(contact);
         }
-
-
 
         //-- START OF HELPER METHODS
         // Method to perform dynamic roll-up calculation for giving amounts

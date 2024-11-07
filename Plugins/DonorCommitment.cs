@@ -1,4 +1,5 @@
 ﻿using CrmEarlyBound;
+using DataverseModel;
 using Fundraising_Engagement.Plugins.Service;
 using Microsoft.Xrm.Sdk;
 using System;
@@ -28,18 +29,18 @@ namespace Fundraising_Engagement.Plugins.Plugins
                 {
                     var donorCommitmentId = targetEntity.Id;
 
-                    
+                    MsnFp_DonorCommitment donorCommitmentRecord = new MsnFp_DonorCommitment();
 
                     switch (context.MessageName)
                     {
                         case "Create":
-                            fundraisingService.ComputeDonorCommitmentPaid(donorCommitmentId);
+                            fundraisingService.ComputeDonorCommitmentPaid(donorCommitmentId, donorCommitmentRecord);
                             fundraisingService.CheckPledgeMatch(donorCommitmentId, "pledge");
                             fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);                 
                             break;
                         case "Update":
                             // Handle logic when lookup fields are updated (with previous value) 
-                            fundraisingService.ComputeDonorCommitmentPaid(donorCommitmentId);
+                            fundraisingService.ComputeDonorCommitmentPaid(donorCommitmentId, donorCommitmentRecord);
                             fundraisingService.CampaignPerformanceDonorCommitment(donorCommitmentId);
 
                             if (context.PreEntityImages != null && context.PreEntityImages.Contains("DonorCommitmentPreImage"))
@@ -105,6 +106,11 @@ namespace Fundraising_Engagement.Plugins.Plugins
                         fundraisingService.PledgesRollup(Campaign.EntityLogicalName, lRxCampaign.Id, MsnFp_DonorCommitment.Fields.LRx_Campaign);
                     }
 
+                    MsnFp_DonorCommitment donorCommitmentRecord = new MsnFp_DonorCommitment();
+
+                    donorCommitmentRecord.LRx_FundingAgreement = preImage.LRx_FundingAgreement;
+
+                    fundraisingService.ComputeDonorCommitmentPaid(Guid.Empty, donorCommitmentRecord);
 
                 }
             }

@@ -18,27 +18,49 @@ namespace Fundraising_Engagement.Plugins
             var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             var service = serviceFactory.CreateOrganizationService(context.UserId);
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+            var fundraisingService = new FundraisingService(service, context, tracingService);
 
-            
-           if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+            if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
             {    
                 var targetEntity = (Entity)context.InputParameters["Target"];
 
                 if (targetEntity.LogicalName == LRx_Product.EntityLogicalName)
                 {
                     var productID = targetEntity.Id;
-                    var fundraisingService = new FundraisingService(service, context, tracingService);
-                    
+
+                    LRx_Product productRecord = new LRx_Product();
+
                     switch (context.MessageName)
                     {
                         case "Create":
-                            fundraisingService.UpdateEventProductRevenue(productID);
+                            fundraisingService.UpdateEventProductRevenue(productID, productRecord);
                             break;
                         case "Update":
-                            fundraisingService.UpdateEventProductRevenue(productID);
+                            fundraisingService.UpdateEventProductRevenue(productID, productRecord);
                             break;
                         default:
                             break;
+                    }
+                }
+            }
+            else if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is EntityReference && context.MessageName == "Delete")
+            {
+                // Handle logic on transaction deletion
+                var preImageEntity = context.PreEntityImages["ProductPreImage"];
+
+                if (context.PreEntityImages != null && context.PreEntityImages.Contains("ProductPreImage"))
+                {
+                    var preImage = preImageEntity.ToEntity<LRx_Product>();
+
+                    if (preImage != null)
+                    {
+                        // Initialize a new instance of the registration record
+                        LRx_Product productRecord = new LRx_Product();
+
+                        productRecord.LRx_Event = preImage.LRx_Event;
+                        productRecord.LRx_EventProduct = preImage.LRx_EventProduct;
+
+                        fundraisingService.UpdateEventProductRevenue(Guid.Empty, productRecord);
                     }
                 }
             }
