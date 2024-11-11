@@ -29,6 +29,17 @@ namespace DataverseModel
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="DataverseModel.Account"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<DataverseModel.Account> AccountSet
+		{
+			get
+			{
+				return this.CreateQuery<DataverseModel.Account>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="DataverseModel.Contact"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<DataverseModel.Contact> ContactSet

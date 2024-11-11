@@ -1,4 +1,5 @@
-﻿using FNQHF_Fundraising_Engagement.Service;
+﻿using DataverseModel;
+using FNQHF_Fundraising_Engagement.Service;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,15 @@ namespace FNQHF_Fundraising_Engagement.Plugins
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
             var fundraisingService = new FundraisingEngagementService(service, context, tracingService);
 
-            fundraisingService.CalculateTotalTransactionForAllContacts();
+            //fundraisingService.CalculateTotalTransactionForAllContacts();
+            if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+            {
+                var targetEntity = (Entity)context.InputParameters["Target"];
+
+                MsnFp_Transaction transaction = targetEntity.ToEntity<MsnFp_Transaction>();
+
+                fundraisingService.CalculateTotalTransaction(transaction);
+            }
         }
     }
 }

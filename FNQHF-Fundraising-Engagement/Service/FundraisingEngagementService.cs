@@ -22,53 +22,16 @@ namespace FNQHF_Fundraising_Engagement.Service
             _tracingService = tracingService;
         }
 
-        public void CalculateTotalTransactionForAllContacts()
-        {
-            // Query to retrieve all contacts in batches (you can adjust the page size based on your needs)
-            QueryExpression queryContacts = new QueryExpression(Contact.EntityLogicalName)
-            {
-                ColumnSet = new ColumnSet(Contact.Fields.ContactId),  // Only fetch the ContactId field to minimize data load
-                PageInfo = new PagingInfo
-                {
-                    PageNumber = 1,
-                    Count = 1000 // Set the batch size for contacts (1000 records per page)
-                }
-            };
-
-            EntityCollection contactRecords;
-            do
-            {
-                // Retrieve a batch of contacts
-                contactRecords = _service.RetrieveMultiple(queryContacts);
-
-                // Loop through each contact and call CalculateTotalTransaction for each
-                foreach (var contact in contactRecords.Entities)
-                {
-                    // Get the contact ID
-                    var contactID = contact.Id;
-
-                    // Call the existing function to calculate total transaction and donation count
-                    int donationCount;
-                    CalculateTotalTransaction(contactID, out donationCount);
-
-                    // You can log or do additional processing here as needed, e.g., save results back to contact record
-                    Console.WriteLine($"Contact ID: {contactID}, Donations: {donationCount}");
-                }
-
-                // Check if there are more contacts to retrieve
-                if (contactRecords.MoreRecords)
-                {
-                    queryContacts.PageInfo.PageNumber++;
-                    queryContacts.PageInfo.PagingCookie = contactRecords.PagingCookie;
-                }
-
-            } while (contactRecords.MoreRecords);
-        }
-
         //-- START OF HELPER METHODS
         // Method to perform dynamic roll-up calculation for giving amounts
-        public void CalculateTotalTransaction(Guid contactID, out int donationCount)
+        public void CalculateTotalTransaction(MsnFp_Transaction transaction)
         {
+            var transactionrecord = (MsnFp_Transaction)RetrieveRecord(
+                MsnFp_Transaction.EntityLogicalName,
+                transaction.Id,
+                MsnFp_Transaction.Fields.MsnFp_CustomerId
+            );
+         
             // Create the query to retrieve all child records related to the parent eventID
             // Query to retrieve donation transactions for the specific event
             QueryExpression query = new QueryExpression(MsnFp_Transaction.EntityLogicalName)
@@ -78,21 +41,22 @@ namespace FNQHF_Fundraising_Engagement.Service
                 {
                     Conditions =
                     {
-                        new ConditionExpression(MsnFp_Transaction.Fields.MsnFp_CustomerId, ConditionOperator.Equal, contactID),
+                        new ConditionExpression(MsnFp_Transaction.Fields.MsnFp_CustomerId, ConditionOperator.Equal, transactionrecord.MsnFp_CustomerId.Id),
                         new ConditionExpression(MsnFp_Transaction.Fields.StatusCode, ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed),
-                        new ConditionExpression(MsnFp_Transaction.Fields.MsnFp_TypeCode, ConditionOperator.Equal, (int)MsnFp_Transaction_MsnFp_TypeCode.Donation)
+                        new ConditionExpression(MsnFp_Transaction.Fields.MsnFp_TypeCode, ConditionOperator.Equal, (int)MsnFp_Transaction_MsnFp_TypeCode.Donation),
+                        new ConditionExpression(MsnFp_Transaction.Fields.FNQHF_ImportFilename, ConditionOperator.NotLike, "%RallyUp%")
                     }
                 },
                 PageInfo = new PagingInfo
                 {
                     PageNumber = 1,
-                    Count = 1000 // Set page size (1,000 records per page)
+                    Count = 5000 // Set page size (1,000 records per page)
                 }
             };
 
             // Variables to track total donation amount and count
             decimal totalTransactionAmount= 0m;
-            donationCount = 0;
+            int donationCount = 0;
             EntityCollection donationRecords;
 
             do
@@ -129,11 +93,43 @@ namespace FNQHF_Fundraising_Engagement.Service
                 }
             } while (donationRecords.MoreRecords);
 
-            var parentContact = new Contact
+            if (transactionrecord.MsnFp_CustomerId.LogicalName == Contact.EntityLogicalName) {
+                var parentContact = new Contact
+                {
+                    Id = transactionrecord.MsnFp_CustomerId.Id,
+                    FNQHF_TotalTransactionAmount = new Money(totalTransactionAmount)
+                };
+
+                // Update the contact record in CRM
+                _service.Update(parentContact); // Perform the update to save changes
+            }
+            else if (transactionrecord.MsnFp_CustomerId.LogicalName == Account.EntityLogicalName) {
+                var parentAccount = new Account
+                {
+                    Id = transactionrecord.MsnFp_CustomerId.Id,
+                    FNQHF_TotalTransactionAmount = new Money(totalTransactionAmount)
+                };
+
+                // Update the contact record in CRM
+                _service.Update(parentAccount); // Perform the update to save changes
+            }
+        }
+
+        public Entity RetrieveRecord(string entityName, Guid entityId, params string[] fieldsToRetrieve)
+        {
+
+            ColumnSet columns = new ColumnSet(fieldsToRetrieve);
+
+            try
             {
-                Id = contactID,
-                FNQHF_TotalTransactionAmount = new Money(totalTransactionAmount)
-            };
+                Entity record = _service.Retrieve(entityName, entityId, columns);
+                return record;
+            }
+            catch (Exception ex)
+            {
+
+                throw new InvalidOperationException($"An error occurred while retrieving the record: {ex.Message}", ex);
+            }
         }
     }
 }

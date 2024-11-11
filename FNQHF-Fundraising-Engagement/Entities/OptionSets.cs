@@ -13,6 +13,607 @@ namespace DataverseModel
 	
 	
 	/// <summary>
+	/// Drop-down list for selecting the category of the account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_AccountCategoryCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Preferred Customer", 0)]
+		PreferredCustomer = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Standard", 1)]
+		Standard = 2,
+	}
+	
+	/// <summary>
+	/// Drop-down list for classifying an account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_AccountClassificationCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default Value", 0)]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Drop-down list for selecting account ratings.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_AccountRatingCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default Value", 0)]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Type of address for address 1, such as billing, shipping, or primary address.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_Address1_AddressTypeCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Bill To", 0)]
+		BillTo = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 3)]
+		Other = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Primary", 2)]
+		Primary = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Ship To", 1)]
+		ShipTo = 2,
+	}
+	
+	/// <summary>
+	/// Freight terms for address 1.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_Address1_FreightTermsCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("FOB", 0)]
+		Fob = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No Charge", 1)]
+		NoCharge = 2,
+	}
+	
+	/// <summary>
+	/// Method of shipment for address 1.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_Address1_ShippingMethodCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Airborne", 0)]
+		Airborne = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("DHL", 1)]
+		Dhl = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("FedEx", 2)]
+		Fedex = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Full Load", 5)]
+		FullLoad = 6,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Postal Mail", 4)]
+		PostalMail = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("UPS", 3)]
+		Ups = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Will Call", 6)]
+		WillCall = 7,
+	}
+	
+	/// <summary>
+	/// Type of address for address 2, such as billing, shipping, or primary address.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_Address2_AddressTypeCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default Value", 0)]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Freight terms for address 2.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_Address2_FreightTermsCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default Value", 0)]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Method of shipment for address 2.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_Address2_ShippingMethodCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default Value", 0)]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Type of business associated with the account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_BusinessTypeCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default Value", 0)]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Size of the account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_CustomerSizeCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default Value", 0)]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Type of the account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_CustomerTypeCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Competitor", 0)]
+		Competitor = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Consultant", 1)]
+		Consultant = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Customer", 2)]
+		Customer = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Influencer", 5)]
+		Influencer = 6,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Investor", 3)]
+		Investor = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 11)]
+		Other = 12,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Partner", 4)]
+		Partner = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Press", 6)]
+		Press = 7,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Prospect", 7)]
+		Prospect = 8,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Reseller", 8)]
+		Reseller = 9,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Supplier", 9)]
+		Supplier = 10,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Vendor", 10)]
+		Vendor = 11,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_FNQHF_CompanyConstituentType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Corporate Volunteer", 0)]
+		CorporateVolunteer = 598750000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Donor", 1)]
+		Donor = 598750001,
+	}
+	
+	/// <summary>
+	/// Type of industry with which the account is associated.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_IndustryCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Accounting", 0)]
+		Accounting = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Agriculture and Non-petrol Natural Resource Extraction", 1)]
+		AgricultureAndNonPetrolNaturalResourceExtraction = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Broadcasting Printing and Publishing", 2)]
+		BroadcastingPrintingAndPublishing = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Brokers", 3)]
+		Brokers = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Building Supply Retail", 4)]
+		BuildingSupplyRetail = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Business Services", 5)]
+		BusinessServices = 6,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Consulting", 6)]
+		Consulting = 7,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Consumer Services", 7)]
+		ConsumerServices = 8,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Design, Direction and Creative Management", 8)]
+		DesignDirectionAndCreativeManagement = 9,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Distributors, Dispatchers and Processors", 9)]
+		DistributorsDispatchersAndProcessors = 10,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Doctor\'s Offices and Clinics", 10)]
+		DoctorSOfficesAndClinics = 11,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Durable Manufacturing", 11)]
+		DurableManufacturing = 12,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Eating and Drinking Places", 12)]
+		EatingAndDrinkingPlaces = 13,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Entertainment Retail", 13)]
+		EntertainmentRetail = 14,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Equipment Rental and Leasing", 14)]
+		EquipmentRentalAndLeasing = 15,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Financial", 15)]
+		Financial = 16,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Food and Tobacco Processing", 16)]
+		FoodAndTobaccoProcessing = 17,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Inbound Capital Intensive Processing", 17)]
+		InboundCapitalIntensiveProcessing = 18,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Inbound Repair and Services", 18)]
+		InboundRepairAndServices = 19,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Insurance", 19)]
+		Insurance = 20,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Legal Services", 20)]
+		LegalServices = 21,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Non-Durable Merchandise Retail", 21)]
+		NonDurableMerchandiseRetail = 22,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Outbound Consumer Service", 22)]
+		OutboundConsumerService = 23,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Petrochemical Extraction and Distribution", 23)]
+		PetrochemicalExtractionAndDistribution = 24,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Service Retail", 24)]
+		ServiceRetail = 25,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("SIG Affiliations", 25)]
+		SigAffiliations = 26,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Social Services", 26)]
+		SocialServices = 27,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Special Outbound Trade Contractors", 27)]
+		SpecialOutboundTradeContractors = 28,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Specialty Realty", 28)]
+		SpecialtyRealty = 29,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Transportation", 29)]
+		Transportation = 30,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Utility Creation and Distribution", 30)]
+		UtilityCreationAndDistribution = 31,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Vehicle Retail", 31)]
+		VehicleRetail = 32,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Wholesale", 32)]
+		Wholesale = 33,
+	}
+	
+	/// <summary>
+	/// Manually populated field Indicating the lead source for acquiring this Account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_MsnFp_AcquisitionSource
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("CommChannel", 0)]
+		Commchannel = 100000000,
+	}
+	
+	/// <summary>
+	/// ubcategory of primary Constituency type rolls up to this field.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_MsnFp_PrimaryConstituentType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Corporate Volunteer", 0)]
+		CorporateVolunteer = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Donor", 1)]
+		Donor = 598750001,
+	}
+	
+	/// <summary>
+	/// Type of company ownership, such as public or private.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_OwnershipCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 3)]
+		Other = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Private", 1)]
+		Private = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Public", 0)]
+		Public = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Subsidiary", 2)]
+		Subsidiary = 3,
+	}
+	
+	/// <summary>
+	/// Payment terms for the account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_PaymentTermsCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("2% 10, Net 30", 1)]
+		_210Net30 = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Net 30", 0)]
+		Net30 = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Net 45", 2)]
+		Net45 = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Net 60", 3)]
+		Net60 = 4,
+	}
+	
+	/// <summary>
+	/// Day of the week that the account prefers for scheduling service activities.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_PreferredAppointmentDayCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Friday", 5)]
+		Friday = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Monday", 1)]
+		Monday = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Saturday", 6)]
+		Saturday = 6,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Sunday", 0)]
+		Sunday = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Thursday", 4)]
+		Thursday = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Tuesday", 2)]
+		Tuesday = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Wednesday", 3)]
+		Wednesday = 3,
+	}
+	
+	/// <summary>
+	/// Time of day that the account prefers for scheduling service activities.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_PreferredAppointmentTimeCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Afternoon", 1)]
+		Afternoon = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Evening", 2)]
+		Evening = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Morning", 0)]
+		Morning = 1,
+	}
+	
+	/// <summary>
+	/// Preferred contact method for the account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_PreferredContactMethodCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Any", 0)]
+		Any = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Email", 1)]
+		Email = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Fax", 3)]
+		Fax = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Mail", 4)]
+		Mail = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Phone", 2)]
+		Phone = 3,
+	}
+	
+	/// <summary>
+	/// Method of shipment for the account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_ShippingMethodCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default Value", 0)]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Status of the account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_StateCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Active", 0)]
+		Active = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Inactive", 1)]
+		Inactive = 1,
+	}
+	
+	/// <summary>
+	/// Reason for the status of the account.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Active", 0)]
+		Active = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Inactive", 1)]
+		Inactive = 2,
+	}
+	
+	/// <summary>
+	/// Territory to which the account belongs.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_TerritoryCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default Value", 0)]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
 	/// Account role of the contact.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -310,6 +911,19 @@ namespace DataverseModel
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Widowed", 3)]
 		Widowed = 4,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_FNQHF_AnyDietaryRequirement
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No", 1)]
+		No = 598750001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Yes", 0)]
+		Yes = 598750000,
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -889,6 +1503,19 @@ namespace DataverseModel
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum FNQHF_Availability
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Only Events (e.g. Gift Wrap, Events)", 0)]
+		OnlyEventsEGGiftWrapEvents = 598750000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Throughout The Week Volunteer in Hospitals (e.g. Patient Service Trolley)", 1)]
+		ThroughoutTheWeekVolunteerInHospitalsEGPatientServiceTrolley = 598750001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
 	public enum FNQHF_AvailabilityTime
 	{
 		
@@ -910,15 +1537,19 @@ namespace DataverseModel
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Events", 1, "#0000ff")]
+		[OptionSetMetadataAttribute("Craft", 0)]
+		Craft = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Events", 2, "#0000ff")]
 		Events = 598750001,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Gift Wrap", 0, "#0000ff")]
+		[OptionSetMetadataAttribute("Gift Wrap", 1, "#0000ff")]
 		GiftWrap = 598750000,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Raffle", 2, "#0000ff")]
+		[OptionSetMetadataAttribute("Raffle", 3, "#0000ff")]
 		Raffle = 598750002,
 	}
 	
@@ -1032,43 +1663,6 @@ namespace DataverseModel
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Other Website", 2)]
 		OtherWebsite = 598750002,
-	}
-	
-	[System.Runtime.Serialization.DataContractAttribute()]
-	public enum FNQHF_PrimaryConstituentType
-	{
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Advocate", 2)]
-		Advocate = 598750002,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Beneficiary", 6)]
-		Beneficiary = 598750006,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Board Member", 3)]
-		BoardMember = 598750003,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Car Park Contact", 7)]
-		CarParkContact = 598750007,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Donor", 0)]
-		Donor = 598750000,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Member", 4)]
-		Member = 598750004,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Partner", 5)]
-		Partner = 598750005,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Volunteer", 1)]
-		Volunteer = 598750001,
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -1354,6 +1948,19 @@ namespace DataverseModel
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum MSeVTmGt_NoOrYes
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No", 0, "#0000ff")]
+		No = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Yes", 1, "#0000ff")]
+		Yes = 100000002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
 	public enum MSeVTmGt_YesOrNo
 	{
 		
@@ -1364,19 +1971,6 @@ namespace DataverseModel
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Yes", 0, "#0000ff")]
 		Yes = 100000001,
-	}
-	
-	[System.Runtime.Serialization.DataContractAttribute()]
-	public enum MsFt_DataState
-	{
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Default", 0)]
-		Default = 0,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Retain", 1)]
-		Retain = 1,
 	}
 	
 	/// <summary>
@@ -1405,6 +1999,19 @@ namespace DataverseModel
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("(5) Profiling", 4, "#0000ff")]
 		_5Profiling = 587030005,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum MsnFp_AccountType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Household", 0)]
+		Household = 844060000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Organisation", 1)]
+		Organisation = 844060001,
 	}
 	
 	/// <summary>
@@ -1476,39 +2083,92 @@ namespace DataverseModel
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum MsnFp_ConstituentTypeOption
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Advocate", 2)]
+		Advocate = 598750002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Beneficiary", 6)]
+		Beneficiary = 598750006,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Board Member", 3)]
+		BoardMember = 598750003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Car Park Contact", 7)]
+		CarParkContact = 598750007,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("CHHHS Staff", 8)]
+		ChhhsStaff = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Donor", 1)]
+		Donor = 598750000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Grant Recipients", 9)]
+		GrantRecipients = 100000002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Member", 4)]
+		Member = 598750004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Partner", 5)]
+		Partner = 598750005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Volunteer", 0)]
+		Volunteer = 598750001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
 	public enum MsnFp_ContactTitle
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Dr.", 0)]
+		[OptionSetMetadataAttribute("Dr.", 2)]
 		Dr = 844060003,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Master", 1, "#0000ff")]
-		Master = 103110001,
+		[OptionSetMetadataAttribute("Master", 3, "#0000ff")]
+		Master_103110001 = 103110001,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Miss.", 2, "#0000ff")]
-		Miss = 103110000,
+		[OptionSetMetadataAttribute("Master", 0)]
+		Master_598750002 = 598750002,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Mr.", 3)]
+		[OptionSetMetadataAttribute("Miss.", 4, "#0000ff")]
+		Miss_103110000 = 103110000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Miss", 1)]
+		Miss_598750001 = 598750001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Mr.", 5)]
 		Mr = 844060000,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Mrs.", 4)]
+		[OptionSetMetadataAttribute("Mrs.", 6)]
 		Mrs = 844060002,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Ms.", 5)]
+		[OptionSetMetadataAttribute("Ms.", 7)]
 		Ms = 844060001,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Prof.", 6)]
+		[OptionSetMetadataAttribute("Prof.", 8)]
 		Prof = 844060004,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Rev.", 7)]
+		[OptionSetMetadataAttribute("Rev.", 9)]
 		Rev = 844060005,
 	}
 	
@@ -1892,11 +2552,11 @@ namespace DataverseModel
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Auction", 5, "#1032de")]
-		Auction = 844060004,
+		[OptionSetMetadataAttribute("Auction Sales", 2, "#1032de")]
+		AuctionSales = 844060004,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Donation", 2, "#0000ff")]
+		[OptionSetMetadataAttribute("Donation", 0, "#0000ff")]
 		Donation = 844060000,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1904,27 +2564,27 @@ namespace DataverseModel
 		EventRegistration = 844060003,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Grants", 8)]
+		[OptionSetMetadataAttribute("Grants", 6)]
 		Grants = 598750001,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Membership", 0, "#0000ff")]
+		[OptionSetMetadataAttribute("Membership", 8, "#0000ff")]
 		Membership = 844060002,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Product Sales", 7, "#120fd1")]
+		[OptionSetMetadataAttribute("Product Sales", 3, "#120fd1")]
 		ProductSales = 844060006,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Raffle Sales", 6, "#1720d1")]
+		[OptionSetMetadataAttribute("Raffle Sales", 1, "#1720d1")]
 		RaffleSales = 844060005,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Soft Credit", 3, "#0000ff")]
+		[OptionSetMetadataAttribute("Soft Credit", 7, "#0000ff")]
 		SoftCredit = 844060001,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Sponsorship", 1, "#0000ff")]
+		[OptionSetMetadataAttribute("Sponsorship", 5, "#0000ff")]
 		Sponsorship = 844060007,
 	}
 	

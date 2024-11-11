@@ -11,6 +11,7012 @@
 namespace DataverseModel
 {
 	
+	
+	/// <summary>
+	/// Business that represents a customer or potential customer. The company that is billed in business transactions.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("account")]
+	public partial class Account : Microsoft.Xrm.Sdk.Entity
+	{
+		
+		/// <summary>
+		/// Available fields, a the time of codegen, for the account entity
+		/// </summary>
+		public partial class Fields
+		{
+			public const string ReferencingAccount_Master_Account = "account_master_account";
+			public const string ReferencingAccount_Parent_Account = "account_parent_account";
+			public const string Account_Primary_Contact = "account_primary_contact";
+			public const string AccountCategoryCode = "accountcategorycode";
+			public const string AccountCategoryCodename = "accountcategorycodename";
+			public const string AccountClassificationCode = "accountclassificationcode";
+			public const string AccountClassificationCodename = "accountclassificationcodename";
+			public const string AccountId = "accountid";
+			public const string Id = "accountid";
+			public const string AccountNumber = "accountnumber";
+			public const string AccountRatingCode = "accountratingcode";
+			public const string AccountRatingCodename = "accountratingcodename";
+			public const string Address1_AddressId = "address1_addressid";
+			public const string Address1_AddressTypeCode = "address1_addresstypecode";
+			public const string Address1_AddressTypeCodename = "address1_addresstypecodename";
+			public const string Address1_City = "address1_city";
+			public const string Address1_Composite = "address1_composite";
+			public const string Address1_Country = "address1_country";
+			public const string Address1_County = "address1_county";
+			public const string Address1_Fax = "address1_fax";
+			public const string Address1_FreightTermsCode = "address1_freighttermscode";
+			public const string Address1_FreightTermsCodename = "address1_freighttermscodename";
+			public const string Address1_Latitude = "address1_latitude";
+			public const string Address1_Line1 = "address1_line1";
+			public const string Address1_Line2 = "address1_line2";
+			public const string Address1_Line3 = "address1_line3";
+			public const string Address1_Longitude = "address1_longitude";
+			public const string Address1_Name = "address1_name";
+			public const string Address1_PostalCode = "address1_postalcode";
+			public const string Address1_PostofficeBox = "address1_postofficebox";
+			public const string Address1_PrimaryContactName = "address1_primarycontactname";
+			public const string Address1_ShippingMethodCode = "address1_shippingmethodcode";
+			public const string Address1_ShippingMethodCodename = "address1_shippingmethodcodename";
+			public const string Address1_StateOrProvince = "address1_stateorprovince";
+			public const string Address1_Telephone1 = "address1_telephone1";
+			public const string Address1_Telephone2 = "address1_telephone2";
+			public const string Address1_Telephone3 = "address1_telephone3";
+			public const string Address1_UpsZone = "address1_upszone";
+			public const string Address1_UtcOffset = "address1_utcoffset";
+			public const string Address2_AddressId = "address2_addressid";
+			public const string Address2_AddressTypeCode = "address2_addresstypecode";
+			public const string Address2_AddressTypeCodename = "address2_addresstypecodename";
+			public const string Address2_City = "address2_city";
+			public const string Address2_Composite = "address2_composite";
+			public const string Address2_Country = "address2_country";
+			public const string Address2_County = "address2_county";
+			public const string Address2_Fax = "address2_fax";
+			public const string Address2_FreightTermsCode = "address2_freighttermscode";
+			public const string Address2_FreightTermsCodename = "address2_freighttermscodename";
+			public const string Address2_Latitude = "address2_latitude";
+			public const string Address2_Line1 = "address2_line1";
+			public const string Address2_Line2 = "address2_line2";
+			public const string Address2_Line3 = "address2_line3";
+			public const string Address2_Longitude = "address2_longitude";
+			public const string Address2_Name = "address2_name";
+			public const string Address2_PostalCode = "address2_postalcode";
+			public const string Address2_PostofficeBox = "address2_postofficebox";
+			public const string Address2_PrimaryContactName = "address2_primarycontactname";
+			public const string Address2_ShippingMethodCode = "address2_shippingmethodcode";
+			public const string Address2_ShippingMethodCodename = "address2_shippingmethodcodename";
+			public const string Address2_StateOrProvince = "address2_stateorprovince";
+			public const string Address2_Telephone1 = "address2_telephone1";
+			public const string Address2_Telephone2 = "address2_telephone2";
+			public const string Address2_Telephone3 = "address2_telephone3";
+			public const string Address2_UpsZone = "address2_upszone";
+			public const string Address2_UtcOffset = "address2_utcoffset";
+			public const string AdX_CreatedByIpAddress = "adx_createdbyipaddress";
+			public const string AdX_CreatedByUsername = "adx_createdbyusername";
+			public const string AdX_ModifiedByIpAddress = "adx_modifiedbyipaddress";
+			public const string AdX_ModifiedByUsername = "adx_modifiedbyusername";
+			public const string Aging30 = "aging30";
+			public const string Aging30_Base = "aging30_base";
+			public const string Aging60 = "aging60";
+			public const string Aging60_Base = "aging60_base";
+			public const string Aging90 = "aging90";
+			public const string Aging90_Base = "aging90_base";
+			public const string BusinessTypeCode = "businesstypecode";
+			public const string BusinessTypeCodename = "businesstypecodename";
+			public const string Contact_Customer_Accounts = "Contact_Customer_Accounts";
+			public const string CreatedBy = "createdby";
+			public const string CreatedByExternalParty = "createdbyexternalparty";
+			public const string CreatedByExternalPartyName = "createdbyexternalpartyname";
+			public const string CreatedByExternalPartyYomiName = "createdbyexternalpartyyominame";
+			public const string CreatedByName = "createdbyname";
+			public const string CreatedByYomiName = "createdbyyominame";
+			public const string CreatedOn = "createdon";
+			public const string CreatedOnBehalfBy = "createdonbehalfby";
+			public const string CreatedOnBehalfByName = "createdonbehalfbyname";
+			public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
+			public const string CreditLimit = "creditlimit";
+			public const string CreditLimit_Base = "creditlimit_base";
+			public const string CreditOnHold = "creditonhold";
+			public const string CreditOnHoldName = "creditonholdname";
+			public const string CustomerSizeCode = "customersizecode";
+			public const string CustomerSizeCodename = "customersizecodename";
+			public const string CustomerTypeCode = "customertypecode";
+			public const string CustomerTypeCodename = "customertypecodename";
+			public const string DefaultPriceLevelId = "defaultpricelevelid";
+			public const string DefaultPriceLevelIdName = "defaultpricelevelidname";
+			public const string Description = "description";
+			public const string DoNotBulkEmail = "donotbulkemail";
+			public const string DoNotBulkEmailName = "donotbulkemailname";
+			public const string DoNotBulkPostalMail = "donotbulkpostalmail";
+			public const string DoNotBulkPostalMailName = "donotbulkpostalmailname";
+			public const string DoNotEmail = "donotemail";
+			public const string DoNotEmailName = "donotemailname";
+			public const string DoNotFax = "donotfax";
+			public const string DoNotFaxName = "donotfaxname";
+			public const string DoNotPhone = "donotphone";
+			public const string DoNotPhoneName = "donotphonename";
+			public const string DoNotPostalMail = "donotpostalmail";
+			public const string DoNotPostalMailName = "donotpostalmailname";
+			public const string DoNotSendMarketingMaterialName = "donotsendmarketingmaterialname";
+			public const string DoNotSendMm = "donotsendmm";
+			public const string EmailAddress1 = "emailaddress1";
+			public const string EmailAddress2 = "emailaddress2";
+			public const string EmailAddress3 = "emailaddress3";
+			public const string EntityImage = "entityimage";
+			public const string EntityImage_Timestamp = "entityimage_timestamp";
+			public const string EntityImage_Url = "entityimage_url";
+			public const string EntityImageId = "entityimageid";
+			public const string ExchangerAte = "exchangerate";
+			public const string Fax = "fax";
+			public const string FNQHF_Availability = "fnqhf_availability";
+			public const string FNQHF_AvailabilityName = "fnqhf_availabilityname";
+			public const string FNQHF_CompanyConstituentType = "fnqhf_companyconstituenttype";
+			public const string FNQHF_CompanyConstituentTypeName = "fnqhf_companyconstituenttypename";
+			public const string FNQHF_DMsAccountId = "fnqhf_dmsaccountid";
+			public const string FNQHF_DMsParentAccountId = "fnqhf_dmsparentaccountid";
+			public const string FNQHF_DonationAmount = "fnqhf_donationamount";
+			public const string FNQHF_DonationAmount_Base = "fnqhf_donationamount_base";
+			public const string FNQHF_DpiD = "fnqhf_dpid";
+			public const string FNQHF_DpiD2 = "fnqhf_dpid2";
+			public const string FNQHF_EmergencyContact = "fnqhf_emergencycontact";
+			public const string FNQHF_EmergencyContactMobile = "fnqhf_emergencycontactmobile";
+			public const string FNQHF_EmergencyContactPhone = "fnqhf_emergencycontactphone";
+			public const string FNQHF_EmergencyContactPosition = "fnqhf_emergencycontactposition";
+			public const string FNQHF_ImportFilename = "fnqhf_importfilename";
+			public const string FNQHF_JoinedDate = "fnqhf_joineddate";
+			public const string FNQHF_LastDonationAmount = "fnqhf_lastdonationamount";
+			public const string FNQHF_LastDonationAmount_Base = "fnqhf_lastdonationamount_base";
+			public const string FNQHF_TotalContainerDonationAmount = "fnqhf_totalcontainerdonationamount";
+			public const string FNQHF_TotalContainerDonationAmount_Base = "fnqhf_totalcontainerdonationamount_base";
+			public const string FNQHF_TotalContainerDonationAmount_Date = "fnqhf_totalcontainerdonationamount_date";
+			public const string FNQHF_TotalContainerDonationAmount_State = "fnqhf_totalcontainerdonationamount_state";
+			public const string FNQHF_TotalDonationAmount = "fnqhf_totaldonationamount";
+			public const string FNQHF_TotalDonationAmount_Base = "fnqhf_totaldonationamount_base";
+			public const string FNQHF_TotalTransactionAmount = "fnqhf_totaltransactionamount";
+			public const string FNQHF_TotalTransactionAmount_Base = "fnqhf_totaltransactionamount_base";
+			public const string FNQHF_TypeOfDonor = "fnqhf_typeofdonor";
+			public const string FNQHF_TypeOfDonorName = "fnqhf_typeofdonorname";
+			public const string FollowEmail = "followemail";
+			public const string FollowEmailName = "followemailname";
+			public const string FtpSiteUrl = "ftpsiteurl";
+			public const string ImportSequenceNumber = "importsequencenumber";
+			public const string IndustryCode = "industrycode";
+			public const string IndustryCodename = "industrycodename";
+			public const string IsPrivateName = "isprivatename";
+			public const string LastOnHoldTime = "lastonholdtime";
+			public const string LastUsedInCampaign = "lastusedincampaign";
+			public const string MarketCap = "marketcap";
+			public const string MarketCap_Base = "marketcap_base";
+			public const string MarketingOnly = "marketingonly";
+			public const string MarketingOnlyName = "marketingonlyname";
+			public const string MasterAccountIdName = "masteraccountidname";
+			public const string MasterAccountIdYomiName = "masteraccountidyominame";
+			public const string MasterId = "masterid";
+			public const string Merged = "merged";
+			public const string MergedName = "mergedname";
+			public const string ModifiedBy = "modifiedby";
+			public const string ModifiedByExternalParty = "modifiedbyexternalparty";
+			public const string ModifiedByExternalPartyName = "modifiedbyexternalpartyname";
+			public const string ModifiedByExternalPartyYomiName = "modifiedbyexternalpartyyominame";
+			public const string ModifiedByName = "modifiedbyname";
+			public const string ModifiedByYomiName = "modifiedbyyominame";
+			public const string ModifiedOn = "modifiedon";
+			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
+			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
+			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
+			public const string ReferencingMsA_Account_ManagingPartner = "msa_account_managingpartner";
+			public const string MSa_Contact_ManagingPartner = "MSa_Contact_ManagingPartner";
+			public const string MSa_ManagingPartnerId = "msa_managingpartnerid";
+			public const string MsA_ManagingPartnerIdName = "msa_managingpartneridname";
+			public const string MsA_ManagingPartnerIdYomiName = "msa_managingpartneridyominame";
+			public const string Msdyn_AccountKPiId = "msdyn_accountkpiid";
+			public const string Msdyn_AccountKPiIdName = "msdyn_accountkpiidname";
+			public const string Msdyn_GdPrOptOut = "msdyn_gdproptout";
+			public const string Msdyn_GdPrOptOutName = "msdyn_gdproptoutname";
+			public const string Msdyn_PrimaryTimeZone = "msdyn_primarytimezone";
+			public const string Msdyn_SalesAccelerationInsightId = "msdyn_salesaccelerationinsightid";
+			public const string Msdyn_SalesAccelerationInsightIdName = "msdyn_salesaccelerationinsightidname";
+			public const string Msdyn_SegmentId = "msdyn_segmentid";
+			public const string Msdyn_SegmentIdName = "msdyn_segmentidname";
+			public const string MsdynCrm_Insights_Placeholder = "msdyncrm_insights_placeholder";
+			public const string MSeVTmGt_HotelGroup = "msevtmgt_hotelgroup";
+			public const string MSeVTmGt_HotelGroupName = "msevtmgt_hotelgroupname";
+			public const string MSeVTmGt_RentalCarProvider = "msevtmgt_rentalcarprovider";
+			public const string MSeVTmGt_RentalCarProviderName = "msevtmgt_rentalcarprovidername";
+			public const string ReferencingMsIAti_Account_Account_ReportingOrganization = "msiati_account_account_reportingorganization";
+			public const string MsIaTi_Account_MsnFp_Transaction_ProviderOrganization = "MsIaTi_Account_MsnFp_Transaction_ProviderOrganization";
+			public const string MsIaTi_Account_MsnFp_Transaction_RecipientOrganization = "MsIaTi_Account_MsnFp_Transaction_RecipientOrganization";
+			public const string MsIaTi_DefaultCurrencyId = "msiati_defaultcurrencyid";
+			public const string MsIaTi_DefaultCurrencyIdName = "msiati_defaultcurrencyidname";
+			public const string MsIaTi_DefaultLanguageId = "msiati_defaultlanguageid";
+			public const string MsIaTi_DefaultLanguageIdName = "msiati_defaultlanguageidname";
+			public const string MsIaTi_IAtiOrganizationIdentifier = "msiati_iatiorganizationidentifier";
+			public const string MsIaTi_OrganizationTypeId = "msiati_organizationtypeid";
+			public const string MsIaTi_OrganizationTypeIdName = "msiati_organizationtypeidname";
+			public const string MsIaTi_ReportingOrganizationId = "msiati_reportingorganizationid";
+			public const string MsIaTi_ReportingOrganizationIdName = "msiati_reportingorganizationidname";
+			public const string MsIaTi_ReportingOrganizationIdYomiName = "msiati_reportingorganizationidyominame";
+			public const string MsIaTi_SecondaryReporter = "msiati_secondaryreporter";
+			public const string MsIaTi_SecondaryReporterName = "msiati_secondaryreportername";
+			public const string MsnFp_Account_Contact_Household = "MsnFp_Account_Contact_Household";
+			public const string MsnFp_Account_MsnFp_Transaction_ApPrCustomer = "MsnFp_Account_MsnFp_Transaction_ApPrCustomer";
+			public const string MsnFp_Account_MsnFp_Transaction_Household = "MsnFp_Account_MsnFp_Transaction_Household";
+			public const string MsnFp_Account_MsnFp_Transaction_RelatedCustomerId = "MsnFp_Account_MsnFp_Transaction_RelatedCustomerId";
+			public const string MsnFp_Account_MsnFp_Transaction_Solicitor = "MsnFp_Account_MsnFp_Transaction_Solicitor";
+			public const string MsnFp_AccountDonor_MsnFp_Transaction = "MsnFp_AccountDonor_MsnFp_Transaction";
+			public const string MsnFp_AccountType = "msnfp_accounttype";
+			public const string MsnFp_AccountTypeName = "msnfp_accounttypename";
+			public const string MsnFp_AcquisitionDate = "msnfp_acquisitiondate";
+			public const string MsnFp_AcquisitionSource = "msnfp_acquisitionsource";
+			public const string MsnFp_AcquisitionSourceName = "msnfp_acquisitionsourcename";
+			public const string MsnFp_Anonymity = "msnfp_anonymity";
+			public const string MsnFp_AnonymityName = "msnfp_anonymityname";
+			public const string MsnFp_Anonymous = "msnfp_anonymous";
+			public const string MsnFp_AnonymousName = "msnfp_anonymousname";
+			public const string MsnFp_ClassificationCode = "msnfp_classificationcode";
+			public const string MsnFp_ClassificationCodename = "msnfp_classificationcodename";
+			public const string MsnFp_Count_LifetimeTransactions = "msnfp_count_lifetimetransactions";
+			public const string MsnFp_FirstActivity_Rollup = "msnfp_firstactivity_rollup";
+			public const string MsnFp_FirstActivity_Rollup_Date = "msnfp_firstactivity_rollup_date";
+			public const string MsnFp_FirstActivity_Rollup_State = "msnfp_firstactivity_rollup_state";
+			public const string MsnFp_FirstTransaction_Rollup = "msnfp_firsttransaction_rollup";
+			public const string MsnFp_FirstTransaction_Rollup_Date = "msnfp_firsttransaction_rollup_date";
+			public const string MsnFp_FirstTransaction_Rollup_State = "msnfp_firsttransaction_rollup_state";
+			public const string MsnFp_FirstTransactionDate = "msnfp_firsttransactiondate";
+			public const string MsnFp_FormalSalutation = "msnfp_formalsalutation";
+			public const string MsnFp_GivingLevelId = "msnfp_givinglevelid";
+			public const string MsnFp_GivingLevelIdName = "msnfp_givinglevelidname";
+			public const string MsnFp_HouseholdMembers = "msnfp_householdmembers";
+			public const string MsnFp_HouseholdSalutation = "msnfp_householdsalutation";
+			public const string MsnFp_InformalSalutation = "msnfp_informalsalutation";
+			public const string MsnFp_IsAppraiser = "msnfp_isappraiser";
+			public const string MsnFp_IsAppraiserName = "msnfp_isappraisername";
+			public const string MsnFp_IsSolicitor = "msnfp_issolicitor";
+			public const string MsnFp_IsSolicitorName = "msnfp_issolicitorname";
+			public const string MsnFp_LastActivity = "msnfp_lastactivity";
+			public const string MsnFp_LastActivity_Rollup = "msnfp_lastactivity_rollup";
+			public const string MsnFp_LastActivity_Rollup_Date = "msnfp_lastactivity_rollup_date";
+			public const string MsnFp_LastActivity_Rollup_State = "msnfp_lastactivity_rollup_state";
+			public const string MsnFp_LastEventPackagedAte = "msnfp_lasteventpackagedate";
+			public const string MsnFp_LastEventPackageId = "msnfp_lasteventpackageid";
+			public const string MsnFp_LastEventPackageIdName = "msnfp_lasteventpackageidname";
+			public const string MsnFp_LastTransactionDate = "msnfp_lasttransactiondate";
+			public const string MsnFp_LastTransactionId = "msnfp_lasttransactionid";
+			public const string MsnFp_LastTransactionIdName = "msnfp_lasttransactionidname";
+			public const string MsnFp_LifetimeGiving_Rollup = "msnfp_lifetimegiving_rollup";
+			public const string MsnFp_LifetimeGiving_Rollup_Base = "msnfp_lifetimegiving_rollup_base";
+			public const string MsnFp_LifetimeGiving_Rollup_Date = "msnfp_lifetimegiving_rollup_date";
+			public const string MsnFp_LifetimeGiving_Rollup_State = "msnfp_lifetimegiving_rollup_state";
+			public const string MsnFp_LifetimeGivingSum = "msnfp_lifetimegivingsum";
+			public const string MsnFp_LifetimeGivingSum_Base = "msnfp_lifetimegivingsum_base";
+			public const string MsnFp_LifetimeReceipted = "msnfp_lifetimereceipted";
+			public const string MsnFp_LifetimeReceipted_Base = "msnfp_lifetimereceipted_base";
+			public const string MsnFp_PreferredLanguageCode = "msnfp_preferredlanguagecode";
+			public const string MsnFp_PreferredLanguageCodename = "msnfp_preferredlanguagecodename";
+			public const string MsnFp_PrimaryConstituentType = "msnfp_primaryconstituenttype";
+			public const string MsnFp_PrimaryConstituentTypeName = "msnfp_primaryconstituenttypename";
+			public const string MsnFp_PrimaryForm = "msnfp_primaryform";
+			public const string MsnFp_PrimaryMembershipId = "msnfp_primarymembershipid";
+			public const string MsnFp_PrimaryMembershipIdName = "msnfp_primarymembershipidname";
+			public const string MsnFp_ReceiptPreferenceCode = "msnfp_receiptpreferencecode";
+			public const string MsnFp_ReceiptPreferenceCodename = "msnfp_receiptpreferencecodename";
+			public const string MsnFp_Signup = "msnfp_signup";
+			public const string MsnFp_SignupName = "msnfp_signupname";
+			public const string MsnFp_SolicitCode = "msnfp_solicitcode";
+			public const string MsnFp_SolicitCodename = "msnfp_solicitcodename";
+			public const string MsnFp_SolicitDate = "msnfp_solicitdate";
+			public const string MsnFp_Sum_LifetimeTransactions = "msnfp_sum_lifetimetransactions";
+			public const string MsnFp_Sum_LifetimeTransactions_Base = "msnfp_sum_lifetimetransactions_base";
+			public const string MsnFp_Telephone1TypeCode = "msnfp_telephone1typecode";
+			public const string MsnFp_Telephone1TypeCodename = "msnfp_telephone1typecodename";
+			public const string MsnFp_Telephone2TypeCode = "msnfp_telephone2typecode";
+			public const string MsnFp_Telephone2TypeCodename = "msnfp_telephone2typecodename";
+			public const string MsnFp_Telephone3TypeCode = "msnfp_telephone3typecode";
+			public const string MsnFp_Telephone3TypeCodename = "msnfp_telephone3typecodename";
+			public const string MsnFp_Transaction_Account = "msnfp_transaction_account";
+			public const string MsnFp_TxN_ReceiptOnAccount = "MsnFp_TxN_ReceiptOnAccount";
+			public const string MsnFp_VendorId = "msnfp_vendorid";
+			public const string MsnFp_Vip = "msnfp_vip";
+			public const string MsnFp_VipName = "msnfp_vipname";
+			public const string MsnFp_Year0_Giving = "msnfp_year0_giving";
+			public const string MsnFp_Year0_Giving_Base = "msnfp_year0_giving_base";
+			public const string MsnFp_Year1_Giving = "msnfp_year1_giving";
+			public const string MsnFp_Year1_Giving_Base = "msnfp_year1_giving_base";
+			public const string MsnFp_Year2_Giving = "msnfp_year2_giving";
+			public const string MsnFp_Year2_Giving_Base = "msnfp_year2_giving_base";
+			public const string MsnFp_Year3_Giving = "msnfp_year3_giving";
+			public const string MsnFp_Year3_Giving_Base = "msnfp_year3_giving_base";
+			public const string MsnFp_Year4_Giving = "msnfp_year4_giving";
+			public const string MsnFp_Year4_Giving_Base = "msnfp_year4_giving_base";
+			public const string Name = "name";
+			public const string New_DMsContact = "new_dmscontact";
+			public const string NumberOfEmployees = "numberofemployees";
+			public const string OnHoldTime = "onholdtime";
+			public const string OpenDeals = "opendeals";
+			public const string OpenDeals_Date = "opendeals_date";
+			public const string OpenDeals_State = "opendeals_state";
+			public const string OpenRevenue = "openrevenue";
+			public const string OpenRevenue_Base = "openrevenue_base";
+			public const string OpenRevenue_Date = "openrevenue_date";
+			public const string OpenRevenue_State = "openrevenue_state";
+			public const string OriginatingLeadId = "originatingleadid";
+			public const string OriginatingLeadIdName = "originatingleadidname";
+			public const string OriginatingLeadIdYomiName = "originatingleadidyominame";
+			public const string OverriddenCreatedOn = "overriddencreatedon";
+			public const string OwnerId = "ownerid";
+			public const string OwnerIdName = "owneridname";
+			public const string OwnerIdYomiName = "owneridyominame";
+			public const string OwnershipCode = "ownershipcode";
+			public const string OwnershipCodename = "ownershipcodename";
+			public const string OwningBusinessUnit = "owningbusinessunit";
+			public const string OwningBusinessUnitName = "owningbusinessunitname";
+			public const string OwningTeam = "owningteam";
+			public const string OwningUser = "owninguser";
+			public const string ParentAccountId = "parentaccountid";
+			public const string ParentAccountIdName = "parentaccountidname";
+			public const string ParentAccountIdYomiName = "parentaccountidyominame";
+			public const string ParticipatesInWorkflow = "participatesinworkflow";
+			public const string ParticipatesInWorkflowName = "participatesinworkflowname";
+			public const string PaymentTermsCode = "paymenttermscode";
+			public const string PaymentTermsCodename = "paymenttermscodename";
+			public const string PreferredAppointmentDayCode = "preferredappointmentdaycode";
+			public const string PreferredAppointmentDayCodename = "preferredappointmentdaycodename";
+			public const string PreferredAppointmentTimeCode = "preferredappointmenttimecode";
+			public const string PreferredAppointmentTimeCodename = "preferredappointmenttimecodename";
+			public const string PreferredContactMethodCode = "preferredcontactmethodcode";
+			public const string PreferredContactMethodCodename = "preferredcontactmethodcodename";
+			public const string PreferredEquipmentId = "preferredequipmentid";
+			public const string PreferredEquipmentIdName = "preferredequipmentidname";
+			public const string PreferredServiceId = "preferredserviceid";
+			public const string PreferredServiceIdName = "preferredserviceidname";
+			public const string PreferredSystemUserId = "preferredsystemuserid";
+			public const string PreferredSystemUserIdName = "preferredsystemuseridname";
+			public const string PreferredSystemUserIdYomiName = "preferredsystemuseridyominame";
+			public const string PrimaryContactId = "primarycontactid";
+			public const string PrimaryContactIdName = "primarycontactidname";
+			public const string PrimaryContactIdYomiName = "primarycontactidyominame";
+			public const string PrimarySatoriId = "primarysatoriid";
+			public const string PrimaryTwitterId = "primarytwitterid";
+			public const string ProcessId = "processid";
+			public const string ReferencedAccount_Master_Account = "ReferencedAccount_Master_Account";
+			public const string ReferencedAccount_Parent_Account = "ReferencedAccount_Parent_Account";
+			public const string ReferencedMSa_Account_ManagingPartner = "ReferencedMSa_Account_ManagingPartner";
+			public const string ReferencedMsIaTi_Account_Account_ReportingOrganization = "ReferencedMsIaTi_Account_Account_ReportingOrganization";
+			public const string Revenue = "revenue";
+			public const string Revenue_Base = "revenue_base";
+			public const string SharesOutstanding = "sharesoutstanding";
+			public const string ShippingMethodCode = "shippingmethodcode";
+			public const string ShippingMethodCodename = "shippingmethodcodename";
+			public const string Sic = "sic";
+			public const string SlaId = "slaid";
+			public const string SlaInvokedId = "slainvokedid";
+			public const string SlaInvokedIdName = "slainvokedidname";
+			public const string SlaName = "slaname";
+			public const string StageId = "stageid";
+			public const string StateCode = "statecode";
+			public const string StateCodename = "statecodename";
+			public const string StatusCode = "statuscode";
+			public const string StatusCodename = "statuscodename";
+			public const string StockExchange = "stockexchange";
+			public const string TeamsFollowed = "teamsfollowed";
+			public const string Telephone1 = "telephone1";
+			public const string Telephone2 = "telephone2";
+			public const string Telephone3 = "telephone3";
+			public const string TerritoryCode = "territorycode";
+			public const string TerritoryCodename = "territorycodename";
+			public const string TerritoryId = "territoryid";
+			public const string TerritoryIdName = "territoryidname";
+			public const string TickerSymbol = "tickersymbol";
+			public const string TimeSpentByMeOnEmailAndMeetings = "timespentbymeonemailandmeetings";
+			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+			public const string TransactionCurrencyId = "transactioncurrencyid";
+			public const string TransactionCurrencyIdName = "transactioncurrencyidname";
+			public const string TraversedPath = "traversedpath";
+			public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
+			public const string VersionNumber = "versionnumber";
+			public const string WebsiteUrl = "websiteurl";
+			public const string YomiName = "yominame";
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Account(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Account(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Account(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Account() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string PrimaryIdAttribute = "accountid";
+		
+		public const string PrimaryNameAttribute = "name";
+		
+		public const string EntitySchemaName = "Account";
+		
+		public const string EntityLogicalName = "account";
+		
+		public const string EntityLogicalCollectionName = "accounts";
+		
+		public const string EntitySetName = "accounts";
+		
+		/// <summary>
+		/// Select a category to indicate whether the customer account is standard or preferred.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountcategorycode")]
+		public virtual Account_AccountCategoryCode? AccountCategoryCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_AccountCategoryCode?)(EntityOptionSetEnum.GetEnum(this, "accountcategorycode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("accountcategorycode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountcategorycodename")]
+		public string AccountCategoryCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("accountcategorycode"))
+				{
+					return this.FormattedValues["accountcategorycode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select a classification code to indicate the potential value of the customer account based on the projected return on investment, cooperation level, sales cycle length or other criteria.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountclassificationcode")]
+		public virtual Account_AccountClassificationCode? AccountClassificationCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_AccountClassificationCode?)(EntityOptionSetEnum.GetEnum(this, "accountclassificationcode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("accountclassificationcode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountclassificationcodename")]
+		public string AccountClassificationCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("accountclassificationcode"))
+				{
+					return this.FormattedValues["accountclassificationcode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountid")]
+		public System.Nullable<System.Guid> AccountId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("accountid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("accountid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountid")]
+		public override System.Guid Id
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return base.Id;
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.AccountId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Type an ID number or code for the account to quickly search and identify the account in system views.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountnumber")]
+		public string AccountNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("accountnumber");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("accountnumber", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select a rating to indicate the value of the customer account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountratingcode")]
+		public virtual Account_AccountRatingCode? AccountRatingCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_AccountRatingCode?)(EntityOptionSetEnum.GetEnum(this, "accountratingcode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("accountratingcode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountratingcodename")]
+		public string AccountRatingCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("accountratingcode"))
+				{
+					return this.FormattedValues["accountratingcode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_addressid")]
+		public System.Nullable<System.Guid> Address1_AddressId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("address1_addressid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_addressid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select the primary address type.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_addresstypecode")]
+		public virtual Account_Address1_AddressTypeCode? Address1_AddressTypeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_Address1_AddressTypeCode?)(EntityOptionSetEnum.GetEnum(this, "address1_addresstypecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_addresstypecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_addresstypecodename")]
+		public string Address1_AddressTypeCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("address1_addresstypecode"))
+				{
+					return this.FormattedValues["address1_addresstypecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the city for the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_city")]
+		public string Address1_City
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_city");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_city", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows the complete primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_composite")]
+		public string Address1_Composite
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_composite");
+			}
+		}
+		
+		/// <summary>
+		/// Type the country or region for the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_country")]
+		public string Address1_Country
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_country");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_country", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the county for the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_county")]
+		public string Address1_County
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_county");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_county", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the fax number associated with the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_fax")]
+		public string Address1_Fax
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_fax");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_fax", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select the freight terms for the primary address to make sure shipping orders are processed correctly.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_freighttermscode")]
+		public virtual Account_Address1_FreightTermsCode? Address1_FreightTermsCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_Address1_FreightTermsCode?)(EntityOptionSetEnum.GetEnum(this, "address1_freighttermscode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_freighttermscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_freighttermscodename")]
+		public string Address1_FreightTermsCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("address1_freighttermscode"))
+				{
+					return this.FormattedValues["address1_freighttermscode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the latitude value for the primary address for use in mapping and other applications.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_latitude")]
+		public System.Nullable<double> Address1_Latitude
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<double>>("address1_latitude");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_latitude", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the first line of the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line1")]
+		public string Address1_Line1
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_line1");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_line1", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the second line of the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line2")]
+		public string Address1_Line2
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_line2");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_line2", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the third line of the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line3")]
+		public string Address1_Line3
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_line3");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_line3", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the longitude value for the primary address for use in mapping and other applications.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_longitude")]
+		public System.Nullable<double> Address1_Longitude
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<double>>("address1_longitude");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_longitude", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type a descriptive name for the primary address, such as Corporate Headquarters.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_name")]
+		public string Address1_Name
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_name");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_name", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the ZIP Code or postal code for the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postalcode")]
+		public string Address1_PostalCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_postalcode");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_postalcode", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the post office box number of the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postofficebox")]
+		public string Address1_PostofficeBox
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_postofficebox");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_postofficebox", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the name of the main contact at the account's primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_primarycontactname")]
+		public string Address1_PrimaryContactName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_primarycontactname");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_primarycontactname", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select a shipping method for deliveries sent to this address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_shippingmethodcode")]
+		public virtual Account_Address1_ShippingMethodCode? Address1_ShippingMethodCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_Address1_ShippingMethodCode?)(EntityOptionSetEnum.GetEnum(this, "address1_shippingmethodcode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_shippingmethodcode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_shippingmethodcodename")]
+		public string Address1_ShippingMethodCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("address1_shippingmethodcode"))
+				{
+					return this.FormattedValues["address1_shippingmethodcode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the state or province of the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_stateorprovince")]
+		public string Address1_StateOrProvince
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_stateorprovince");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_stateorprovince", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the main phone number associated with the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone1")]
+		public string Address1_Telephone1
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_telephone1");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_telephone1", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type a second phone number associated with the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone2")]
+		public string Address1_Telephone2
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_telephone2");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_telephone2", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type a third phone number associated with the primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone3")]
+		public string Address1_Telephone3
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_telephone3");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_telephone3", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the UPS zone of the primary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_upszone")]
+		public string Address1_UpsZone
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address1_upszone");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_upszone", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_utcoffset")]
+		public System.Nullable<int> Address1_UtcOffset
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("address1_utcoffset");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address1_utcoffset", value);
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_addressid")]
+		public System.Nullable<System.Guid> Address2_AddressId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("address2_addressid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_addressid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select the secondary address type.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_addresstypecode")]
+		public virtual Account_Address2_AddressTypeCode? Address2_AddressTypeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_Address2_AddressTypeCode?)(EntityOptionSetEnum.GetEnum(this, "address2_addresstypecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_addresstypecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_addresstypecodename")]
+		public string Address2_AddressTypeCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("address2_addresstypecode"))
+				{
+					return this.FormattedValues["address2_addresstypecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the city for the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_city")]
+		public string Address2_City
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_city");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_city", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows the complete secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_composite")]
+		public string Address2_Composite
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_composite");
+			}
+		}
+		
+		/// <summary>
+		/// Type the country or region for the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_country")]
+		public string Address2_Country
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_country");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_country", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the county for the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_county")]
+		public string Address2_County
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_county");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_county", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the fax number associated with the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_fax")]
+		public string Address2_Fax
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_fax");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_fax", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select the freight terms for the secondary address to make sure shipping orders are processed correctly.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_freighttermscode")]
+		public virtual Account_Address2_FreightTermsCode? Address2_FreightTermsCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_Address2_FreightTermsCode?)(EntityOptionSetEnum.GetEnum(this, "address2_freighttermscode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_freighttermscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_freighttermscodename")]
+		public string Address2_FreightTermsCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("address2_freighttermscode"))
+				{
+					return this.FormattedValues["address2_freighttermscode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the latitude value for the secondary address for use in mapping and other applications.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_latitude")]
+		public System.Nullable<double> Address2_Latitude
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<double>>("address2_latitude");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_latitude", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the first line of the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line1")]
+		public string Address2_Line1
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_line1");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_line1", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the second line of the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line2")]
+		public string Address2_Line2
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_line2");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_line2", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the third line of the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line3")]
+		public string Address2_Line3
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_line3");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_line3", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the longitude value for the secondary address for use in mapping and other applications.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_longitude")]
+		public System.Nullable<double> Address2_Longitude
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<double>>("address2_longitude");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_longitude", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type a descriptive name for the secondary address, such as Corporate Headquarters.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_name")]
+		public string Address2_Name
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_name");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_name", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the ZIP Code or postal code for the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postalcode")]
+		public string Address2_PostalCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_postalcode");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_postalcode", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the post office box number of the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postofficebox")]
+		public string Address2_PostofficeBox
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_postofficebox");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_postofficebox", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the name of the main contact at the account's secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_primarycontactname")]
+		public string Address2_PrimaryContactName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_primarycontactname");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_primarycontactname", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select a shipping method for deliveries sent to this address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_shippingmethodcode")]
+		public virtual Account_Address2_ShippingMethodCode? Address2_ShippingMethodCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_Address2_ShippingMethodCode?)(EntityOptionSetEnum.GetEnum(this, "address2_shippingmethodcode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_shippingmethodcode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_shippingmethodcodename")]
+		public string Address2_ShippingMethodCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("address2_shippingmethodcode"))
+				{
+					return this.FormattedValues["address2_shippingmethodcode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the state or province of the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_stateorprovince")]
+		public string Address2_StateOrProvince
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_stateorprovince");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_stateorprovince", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the main phone number associated with the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone1")]
+		public string Address2_Telephone1
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_telephone1");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_telephone1", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type a second phone number associated with the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone2")]
+		public string Address2_Telephone2
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_telephone2");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_telephone2", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type a third phone number associated with the secondary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone3")]
+		public string Address2_Telephone3
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_telephone3");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_telephone3", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the UPS zone of the secondary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_upszone")]
+		public string Address2_UpsZone
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("address2_upszone");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_upszone", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_utcoffset")]
+		public System.Nullable<int> Address2_UtcOffset
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("address2_utcoffset");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("address2_utcoffset", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("adx_createdbyipaddress")]
+		public string AdX_CreatedByIpAddress
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("adx_createdbyipaddress");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("adx_createdbyipaddress", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("adx_createdbyusername")]
+		public string AdX_CreatedByUsername
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("adx_createdbyusername");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("adx_createdbyusername", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("adx_modifiedbyipaddress")]
+		public string AdX_ModifiedByIpAddress
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("adx_modifiedbyipaddress");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("adx_modifiedbyipaddress", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("adx_modifiedbyusername")]
+		public string AdX_ModifiedByUsername
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("adx_modifiedbyusername");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("adx_modifiedbyusername", value);
+			}
+		}
+		
+		/// <summary>
+		/// For system use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("aging30")]
+		public Microsoft.Xrm.Sdk.Money Aging30
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("aging30");
+			}
+		}
+		
+		/// <summary>
+		/// The base currency equivalent of the aging 30 field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("aging30_base")]
+		public Microsoft.Xrm.Sdk.Money Aging30_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("aging30_base");
+			}
+		}
+		
+		/// <summary>
+		/// For system use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("aging60")]
+		public Microsoft.Xrm.Sdk.Money Aging60
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("aging60");
+			}
+		}
+		
+		/// <summary>
+		/// The base currency equivalent of the aging 60 field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("aging60_base")]
+		public Microsoft.Xrm.Sdk.Money Aging60_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("aging60_base");
+			}
+		}
+		
+		/// <summary>
+		/// For system use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("aging90")]
+		public Microsoft.Xrm.Sdk.Money Aging90
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("aging90");
+			}
+		}
+		
+		/// <summary>
+		/// The base currency equivalent of the aging 90 field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("aging90_base")]
+		public Microsoft.Xrm.Sdk.Money Aging90_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("aging90_base");
+			}
+		}
+		
+		/// <summary>
+		/// Select the legal designation or other business type of the account for contracts or reporting purposes.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("businesstypecode")]
+		public virtual Account_BusinessTypeCode? BusinessTypeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_BusinessTypeCode?)(EntityOptionSetEnum.GetEnum(this, "businesstypecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("businesstypecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("businesstypecodename")]
+		public string BusinessTypeCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("businesstypecode"))
+				{
+					return this.FormattedValues["businesstypecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Shows who created the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the external party who created the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyexternalparty")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedByExternalParty
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdbyexternalparty");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyexternalpartyname")]
+		public string CreatedByExternalPartyName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdbyexternalparty"))
+				{
+					return this.FormattedValues["createdbyexternalparty"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyexternalpartyyominame")]
+		public string CreatedByExternalPartyYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdbyexternalparty"))
+				{
+					return this.FormattedValues["createdbyexternalparty"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyname")]
+		public string CreatedByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdby"))
+				{
+					return this.FormattedValues["createdby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyyominame")]
+		public string CreatedByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdby"))
+				{
+					return this.FormattedValues["createdby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Shows the date and time when the record was created. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Shows who created the record on behalf of another user.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("createdonbehalfby", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyname")]
+		public string CreatedOnBehalfByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdonbehalfby"))
+				{
+					return this.FormattedValues["createdonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyyominame")]
+		public string CreatedOnBehalfByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdonbehalfby"))
+				{
+					return this.FormattedValues["createdonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the credit limit of the account. This is a useful reference when you address invoice and accounting issues with the customer.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("creditlimit")]
+		public Microsoft.Xrm.Sdk.Money CreditLimit
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("creditlimit");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("creditlimit", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows the credit limit converted to the system's default base currency for reporting purposes.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("creditlimit_base")]
+		public Microsoft.Xrm.Sdk.Money CreditLimit_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("creditlimit_base");
+			}
+		}
+		
+		/// <summary>
+		/// Select whether the credit for the account is on hold. This is a useful reference while addressing the invoice and accounting issues with the customer.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("creditonhold")]
+		public System.Nullable<bool> CreditOnHold
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("creditonhold");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("creditonhold", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("creditonholdname")]
+		public string CreditOnHoldName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("creditonhold"))
+				{
+					return this.FormattedValues["creditonhold"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select the size category or range of the account for segmentation and reporting purposes.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customersizecode")]
+		public virtual Account_CustomerSizeCode? CustomerSizeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_CustomerSizeCode?)(EntityOptionSetEnum.GetEnum(this, "customersizecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("customersizecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customersizecodename")]
+		public string CustomerSizeCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("customersizecode"))
+				{
+					return this.FormattedValues["customersizecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select the category that best describes the relationship between the account and your organization.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customertypecode")]
+		public virtual Account_CustomerTypeCode? CustomerTypeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_CustomerTypeCode?)(EntityOptionSetEnum.GetEnum(this, "customertypecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("customertypecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customertypecodename")]
+		public string CustomerTypeCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("customertypecode"))
+				{
+					return this.FormattedValues["customertypecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Choose the default price list associated with the account to make sure the correct product prices for this customer are applied in sales opportunities, quotes, and orders.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("defaultpricelevelid")]
+		public Microsoft.Xrm.Sdk.EntityReference DefaultPriceLevelId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("defaultpricelevelid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("defaultpricelevelid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("defaultpricelevelidname")]
+		public string DefaultPriceLevelIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("defaultpricelevelid"))
+				{
+					return this.FormattedValues["defaultpricelevelid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type additional information to describe the account, such as an excerpt from the company's website.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("description")]
+		public string Description
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("description");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("description", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select whether the account allows bulk email sent through campaigns. If Do Not Allow is selected, the account can be added to marketing lists, but is excluded from email.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotbulkemail")]
+		public System.Nullable<bool> DoNotBulkEmail
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("donotbulkemail");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("donotbulkemail", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotbulkemailname")]
+		public string DoNotBulkEmailName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("donotbulkemail"))
+				{
+					return this.FormattedValues["donotbulkemail"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select whether the account allows bulk postal mail sent through marketing campaigns or quick campaigns. If Do Not Allow is selected, the account can be added to marketing lists, but will be excluded from the postal mail.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotbulkpostalmail")]
+		public System.Nullable<bool> DoNotBulkPostalMail
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("donotbulkpostalmail");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("donotbulkpostalmail", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotbulkpostalmailname")]
+		public string DoNotBulkPostalMailName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("donotbulkpostalmail"))
+				{
+					return this.FormattedValues["donotbulkpostalmail"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select whether the account allows direct email sent from Microsoft Dynamics 365.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotemail")]
+		public System.Nullable<bool> DoNotEmail
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("donotemail");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("donotemail", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotemailname")]
+		public string DoNotEmailName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("donotemail"))
+				{
+					return this.FormattedValues["donotemail"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select whether the account allows faxes. If Do Not Allow is selected, the account will be excluded from fax activities distributed in marketing campaigns.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotfax")]
+		public System.Nullable<bool> DoNotFax
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("donotfax");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("donotfax", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotfaxname")]
+		public string DoNotFaxName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("donotfax"))
+				{
+					return this.FormattedValues["donotfax"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select whether the account allows phone calls. If Do Not Allow is selected, the account will be excluded from phone call activities distributed in marketing campaigns.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotphone")]
+		public System.Nullable<bool> DoNotPhone
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("donotphone");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("donotphone", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotphonename")]
+		public string DoNotPhoneName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("donotphone"))
+				{
+					return this.FormattedValues["donotphone"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select whether the account allows direct mail. If Do Not Allow is selected, the account will be excluded from letter activities distributed in marketing campaigns.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotpostalmail")]
+		public System.Nullable<bool> DoNotPostalMail
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("donotpostalmail");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("donotpostalmail", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotpostalmailname")]
+		public string DoNotPostalMailName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("donotpostalmail"))
+				{
+					return this.FormattedValues["donotpostalmail"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotsendmarketingmaterialname")]
+		public string DoNotSendMarketingMaterialName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("donotsendmm"))
+				{
+					return this.FormattedValues["donotsendmm"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select whether the account accepts marketing materials, such as brochures or catalogs.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("donotsendmm")]
+		public System.Nullable<bool> DoNotSendMm
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("donotsendmm");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("donotsendmm", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the primary email address for the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress1")]
+		public string EmailAddress1
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("emailaddress1");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("emailaddress1", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the secondary email address for the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress2")]
+		public string EmailAddress2
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("emailaddress2");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("emailaddress2", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type an alternate email address for the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress3")]
+		public string EmailAddress3
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("emailaddress3");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("emailaddress3", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows the default image for the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage")]
+		public byte[] EntityImage
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<byte[]>("entityimage");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("entityimage", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_timestamp")]
+		public System.Nullable<long> EntityImage_Timestamp
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("entityimage_timestamp");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
+		public string EntityImage_Url
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("entityimage_url");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimageid")]
+		public System.Nullable<System.Guid> EntityImageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("entityimageid");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the conversion rate of the record's currency. The exchange rate is used to convert all money fields in the record from the local currency to the system's default currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("exchangerate")]
+		public System.Nullable<decimal> ExchangerAte
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<decimal>>("exchangerate");
+			}
+		}
+		
+		/// <summary>
+		/// Type the fax number for the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fax")]
+		public string Fax
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fax");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fax", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_availability")]
+		public virtual FNQHF_Availability? FNQHF_Availability
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((FNQHF_Availability?)(EntityOptionSetEnum.GetEnum(this, "fnqhf_availability")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_availability", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_availabilityname")]
+		public string FNQHF_AvailabilityName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("fnqhf_availability"))
+				{
+					return this.FormattedValues["fnqhf_availability"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_companyconstituenttype")]
+		public virtual Account_FNQHF_CompanyConstituentType? FNQHF_CompanyConstituentType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_FNQHF_CompanyConstituentType?)(EntityOptionSetEnum.GetEnum(this, "fnqhf_companyconstituenttype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_companyconstituenttype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_companyconstituenttypename")]
+		public string FNQHF_CompanyConstituentTypeName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("fnqhf_companyconstituenttype"))
+				{
+					return this.FormattedValues["fnqhf_companyconstituenttype"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_dmsaccountid")]
+		public string FNQHF_DMsAccountId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_dmsaccountid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_dmsaccountid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_dmsparentaccountid")]
+		public string FNQHF_DMsParentAccountId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_dmsparentaccountid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_dmsparentaccountid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_donationamount")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_DonationAmount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_donationamount");
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Donation Amount in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_donationamount_base")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_DonationAmount_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_donationamount_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_dpid")]
+		public string FNQHF_DpiD
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_dpid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_dpid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_dpid2")]
+		public string FNQHF_DpiD2
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_dpid2");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_dpid2", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_emergencycontact")]
+		public string FNQHF_EmergencyContact
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_emergencycontact");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_emergencycontact", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_emergencycontactmobile")]
+		public string FNQHF_EmergencyContactMobile
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_emergencycontactmobile");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_emergencycontactmobile", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_emergencycontactphone")]
+		public string FNQHF_EmergencyContactPhone
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_emergencycontactphone");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_emergencycontactphone", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_emergencycontactposition")]
+		public string FNQHF_EmergencyContactPosition
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_emergencycontactposition");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_emergencycontactposition", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_importfilename")]
+		public string FNQHF_ImportFilename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_importfilename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_importfilename", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_joineddate")]
+		public System.Nullable<System.DateTime> FNQHF_JoinedDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("fnqhf_joineddate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_joineddate", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_lastdonationamount")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_LastDonationAmount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_lastdonationamount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_lastdonationamount", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Last Donation Amount  in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_lastdonationamount_base")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_LastDonationAmount_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_lastdonationamount_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_totalcontainerdonationamount")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_TotalContainerDonationAmount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_totalcontainerdonationamount");
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Container Donation Amount in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_totalcontainerdonationamount_base")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_TotalContainerDonationAmount_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_totalcontainerdonationamount_base");
+			}
+		}
+		
+		/// <summary>
+		/// Last Updated time of rollup field Total Container Donation Amount.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_totalcontainerdonationamount_date")]
+		public System.Nullable<System.DateTime> FNQHF_TotalContainerDonationAmount_Date
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("fnqhf_totalcontainerdonationamount_date");
+			}
+		}
+		
+		/// <summary>
+		/// State of rollup field Total Container Donation Amount.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_totalcontainerdonationamount_state")]
+		public System.Nullable<int> FNQHF_TotalContainerDonationAmount_State
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("fnqhf_totalcontainerdonationamount_state");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_totaldonationamount")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_TotalDonationAmount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_totaldonationamount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_totaldonationamount", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Donation Amount in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_totaldonationamount_base")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_TotalDonationAmount_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_totaldonationamount_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_totaltransactionamount")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_TotalTransactionAmount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_totaltransactionamount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_totaltransactionamount", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Transaction Amount in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_totaltransactionamount_base")]
+		public Microsoft.Xrm.Sdk.Money FNQHF_TotalTransactionAmount_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("fnqhf_totaltransactionamount_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_typeofdonor")]
+		public virtual FNQHF_TypeOfDonor? FNQHF_TypeOfDonor
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((FNQHF_TypeOfDonor?)(EntityOptionSetEnum.GetEnum(this, "fnqhf_typeofdonor")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_typeofdonor", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_typeofdonorname")]
+		public string FNQHF_TypeOfDonorName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("fnqhf_typeofdonor"))
+				{
+					return this.FormattedValues["fnqhf_typeofdonor"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Information about whether to allow following email activity like opens, attachment views and link clicks for emails sent to the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("followemail")]
+		public System.Nullable<bool> FollowEmail
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("followemail");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("followemail", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("followemailname")]
+		public string FollowEmailName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("followemail"))
+				{
+					return this.FormattedValues["followemail"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the URL for the account's FTP site to enable users to access data and share documents.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ftpsiteurl")]
+		public string FtpSiteUrl
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("ftpsiteurl");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("ftpsiteurl", value);
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the data import or data migration that created this record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		public System.Nullable<int> ImportSequenceNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("importsequencenumber");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("importsequencenumber", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select the account's primary industry for use in marketing segmentation and demographic analysis.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("industrycode")]
+		public virtual Account_IndustryCode? IndustryCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_IndustryCode?)(EntityOptionSetEnum.GetEnum(this, "industrycode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("industrycode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("industrycodename")]
+		public string IndustryCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("industrycode"))
+				{
+					return this.FormattedValues["industrycode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isprivatename")]
+		public string IsPrivateName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("isprivate"))
+				{
+					return this.FormattedValues["isprivate"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Contains the date and time stamp of the last on hold time.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lastonholdtime")]
+		public System.Nullable<System.DateTime> LastOnHoldTime
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lastonholdtime");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lastonholdtime", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows the date when the account was last included in a marketing campaign or quick campaign.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lastusedincampaign")]
+		public System.Nullable<System.DateTime> LastUsedInCampaign
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lastusedincampaign");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lastusedincampaign", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the market capitalization of the account to identify the company's equity, used as an indicator in financial performance analysis.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("marketcap")]
+		public Microsoft.Xrm.Sdk.Money MarketCap
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("marketcap");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("marketcap", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows the market capitalization converted to the system's default base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("marketcap_base")]
+		public Microsoft.Xrm.Sdk.Money MarketCap_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("marketcap_base");
+			}
+		}
+		
+		/// <summary>
+		/// Whether is only for marketing
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("marketingonly")]
+		public System.Nullable<bool> MarketingOnly
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("marketingonly");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("marketingonly", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("marketingonlyname")]
+		public string MarketingOnlyName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("marketingonly"))
+				{
+					return this.FormattedValues["marketingonly"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("masteraccountidname")]
+		public string MasterAccountIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("masterid"))
+				{
+					return this.FormattedValues["masterid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("masteraccountidyominame")]
+		public string MasterAccountIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("masterid"))
+				{
+					return this.FormattedValues["masterid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Shows the master account that the account was merged with.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("masterid")]
+		public Microsoft.Xrm.Sdk.EntityReference MasterId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("masterid");
+			}
+		}
+		
+		/// <summary>
+		/// Shows whether the account has been merged with another account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("merged")]
+		public System.Nullable<bool> Merged
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("merged");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("mergedname")]
+		public string MergedName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("merged"))
+				{
+					return this.FormattedValues["merged"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Shows who last updated the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the external party who modified the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyexternalparty")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedByExternalParty
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedbyexternalparty");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyexternalpartyname")]
+		public string ModifiedByExternalPartyName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedbyexternalparty"))
+				{
+					return this.FormattedValues["modifiedbyexternalparty"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyexternalpartyyominame")]
+		public string ModifiedByExternalPartyYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedbyexternalparty"))
+				{
+					return this.FormattedValues["modifiedbyexternalparty"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyname")]
+		public string ModifiedByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedby"))
+				{
+					return this.FormattedValues["modifiedby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyyominame")]
+		public string ModifiedByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedby"))
+				{
+					return this.FormattedValues["modifiedby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Shows the date and time when the record was last updated. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Shows who created the record on behalf of another user.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("modifiedonbehalfby", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyname")]
+		public string ModifiedOnBehalfByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedonbehalfby"))
+				{
+					return this.FormattedValues["modifiedonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyyominame")]
+		public string ModifiedOnBehalfByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedonbehalfby"))
+				{
+					return this.FormattedValues["modifiedonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for Account associated with Account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msa_managingpartnerid")]
+		public Microsoft.Xrm.Sdk.EntityReference MSa_ManagingPartnerId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msa_managingpartnerid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msa_managingpartnerid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msa_managingpartneridname")]
+		public string MsA_ManagingPartnerIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msa_managingpartnerid"))
+				{
+					return this.FormattedValues["msa_managingpartnerid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msa_managingpartneridyominame")]
+		public string MsA_ManagingPartnerIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msa_managingpartnerid"))
+				{
+					return this.FormattedValues["msa_managingpartnerid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_accountkpiid")]
+		public Microsoft.Xrm.Sdk.EntityReference Msdyn_AccountKPiId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msdyn_accountkpiid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msdyn_accountkpiid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_accountkpiidname")]
+		public string Msdyn_AccountKPiIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msdyn_accountkpiid"))
+				{
+					return this.FormattedValues["msdyn_accountkpiid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Describes whether account is opted out or not
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_gdproptout")]
+		public System.Nullable<bool> Msdyn_GdPrOptOut
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("msdyn_gdproptout");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msdyn_gdproptout", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_gdproptoutname")]
+		public string Msdyn_GdPrOptOutName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msdyn_gdproptout"))
+				{
+					return this.FormattedValues["msdyn_gdproptout"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Indicates the primary time zone that the client works on.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_primarytimezone")]
+		public System.Nullable<int> Msdyn_PrimaryTimeZone
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("msdyn_primarytimezone");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msdyn_primarytimezone", value);
+			}
+		}
+		
+		/// <summary>
+		/// Sales Acceleration Insights ID
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_salesaccelerationinsightid")]
+		public Microsoft.Xrm.Sdk.EntityReference Msdyn_SalesAccelerationInsightId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msdyn_salesaccelerationinsightid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msdyn_salesaccelerationinsightid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_salesaccelerationinsightidname")]
+		public string Msdyn_SalesAccelerationInsightIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msdyn_salesaccelerationinsightid"))
+				{
+					return this.FormattedValues["msdyn_salesaccelerationinsightid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for Segment associated with account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_segmentid")]
+		public Microsoft.Xrm.Sdk.EntityReference Msdyn_SegmentId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msdyn_segmentid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msdyn_segmentid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_segmentidname")]
+		public string Msdyn_SegmentIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msdyn_segmentid"))
+				{
+					return this.FormattedValues["msdyn_segmentid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyncrm_insights_placeholder")]
+		public string MsdynCrm_Insights_Placeholder
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msdyncrm_insights_placeholder");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msdyncrm_insights_placeholder", value);
+			}
+		}
+		
+		/// <summary>
+		/// Indicates whether this account belongs to hotel group
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msevtmgt_hotelgroup")]
+		public virtual MSeVTmGt_NoOrYes? MSeVTmGt_HotelGroup
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MSeVTmGt_NoOrYes?)(EntityOptionSetEnum.GetEnum(this, "msevtmgt_hotelgroup")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msevtmgt_hotelgroup", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msevtmgt_hotelgroupname")]
+		public string MSeVTmGt_HotelGroupName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msevtmgt_hotelgroup"))
+				{
+					return this.FormattedValues["msevtmgt_hotelgroup"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msevtmgt_rentalcarprovider")]
+		public virtual MSeVTmGt_NoOrYes? MSeVTmGt_RentalCarProvider
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MSeVTmGt_NoOrYes?)(EntityOptionSetEnum.GetEnum(this, "msevtmgt_rentalcarprovider")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msevtmgt_rentalcarprovider", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msevtmgt_rentalcarprovidername")]
+		public string MSeVTmGt_RentalCarProviderName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msevtmgt_rentalcarprovider"))
+				{
+					return this.FormattedValues["msevtmgt_rentalcarprovider"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Default currency for the organization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_defaultcurrencyid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_DefaultCurrencyId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_defaultcurrencyid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_defaultcurrencyid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_defaultcurrencyidname")]
+		public string MsIaTi_DefaultCurrencyIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_defaultcurrencyid"))
+				{
+					return this.FormattedValues["msiati_defaultcurrencyid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Lookup to the default language for the organization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_defaultlanguageid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_DefaultLanguageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_defaultlanguageid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_defaultlanguageid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_defaultlanguageidname")]
+		public string MsIaTi_DefaultLanguageIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_defaultlanguageid"))
+				{
+					return this.FormattedValues["msiati_defaultlanguageid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// An IATI identifier for your organization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_iatiorganizationidentifier")]
+		public string MsIaTi_IAtiOrganizationIdentifier
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msiati_iatiorganizationidentifier");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_iatiorganizationidentifier", value);
+			}
+		}
+		
+		/// <summary>
+		/// indicates the type of the organization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_organizationtypeid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_OrganizationTypeId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_organizationtypeid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_organizationtypeid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_organizationtypeidname")]
+		public string MsIaTi_OrganizationTypeIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_organizationtypeid"))
+				{
+					return this.FormattedValues["msiati_organizationtypeid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The organisation issuing the report.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_reportingorganizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_ReportingOrganizationId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_reportingorganizationid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_reportingorganizationid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_reportingorganizationidname")]
+		public string MsIaTi_ReportingOrganizationIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_reportingorganizationid"))
+				{
+					return this.FormattedValues["msiati_reportingorganizationid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_reportingorganizationidyominame")]
+		public string MsIaTi_ReportingOrganizationIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_reportingorganizationid"))
+				{
+					return this.FormattedValues["msiati_reportingorganizationid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// A flag indicating that the reporting organization of the delivery framework is acting as a secondary reporter
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_secondaryreporter")]
+		public System.Nullable<bool> MsIaTi_SecondaryReporter
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("msiati_secondaryreporter");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_secondaryreporter", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_secondaryreportername")]
+		public string MsIaTi_SecondaryReporterName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_secondaryreporter"))
+				{
+					return this.FormattedValues["msiati_secondaryreporter"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_accounttype")]
+		public virtual MsnFp_AccountType? MsnFp_AccountType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MsnFp_AccountType?)(EntityOptionSetEnum.GetEnum(this, "msnfp_accounttype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_accounttype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_accounttypename")]
+		public string MsnFp_AccountTypeName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_accounttype"))
+				{
+					return this.FormattedValues["msnfp_accounttype"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Manually populated date indicating when the Account was aquired.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_acquisitiondate")]
+		public System.Nullable<System.DateTime> MsnFp_AcquisitionDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_acquisitiondate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_acquisitiondate", value);
+			}
+		}
+		
+		/// <summary>
+		/// Manually populated field Indicating the lead source for acquiring this Account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_acquisitionsource")]
+		public virtual Account_MsnFp_AcquisitionSource? MsnFp_AcquisitionSource
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_MsnFp_AcquisitionSource?)(EntityOptionSetEnum.GetEnum(this, "msnfp_acquisitionsource")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_acquisitionsource", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_acquisitionsourcename")]
+		public string MsnFp_AcquisitionSourceName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_acquisitionsource"))
+				{
+					return this.FormattedValues["msnfp_acquisitionsource"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// A flag that automates the selection of the Donor Commitments, Transactions or Payment Schedules to set the corresponding flag on those records
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_anonymity")]
+		public virtual MsnFp_Anonymity? MsnFp_Anonymity
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MsnFp_Anonymity?)(EntityOptionSetEnum.GetEnum(this, "msnfp_anonymity")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_anonymity", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_anonymityname")]
+		public string MsnFp_AnonymityName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_anonymity"))
+				{
+					return this.FormattedValues["msnfp_anonymity"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Marks that this constituent has requested there donations and designations not be publicized
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_anonymous")]
+		public System.Nullable<bool> MsnFp_Anonymous
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("msnfp_anonymous");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_anonymous", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_anonymousname")]
+		public string MsnFp_AnonymousName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_anonymous"))
+				{
+					return this.FormattedValues["msnfp_anonymous"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// This attribute displays the donor type of the constituent or organization and is calculated on creation of a pledge/donor
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_classificationcode")]
+		public virtual MsnFp_DonorType? MsnFp_ClassificationCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MsnFp_DonorType?)(EntityOptionSetEnum.GetEnum(this, "msnfp_classificationcode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_classificationcode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_classificationcodename")]
+		public string MsnFp_ClassificationCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_classificationcode"))
+				{
+					return this.FormattedValues["msnfp_classificationcode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The total number of donations received from this account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_count_lifetimetransactions")]
+		public System.Nullable<int> MsnFp_Count_LifetimeTransactions
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("msnfp_count_lifetimetransactions");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_count_lifetimetransactions", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_firstactivity_rollup")]
+		public System.Nullable<System.DateTime> MsnFp_FirstActivity_Rollup
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_firstactivity_rollup");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_firstactivity_rollup", value);
+			}
+		}
+		
+		/// <summary>
+		/// Last Updated time of rollup field First Activity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_firstactivity_rollup_date")]
+		public System.Nullable<System.DateTime> MsnFp_FirstActivity_Rollup_Date
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_firstactivity_rollup_date");
+			}
+		}
+		
+		/// <summary>
+		/// State of rollup field First Activity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_firstactivity_rollup_state")]
+		public System.Nullable<int> MsnFp_FirstActivity_Rollup_State
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("msnfp_firstactivity_rollup_state");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_firsttransaction_rollup")]
+		public System.Nullable<System.DateTime> MsnFp_FirstTransaction_Rollup
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_firsttransaction_rollup");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_firsttransaction_rollup", value);
+			}
+		}
+		
+		/// <summary>
+		/// Last Updated time of rollup field First Transaction.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_firsttransaction_rollup_date")]
+		public System.Nullable<System.DateTime> MsnFp_FirstTransaction_Rollup_Date
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_firsttransaction_rollup_date");
+			}
+		}
+		
+		/// <summary>
+		/// State of rollup field First Transaction.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_firsttransaction_rollup_state")]
+		public System.Nullable<int> MsnFp_FirstTransaction_Rollup_State
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("msnfp_firsttransaction_rollup_state");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_firsttransactiondate")]
+		public System.Nullable<System.DateTime> MsnFp_FirstTransactionDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_firsttransactiondate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_firsttransactiondate", value);
+			}
+		}
+		
+		/// <summary>
+		/// The formal salutation used when referring to this household (applies to household records only)
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_formalsalutation")]
+		public string MsnFp_FormalSalutation
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msnfp_formalsalutation");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_formalsalutation", value);
+			}
+		}
+		
+		/// <summary>
+		/// This is a relationship (lookup) to the current giving level
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_givinglevelid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsnFp_GivingLevelId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msnfp_givinglevelid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_givinglevelid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_givinglevelidname")]
+		public string MsnFp_GivingLevelIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_givinglevelid"))
+				{
+					return this.FormattedValues["msnfp_givinglevelid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_householdmembers")]
+		public System.Nullable<int> MsnFp_HouseholdMembers
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("msnfp_householdmembers");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_householdmembers", value);
+			}
+		}
+		
+		/// <summary>
+		/// The primary salutation used when referring to this household (applies to household records only)
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_householdsalutation")]
+		public string MsnFp_HouseholdSalutation
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msnfp_householdsalutation");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_householdsalutation", value);
+			}
+		}
+		
+		/// <summary>
+		/// The informal salutation used when referring to this household (applies to household records only)
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_informalsalutation")]
+		public string MsnFp_InformalSalutation
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msnfp_informalsalutation");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_informalsalutation", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_isappraiser")]
+		public System.Nullable<bool> MsnFp_IsAppraiser
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("msnfp_isappraiser");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_isappraiser", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_isappraisername")]
+		public string MsnFp_IsAppraiserName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_isappraiser"))
+				{
+					return this.FormattedValues["msnfp_isappraiser"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Either true or false and sets whether this record is a solicitor either third party or other
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_issolicitor")]
+		public System.Nullable<bool> MsnFp_IsSolicitor
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("msnfp_issolicitor");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_issolicitor", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_issolicitorname")]
+		public string MsnFp_IsSolicitorName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_issolicitor"))
+				{
+					return this.FormattedValues["msnfp_issolicitor"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// This is a deprecated field no longer used in Fundraising and Engagement
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lastactivity")]
+		public System.Nullable<System.DateTime> MsnFp_LastActivity
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_lastactivity");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_lastactivity", value);
+			}
+		}
+		
+		/// <summary>
+		/// The most recent activity recorded for this organization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lastactivity_rollup")]
+		public System.Nullable<System.DateTime> MsnFp_LastActivity_Rollup
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_lastactivity_rollup");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_lastactivity_rollup", value);
+			}
+		}
+		
+		/// <summary>
+		/// Last Updated time of rollup field Last Activity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lastactivity_rollup_date")]
+		public System.Nullable<System.DateTime> MsnFp_LastActivity_Rollup_Date
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_lastactivity_rollup_date");
+			}
+		}
+		
+		/// <summary>
+		/// State of rollup field Last Activity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lastactivity_rollup_state")]
+		public System.Nullable<int> MsnFp_LastActivity_Rollup_State
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("msnfp_lastactivity_rollup_state");
+			}
+		}
+		
+		/// <summary>
+		/// The date and time (default to date only) of when the related event package has last been processed
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lasteventpackagedate")]
+		public System.Nullable<System.DateTime> MsnFp_LastEventPackagedAte
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_lasteventpackagedate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_lasteventpackagedate", value);
+			}
+		}
+		
+		/// <summary>
+		/// A lookup to the most recent event package for this organization record
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lasteventpackageid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsnFp_LastEventPackageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msnfp_lasteventpackageid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_lasteventpackageid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lasteventpackageidname")]
+		public string MsnFp_LastEventPackageIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_lasteventpackageid"))
+				{
+					return this.FormattedValues["msnfp_lasteventpackageid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The date and time (default to date only) of when the related donation has last been processed
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lasttransactiondate")]
+		public System.Nullable<System.DateTime> MsnFp_LastTransactionDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_lasttransactiondate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_lasttransactiondate", value);
+			}
+		}
+		
+		/// <summary>
+		/// A lookup to the most recent donation (transaction) for this contact record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lasttransactionid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsnFp_LastTransactionId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msnfp_lasttransactionid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_lasttransactionid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lasttransactionidname")]
+		public string MsnFp_LastTransactionIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_lasttransactionid"))
+				{
+					return this.FormattedValues["msnfp_lasttransactionid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lifetimegiving_rollup")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_LifetimeGiving_Rollup
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_lifetimegiving_rollup");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_lifetimegiving_rollup", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Life Time Giving in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lifetimegiving_rollup_base")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_LifetimeGiving_Rollup_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_lifetimegiving_rollup_base");
+			}
+		}
+		
+		/// <summary>
+		/// Last Updated time of rollup field Life Time Giving.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lifetimegiving_rollup_date")]
+		public System.Nullable<System.DateTime> MsnFp_LifetimeGiving_Rollup_Date
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_lifetimegiving_rollup_date");
+			}
+		}
+		
+		/// <summary>
+		/// State of rollup field Life Time Giving.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lifetimegiving_rollup_state")]
+		public System.Nullable<int> MsnFp_LifetimeGiving_Rollup_State
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("msnfp_lifetimegiving_rollup_state");
+			}
+		}
+		
+		/// <summary>
+		/// The lifetime giving of this organization, life time giving is calculated as the original received transactions, remaining donor commitments and any event registrations.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lifetimegivingsum")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_LifetimeGivingSum
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_lifetimegivingsum");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_lifetimegivingsum", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Lifetime Giving Sum in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lifetimegivingsum_base")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_LifetimeGivingSum_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_lifetimegivingsum_base");
+			}
+		}
+		
+		/// <summary>
+		/// This is a deprecated field no longer used in Fundraising and Engagement
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lifetimereceipted")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_LifetimeReceipted
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_lifetimereceipted");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_lifetimereceipted", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Lifetime Receipted in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lifetimereceipted_base")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_LifetimeReceipted_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_lifetimereceipted_base");
+			}
+		}
+		
+		/// <summary>
+		/// The preferred language for this contact record, receipt logic can honor these preferences
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_preferredlanguagecode")]
+		public virtual MsnFp_PreferredLanguageCode? MsnFp_PreferredLanguageCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MsnFp_PreferredLanguageCode?)(EntityOptionSetEnum.GetEnum(this, "msnfp_preferredlanguagecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_preferredlanguagecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_preferredlanguagecodename")]
+		public string MsnFp_PreferredLanguageCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_preferredlanguagecode"))
+				{
+					return this.FormattedValues["msnfp_preferredlanguagecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Subcategory of primary Constituency type rolls up to this field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_primaryconstituenttype")]
+		public virtual Account_MsnFp_PrimaryConstituentType? MsnFp_PrimaryConstituentType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_MsnFp_PrimaryConstituentType?)(EntityOptionSetEnum.GetEnum(this, "msnfp_primaryconstituenttype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_primaryconstituenttype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_primaryconstituenttypename")]
+		public string MsnFp_PrimaryConstituentTypeName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_primaryconstituenttype"))
+				{
+					return this.FormattedValues["msnfp_primaryconstituenttype"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The primary form identifier used to differentiate and automatically load the household or organization forms.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_primaryform")]
+		public string MsnFp_PrimaryForm
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msnfp_primaryform");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_primaryform", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_primarymembershipid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsnFp_PrimaryMembershipId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msnfp_primarymembershipid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_primarymembershipid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_primarymembershipidname")]
+		public string MsnFp_PrimaryMembershipIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_primarymembershipid"))
+				{
+					return this.FormattedValues["msnfp_primarymembershipid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The receipt preference that is defaulted from the account or contact but can be modified or set at the gift level
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_receiptpreferencecode")]
+		public virtual MsnFp_ReceiptPreference? MsnFp_ReceiptPreferenceCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MsnFp_ReceiptPreference?)(EntityOptionSetEnum.GetEnum(this, "msnfp_receiptpreferencecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_receiptpreferencecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_receiptpreferencecodename")]
+		public string MsnFp_ReceiptPreferenceCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_receiptpreferencecode"))
+				{
+					return this.FormattedValues["msnfp_receiptpreferencecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Marks that the user requested they be signed up for information from the donation or event pages
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_signup")]
+		public System.Nullable<bool> MsnFp_Signup
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("msnfp_signup");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_signup", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_signupname")]
+		public string MsnFp_SignupName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_signup"))
+				{
+					return this.FormattedValues["msnfp_signup"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The related stage or status of a donors solicitation journey before a related opportunity is created
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_solicitcode")]
+		public virtual MsnFp_SolicitationOrDiscovery? MsnFp_SolicitCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MsnFp_SolicitationOrDiscovery?)(EntityOptionSetEnum.GetEnum(this, "msnfp_solicitcode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_solicitcode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_solicitcodename")]
+		public string MsnFp_SolicitCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_solicitcode"))
+				{
+					return this.FormattedValues["msnfp_solicitcode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The date the Solicitation had been set
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_solicitdate")]
+		public System.Nullable<System.DateTime> MsnFp_SolicitDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msnfp_solicitdate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_solicitdate", value);
+			}
+		}
+		
+		/// <summary>
+		/// The total value of donations received from this account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_sum_lifetimetransactions")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Sum_LifetimeTransactions
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_sum_lifetimetransactions");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_sum_lifetimetransactions", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Lifetime Received Income ($) in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_sum_lifetimetransactions_base")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Sum_LifetimeTransactions_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_sum_lifetimetransactions_base");
+			}
+		}
+		
+		/// <summary>
+		/// The type of phone number for Telephone Number 1
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_telephone1typecode")]
+		public virtual MsnFp_TelephoneType? MsnFp_Telephone1TypeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MsnFp_TelephoneType?)(EntityOptionSetEnum.GetEnum(this, "msnfp_telephone1typecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_telephone1typecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_telephone1typecodename")]
+		public string MsnFp_Telephone1TypeCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_telephone1typecode"))
+				{
+					return this.FormattedValues["msnfp_telephone1typecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The type of phone number for Telephone Number 2
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_telephone2typecode")]
+		public virtual MsnFp_TelephoneType? MsnFp_Telephone2TypeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MsnFp_TelephoneType?)(EntityOptionSetEnum.GetEnum(this, "msnfp_telephone2typecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_telephone2typecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_telephone2typecodename")]
+		public string MsnFp_Telephone2TypeCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_telephone2typecode"))
+				{
+					return this.FormattedValues["msnfp_telephone2typecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The type of phone number for Telephone Number 3
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_telephone3typecode")]
+		public virtual MsnFp_TelephoneType? MsnFp_Telephone3TypeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((MsnFp_TelephoneType?)(EntityOptionSetEnum.GetEnum(this, "msnfp_telephone3typecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_telephone3typecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_telephone3typecodename")]
+		public string MsnFp_Telephone3TypeCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_telephone3typecode"))
+				{
+					return this.FormattedValues["msnfp_telephone3typecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The vendor number for this account (Financial Integration)
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_vendorid")]
+		public string MsnFp_VendorId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msnfp_vendorid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_vendorid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Suggests this account is of high value and triggers related notifications of activity on this account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_vip")]
+		public System.Nullable<bool> MsnFp_Vip
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("msnfp_vip");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_vip", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_vipname")]
+		public string MsnFp_VipName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msnfp_vip"))
+				{
+					return this.FormattedValues["msnfp_vip"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The current years giving, calculated as the original received transactions, remaining donor commitments and any event registrations within the current calendar year.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year0_giving")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year0_Giving
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year0_giving");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_year0_giving", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Current Year Giving in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year0_giving_base")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year0_Giving_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year0_giving_base");
+			}
+		}
+		
+		/// <summary>
+		/// The current years giving, calculated as the original received transactions, remaining donor commitments and any event registrations within the previous calendar year.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year1_giving")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year1_Giving
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year1_giving");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_year1_giving", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Last Year's Giving in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year1_giving_base")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year1_Giving_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year1_giving_base");
+			}
+		}
+		
+		/// <summary>
+		/// The current years giving, calculated as the original received transactions, remaining donor commitments and any event registrations within the previous third year of giving.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year2_giving")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year2_Giving
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year2_giving");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_year2_giving", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Third Year Giving in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year2_giving_base")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year2_Giving_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year2_giving_base");
+			}
+		}
+		
+		/// <summary>
+		/// The current years giving, calculated as the original received transactions, remaining donor commitments and any event registrations within the previous fourth year of giving.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year3_giving")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year3_Giving
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year3_giving");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_year3_giving", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Fourth Year Giving in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year3_giving_base")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year3_Giving_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year3_giving_base");
+			}
+		}
+		
+		/// <summary>
+		/// The current years giving, calculated as the original received transactions, remaining donor commitments and any event registrations within the previous fifth year of giving.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year4_giving")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year4_Giving
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year4_giving");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msnfp_year4_giving", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Fifth Year Giving in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_year4_giving_base")]
+		public Microsoft.Xrm.Sdk.Money MsnFp_Year4_Giving_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msnfp_year4_giving_base");
+			}
+		}
+		
+		/// <summary>
+		/// Type the company or business name.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		public string Name
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("name");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("name", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("new_dmscontact")]
+		public string New_DMsContact
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("new_dmscontact");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("new_dmscontact", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the number of employees that work at the account for use in marketing segmentation and demographic analysis.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("numberofemployees")]
+		public System.Nullable<int> NumberOfEmployees
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("numberofemployees");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("numberofemployees", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows how long, in minutes, that the record was on hold.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("onholdtime")]
+		public System.Nullable<int> OnHoldTime
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("onholdtime");
+			}
+		}
+		
+		/// <summary>
+		/// Number of open opportunities against an account and its child accounts.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("opendeals")]
+		public System.Nullable<int> OpenDeals
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("opendeals");
+			}
+		}
+		
+		/// <summary>
+		/// Last Updated time of rollup field Open Deals.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("opendeals_date")]
+		public System.Nullable<System.DateTime> OpenDeals_Date
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("opendeals_date");
+			}
+		}
+		
+		/// <summary>
+		/// State of rollup field Open Deals.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("opendeals_state")]
+		public System.Nullable<int> OpenDeals_State
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("opendeals_state");
+			}
+		}
+		
+		/// <summary>
+		/// Sum of open revenue against an account and its child accounts.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("openrevenue")]
+		public Microsoft.Xrm.Sdk.Money OpenRevenue
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("openrevenue");
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Open Revenue in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("openrevenue_base")]
+		public Microsoft.Xrm.Sdk.Money OpenRevenue_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("openrevenue_base");
+			}
+		}
+		
+		/// <summary>
+		/// Last Updated time of rollup field Open Revenue.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("openrevenue_date")]
+		public System.Nullable<System.DateTime> OpenRevenue_Date
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("openrevenue_date");
+			}
+		}
+		
+		/// <summary>
+		/// State of rollup field Open Revenue.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("openrevenue_state")]
+		public System.Nullable<int> OpenRevenue_State
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("openrevenue_state");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the lead that the account was created from if the account was created by converting a lead in Microsoft Dynamics 365. This is used to relate the account to data on the originating lead for use in reporting and analytics.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("originatingleadid")]
+		public Microsoft.Xrm.Sdk.EntityReference OriginatingLeadId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("originatingleadid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("originatingleadid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("originatingleadidname")]
+		public string OriginatingLeadIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("originatingleadid"))
+				{
+					return this.FormattedValues["originatingleadid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("originatingleadidyominame")]
+		public string OriginatingLeadIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("originatingleadid"))
+				{
+					return this.FormattedValues["originatingleadid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Date and time that the record was migrated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overriddencreatedon")]
+		public System.Nullable<System.DateTime> OverriddenCreatedOn
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overriddencreatedon");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("overriddencreatedon", value);
+			}
+		}
+		
+		/// <summary>
+		/// Enter the user or team who is assigned to manage the record. This field is updated every time the record is assigned to a different user.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ownerid")]
+		public Microsoft.Xrm.Sdk.EntityReference OwnerId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ownerid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("ownerid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridname")]
+		public string OwnerIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("ownerid"))
+				{
+					return this.FormattedValues["ownerid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridyominame")]
+		public string OwnerIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("ownerid"))
+				{
+					return this.FormattedValues["ownerid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select the account's ownership structure, such as public or private.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ownershipcode")]
+		public virtual Account_OwnershipCode? OwnershipCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_OwnershipCode?)(EntityOptionSetEnum.GetEnum(this, "ownershipcode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("ownershipcode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ownershipcodename")]
+		public string OwnershipCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("ownershipcode"))
+				{
+					return this.FormattedValues["ownershipcode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Shows the business unit that the record owner belongs to.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunit")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningBusinessUnit
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunitname")]
+		public string OwningBusinessUnitName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("owningbusinessunit"))
+				{
+					return this.FormattedValues["owningbusinessunit"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the team who owns the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningteam")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningTeam
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who owns the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owninguser")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningUser
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
+			}
+		}
+		
+		/// <summary>
+		/// Choose the parent account associated with this account to show parent and child businesses in reporting and analytics.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentaccountid")]
+		public Microsoft.Xrm.Sdk.EntityReference ParentAccountId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("parentaccountid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("parentaccountid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentaccountidname")]
+		public string ParentAccountIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("parentaccountid"))
+				{
+					return this.FormattedValues["parentaccountid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentaccountidyominame")]
+		public string ParentAccountIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("parentaccountid"))
+				{
+					return this.FormattedValues["parentaccountid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// For system use only. Legacy Microsoft Dynamics CRM 3.0 workflow data.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("participatesinworkflow")]
+		public System.Nullable<bool> ParticipatesInWorkflow
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("participatesinworkflow");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("participatesinworkflow", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("participatesinworkflowname")]
+		public string ParticipatesInWorkflowName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("participatesinworkflow"))
+				{
+					return this.FormattedValues["participatesinworkflow"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select the payment terms to indicate when the customer needs to pay the total amount.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("paymenttermscode")]
+		public virtual Account_PaymentTermsCode? PaymentTermsCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_PaymentTermsCode?)(EntityOptionSetEnum.GetEnum(this, "paymenttermscode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("paymenttermscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("paymenttermscodename")]
+		public string PaymentTermsCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("paymenttermscode"))
+				{
+					return this.FormattedValues["paymenttermscode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select the preferred day of the week for service appointments.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredappointmentdaycode")]
+		public virtual Account_PreferredAppointmentDayCode? PreferredAppointmentDayCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_PreferredAppointmentDayCode?)(EntityOptionSetEnum.GetEnum(this, "preferredappointmentdaycode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("preferredappointmentdaycode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredappointmentdaycodename")]
+		public string PreferredAppointmentDayCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("preferredappointmentdaycode"))
+				{
+					return this.FormattedValues["preferredappointmentdaycode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select the preferred time of day for service appointments.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredappointmenttimecode")]
+		public virtual Account_PreferredAppointmentTimeCode? PreferredAppointmentTimeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_PreferredAppointmentTimeCode?)(EntityOptionSetEnum.GetEnum(this, "preferredappointmenttimecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("preferredappointmenttimecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredappointmenttimecodename")]
+		public string PreferredAppointmentTimeCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("preferredappointmenttimecode"))
+				{
+					return this.FormattedValues["preferredappointmenttimecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select the preferred method of contact.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredcontactmethodcode")]
+		public virtual Account_PreferredContactMethodCode? PreferredContactMethodCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_PreferredContactMethodCode?)(EntityOptionSetEnum.GetEnum(this, "preferredcontactmethodcode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("preferredcontactmethodcode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredcontactmethodcodename")]
+		public string PreferredContactMethodCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("preferredcontactmethodcode"))
+				{
+					return this.FormattedValues["preferredcontactmethodcode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Choose the account's preferred service facility or equipment to make sure services are scheduled correctly for the customer.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredequipmentid")]
+		public Microsoft.Xrm.Sdk.EntityReference PreferredEquipmentId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("preferredequipmentid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("preferredequipmentid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredequipmentidname")]
+		public string PreferredEquipmentIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("preferredequipmentid"))
+				{
+					return this.FormattedValues["preferredequipmentid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Choose the account's preferred service for reference when you schedule service activities.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredserviceid")]
+		public Microsoft.Xrm.Sdk.EntityReference PreferredServiceId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("preferredserviceid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("preferredserviceid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredserviceidname")]
+		public string PreferredServiceIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("preferredserviceid"))
+				{
+					return this.FormattedValues["preferredserviceid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Choose the preferred service representative for reference when you schedule service activities for the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredsystemuserid")]
+		public Microsoft.Xrm.Sdk.EntityReference PreferredSystemUserId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("preferredsystemuserid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("preferredsystemuserid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredsystemuseridname")]
+		public string PreferredSystemUserIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("preferredsystemuserid"))
+				{
+					return this.FormattedValues["preferredsystemuserid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredsystemuseridyominame")]
+		public string PreferredSystemUserIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("preferredsystemuserid"))
+				{
+					return this.FormattedValues["preferredsystemuserid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Choose the primary contact for the account to provide quick access to contact details.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("primarycontactid")]
+		public Microsoft.Xrm.Sdk.EntityReference PrimaryContactId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("primarycontactid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("primarycontactid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("primarycontactidname")]
+		public string PrimaryContactIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("primarycontactid"))
+				{
+					return this.FormattedValues["primarycontactid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("primarycontactidyominame")]
+		public string PrimaryContactIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("primarycontactid"))
+				{
+					return this.FormattedValues["primarycontactid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Primary Satori ID for Account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("primarysatoriid")]
+		public string PrimarySatoriId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("primarysatoriid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("primarysatoriid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Primary Twitter ID for Account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("primarytwitterid")]
+		public string PrimaryTwitterId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("primarytwitterid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("primarytwitterid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows the ID of the process.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("processid")]
+		public System.Nullable<System.Guid> ProcessId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("processid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("processid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the annual revenue for the account, used as an indicator in financial performance analysis.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("revenue")]
+		public Microsoft.Xrm.Sdk.Money Revenue
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("revenue");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("revenue", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows the annual revenue converted to the system's default base currency. The calculations use the exchange rate specified in the Currencies area.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("revenue_base")]
+		public Microsoft.Xrm.Sdk.Money Revenue_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("revenue_base");
+			}
+		}
+		
+		/// <summary>
+		/// Type the number of shares available to the public for the account. This number is used as an indicator in financial performance analysis.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sharesoutstanding")]
+		public System.Nullable<int> SharesOutstanding
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("sharesoutstanding");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sharesoutstanding", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select a shipping method for deliveries sent to the account's address to designate the preferred carrier or other delivery option.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shippingmethodcode")]
+		public virtual Account_ShippingMethodCode? ShippingMethodCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_ShippingMethodCode?)(EntityOptionSetEnum.GetEnum(this, "shippingmethodcode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("shippingmethodcode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shippingmethodcodename")]
+		public string ShippingMethodCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("shippingmethodcode"))
+				{
+					return this.FormattedValues["shippingmethodcode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the Standard Industrial Classification (SIC) code that indicates the account's primary industry of business, for use in marketing segmentation and demographic analysis.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sic")]
+		public string Sic
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("sic");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sic", value);
+			}
+		}
+		
+		/// <summary>
+		/// Choose the service level agreement (SLA) that you want to apply to the Account record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("slaid")]
+		public Microsoft.Xrm.Sdk.EntityReference SlaId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("slaid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("slaid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Last SLA that was applied to this case. This field is for internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("slainvokedid")]
+		public Microsoft.Xrm.Sdk.EntityReference SlaInvokedId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("slainvokedid");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("slainvokedidname")]
+		public string SlaInvokedIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("slainvokedid"))
+				{
+					return this.FormattedValues["slainvokedid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("slaname")]
+		public string SlaName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("slaid"))
+				{
+					return this.FormattedValues["slaid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Shows the ID of the stage.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stageid")]
+		public System.Nullable<System.Guid> StageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("stageid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("stageid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Shows whether the account is active or inactive. Inactive accounts are read-only and can't be edited unless they are reactivated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
+		public virtual Account_StateCode? StateCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("statecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecodename")]
+		public string StateCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("statecode"))
+				{
+					return this.FormattedValues["statecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Select the account's status.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
+		public virtual Account_StatusCode? StatusCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscodename")]
+		public string StatusCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("statuscode"))
+				{
+					return this.FormattedValues["statuscode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the stock exchange at which the account is listed to track their stock and financial performance of the company.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stockexchange")]
+		public string StockExchange
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("stockexchange");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("stockexchange", value);
+			}
+		}
+		
+		/// <summary>
+		/// Number of users or conversations followed the record
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("teamsfollowed")]
+		public System.Nullable<int> TeamsFollowed
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("teamsfollowed");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("teamsfollowed", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the main phone number for this account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone1")]
+		public string Telephone1
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("telephone1");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("telephone1", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type a second phone number for this account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone2")]
+		public string Telephone2
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("telephone2");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("telephone2", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type a third phone number for this account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone3")]
+		public string Telephone3
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("telephone3");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("telephone3", value);
+			}
+		}
+		
+		/// <summary>
+		/// Select a region or territory for the account for use in segmentation and analysis.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("territorycode")]
+		public virtual Account_TerritoryCode? TerritoryCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_TerritoryCode?)(EntityOptionSetEnum.GetEnum(this, "territorycode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("territorycode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("territorycodename")]
+		public string TerritoryCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("territorycode"))
+				{
+					return this.FormattedValues["territorycode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Choose the sales region or territory for the account to make sure the account is assigned to the correct representative and for use in segmentation and analysis.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("territoryid")]
+		public Microsoft.Xrm.Sdk.EntityReference TerritoryId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("territoryid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("territoryid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("territoryidname")]
+		public string TerritoryIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("territoryid"))
+				{
+					return this.FormattedValues["territoryid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the stock exchange symbol for the account to track financial performance of the company. You can click the code entered in this field to access the latest trading information from MSN Money.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("tickersymbol")]
+		public string TickerSymbol
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("tickersymbol");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("tickersymbol", value);
+			}
+		}
+		
+		/// <summary>
+		/// Total time spent for emails (read and write) and meetings by me in relation to account record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timespentbymeonemailandmeetings")]
+		public string TimeSpentByMeOnEmailAndMeetings
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("timespentbymeonemailandmeetings");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		public System.Nullable<int> TimeZoneRuleVersionNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("timezoneruleversionnumber", value);
+			}
+		}
+		
+		/// <summary>
+		/// Choose the local currency for the record to make sure budgets are reported in the correct currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyid")]
+		public Microsoft.Xrm.Sdk.EntityReference TransactionCurrencyId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("transactioncurrencyid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("transactioncurrencyid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyidname")]
+		public string TransactionCurrencyIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("transactioncurrencyid"))
+				{
+					return this.FormattedValues["transactioncurrencyid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		public string TraversedPath
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("traversedpath");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("traversedpath", value);
+			}
+		}
+		
+		/// <summary>
+		/// Time zone code that was in use when the record was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		public System.Nullable<int> UtcConversionTimeZoneCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("utcconversiontimezonecode", value);
+			}
+		}
+		
+		/// <summary>
+		/// Version number of the account.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// Type the account's website URL to get quick details about the company profile.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("websiteurl")]
+		public string WebsiteUrl
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("websiteurl");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("websiteurl", value);
+			}
+		}
+		
+		/// <summary>
+		/// Type the phonetic spelling of the company name, if specified in Japanese, to make sure the name is pronounced correctly in phone calls and other communications.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yominame")]
+		public string YomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("yominame");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("yominame", value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N account_master_account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("account_master_account", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+		public System.Collections.Generic.IEnumerable<DataverseModel.Account> ReferencedAccount_Master_Account
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.Account>("account_master_account", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.Account>("account_master_account", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N account_parent_account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("account_parent_account", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+		public System.Collections.Generic.IEnumerable<DataverseModel.Account> ReferencedAccount_Parent_Account
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.Account>("account_parent_account", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.Account>("account_parent_account", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N contact_customer_accounts
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("contact_customer_accounts")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.Contact> Contact_Customer_Accounts
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.Contact>("contact_customer_accounts", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.Contact>("contact_customer_accounts", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msa_account_managingpartner
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msa_account_managingpartner", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+		public System.Collections.Generic.IEnumerable<DataverseModel.Account> ReferencedMSa_Account_ManagingPartner
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.Account>("msa_account_managingpartner", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.Account>("msa_account_managingpartner", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msa_contact_managingpartner
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msa_contact_managingpartner")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.Contact> MSa_Contact_ManagingPartner
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.Contact>("msa_contact_managingpartner", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.Contact>("msa_contact_managingpartner", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msiati_account_account_reportingorganization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msiati_account_account_reportingorganization", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+		public System.Collections.Generic.IEnumerable<DataverseModel.Account> ReferencedMsIaTi_Account_Account_ReportingOrganization
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.Account>("msiati_account_account_reportingorganization", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.Account>("msiati_account_account_reportingorganization", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msiati_account_msnfp_transaction_ProviderOrganization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msiati_account_msnfp_transaction_ProviderOrganization")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.MsnFp_Transaction> MsIaTi_Account_MsnFp_Transaction_ProviderOrganization
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.MsnFp_Transaction>("msiati_account_msnfp_transaction_ProviderOrganization", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.MsnFp_Transaction>("msiati_account_msnfp_transaction_ProviderOrganization", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msiati_account_msnfp_transaction_RecipientOrganization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msiati_account_msnfp_transaction_RecipientOrganization")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.MsnFp_Transaction> MsIaTi_Account_MsnFp_Transaction_RecipientOrganization
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.MsnFp_Transaction>("msiati_account_msnfp_transaction_RecipientOrganization", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.MsnFp_Transaction>("msiati_account_msnfp_transaction_RecipientOrganization", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msnfp_account_contact_Household
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_contact_Household")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.Contact> MsnFp_Account_Contact_Household
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.Contact>("msnfp_account_contact_Household", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.Contact>("msnfp_account_contact_Household", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msnfp_account_msnfp_transaction_ApprCustomer
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_msnfp_transaction_ApprCustomer")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.MsnFp_Transaction> MsnFp_Account_MsnFp_Transaction_ApPrCustomer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_account_msnfp_transaction_ApprCustomer", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_account_msnfp_transaction_ApprCustomer", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msnfp_account_msnfp_transaction_Household
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_msnfp_transaction_Household")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.MsnFp_Transaction> MsnFp_Account_MsnFp_Transaction_Household
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_account_msnfp_transaction_Household", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_account_msnfp_transaction_Household", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msnfp_account_msnfp_transaction_RelatedCustomerId
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_msnfp_transaction_RelatedCustomerId")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.MsnFp_Transaction> MsnFp_Account_MsnFp_Transaction_RelatedCustomerId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_account_msnfp_transaction_RelatedCustomerId", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_account_msnfp_transaction_RelatedCustomerId", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msnfp_account_msnfp_transaction_Solicitor
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_msnfp_transaction_Solicitor")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.MsnFp_Transaction> MsnFp_Account_MsnFp_Transaction_Solicitor
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_account_msnfp_transaction_Solicitor", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_account_msnfp_transaction_Solicitor", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msnfp_accountdonor_msnfp_transaction
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_accountdonor_msnfp_transaction")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.MsnFp_Transaction> MsnFp_AccountDonor_MsnFp_Transaction
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_accountdonor_msnfp_transaction", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_accountdonor_msnfp_transaction", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N msnfp_txn_receiptOnAccount
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_txn_receiptOnAccount")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.MsnFp_Transaction> MsnFp_TxN_ReceiptOnAccount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_txn_receiptOnAccount", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_txn_receiptOnAccount", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 account_master_account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("masterid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("account_master_account", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+		public DataverseModel.Account ReferencingAccount_Master_Account
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("account_master_account", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 account_parent_account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentaccountid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("account_parent_account", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+		public DataverseModel.Account ReferencingAccount_Parent_Account
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("account_parent_account", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("account_parent_account", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 account_primary_contact
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("primarycontactid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("account_primary_contact")]
+		public DataverseModel.Contact Account_Primary_Contact
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Contact>("account_primary_contact", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Contact>("account_primary_contact", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msa_account_managingpartner
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msa_managingpartnerid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msa_account_managingpartner", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+		public DataverseModel.Account ReferencingMsA_Account_ManagingPartner
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msa_account_managingpartner", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msa_account_managingpartner", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msiati_account_account_reportingorganization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_reportingorganizationid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msiati_account_account_reportingorganization", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+		public DataverseModel.Account ReferencingMsIAti_Account_Account_ReportingOrganization
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msiati_account_account_reportingorganization", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msiati_account_account_reportingorganization", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msnfp_transaction_account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_lasttransactionid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_transaction_account")]
+		public DataverseModel.MsnFp_Transaction MsnFp_Transaction_Account
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.MsnFp_Transaction>("msnfp_transaction_account", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.MsnFp_Transaction>("msnfp_transaction_account", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// Constructor for populating via LINQ queries given a LINQ anonymous type
+		/// <param name="anonymousType">LINQ anonymous type.</param>
+		/// </summary>
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Account(object anonymousType) : 
+				this()
+		{
+            foreach (var p in anonymousType.GetType().GetProperties())
+            {
+                var value = p.GetValue(anonymousType, null);
+                var name = p.Name.ToLower();
+            
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                {
+                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
+                    name = name.Remove(name.Length - "enum".Length);
+                }
+            
+                switch (name)
+                {
+                    case "id":
+                        base.Id = (System.Guid)value;
+                        Attributes["accountid"] = base.Id;
+                        break;
+                    case "accountid":
+                        var id = (System.Nullable<System.Guid>) value;
+                        if(id == null){ continue; }
+                        base.Id = id.Value;
+                        Attributes[name] = base.Id;
+                        break;
+                    case "formattedvalues":
+                        // Add Support for FormattedValues
+                        FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
+                        break;
+                    default:
+                        Attributes[name] = value;
+                        break;
+                }
+            }
+		}
+	}
+	
 	/// <summary>
 	/// Person with whom a business unit has a relationship, such as customer, supplier, and colleague.
 	/// </summary>
@@ -24,6 +7030,7 @@ namespace DataverseModel
 		/// </summary>
 		public partial class Fields
 		{
+			public const string Account_Primary_Contact = "Account_Primary_Contact";
 			public const string AccountId = "accountid";
 			public const string AccountIdName = "accountidname";
 			public const string AccountIdYomiName = "accountidyominame";
@@ -169,9 +7176,9 @@ namespace DataverseModel
 			public const string Callback = "callback";
 			public const string ChildrensNames = "childrensnames";
 			public const string Company = "company";
+			public const string Contact_Customer_Accounts = "contact_customer_accounts";
 			public const string ReferencingContact_Customer_Contacts = "contact_customer_contacts";
 			public const string ReferencingContact_Master_Contact = "contact_master_contact";
-			public const string ReferencingContact_Parent_Contact = "contact_parent_contact";
 			public const string ContactId = "contactid";
 			public const string Id = "contactid";
 			public const string CreatedBy = "createdby";
@@ -240,6 +7247,9 @@ namespace DataverseModel
 			public const string FNQHF_AlternativeEmergencyContactEmail = "fnqhf_alternativeemergencycontactemail";
 			public const string FNQHF_AlternativeEmergencyContactName = "fnqhf_alternativeemergencycontactname";
 			public const string FNQHF_AlternativeEmergencyContactPhone = "fnqhf_alternativeemergencycontactphone";
+			public const string FNQHF_AlternativeEmergencyRelationship = "fnqhf_alternativeemergencyrelationship";
+			public const string FNQHF_AnyDietaryRequirement = "fnqhf_anydietaryrequirement";
+			public const string FNQHF_AnyDietaryRequirementName = "fnqhf_anydietaryrequirementname";
 			public const string FNQHF_ApplicationId = "fnqhf_applicationid";
 			public const string FNQHF_ApplicationIdName = "fnqhf_applicationidname";
 			public const string FNQHF_ApplicationRecIEveD = "fnqhf_applicationrecieved";
@@ -275,6 +7285,7 @@ namespace DataverseModel
 			public const string FNQHF_DescribeYourself = "fnqhf_describeyourself";
 			public const string FNQHF_DMsCompanyId = "fnqhf_dmscompanyid";
 			public const string FNQHF_DMsContactId = "fnqhf_dmscontactid";
+			public const string FNQHF_DMsEmail = "fnqhf_dmsemail";
 			public const string FNQHF_DMsHouseholdId = "fnqhf_dmshouseholdid";
 			public const string FNQHF_DMsStatus = "fnqhf_dmsstatus";
 			public const string FNQHF_DMsTitle = "fnqhf_dmstitle";
@@ -302,20 +7313,29 @@ namespace DataverseModel
 			public const string FNQHF_EmploymentType = "fnqhf_employmenttype";
 			public const string FNQHF_EmploymentTypeName = "fnqhf_employmenttypename";
 			public const string FNQHF_EndDate = "fnqhf_enddate";
+			public const string FNQHF_EntityImage = "fnqhf_entityimage";
+			public const string FNQHF_EntityImage_Timestamp = "fnqhf_entityimage_timestamp";
+			public const string FNQHF_EntityImage_Url = "fnqhf_entityimage_url";
+			public const string FNQHF_EntityImageId = "fnqhf_entityimageid";
 			public const string FNQHF_FOfArea = "fnqhf_fofarea";
 			public const string FNQHF_FOfPosition = "fnqhf_fofposition";
 			public const string FNQHF_Friday = "fnqhf_friday";
 			public const string FNQHF_FridayName = "fnqhf_fridayname";
 			public const string FNQHF_FundraisingPosition = "fnqhf_fundraisingposition";
+			public const string FNQHF_FundraisingPositionMigration = "fnqhf_fundraisingpositionmigration";
 			public const string FNQHF_FundraisingPositionName = "fnqhf_fundraisingpositionname";
+			public const string FNQHF_GuestFullName = "fnqhf_guestfullname";
+			public const string FNQHF_HouseholdAddressee = "fnqhf_householdaddressee";
 			public const string FNQHF_HowDidYouHearAboutUs = "fnqhf_howdidyouhearaboutus";
 			public const string FNQHF_HowDidYouHearAboutUsName = "fnqhf_howdidyouhearaboutusname";
+			public const string FNQHF_IfYesPleaseProvideRequirement = "fnqhf_ifyespleaseproviderequirement";
 			public const string FNQHF_ImportFilename = "fnqhf_importfilename";
 			public const string FNQHF_InternalBirthday = "fnqhf_internalbirthday";
 			public const string FNQHF_JoinDate = "fnqhf_joindate";
 			public const string FNQHF_LastDonationAmount = "fnqhf_lastdonationamount";
 			public const string FNQHF_LastDonationAmount_Base = "fnqhf_lastdonationamount_base";
 			public const string FNQHF_LegNThOfTimeKnown = "fnqhf_legnthoftimeknown";
+			public const string FNQHF_LengthOfTimeKnowToReferee = "fnqhf_lengthoftimeknowtoreferee";
 			public const string FNQHF_LicensePlate = "fnqhf_licenseplate";
 			public const string FNQHF_MainResponsibilities = "fnqhf_mainresponsibilities";
 			public const string FNQHF_Make = "fnqhf_make";
@@ -387,6 +7407,7 @@ namespace DataverseModel
 			public const string FNQHF_VolunteerCategory = "fnqhf_volunteercategory";
 			public const string FNQHF_VolunteerCategoryName = "fnqhf_volunteercategoryname";
 			public const string FNQHF_VolunteerIdNo = "fnqhf_volunteeridno";
+			public const string FNQHF_VolunteeringTypeMigration = "fnqhf_volunteeringtypemigration";
 			public const string FNQHF_VolunteerServiceArea = "fnqhf_volunteerservicearea";
 			public const string FNQHF_VolunteerServiceAreaName = "fnqhf_volunteerserviceareaname";
 			public const string FNQHF_VolunteerType = "fnqhf_volunteertype";
@@ -440,6 +7461,7 @@ namespace DataverseModel
 			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
 			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
 			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
+			public const string MSa_Contact_ManagingPartner = "msa_contact_managingpartner";
 			public const string MSa_ManagingPartnerId = "msa_managingpartnerid";
 			public const string MsA_ManagingPartnerIdName = "msa_managingpartneridname";
 			public const string MsA_ManagingPartnerIdYomiName = "msa_managingpartneridyominame";
@@ -490,8 +7512,6 @@ namespace DataverseModel
 			public const string MSeVTmGt_ContactIdName = "msevtmgt_contactidname";
 			public const string MSeVTmGt_OriginatingEventId = "msevtmgt_originatingeventid";
 			public const string MSeVTmGt_OriginatingEventIdName = "msevtmgt_originatingeventidname";
-			public const string MsFt_DataState = "msft_datastate";
-			public const string MsFt_DataStateName = "msft_datastatename";
 			public const string MsGdPr_ConsentChangeSourceFormId = "msgdpr_consentchangesourceformid";
 			public const string MsGdPr_ConsentChangeSourceForMidName = "msgdpr_consentchangesourceformidname";
 			public const string ReferencingMsGdPr_Contact_MsGdPr_GdPrParent = "msgdpr_contact_msgdpr_gdprparent";
@@ -504,6 +7524,7 @@ namespace DataverseModel
 			public const string MsGdPr_GdPrParentId = "msgdpr_gdprparentid";
 			public const string MsGdPr_GdPrParentIdName = "msgdpr_gdprparentidname";
 			public const string MsGdPr_GdPrParentIdYomiName = "msgdpr_gdprparentidyominame";
+			public const string MsnFp_Account_Contact_Household = "msnfp_account_contact_Household";
 			public const string MsnFp_Age = "msnfp_age";
 			public const string MsnFp_Anonymity = "msnfp_anonymity";
 			public const string MsnFp_AnonymityName = "msnfp_anonymityname";
@@ -641,9 +7662,6 @@ namespace DataverseModel
 			public const string OwningTeam = "owningteam";
 			public const string OwningUser = "owninguser";
 			public const string Pager = "pager";
-			public const string Parent_ContactId = "parent_contactid";
-			public const string Parent_ContactIdName = "parent_contactidname";
-			public const string Parent_ContactIdYomiName = "parent_contactidyominame";
 			public const string ParentContactId = "parentcontactid";
 			public const string ParentContactIdName = "parentcontactidname";
 			public const string ParentContactIdYomiName = "parentcontactidyominame";
@@ -670,7 +7688,6 @@ namespace DataverseModel
 			public const string ProcessId = "processid";
 			public const string ReferencedContact_Customer_Contacts = "ReferencedContact_Customer_Contacts";
 			public const string ReferencedContact_Master_Contact = "ReferencedContact_Master_Contact";
-			public const string ReferencedContact_Parent_Contact = "ReferencedContact_Parent_Contact";
 			public const string ReferencedMsGdPr_Contact_MsGdPr_GdPrParent = "ReferencedMsGdPr_Contact_MsGdPr_GdPrParent";
 			public const string ReferencedMsnFp_Contact_ReportsTo = "ReferencedMsnFp_Contact_ReportsTo";
 			public const string Salutation = "salutation";
@@ -4333,6 +11350,53 @@ namespace DataverseModel
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_alternativeemergencyrelationship")]
+		public string FNQHF_AlternativeEmergencyRelationship
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_alternativeemergencyrelationship");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_alternativeemergencyrelationship", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_anydietaryrequirement")]
+		public virtual Contact_FNQHF_AnyDietaryRequirement? FNQHF_AnyDietaryRequirement
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_FNQHF_AnyDietaryRequirement?)(EntityOptionSetEnum.GetEnum(this, "fnqhf_anydietaryrequirement")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_anydietaryrequirement", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_anydietaryrequirementname")]
+		public string FNQHF_AnyDietaryRequirementName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("fnqhf_anydietaryrequirement"))
+				{
+					return this.FormattedValues["fnqhf_anydietaryrequirement"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_applicationid")]
 		public Microsoft.Xrm.Sdk.EntityReference FNQHF_ApplicationId
 		{
@@ -4718,12 +11782,12 @@ namespace DataverseModel
 		}
 		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_constituenttype")]
-		public virtual System.Collections.Generic.IEnumerable<FNQHF_PrimaryConstituentType> FNQHF_ConstituentType
+		public virtual System.Collections.Generic.IEnumerable<MsnFp_ConstituentTypeOption> FNQHF_ConstituentType
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return EntityOptionSetEnum.GetMultiEnum<FNQHF_PrimaryConstituentType>(this, "fnqhf_constituenttype");
+				return EntityOptionSetEnum.GetMultiEnum<MsnFp_ConstituentTypeOption>(this, "fnqhf_constituenttype");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
@@ -4866,6 +11930,21 @@ namespace DataverseModel
 			set
 			{
 				this.SetAttributeValue("fnqhf_dmscontactid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_dmsemail")]
+		public string FNQHF_DMsEmail
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_dmsemail");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_dmsemail", value);
 			}
 		}
 		
@@ -5273,6 +12352,51 @@ namespace DataverseModel
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_entityimage")]
+		public byte[] FNQHF_EntityImage
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<byte[]>("fnqhf_entityimage");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_entityimage", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_entityimage_timestamp")]
+		public System.Nullable<long> FNQHF_EntityImage_Timestamp
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("fnqhf_entityimage_timestamp");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_entityimage_url")]
+		public string FNQHF_EntityImage_Url
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_entityimage_url");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_entityimageid")]
+		public System.Nullable<System.Guid> FNQHF_EntityImageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("fnqhf_entityimageid");
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_fofarea")]
 		public string FNQHF_FOfArea
 		{
@@ -5350,6 +12474,21 @@ namespace DataverseModel
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_fundraisingpositionmigration")]
+		public string FNQHF_FundraisingPositionMigration
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_fundraisingpositionmigration");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_fundraisingpositionmigration", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_fundraisingpositionname")]
 		public string FNQHF_FundraisingPositionName
 		{
@@ -5364,6 +12503,36 @@ namespace DataverseModel
 				{
 					return default(string);
 				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_guestfullname")]
+		public string FNQHF_GuestFullName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_guestfullname");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_guestfullname", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_householdaddressee")]
+		public string FNQHF_HouseholdAddressee
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_householdaddressee");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_householdaddressee", value);
 			}
 		}
 		
@@ -5396,6 +12565,21 @@ namespace DataverseModel
 				{
 					return default(string);
 				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_ifyespleaseproviderequirement")]
+		public string FNQHF_IfYesPleaseProvideRequirement
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_ifyespleaseproviderequirement");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_ifyespleaseproviderequirement", value);
 			}
 		}
 		
@@ -5484,6 +12668,21 @@ namespace DataverseModel
 			set
 			{
 				this.SetAttributeValue("fnqhf_legnthoftimeknown", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_lengthoftimeknowtoreferee")]
+		public System.Nullable<int> FNQHF_LengthOfTimeKnowToReferee
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("fnqhf_lengthoftimeknowtoreferee");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_lengthoftimeknowtoreferee", value);
 			}
 		}
 		
@@ -6552,6 +13751,21 @@ namespace DataverseModel
 			set
 			{
 				this.SetAttributeValue("fnqhf_volunteeridno", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fnqhf_volunteeringtypemigration")]
+		public string FNQHF_VolunteeringTypeMigration
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("fnqhf_volunteeringtypemigration");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("fnqhf_volunteeringtypemigration", value);
 			}
 		}
 		
@@ -8271,33 +15485,6 @@ namespace DataverseModel
 				if (this.FormattedValues.Contains("msevtmgt_originatingeventid"))
 				{
 					return this.FormattedValues["msevtmgt_originatingeventid"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msft_datastate")]
-		public virtual MsFt_DataState? MsFt_DataState
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return ((MsFt_DataState?)(EntityOptionSetEnum.GetEnum(this, "msft_datastate")));
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msft_datastatename")]
-		public string MsFt_DataStateName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("msft_datastate"))
-				{
-					return this.FormattedValues["msft_datastate"];
 				}
 				else
 				{
@@ -10601,58 +17788,6 @@ namespace DataverseModel
 		}
 		
 		/// <summary>
-		/// For internal use only
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parent_contactid")]
-		public Microsoft.Xrm.Sdk.EntityReference Parent_ContactId
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("parent_contactid");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("parent_contactid", value);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parent_contactidname")]
-		public string Parent_ContactIdName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("parent_contactid"))
-				{
-					return this.FormattedValues["parent_contactid"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parent_contactidyominame")]
-		public string Parent_ContactIdYomiName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("parent_contactid"))
-				{
-					return this.FormattedValues["parent_contactid"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		/// <summary>
 		/// Unique identifier of the parent contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentcontactid")]
@@ -11634,6 +18769,24 @@ namespace DataverseModel
 		}
 		
 		/// <summary>
+		/// 1:N account_primary_contact
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("account_primary_contact")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.Account> Account_Primary_Contact
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.Account>("account_primary_contact", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.Account>("account_primary_contact", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// 1:N contact_customer_contacts
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("contact_customer_contacts", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
@@ -11666,24 +18819,6 @@ namespace DataverseModel
 			set
 			{
 				this.SetRelatedEntities<DataverseModel.Contact>("contact_master_contact", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
-			}
-		}
-		
-		/// <summary>
-		/// 1:N contact_parent_contact
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
-		public System.Collections.Generic.IEnumerable<DataverseModel.Contact> ReferencedContact_Parent_Contact
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<DataverseModel.Contact>("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referenced);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntities<DataverseModel.Contact>("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
 			}
 		}
 		
@@ -11886,6 +19021,25 @@ namespace DataverseModel
 		}
 		
 		/// <summary>
+		/// N:1 contact_customer_accounts
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentcustomerid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("contact_customer_accounts")]
+		public DataverseModel.Account Contact_Customer_Accounts
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("contact_customer_accounts", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("contact_customer_accounts", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// N:1 contact_customer_contacts
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentcustomerid")]
@@ -11919,21 +19073,21 @@ namespace DataverseModel
 		}
 		
 		/// <summary>
-		/// N:1 contact_parent_contact
+		/// N:1 msa_contact_managingpartner
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parent_contactid")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
-		public DataverseModel.Contact ReferencingContact_Parent_Contact
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msa_managingpartnerid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msa_contact_managingpartner")]
+		public DataverseModel.Account MSa_Contact_ManagingPartner
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<DataverseModel.Contact>("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+				return this.GetRelatedEntity<DataverseModel.Account>("msa_contact_managingpartner", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntity<DataverseModel.Contact>("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+				this.SetRelatedEntity<DataverseModel.Account>("msa_contact_managingpartner", null, value);
 			}
 		}
 		
@@ -11953,6 +19107,25 @@ namespace DataverseModel
 			set
 			{
 				this.SetRelatedEntity<DataverseModel.Contact>("msgdpr_contact_msgdpr_gdprparent", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msnfp_account_contact_Household
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_householdid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_contact_Household")]
+		public DataverseModel.Account MsnFp_Account_Contact_Household
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msnfp_account_contact_Household", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msnfp_account_contact_Household", null, value);
 			}
 		}
 		
@@ -12132,6 +19305,40 @@ namespace DataverseModel
 			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
 			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
 			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
+			public const string MsIaTi_Account_MsnFp_Transaction_ProviderOrganization = "msiati_account_msnfp_transaction_ProviderOrganization";
+			public const string MsIaTi_Account_MsnFp_Transaction_RecipientOrganization = "msiati_account_msnfp_transaction_RecipientOrganization";
+			public const string MsIaTi_CurrencyValuedAte = "msiati_currencyvaluedate";
+			public const string MsIaTi_Description = "msiati_description";
+			public const string MsIaTi_DisbursementChannelId = "msiati_disbursementchannelid";
+			public const string MsIaTi_DisbursementChannelIdName = "msiati_disbursementchannelidname";
+			public const string MsIaTi_FinanceTypeId = "msiati_financetypeid";
+			public const string MsIaTi_FinanceTypeIdName = "msiati_financetypeidname";
+			public const string MsIaTi_FlowTypeId = "msiati_flowtypeid";
+			public const string MsIaTi_FlowTypeIdName = "msiati_flowtypeidname";
+			public const string MsIaTi_Humanitarian = "msiati_humanitarian";
+			public const string MsIaTi_HumanitarianName = "msiati_humanitarianname";
+			public const string MsIaTi_ProviderActivityIdentifier = "msiati_provideractivityidentifier";
+			public const string MsIaTi_ProvideRiOrganizationId = "msiati_provideriorganizationid";
+			public const string MsIaTi_ProvideRiOrganizationIdName = "msiati_provideriorganizationidname";
+			public const string MsIaTi_ProvideRiOrganizationIdYomiName = "msiati_provideriorganizationidyominame";
+			public const string MsIaTi_RecipientActivityIdentifier = "msiati_recipientactivityidentifier";
+			public const string MsIaTi_RecipientCountryDescription = "msiati_recipientcountrydescription";
+			public const string MsIaTi_RecipientCountryId = "msiati_recipientcountryid";
+			public const string MsIaTi_RecipientCountryIdName = "msiati_recipientcountryidname";
+			public const string MsIaTi_RecipientOrganizationId = "msiati_recipientorganizationid";
+			public const string MsIaTi_RecipientOrganizationIdName = "msiati_recipientorganizationidname";
+			public const string MsIaTi_RecipientOrganizationIdYomiName = "msiati_recipientorganizationidyominame";
+			public const string MsIaTi_RecipientRegionDescription = "msiati_recipientregiondescription";
+			public const string MsIaTi_RecipientRegionId = "msiati_recipientregionid";
+			public const string MsIaTi_RecipientRegionIdName = "msiati_recipientregionidname";
+			public const string MsIaTi_Reference = "msiati_reference";
+			public const string MsIaTi_TiedStatusId = "msiati_tiedstatusid";
+			public const string MsIaTi_TiedStatusIdName = "msiati_tiedstatusidname";
+			public const string MsnFp_Account_MsnFp_Transaction_ApPrCustomer = "msnfp_account_msnfp_transaction_ApprCustomer";
+			public const string MsnFp_Account_MsnFp_Transaction_Household = "msnfp_account_msnfp_transaction_Household";
+			public const string MsnFp_Account_MsnFp_Transaction_RelatedCustomerId = "msnfp_account_msnfp_transaction_RelatedCustomerId";
+			public const string MsnFp_Account_MsnFp_Transaction_Solicitor = "msnfp_account_msnfp_transaction_Solicitor";
+			public const string MsnFp_AccountDonor_MsnFp_Transaction = "msnfp_accountdonor_msnfp_transaction";
 			public const string MsnFp_AdjustmentComment = "msnfp_adjustmentcomment";
 			public const string MsnFp_AdjustmentReason = "msnfp_adjustmentreason";
 			public const string MsnFp_AdjustmentReasonName = "msnfp_adjustmentreasonname";
@@ -12303,6 +19510,7 @@ namespace DataverseModel
 			public const string MsnFp_Telephone1 = "msnfp_telephone1";
 			public const string MsnFp_Telephone2 = "msnfp_telephone2";
 			public const string MsnFp_ThirdPartyReceipt = "msnfp_thirdpartyreceipt";
+			public const string MsnFp_Transaction_Account = "MsnFp_Transaction_Account";
 			public const string MsnFp_Transaction_Contact = "MsnFp_Transaction_Contact";
 			public const string ReferencingMsnFp_Transaction_MsnFp_Transaction_ParentTransactionId = "msnfp_transaction_msnfp_transaction_ParentTransactionId";
 			public const string MsnFp_Transaction_PaymentMethodId = "msnfp_transaction_paymentmethodid";
@@ -12327,6 +19535,7 @@ namespace DataverseModel
 			public const string MsnFp_TributeMessage = "msnfp_tributemessage";
 			public const string MsnFp_TributeName = "msnfp_tributename";
 			public const string ReferencingMsnFp_TxN_OriginalTxNAdjusted = "msnfp_txn_originalTxnAdjusted";
+			public const string MsnFp_TxN_ReceiptOnAccount = "msnfp_txn_receiptOnAccount";
 			public const string MsnFp_TypeCode = "msnfp_typecode";
 			public const string MsnFp_TypeCodename = "msnfp_typecodename";
 			public const string MsnFp_ValidationDate = "msnfp_validationdate";
@@ -13653,6 +20862,481 @@ namespace DataverseModel
 				if (this.FormattedValues.Contains("modifiedonbehalfby"))
 				{
 					return this.FormattedValues["modifiedonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The date on which the transaction was made or agreed.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_currencyvaluedate")]
+		public System.Nullable<System.DateTime> MsIaTi_CurrencyValuedAte
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("msiati_currencyvaluedate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_currencyvaluedate", value);
+			}
+		}
+		
+		/// <summary>
+		/// A description of the transaction.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_description")]
+		public string MsIaTi_Description
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msiati_description");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_description", value);
+			}
+		}
+		
+		/// <summary>
+		/// The channel through which the funds will flow for this transaction.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_disbursementchannelid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_DisbursementChannelId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_disbursementchannelid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_disbursementchannelid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_disbursementchannelidname")]
+		public string MsIaTi_DisbursementChannelIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_disbursementchannelid"))
+				{
+					return this.FormattedValues["msiati_disbursementchannelid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The type of finance (e.g. grant, loan, debt relief, etc.).
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_financetypeid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_FinanceTypeId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_financetypeid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_financetypeid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_financetypeidname")]
+		public string MsIaTi_FinanceTypeIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_financetypeid"))
+				{
+					return this.FormattedValues["msiati_financetypeid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Whether the transaction is funded by Official Development Assistance (ODA), Other Official Flows (OOF), etc.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_flowtypeid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_FlowTypeId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_flowtypeid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_flowtypeid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_flowtypeidname")]
+		public string MsIaTi_FlowTypeIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_flowtypeid"))
+				{
+					return this.FormattedValues["msiati_flowtypeid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Indicates that this transaction relates entirely or partially to humanitarian aid.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_humanitarian")]
+		public System.Nullable<bool> MsIaTi_Humanitarian
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("msiati_humanitarian");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_humanitarian", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_humanitarianname")]
+		public string MsIaTi_HumanitarianName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_humanitarian"))
+				{
+					return this.FormattedValues["msiati_humanitarian"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// If incoming funds are being provided from the budget of another activity, record the activity's unique identifier.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_provideractivityidentifier")]
+		public string MsIaTi_ProviderActivityIdentifier
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msiati_provideractivityidentifier");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_provideractivityidentifier", value);
+			}
+		}
+		
+		/// <summary>
+		/// The organization from which the transaction originated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_provideriorganizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_ProvideRiOrganizationId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_provideriorganizationid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_provideriorganizationid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_provideriorganizationidname")]
+		public string MsIaTi_ProvideRiOrganizationIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_provideriorganizationid"))
+				{
+					return this.FormattedValues["msiati_provideriorganizationid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_provideriorganizationidyominame")]
+		public string MsIaTi_ProvideRiOrganizationIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_provideriorganizationid"))
+				{
+					return this.FormattedValues["msiati_provideriorganizationid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// If outgoing funds are being provided to another activity, record the activity's unique identifier.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientactivityidentifier")]
+		public string MsIaTi_RecipientActivityIdentifier
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msiati_recipientactivityidentifier");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_recipientactivityidentifier", value);
+			}
+		}
+		
+		/// <summary>
+		/// A description of the recipient country.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientcountrydescription")]
+		public string MsIaTi_RecipientCountryDescription
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msiati_recipientcountrydescription");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_recipientcountrydescription", value);
+			}
+		}
+		
+		/// <summary>
+		/// A country that will benefit from this transaction.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientcountryid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_RecipientCountryId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_recipientcountryid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_recipientcountryid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientcountryidname")]
+		public string MsIaTi_RecipientCountryIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_recipientcountryid"))
+				{
+					return this.FormattedValues["msiati_recipientcountryid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// The organization receiving the money from the transaction.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientorganizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_RecipientOrganizationId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_recipientorganizationid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_recipientorganizationid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientorganizationidname")]
+		public string MsIaTi_RecipientOrganizationIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_recipientorganizationid"))
+				{
+					return this.FormattedValues["msiati_recipientorganizationid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientorganizationidyominame")]
+		public string MsIaTi_RecipientOrganizationIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_recipientorganizationid"))
+				{
+					return this.FormattedValues["msiati_recipientorganizationid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// A description of the recipient region.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientregiondescription")]
+		public string MsIaTi_RecipientRegionDescription
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msiati_recipientregiondescription");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_recipientregiondescription", value);
+			}
+		}
+		
+		/// <summary>
+		/// A region that will benefit from this transaction.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientregionid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_RecipientRegionId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_recipientregionid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_recipientregionid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientregionidname")]
+		public string MsIaTi_RecipientRegionIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_recipientregionid"))
+				{
+					return this.FormattedValues["msiati_recipientregionid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// An internal reference linking this transaction back to the publisher’s financial management system.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_reference")]
+		public string MsIaTi_Reference
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("msiati_reference");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_reference", value);
+			}
+		}
+		
+		/// <summary>
+		/// Whether the aid is untied, tied, or partially tied.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_tiedstatusid")]
+		public Microsoft.Xrm.Sdk.EntityReference MsIaTi_TiedStatusId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msiati_tiedstatusid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("msiati_tiedstatusid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_tiedstatusidname")]
+		public string MsIaTi_TiedStatusIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("msiati_tiedstatusid"))
+				{
+					return this.FormattedValues["msiati_tiedstatusid"];
 				}
 				else
 				{
@@ -17235,6 +24919,24 @@ namespace DataverseModel
 		}
 		
 		/// <summary>
+		/// 1:N msnfp_transaction_account
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_transaction_account")]
+		public System.Collections.Generic.IEnumerable<DataverseModel.Account> MsnFp_Transaction_Account
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<DataverseModel.Account>("msnfp_transaction_account", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<DataverseModel.Account>("msnfp_transaction_account", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// 1:N msnfp_transaction_contact
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_transaction_contact")]
@@ -17285,6 +24987,139 @@ namespace DataverseModel
 			set
 			{
 				this.SetRelatedEntities<DataverseModel.MsnFp_Transaction>("msnfp_txn_originalTxnAdjusted", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msiati_account_msnfp_transaction_ProviderOrganization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_provideriorganizationid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msiati_account_msnfp_transaction_ProviderOrganization")]
+		public DataverseModel.Account MsIaTi_Account_MsnFp_Transaction_ProviderOrganization
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msiati_account_msnfp_transaction_ProviderOrganization", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msiati_account_msnfp_transaction_ProviderOrganization", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msiati_account_msnfp_transaction_RecipientOrganization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msiati_recipientorganizationid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msiati_account_msnfp_transaction_RecipientOrganization")]
+		public DataverseModel.Account MsIaTi_Account_MsnFp_Transaction_RecipientOrganization
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msiati_account_msnfp_transaction_RecipientOrganization", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msiati_account_msnfp_transaction_RecipientOrganization", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msnfp_account_msnfp_transaction_ApprCustomer
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_appraiser_lookup")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_msnfp_transaction_ApprCustomer")]
+		public DataverseModel.Account MsnFp_Account_MsnFp_Transaction_ApPrCustomer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msnfp_account_msnfp_transaction_ApprCustomer", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msnfp_account_msnfp_transaction_ApprCustomer", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msnfp_account_msnfp_transaction_Household
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_householdid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_msnfp_transaction_Household")]
+		public DataverseModel.Account MsnFp_Account_MsnFp_Transaction_Household
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msnfp_account_msnfp_transaction_Household", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msnfp_account_msnfp_transaction_Household", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msnfp_account_msnfp_transaction_RelatedCustomerId
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_relatedcustomerid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_msnfp_transaction_RelatedCustomerId")]
+		public DataverseModel.Account MsnFp_Account_MsnFp_Transaction_RelatedCustomerId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msnfp_account_msnfp_transaction_RelatedCustomerId", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msnfp_account_msnfp_transaction_RelatedCustomerId", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msnfp_account_msnfp_transaction_Solicitor
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_solicitorid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_account_msnfp_transaction_Solicitor")]
+		public DataverseModel.Account MsnFp_Account_MsnFp_Transaction_Solicitor
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msnfp_account_msnfp_transaction_Solicitor", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msnfp_account_msnfp_transaction_Solicitor", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msnfp_accountdonor_msnfp_transaction
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_customerid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_accountdonor_msnfp_transaction")]
+		public DataverseModel.Account MsnFp_AccountDonor_MsnFp_Transaction
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msnfp_accountdonor_msnfp_transaction", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msnfp_accountdonor_msnfp_transaction", null, value);
 			}
 		}
 		
@@ -17456,6 +25291,25 @@ namespace DataverseModel
 			set
 			{
 				this.SetRelatedEntity<DataverseModel.MsnFp_Transaction>("msnfp_txn_originalTxnAdjusted", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 msnfp_txn_receiptOnAccount
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msnfp_transaction_receiptonaccountid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msnfp_txn_receiptOnAccount")]
+		public DataverseModel.Account MsnFp_TxN_ReceiptOnAccount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<DataverseModel.Account>("msnfp_txn_receiptOnAccount", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<DataverseModel.Account>("msnfp_txn_receiptOnAccount", null, value);
 			}
 		}
 		
