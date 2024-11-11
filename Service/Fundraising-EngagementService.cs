@@ -274,7 +274,7 @@ namespace Fundraising_Engagement.Plugins.Service
                         var parentContact = new Contact
                         {
                             Id = donorId,
-                            LRx_LastTransactionDate = mostRecentBookDate, // Set the most recent MsnFp_BookDate
+                            LRx_LastTransactionDateContact = mostRecentBookDate, // Set the most recent MsnFp_BookDate
                             LRx_LastTransaction = mostRecentTransactionReference // Set the most recent transaction as a lookup field
                         };
 
@@ -286,7 +286,7 @@ namespace Fundraising_Engagement.Plugins.Service
                         var parentAccount = new Account
                         {
                             Id = donorId,
-                            LRx_LastTransactionDate = mostRecentBookDate,
+                            LRx_LastTransactionDateAccount = mostRecentBookDate,
                             LRx_LastTransactionId = mostRecentTransactionReference
 
                         };
@@ -356,7 +356,7 @@ namespace Fundraising_Engagement.Plugins.Service
                         var parentContact = new Contact
                         {
                             Id = donorId,
-                            LRx_LastTransactionDate = mostRecentBookDate, // Set the most recent MsnFp_BookDate
+                            LRx_LastTransactionDateContact = mostRecentBookDate, // Set the most recent MsnFp_BookDate
                             LRx_LastTransaction = mostRecentTransactionReference // Set the most recent transaction as a lookup field
                         };
 
@@ -368,7 +368,7 @@ namespace Fundraising_Engagement.Plugins.Service
                         var parentAccount = new Account
                         {
                             Id = donorId,
-                            LRx_LastTransactionDate = mostRecentBookDate,
+                            LRx_LastTransactionDateAccount = mostRecentBookDate,
                             LRx_LastTransactionId = mostRecentTransactionReference
 
                         };

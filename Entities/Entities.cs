@@ -170,6 +170,7 @@ namespace CrmEarlyBound
 			public const string LRx_Account_MsnFp_DonorCommitment_809 = "LRx_Account_MsnFp_DonorCommitment_809";
 			public const string LRx_Account_MsnFp_PaymentSchedule_927 = "LRx_Account_MsnFp_PaymentSchedule_927";
 			public const string LRx_Account_MsnFp_Transaction_223 = "LRx_Account_MsnFp_Transaction_223";
+			public const string LRx_AccountId = "lrx_accountid";
 			public const string LRx_AskPreferences = "lrx_askpreferences";
 			public const string LRx_AskPreferencesName = "lrx_askpreferencesname";
 			public const string LRx_Contact_Household_Account = "LRx_Contact_Household_Account";
@@ -181,22 +182,32 @@ namespace CrmEarlyBound
 			public const string LRx_DoNoTallowMailName = "lrx_donotallowmailname";
 			public const string LRx_DoNoTallowPhoneCall = "lrx_donotallowphonecall";
 			public const string LRx_DoNoTallowPhoneCallName = "lrx_donotallowphonecallname";
+			public const string LRx_GenerateAnnualReceipts = "lrx_generateannualreceipts";
+			public const string LRx_GenerateAnnualReceiptsName = "lrx_generateannualreceiptsname";
 			public const string LRx_GivingLevel = "lrx_givinglevel";
 			public const string LRx_GivingLevelName = "lrx_givinglevelname";
 			public const string LRx_HouseholdNotes = "lrx_householdnotes";
+			public const string LRx_ImportFilename = "lrx_importfilename";
 			public const string LRx_LastTransactionDate = "lrx_lasttransactiondate";
+			public const string LRx_LastTransactionDateAccount = "lrx_lasttransactiondateaccount";
 			public const string LRx_LastTransactionId = "lrx_lasttransactionid";
 			public const string LRx_LastTransactionIdName = "lrx_lasttransactionidname";
 			public const string LRx_LifetimeGivingSum = "lrx_lifetimegivingsum";
 			public const string LRx_LifetimeGivingSum_Base = "lrx_lifetimegivingsum_base";
+			public const string LRx_OrganisationNotes = "lrx_organisationnotes";
 			public const string LRx_OrganisationType = "lrx_organisationtype";
 			public const string LRx_OrganisationTypeName = "lrx_organisationtypename";
 			public const string LRx_PreferredAcknowledgment = "lrx_preferredacknowledgment";
+			public const string LRx_PrimaryContactId = "lrx_primarycontactid";
 			public const string LRx_PrimaryMembership = "lrx_primarymembership";
 			public const string LRx_PrimaryMembershipName = "lrx_primarymembershipname";
+			public const string LRx_ReceiptEndDate = "lrx_receiptenddate";
+			public const string LRx_ReceiptStartDate = "lrx_receiptstartdate";
 			public const string LRx_SolicitCode = "lrx_solicitcode";
 			public const string LRx_SolicitCodename = "lrx_solicitcodename";
 			public const string LRx_SolicitDate = "lrx_solicitdate";
+			public const string LRx_Street2 = "lrx_street2";
+			public const string LRx_SubscriptionsLists = "lrx_subscriptionslists";
 			public const string LRx_Vip = "lrx_vip";
 			public const string LRx_VipName = "lrx_vipname";
 			public const string LRx_Year0_Giving = "lrx_year0_giving";
@@ -225,35 +236,15 @@ namespace CrmEarlyBound
 			public const string MSa_ManagingPartnerId = "msa_managingpartnerid";
 			public const string MsA_ManagingPartnerIdName = "msa_managingpartneridname";
 			public const string MsA_ManagingPartnerIdYomiName = "msa_managingpartneridyominame";
-			public const string ReferencingMsdyn_Account_Account_BillingAccount = "msdyn_account_account_BillingAccount";
 			public const string Msdyn_AccountKPiId = "msdyn_accountkpiid";
 			public const string Msdyn_AccountKPiIdName = "msdyn_accountkpiidname";
-			public const string Msdyn_BillingAccount = "msdyn_billingaccount";
-			public const string Msdyn_BillingAccountName = "msdyn_billingaccountname";
-			public const string Msdyn_BillingAccountYomiName = "msdyn_billingaccountyominame";
 			public const string Msdyn_GdPrOptOut = "msdyn_gdproptout";
 			public const string Msdyn_GdPrOptOutName = "msdyn_gdproptoutname";
-			public const string Msdyn_PreferredResource = "msdyn_preferredresource";
-			public const string Msdyn_PreferredResourceName = "msdyn_preferredresourcename";
 			public const string Msdyn_PrimaryTimeZone = "msdyn_primarytimezone";
 			public const string Msdyn_SalesAccelerationInsightId = "msdyn_salesaccelerationinsightid";
 			public const string Msdyn_SalesAccelerationInsightIdName = "msdyn_salesaccelerationinsightidname";
-			public const string Msdyn_SalesTaxCode = "msdyn_salestaxcode";
-			public const string Msdyn_SalesTaxCodename = "msdyn_salestaxcodename";
 			public const string Msdyn_SegmentId = "msdyn_segmentid";
 			public const string Msdyn_SegmentIdName = "msdyn_segmentidname";
-			public const string Msdyn_ServiceTerritory = "msdyn_serviceterritory";
-			public const string Msdyn_ServiceTerritoryName = "msdyn_serviceterritoryname";
-			public const string Msdyn_TaxExempt = "msdyn_taxexempt";
-			public const string Msdyn_TaxExemptName = "msdyn_taxexemptname";
-			public const string Msdyn_TaxExemptNumber = "msdyn_taxexemptnumber";
-			public const string Msdyn_TravelCharge = "msdyn_travelcharge";
-			public const string Msdyn_TravelCharge_Base = "msdyn_travelcharge_base";
-			public const string Msdyn_TravelChargeType = "msdyn_travelchargetype";
-			public const string Msdyn_TravelChargeTypeName = "msdyn_travelchargetypename";
-			public const string Msdyn_WorkHourTemplate = "msdyn_workhourtemplate";
-			public const string Msdyn_WorkHourTemplateName = "msdyn_workhourtemplatename";
-			public const string Msdyn_WorkOrderInstructions = "msdyn_workorderinstructions";
 			public const string MsnFp_Account_MsnFp_PaymentSchedule_DefaultHardCreditToCustomer = "MsnFp_Account_MsnFp_PaymentSchedule_DefaultHardCreditToCustomer";
 			public const string MsnFp_AccountType = "msnfp_accounttype";
 			public const string MsnFp_AccountTypeName = "msnfp_accounttypename";
@@ -318,7 +309,6 @@ namespace CrmEarlyBound
 			public const string ReferencedAccount_Master_Account = "ReferencedAccount_Master_Account";
 			public const string ReferencedAccount_Parent_Account = "ReferencedAccount_Parent_Account";
 			public const string ReferencedMSa_Account_ManagingPartner = "ReferencedMSa_Account_ManagingPartner";
-			public const string ReferencedMsdyn_Account_Account_BillingAccount = "ReferencedMsdyn_Account_Account_BillingAccount";
 			public const string Revenue = "revenue";
 			public const string Revenue_Base = "revenue_base";
 			public const string SharesOutstanding = "sharesoutstanding";
@@ -2709,6 +2699,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_accountid")]
+		public string LRx_AccountId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_accountid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_accountid", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_askpreferences")]
 		public virtual Account_LRx_AskPreferences? LRx_AskPreferences
 		{
@@ -2869,6 +2874,38 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_generateannualreceipts")]
+		public System.Nullable<bool> LRx_GenerateAnnualReceipts
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("lrx_generateannualreceipts");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_generateannualreceipts", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_generateannualreceiptsname")]
+		public string LRx_GenerateAnnualReceiptsName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_generateannualreceipts"))
+				{
+					return this.FormattedValues["lrx_generateannualreceipts"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_givinglevel")]
 		public Microsoft.Xrm.Sdk.EntityReference LRx_GivingLevel
 		{
@@ -2916,6 +2953,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
+		public string LRx_ImportFilename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_importfilename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_importfilename", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_lasttransactiondate")]
 		public System.Nullable<System.DateTime> LRx_LastTransactionDate
 		{
@@ -2928,6 +2980,21 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_lasttransactiondate", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_lasttransactiondateaccount")]
+		public System.Nullable<System.DateTime> LRx_LastTransactionDateAccount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lrx_lasttransactiondateaccount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_lasttransactiondateaccount", value);
 			}
 		}
 		
@@ -2991,6 +3058,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_organisationnotes")]
+		public string LRx_OrganisationNotes
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_organisationnotes");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_organisationnotes", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_organisationtype")]
 		public virtual LRx_OrganisationType? LRx_OrganisationType
 		{
@@ -3038,6 +3120,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_primarycontactid")]
+		public string LRx_PrimaryContactId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_primarycontactid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_primarycontactid", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_primarymembership")]
 		public Microsoft.Xrm.Sdk.EntityReference LRx_PrimaryMembership
 		{
@@ -3067,6 +3164,36 @@ namespace CrmEarlyBound
 				{
 					return default(string);
 				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_receiptenddate")]
+		public System.Nullable<System.DateTime> LRx_ReceiptEndDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lrx_receiptenddate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_receiptenddate", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_receiptstartdate")]
+		public System.Nullable<System.DateTime> LRx_ReceiptStartDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lrx_receiptstartdate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_receiptstartdate", value);
 			}
 		}
 		
@@ -3114,6 +3241,36 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_solicitdate", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_street2")]
+		public string LRx_Street2
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_street2");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_street2", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_subscriptionslists")]
+		public string LRx_SubscriptionsLists
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_subscriptionslists");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_subscriptionslists", value);
 			}
 		}
 		
@@ -3567,58 +3724,6 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// Reference to an other account to be used for billing (only to be used if billing account differs)
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_billingaccount")]
-		public Microsoft.Xrm.Sdk.EntityReference Msdyn_BillingAccount
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msdyn_billingaccount");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_billingaccount", value);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_billingaccountname")]
-		public string Msdyn_BillingAccountName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("msdyn_billingaccount"))
-				{
-					return this.FormattedValues["msdyn_billingaccount"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_billingaccountyominame")]
-		public string Msdyn_BillingAccountYomiName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("msdyn_billingaccount"))
-				{
-					return this.FormattedValues["msdyn_billingaccount"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		/// <summary>
 		/// Describes whether account is opted out or not
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_gdproptout")]
@@ -3645,38 +3750,6 @@ namespace CrmEarlyBound
 				if (this.FormattedValues.Contains("msdyn_gdproptout"))
 				{
 					return this.FormattedValues["msdyn_gdproptout"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_preferredresource")]
-		public Microsoft.Xrm.Sdk.EntityReference Msdyn_PreferredResource
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msdyn_preferredresource");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_preferredresource", value);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_preferredresourcename")]
-		public string Msdyn_PreferredResourceName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("msdyn_preferredresource"))
-				{
-					return this.FormattedValues["msdyn_preferredresource"];
 				}
 				else
 				{
@@ -3739,41 +3812,6 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// Default Sales Tax Code
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_salestaxcode")]
-		public Microsoft.Xrm.Sdk.EntityReference Msdyn_SalesTaxCode
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msdyn_salestaxcode");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_salestaxcode", value);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_salestaxcodename")]
-		public string Msdyn_SalesTaxCodename
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("msdyn_salestaxcode"))
-				{
-					return this.FormattedValues["msdyn_salestaxcode"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		/// <summary>
 		/// Unique identifier for Segment associated with account.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_segmentid")]
@@ -3805,210 +3843,6 @@ namespace CrmEarlyBound
 				{
 					return default(string);
 				}
-			}
-		}
-		
-		/// <summary>
-		/// The Service Territory this account belongs to. This is used to optimize scheduling and routing
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_serviceterritory")]
-		public Microsoft.Xrm.Sdk.EntityReference Msdyn_ServiceTerritory
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msdyn_serviceterritory");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_serviceterritory", value);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_serviceterritoryname")]
-		public string Msdyn_ServiceTerritoryName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("msdyn_serviceterritory"))
-				{
-					return this.FormattedValues["msdyn_serviceterritory"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Select whether the account is tax exempt.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_taxexempt")]
-		public System.Nullable<bool> Msdyn_TaxExempt
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<System.Nullable<bool>>("msdyn_taxexempt");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_taxexempt", value);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_taxexemptname")]
-		public string Msdyn_TaxExemptName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("msdyn_taxexempt"))
-				{
-					return this.FormattedValues["msdyn_taxexempt"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Shows the government tax exempt number.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_taxexemptnumber")]
-		public string Msdyn_TaxExemptNumber
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("msdyn_taxexemptnumber");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_taxexemptnumber", value);
-			}
-		}
-		
-		/// <summary>
-		/// Enter the travel charge to include on work orders. This value will be multiplied by the travel charge type.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_travelcharge")]
-		public Microsoft.Xrm.Sdk.Money Msdyn_TravelCharge
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msdyn_travelcharge");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_travelcharge", value);
-			}
-		}
-		
-		/// <summary>
-		/// Value of the Travel Charge in base currency.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_travelcharge_base")]
-		public Microsoft.Xrm.Sdk.Money Msdyn_TravelCharge_Base
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("msdyn_travelcharge_base");
-			}
-		}
-		
-		/// <summary>
-		/// Specify how travel is charged for this account.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_travelchargetype")]
-		public virtual Msdyn_TravelChargeType? Msdyn_TravelChargeType
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return ((Msdyn_TravelChargeType?)(EntityOptionSetEnum.GetEnum(this, "msdyn_travelchargetype")));
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_travelchargetype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_travelchargetypename")]
-		public string Msdyn_TravelChargeTypeName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("msdyn_travelchargetype"))
-				{
-					return this.FormattedValues["msdyn_travelchargetype"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_workhourtemplate")]
-		public Microsoft.Xrm.Sdk.EntityReference Msdyn_WorkHourTemplate
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("msdyn_workhourtemplate");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_workhourtemplate", value);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_workhourtemplatename")]
-		public string Msdyn_WorkHourTemplateName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("msdyn_workhourtemplate"))
-				{
-					return this.FormattedValues["msdyn_workhourtemplate"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Shows the default instructions to show on new work orders.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_workorderinstructions")]
-		public string Msdyn_WorkOrderInstructions
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("msdyn_workorderinstructions");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("msdyn_workorderinstructions", value);
 			}
 		}
 		
@@ -5767,6 +5601,9 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		/// <summary>
+		/// Version number of the account.
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
 		{
@@ -5990,24 +5827,6 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetRelatedEntities<CrmEarlyBound.Contact>("msa_contact_managingpartner", null, value);
-			}
-		}
-		
-		/// <summary>
-		/// 1:N msdyn_account_account_BillingAccount
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msdyn_account_account_BillingAccount", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
-		public System.Collections.Generic.IEnumerable<CrmEarlyBound.Account> ReferencedMsdyn_Account_Account_BillingAccount
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<CrmEarlyBound.Account>("msdyn_account_account_BillingAccount", Microsoft.Xrm.Sdk.EntityRole.Referenced);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntities<CrmEarlyBound.Account>("msdyn_account_account_BillingAccount", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
 			}
 		}
 		
@@ -6246,25 +6065,6 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// N:1 msdyn_account_account_BillingAccount
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("msdyn_billingaccount")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("msdyn_account_account_BillingAccount", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
-		public CrmEarlyBound.Account ReferencingMsdyn_Account_Account_BillingAccount
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntity<CrmEarlyBound.Account>("msdyn_account_account_BillingAccount", Microsoft.Xrm.Sdk.EntityRole.Referencing);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntity<CrmEarlyBound.Account>("msdyn_account_account_BillingAccount", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
-			}
-		}
-		
-		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
@@ -6355,12 +6155,21 @@ namespace CrmEarlyBound
 			public const string LRx_Campaign_Campaign_MsnFp_Transaction = "LRx_Campaign_Campaign_MsnFp_Transaction";
 			public const string LRx_Campaign_Campaign_SiFund_Appeal = "LRx_Campaign_Campaign_SiFund_Appeal";
 			public const string LRx_Campaign_Campaign_SiFund_Package = "LRx_Campaign_Campaign_SiFund_Package";
+			public const string LRx_CampaignId = "lrx_campaignid";
 			public const string LRx_CampaignTotalRevenue = "lrx_campaigntotalrevenue";
 			public const string LRx_CampaignTotalRevenue_Base = "lrx_campaigntotalrevenue_base";
+			public const string LRx_Designation = "lrx_designation";
+			public const string LRx_DesignationName = "lrx_designationname";
 			public const string LRx_DonationCount = "lrx_donationcount";
 			public const string LRx_EventTablesSoldCount = "lrx_eventtablessoldcount";
+			public const string LRx_ImportFilename = "lrx_importfilename";
 			public const string LRx_PledgeCount = "lrx_pledgecount";
+			public const string LRx_PrimaryObjectiveId = "lrx_primaryobjectiveid";
+			public const string LRx_PriorityArea = "lrx_priorityarea";
+			public const string LRx_PriorityAreaName = "lrx_priorityareaname";
 			public const string LRx_ProductsOldCount = "lrx_productsoldcount";
+			public const string LRx_ProgramInitiative = "lrx_programinitiative";
+			public const string LRx_ProgramInitiativeName = "lrx_programinitiativename";
 			public const string LRx_RegistrationCount = "lrx_registrationcount";
 			public const string LRx_SponsorshipCount = "lrx_sponsorshipcount";
 			public const string LRx_TotalDonations = "lrx_totaldonations";
@@ -6935,6 +6744,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignid")]
+		public string LRx_CampaignId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_campaignid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_campaignid", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaigntotalrevenue")]
 		public Microsoft.Xrm.Sdk.Money LRx_CampaignTotalRevenue
 		{
@@ -6955,6 +6779,38 @@ namespace CrmEarlyBound
 			get
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_campaigntotalrevenue_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_designation")]
+		public Microsoft.Xrm.Sdk.EntityReference LRx_Designation
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_designation");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_designation", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_designationname")]
+		public string LRx_DesignationName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_designation"))
+				{
+					return this.FormattedValues["lrx_designation"];
+				}
+				else
+				{
+					return default(string);
+				}
 			}
 		}
 		
@@ -6988,6 +6844,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
+		public string LRx_ImportFilename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_importfilename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_importfilename", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_pledgecount")]
 		public System.Nullable<int> LRx_PledgeCount
 		{
@@ -7003,6 +6874,53 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_primaryobjectiveid")]
+		public string LRx_PrimaryObjectiveId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_primaryobjectiveid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_primaryobjectiveid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_priorityarea")]
+		public Microsoft.Xrm.Sdk.EntityReference LRx_PriorityArea
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_priorityarea");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_priorityarea", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_priorityareaname")]
+		public string LRx_PriorityAreaName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_priorityarea"))
+				{
+					return this.FormattedValues["lrx_priorityarea"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_productsoldcount")]
 		public System.Nullable<int> LRx_ProductsOldCount
 		{
@@ -7015,6 +6933,38 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_productsoldcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_programinitiative")]
+		public Microsoft.Xrm.Sdk.EntityReference LRx_ProgramInitiative
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_programinitiative");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_programinitiative", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_programinitiativename")]
+		public string LRx_ProgramInitiativeName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_programinitiative"))
+				{
+					return this.FormattedValues["lrx_programinitiative"];
+				}
+				else
+				{
+					return default(string);
+				}
 			}
 		}
 		
@@ -8362,7 +8312,6 @@ namespace CrmEarlyBound
 			public const string Contact_Customer_Accounts = "contact_customer_accounts";
 			public const string ReferencingContact_Customer_Contacts = "contact_customer_contacts";
 			public const string ReferencingContact_Master_Contact = "contact_master_contact";
-			public const string ReferencingContact_Parent_Contact = "contact_parent_contact";
 			public const string ContactId = "contactid";
 			public const string Id = "contactid";
 			public const string CreatedBy = "createdby";
@@ -8437,11 +8386,15 @@ namespace CrmEarlyBound
 			public const string LastUsedInCampaign = "lastusedincampaign";
 			public const string LeadSourceCode = "leadsourcecode";
 			public const string LeadSourceCodename = "leadsourcecodename";
+			public const string LRx_Age = "lrx_age";
+			public const string LRx_AgeRange = "lrx_agerange";
+			public const string LRx_AgeRangeName = "lrx_agerangename";
 			public const string LRx_AskPreferences = "lrx_askpreferences";
 			public const string LRx_AskPreferencesName = "lrx_askpreferencesname";
 			public const string LRx_AtSi = "lrx_atsi";
 			public const string LRx_AtSiName = "lrx_atsiname";
 			public const string LRx_BirthYear = "lrx_birthyear";
+			public const string LRx_CompanyId = "lrx_companyid";
 			public const string LRx_Contact_Household_Account = "lrx_contact_Household_account";
 			public const string LRx_Contact_LastTransaction_MsnFp_Transaction = "lrx_contact_LastTransaction_msnfp_transaction";
 			public const string LRx_Contact_LRx_Refund_313 = "LRx_Contact_LRx_Refund_313";
@@ -8449,6 +8402,9 @@ namespace CrmEarlyBound
 			public const string LRx_Contact_MsnFp_PaymentSchedule_927 = "LRx_Contact_MsnFp_PaymentSchedule_927";
 			public const string LRx_Contact_MsnFp_Transaction_223 = "LRx_Contact_MsnFp_Transaction_223";
 			public const string LRx_ContactEthnicity = "lrx_contactethnicity";
+			public const string LRx_ContactId = "lrx_contactid";
+			public const string LRx_ContactType = "lrx_contacttype";
+			public const string LRx_ContactTypeName = "lrx_contacttypename";
 			public const string LRx_CurrentYearGiving = "lrx_currentyeargiving";
 			public const string LRx_CurrentYearGiving_Base = "lrx_currentyeargiving_base";
 			public const string LRx_DoNoTallowBulkEmail = "lrx_donotallowbulkemail";
@@ -8462,28 +8418,36 @@ namespace CrmEarlyBound
 			public const string LRx_EmergencyContactEmail = "lrx_emergencycontactemail";
 			public const string LRx_EmergencyContactFullName = "lrx_emergencycontactfullname";
 			public const string LRx_EmergencyContactPhoneNumber = "lrx_emergencycontactphonenumber";
+			public const string LRx_EtaPatTributes = "lrx_etapattributes";
 			public const string LRx_Facebook = "lrx_facebook";
 			public const string LRx_FifthYearGiving = "lrx_fifthyeargiving";
 			public const string LRx_FifthYearGiving_Base = "lrx_fifthyeargiving_base";
 			public const string LRx_FirstTransactionDate = "lrx_firsttransactiondate";
 			public const string LRx_FourthYearGiving = "lrx_fourthyeargiving";
 			public const string LRx_FourthYearGiving_Base = "lrx_fourthyeargiving_base";
+			public const string LRx_GenerateAnnualReceipts = "lrx_generateannualreceipts";
+			public const string LRx_GenerateAnnualReceiptsName = "lrx_generateannualreceiptsname";
 			public const string LRx_GivingLevel = "lrx_givinglevel";
 			public const string LRx_GivingLevelName = "lrx_givinglevelname";
 			public const string LRx_Household = "lrx_household";
+			public const string LRx_HouseholdId = "lrx_householdid";
 			public const string LRx_HouseholdName = "lrx_householdname";
 			public const string LRx_HouseholdRelationship = "lrx_householdrelationship";
 			public const string LRx_HouseholdRelationshipName = "lrx_householdrelationshipname";
 			public const string LRx_HouseholdYomiName = "lrx_householdyominame";
+			public const string LRx_ImportFilename = "lrx_importfilename";
 			public const string LRx_InsTagRam = "lrx_instagram";
 			public const string LRx_LastTransaction = "lrx_lasttransaction";
 			public const string LRx_LastTransactionDate = "lrx_lasttransactiondate";
+			public const string LRx_LastTransactionDateContact = "lrx_lasttransactiondatecontact";
 			public const string LRx_LastTransactionName = "lrx_lasttransactionname";
 			public const string LRx_LastYearsGiving = "lrx_lastyearsgiving";
 			public const string LRx_LastYearsGiving_Base = "lrx_lastyearsgiving_base";
 			public const string LRx_LifetimeGivingSum = "lrx_lifetimegivingsum";
 			public const string LRx_LifetimeGivingSum_Base = "lrx_lifetimegivingsum_base";
 			public const string LRx_LinkedLn = "lrx_linkedln";
+			public const string LRx_MarketingList = "lrx_marketinglist";
+			public const string LRx_MarketingListName = "lrx_marketinglistname";
 			public const string LRx_MsnFp_DonorCommitment_RelatedConstituent_Contact = "LRx_MsnFp_DonorCommitment_RelatedConstituent_Contact";
 			public const string LRx_MsnFp_PaymentSchedule_RelatedConstituent_Contact = "LRx_MsnFp_PaymentSchedule_RelatedConstituent_Contact";
 			public const string LRx_MsnFp_Transaction_RelatedConstituent_Contact = "LRx_MsnFp_Transaction_RelatedConstituent_Contact";
@@ -8494,13 +8458,19 @@ namespace CrmEarlyBound
 			public const string LRx_PronounOther = "lrx_pronounother";
 			public const string LRx_Pronouns = "lrx_pronouns";
 			public const string LRx_PronounsName = "lrx_pronounsname";
+			public const string LRx_ReceiptEndDate = "lrx_receiptenddate";
+			public const string LRx_ReceiptStartDate = "lrx_receiptstartdate";
 			public const string LRx_Relationship = "lrx_relationship";
 			public const string LRx_SolicitCode = "lrx_solicitcode";
 			public const string LRx_SolicitCodename = "lrx_solicitcodename";
 			public const string LRx_SolicitDate = "lrx_solicitdate";
+			public const string LRx_Street3 = "lrx_street3";
+			public const string LRx_SubscriptionsLists = "lrx_subscriptionslists";
 			public const string LRx_ThirdYearGiving = "lrx_thirdyeargiving";
 			public const string LRx_ThirdYearGiving_Base = "lrx_thirdyeargiving_base";
 			public const string LRx_Twitter = "lrx_twitter";
+			public const string LRx_Vip = "lrx_vip";
+			public const string LRx_VipName = "lrx_vipname";
 			public const string LRx_WhatsApp = "lrx_whatsapp";
 			public const string ManagerName = "managername";
 			public const string ManagerPhone = "managerphone";
@@ -8588,9 +8558,6 @@ namespace CrmEarlyBound
 			public const string OwningTeam = "owningteam";
 			public const string OwningUser = "owninguser";
 			public const string Pager = "pager";
-			public const string Parent_ContactId = "parent_contactid";
-			public const string Parent_ContactIdName = "parent_contactidname";
-			public const string Parent_ContactIdYomiName = "parent_contactidyominame";
 			public const string ParentContactId = "parentcontactid";
 			public const string ParentContactIdName = "parentcontactidname";
 			public const string ParentContactIdYomiName = "parentcontactidyominame";
@@ -8617,7 +8584,6 @@ namespace CrmEarlyBound
 			public const string ProcessId = "processid";
 			public const string ReferencedContact_Customer_Contacts = "ReferencedContact_Customer_Contacts";
 			public const string ReferencedContact_Master_Contact = "ReferencedContact_Master_Contact";
-			public const string ReferencedContact_Parent_Contact = "ReferencedContact_Parent_Contact";
 			public const string ReferencedMsnFp_Contact_ReportsTo = "ReferencedMsnFp_Contact_ReportsTo";
 			public const string Salutation = "salutation";
 			public const string ShippingMethodCode = "shippingmethodcode";
@@ -12387,6 +12353,43 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_age")]
+		public System.Nullable<decimal> LRx_Age
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<decimal>>("lrx_age");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_agerange")]
+		public virtual Contact_LRx_AgeRange? LRx_AgeRange
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_LRx_AgeRange?)(EntityOptionSetEnum.GetEnum(this, "lrx_agerange")));
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_agerangename")]
+		public string LRx_AgeRangeName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_agerange"))
+				{
+					return this.FormattedValues["lrx_agerange"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_askpreferences")]
 		public virtual Contact_LRx_AskPreferences? LRx_AskPreferences
 		{
@@ -12466,6 +12469,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_companyid")]
+		public string LRx_CompanyId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_companyid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_companyid", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_contactethnicity")]
 		public string LRx_ContactEthnicity
 		{
@@ -12478,6 +12496,53 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_contactethnicity", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_contactid")]
+		public string LRx_ContactId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_contactid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_contactid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_contacttype")]
+		public virtual Contact_LRx_ContactType? LRx_ContactType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_LRx_ContactType?)(EntityOptionSetEnum.GetEnum(this, "lrx_contacttype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_contacttype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_contacttypename")]
+		public string LRx_ContactTypeName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_contacttype"))
+				{
+					return this.FormattedValues["lrx_contacttype"];
+				}
+				else
+				{
+					return default(string);
+				}
 			}
 		}
 		
@@ -12682,6 +12747,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_etapattributes")]
+		public string LRx_EtaPatTributes
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_etapattributes");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_etapattributes", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_facebook")]
 		public string LRx_Facebook
 		{
@@ -12768,6 +12848,38 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_generateannualreceipts")]
+		public System.Nullable<bool> LRx_GenerateAnnualReceipts
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("lrx_generateannualreceipts");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_generateannualreceipts", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_generateannualreceiptsname")]
+		public string LRx_GenerateAnnualReceiptsName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_generateannualreceipts"))
+				{
+					return this.FormattedValues["lrx_generateannualreceipts"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_givinglevel")]
 		public Microsoft.Xrm.Sdk.EntityReference LRx_GivingLevel
 		{
@@ -12815,6 +12927,21 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_household", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_householdid")]
+		public string LRx_HouseholdId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_householdid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_householdid", value);
 			}
 		}
 		
@@ -12884,6 +13011,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
+		public string LRx_ImportFilename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_importfilename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_importfilename", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_instagram")]
 		public string LRx_InsTagRam
 		{
@@ -12926,6 +13068,21 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_lasttransactiondate", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_lasttransactiondatecontact")]
+		public System.Nullable<System.DateTime> LRx_LastTransactionDateContact
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lrx_lasttransactiondatecontact");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_lasttransactiondatecontact", value);
 			}
 		}
 		
@@ -13014,6 +13171,38 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_linkedln", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_marketinglist")]
+		public virtual LRx_MarketingList? LRx_MarketingList
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((LRx_MarketingList?)(EntityOptionSetEnum.GetEnum(this, "lrx_marketinglist")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_marketinglist", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_marketinglistname")]
+		public string LRx_MarketingListName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_marketinglist"))
+				{
+					return this.FormattedValues["lrx_marketinglist"];
+				}
+				else
+				{
+					return default(string);
+				}
 			}
 		}
 		
@@ -13126,6 +13315,36 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_receiptenddate")]
+		public System.Nullable<System.DateTime> LRx_ReceiptEndDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lrx_receiptenddate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_receiptenddate", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_receiptstartdate")]
+		public System.Nullable<System.DateTime> LRx_ReceiptStartDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lrx_receiptstartdate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_receiptstartdate", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_relationship")]
 		public string LRx_Relationship
 		{
@@ -13188,6 +13407,36 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_street3")]
+		public string LRx_Street3
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_street3");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_street3", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_subscriptionslists")]
+		public string LRx_SubscriptionsLists
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_subscriptionslists");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_subscriptionslists", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_thirdyeargiving")]
 		public Microsoft.Xrm.Sdk.Money LRx_ThirdYearGiving
 		{
@@ -13228,6 +13477,38 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_twitter", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_vip")]
+		public System.Nullable<bool> LRx_Vip
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("lrx_vip");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_vip", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_vipname")]
+		public string LRx_VipName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_vip"))
+				{
+					return this.FormattedValues["lrx_vip"];
+				}
+				else
+				{
+					return default(string);
+				}
 			}
 		}
 		
@@ -14607,58 +14888,6 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// For internal use only
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parent_contactid")]
-		public Microsoft.Xrm.Sdk.EntityReference Parent_ContactId
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("parent_contactid");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("parent_contactid", value);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parent_contactidname")]
-		public string Parent_ContactIdName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("parent_contactid"))
-				{
-					return this.FormattedValues["parent_contactid"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parent_contactidyominame")]
-		public string Parent_ContactIdYomiName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				if (this.FormattedValues.Contains("parent_contactid"))
-				{
-					return this.FormattedValues["parent_contactid"];
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-		}
-		
-		/// <summary>
 		/// Unique identifier of the parent contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentcontactid")]
@@ -15958,24 +16187,6 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// 1:N contact_parent_contact
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
-		public System.Collections.Generic.IEnumerable<CrmEarlyBound.Contact> ReferencedContact_Parent_Contact
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<CrmEarlyBound.Contact>("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referenced);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntities<CrmEarlyBound.Contact>("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
-			}
-		}
-		
-		/// <summary>
 		/// 1:N lrx_contact_lrx_refund_313
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lrx_contact_lrx_refund_313")]
@@ -16316,25 +16527,6 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// N:1 contact_parent_contact
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parent_contactid")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
-		public CrmEarlyBound.Contact ReferencingContact_Parent_Contact
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntity<CrmEarlyBound.Contact>("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referencing);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntity<CrmEarlyBound.Contact>("contact_parent_contact", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
-			}
-		}
-		
-		/// <summary>
 		/// N:1 lrx_contact_Household_account
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_household")]
@@ -16497,6 +16689,7 @@ namespace CrmEarlyBound
 			public const string LRx_Customer = "lrx_customer";
 			public const string LRx_CustomerName = "lrx_customername";
 			public const string LRx_CustomerYomiName = "lrx_customeryominame";
+			public const string LRx_ImportFilename = "lrx_importfilename";
 			public const string LRx_Name = "lrx_name";
 			public const string LRx_Refund_Transaction_MsnFp_Transaction = "lrx_refund_Transaction_msnfp_transaction";
 			public const string LRx_RefundDate = "lrx_refunddate";
@@ -16511,6 +16704,7 @@ namespace CrmEarlyBound
 			public const string LRx_Transaction = "lrx_transaction";
 			public const string LRx_TransactionId = "lrx_transactionid";
 			public const string LRx_TransactionName = "lrx_transactionname";
+			public const string LRx_TransactionRecordId = "lrx_transactionrecordid";
 			public const string ModifiedBy = "modifiedby";
 			public const string ModifiedByName = "modifiedbyname";
 			public const string ModifiedByYomiName = "modifiedbyyominame";
@@ -17048,6 +17242,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
+		public string LRx_ImportFilename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_importfilename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_importfilename", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_name")]
 		public string LRx_Name
 		{
@@ -17251,6 +17460,21 @@ namespace CrmEarlyBound
 				{
 					return default(string);
 				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_transactionrecordid")]
+		public string LRx_TransactionRecordId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_transactionrecordid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_transactionrecordid", value);
 			}
 		}
 		
@@ -18600,151 +18824,165 @@ namespace CrmEarlyBound
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("msnfp_donorcommitment")]
 	public partial class MsnFp_DonorCommitment : Microsoft.Xrm.Sdk.Entity
 	{
-
-        /// <summary>
-        /// Available fields, a the time of codegen, for the msnfp_donorcommitment entity
-        /// </summary>
-        public partial class Fields
-        {
-            public const string CreatedBy = "createdby";
-            public const string CreatedByName = "createdbyname";
-            public const string CreatedByYomiName = "createdbyyominame";
-            public const string CreatedOn = "createdon";
-            public const string CreatedOnBehalfBy = "createdonbehalfby";
-            public const string CreatedOnBehalfByName = "createdonbehalfbyname";
-            public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
-            public const string ExchangerAte = "exchangerate";
-            public const string ImportSequenceNumber = "importsequencenumber";
-            public const string LRx_AppealId = "lrx_appealid";
-            public const string LRx_Approach = "lrx_approach";
-            public const string LRx_ApproachName = "lrx_approachname";
-            public const string LRx_Campaign = "lrx_campaign";
-            public const string LRx_CampaignId = "lrx_campaignid";
-            public const string LRx_CampaignName = "lrx_campaignname";
-            public const string LRx_Channel = "lrx_channel";
-            public const string LRx_ChannelName = "lrx_channelname";
-            public const string LRx_DonorCommitmentId = "lrx_donorcommitmentid";
-            public const string LRx_DonorId = "lrx_donorid";
-            public const string LRx_FundingAgreement = "lrx_fundingagreement";
-            public const string LRx_FundingAgreement_LRx_FundingAgreement_MsnFp_DonorCommitment = "lrx_FundingAgreement_lrx_FundingAgreement_msnfp_DonorCommitment";
-            public const string LRx_FundingAgreementName = "lrx_fundingagreementname";
-            public const string LRx_ImportFilename = "lrx_importfilename";
-            public const string LRx_Opportunity = "lrx_opportunity";
-            public const string LRx_OpportunityName = "lrx_opportunityname";
-            public const string LRx_PackageId = "lrx_packageid";
-            public const string LRx_PledgeMatch = "lrx_pledgematch";
-            public const string LRx_PledgeMatchName = "lrx_pledgematchname";
-            public const string LRx_PreferredAcknowledgment = "lrx_preferredacknowledgment";
-            public const string LRx_RelatedConstituent = "lrx_relatedconstituent";
-            public const string LRx_RelatedConstituentId = "lrx_relatedconstituentid";
-            public const string LRx_RelatedConstituentName = "lrx_relatedconstituentname";
-            public const string LRx_RelatedConstituentYomiName = "lrx_relatedconstituentyominame";
-            public const string LRx_Solicitor = "lrx_solicitor";
-            public const string LRx_SolicitorId = "lrx_solicitorid";
-            public const string LRx_SolicitorName = "lrx_solicitorname";
-            public const string LRx_SolicitorYomiName = "lrx_solicitoryominame";
-            public const string LRx_TodaySdAte = "lrx_todaysdate";
-            public const string LRx_TotalAmountBalance = "lrx_totalamountbalance";
-            public const string LRx_TotalAmountBalance_Base = "lrx_totalamountbalance_base";
-            public const string LRx_TotalAmountPaid = "lrx_totalamountpaid";
-            public const string LRx_TotalAmountPaid_Base = "lrx_totalamountpaid_base";
-            public const string LRx_TotalAmountWRiTenOff = "lrx_totalamountwritenoff";
-            public const string LRx_TotalAmountWRiTenOff_Base = "lrx_totalamountwritenoff_base";
-            public const string ModifiedBy = "modifiedby";
-            public const string ModifiedByName = "modifiedbyname";
-            public const string ModifiedByYomiName = "modifiedbyyominame";
-            public const string ModifiedOn = "modifiedon";
-            public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
-            public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
-            public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
-            public const string MsnFp_Anonymity = "msnfp_anonymity";
-            public const string MsnFp_AnonymityName = "msnfp_anonymityname";
-            public const string MsnFp_BookDate = "msnfp_bookdate";
-            public const string MsnFp_Commitment_DefaultDesignationId = "msnfp_commitment_defaultdesignationid";
-            public const string MsnFp_Commitment_DefaultDesignationIdName = "msnfp_commitment_defaultdesignationidname";
-            public const string MsnFp_CommitmentDate = "msnfp_commitmentdate";
-            public const string MsnFp_CommitmentType = "msnfp_commitmenttype";
-            public const string MsnFp_CommitmentTypeName = "msnfp_commitmenttypename";
-            public const string MsnFp_DataEntryReference = "msnfp_dataentryreference";
-            public const string MsnFp_DataEntrySource = "msnfp_dataentrysource";
-            public const string MsnFp_DataEntrySourceName = "msnfp_dataentrysourcename";
-            public const string MsnFp_DonorCommitment_PlannedGivingId = "msnfp_donorcommitment_plannedgivingid";
-            public const string MsnFp_DonorCommitment_PlannedGivingIdName = "msnfp_donorcommitment_plannedgivingidname";
-            public const string MsnFp_DonorCommitmentId = "msnfp_donorcommitmentid";
-            public const string Id = "msnfp_donorcommitmentid";
-            public const string MsnFp_ExpectedByDate = "msnfp_expectedbydate";
-            public const string MsnFp_IsBookAble = "msnfp_isbookable";
-            public const string MsnFp_IsBookAbleName = "msnfp_isbookablename";
-            public const string MsnFp_Name = "msnfp_name";
-            public const string MsnFp_NextPaymentAmount = "msnfp_nextpaymentamount";
-            public const string MsnFp_NextPaymentAmount_Base = "msnfp_nextpaymentamount_base";
-            public const string MsnFp_NextPaymentDate = "msnfp_nextpaymentdate";
-            public const string MsnFp_PledgedByAccountId = "msnfp_pledgedbyaccountid";
-            public const string MsnFp_PledgedByAccountIdName = "msnfp_pledgedbyaccountidname";
-            public const string MsnFp_PledgedByAccountIdYomiName = "msnfp_pledgedbyaccountidyominame";
-            public const string MsnFp_PledgedByContactId = "msnfp_pledgedbycontactid";
-            public const string MsnFp_PledgedByContactIdName = "msnfp_pledgedbycontactidname";
-            public const string MsnFp_PledgedByContactIdYomiName = "msnfp_pledgedbycontactidyominame";
-            public const string MsnFp_PledgedOnAccountId = "msnfp_pledgedonaccountid";
-            public const string MsnFp_PledgedOnAccountIdName = "msnfp_pledgedonaccountidname";
-            public const string MsnFp_PledgedOnAccountIdYomiName = "msnfp_pledgedonaccountidyominame";
-            public const string MsnFp_ReceivedDate = "msnfp_receiveddate";
-            public const string MsnFp_TotalAmount = "msnfp_totalamount";
-            public const string MsnFp_TotalAmount_Base = "msnfp_totalamount_base";
-            public const string OverriddenCreatedOn = "overriddencreatedon";
-            public const string OwnerId = "ownerid";
-            public const string OwnerIdName = "owneridname";
-            public const string OwnerIdYomiName = "owneridyominame";
-            public const string OwningBusinessUnit = "owningbusinessunit";
-            public const string OwningBusinessUnitName = "owningbusinessunitname";
-            public const string OwningTeam = "owningteam";
-            public const string OwningUser = "owninguser";
-            public const string SiFund_Anonymous = "sifund_anonymous";
-            public const string SiFund_AnonymousName = "sifund_anonymousname";
-            public const string SiFund_Appeal = "sifund_appeal";
-            public const string SiFund_AppealName = "sifund_appealname";
-            public const string SiFund_Billing_City = "sifund_billing_city";
-            public const string SiFund_Billing_Country = "sifund_billing_country";
-            public const string SiFund_Billing_Line1 = "sifund_billing_line1";
-            public const string SiFund_Billing_Line2 = "sifund_billing_line2";
-            public const string SiFund_Billing_Line3 = "sifund_billing_line3";
-            public const string SiFund_Billing_PostalCode = "sifund_billing_postalcode";
-            public const string SiFund_Billing_StateOrProvince = "sifund_billing_stateorprovince";
-            public const string SiFund_Commitment_DefaultDesignationId = "sifund_commitment_defaultdesignationid";
-            public const string SiFund_Commitment_DefaultDesignationIdName = "sifund_commitment_defaultdesignationidname";
-            public const string SiFund_Donor = "sifund_donor";
-            public const string SiFund_DonorName = "sifund_donorname";
-            public const string SiFund_DonorYomiName = "sifund_donoryominame";
-            public const string SiFund_EmailAddress1 = "sifund_emailaddress1";
-            public const string SiFund_FirstName = "sifund_firstname";
-            public const string SiFund_GiftBatch = "sifund_giftbatch";
-            public const string SiFund_GiftBatchName = "sifund_giftbatchname";
-            public const string SiFund_Identifier = "sifund_identifier";
-            public const string SiFund_LastName = "sifund_lastname";
-            public const string SiFund_MobilePhone = "sifund_mobilephone";
-            public const string SiFund_Package = "sifund_package";
-            public const string SiFund_PackageName = "sifund_packagename";
-            public const string SiFund_PrimaryDesignation = "sifund_primarydesignation";
-            public const string SiFund_PrimaryDesignationName = "sifund_primarydesignationname";
-            public const string SiFund_RelatedSchedule = "sifund_relatedschedule";
-            public const string SiFund_RelatedScheduleName = "sifund_relatedschedulename";
-            public const string SiFund_Telephone1 = "sifund_telephone1";
-            public const string SiFund_Telephone2 = "sifund_telephone2";
-            public const string SiFund_TotalAmount_Balance = "sifund_totalamount_balance";
-            public const string SiFund_TotalAmount_Balance_Base = "sifund_totalamount_balance_base";
-            public const string SiFund_TransactionDescription = "sifund_transactiondescription";
-            public const string StateCode = "statecode";
-            public const string StateCodename = "statecodename";
-            public const string StatusCode = "statuscode";
-            public const string StatusCodename = "statuscodename";
-            public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
-            public const string TransactionCurrencyId = "transactioncurrencyid";
-            public const string TransactionCurrencyIdName = "transactioncurrencyidname";
-            public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
-            public const string VersionNumber = "versionnumber";
-        }
-
-        [System.Diagnostics.DebuggerNonUserCode()]
+		
+		/// <summary>
+		/// Available fields, a the time of codegen, for the msnfp_donorcommitment entity
+		/// </summary>
+		public partial class Fields
+		{
+			public const string CreatedBy = "createdby";
+			public const string CreatedByName = "createdbyname";
+			public const string CreatedByYomiName = "createdbyyominame";
+			public const string CreatedOn = "createdon";
+			public const string CreatedOnBehalfBy = "createdonbehalfby";
+			public const string CreatedOnBehalfByName = "createdonbehalfbyname";
+			public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
+			public const string ExchangerAte = "exchangerate";
+			public const string ImportSequenceNumber = "importsequencenumber";
+			public const string LRx_Account_MsnFp_DonorCommitment_809 = "lrx_account_msnfp_donorcommitment_809";
+			public const string LRx_AppealId = "lrx_appealid";
+			public const string LRx_Approach = "lrx_approach";
+			public const string LRx_ApproachName = "lrx_approachname";
+			public const string LRx_Campaign = "lrx_campaign";
+			public const string LRx_Campaign_Campaign_MsnFp_DonorCommitment = "lrx_Campaign_Campaign_msnfp_DonorCommitment";
+			public const string LRx_CampaignId = "lrx_campaignid";
+			public const string LRx_CampaignName = "lrx_campaignname";
+			public const string LRx_Channel = "lrx_channel";
+			public const string LRx_ChannelName = "lrx_channelname";
+			public const string LRx_Contact_MsnFp_DonorCommitment_809 = "lrx_contact_msnfp_donorcommitment_809";
+			public const string LRx_DonorCommitmentId = "lrx_donorcommitmentid";
+			public const string LRx_DonorId = "lrx_donorid";
+			public const string LRx_FundingAgreement = "lrx_fundingagreement";
+			public const string LRx_FundingAgreementName = "lrx_fundingagreementname";
+			public const string LRx_ImportFilename = "lrx_importfilename";
+			public const string LRx_MsnFp_DonorCommitment_RelatedConstituent_Contact = "lrx_msnfp_donorcommitment_RelatedConstituent_contact";
+			public const string LRx_Opportunity = "lrx_opportunity";
+			public const string LRx_OpportunityName = "lrx_opportunityname";
+			public const string LRx_PackageId = "lrx_packageid";
+			public const string LRx_PledgeMatch = "lrx_pledgematch";
+			public const string LRx_PledgeMatchName = "lrx_pledgematchname";
+			public const string LRx_PreferredAcknowledgment = "lrx_preferredacknowledgment";
+			public const string LRx_RelatedConstituent = "lrx_relatedconstituent";
+			public const string LRx_RelatedConstituentId = "lrx_relatedconstituentid";
+			public const string LRx_RelatedConstituentName = "lrx_relatedconstituentname";
+			public const string LRx_RelatedConstituentYomiName = "lrx_relatedconstituentyominame";
+			public const string LRx_Solicitor = "lrx_solicitor";
+			public const string LRx_SolicitorId = "lrx_solicitorid";
+			public const string LRx_SolicitorName = "lrx_solicitorname";
+			public const string LRx_SolicitorYomiName = "lrx_solicitoryominame";
+			public const string LRx_TodaySdAte = "lrx_todaysdate";
+			public const string LRx_TotalAmountBalance = "lrx_totalamountbalance";
+			public const string LRx_TotalAmountBalance_Base = "lrx_totalamountbalance_base";
+			public const string LRx_TotalAmountPaid = "lrx_totalamountpaid";
+			public const string LRx_TotalAmountPaid_Base = "lrx_totalamountpaid_base";
+			public const string LRx_TotalAmountWRiTenOff = "lrx_totalamountwritenoff";
+			public const string LRx_TotalAmountWRiTenOff_Base = "lrx_totalamountwritenoff_base";
+			public const string LRx_WriteOff_MsnFp_DonorCommitment_MsnFp_DonorCommitment = "LRx_WriteOff_MsnFp_DonorCommitment_MsnFp_DonorCommitment";
+			public const string ModifiedBy = "modifiedby";
+			public const string ModifiedByName = "modifiedbyname";
+			public const string ModifiedByYomiName = "modifiedbyyominame";
+			public const string ModifiedOn = "modifiedon";
+			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
+			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
+			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
+			public const string MsnFp_Anonymity = "msnfp_anonymity";
+			public const string MsnFp_AnonymityName = "msnfp_anonymityname";
+			public const string MsnFp_BookDate = "msnfp_bookdate";
+			public const string MsnFp_Commitment_DefaultDesignationId = "msnfp_commitment_defaultdesignationid";
+			public const string MsnFp_Commitment_DefaultDesignationIdName = "msnfp_commitment_defaultdesignationidname";
+			public const string MsnFp_Commitment_PledgedByAccount = "msnfp_commitment_pledgedbyaccount";
+			public const string MsnFp_Commitment_PledgedByContact = "msnfp_commitment_pledgedByContact";
+			public const string MsnFp_Commitment_PledgedOnAccount = "msnfp_commitment_pledgedOnAccount";
+			public const string MsnFp_CommitmentDate = "msnfp_commitmentdate";
+			public const string MsnFp_CommitmentType = "msnfp_commitmenttype";
+			public const string MsnFp_CommitmentTypeName = "msnfp_commitmenttypename";
+			public const string MsnFp_DataEntryReference = "msnfp_dataentryreference";
+			public const string MsnFp_DataEntrySource = "msnfp_dataentrysource";
+			public const string MsnFp_DataEntrySourceName = "msnfp_dataentrysourcename";
+			public const string MsnFp_DonorCommitment_PlannedGivingId = "msnfp_donorcommitment_plannedgivingid";
+			public const string MsnFp_DonorCommitment_PlannedGivingIdName = "msnfp_donorcommitment_plannedgivingidname";
+			public const string MsnFp_DonorCommitmentId = "msnfp_donorcommitmentid";
+			public const string Id = "msnfp_donorcommitmentid";
+			public const string MsnFp_ExpectedByDate = "msnfp_expectedbydate";
+			public const string MsnFp_IsBookAble = "msnfp_isbookable";
+			public const string MsnFp_IsBookAbleName = "msnfp_isbookablename";
+			public const string MsnFp_Name = "msnfp_name";
+			public const string MsnFp_NextPaymentAmount = "msnfp_nextpaymentamount";
+			public const string MsnFp_NextPaymentAmount_Base = "msnfp_nextpaymentamount_base";
+			public const string MsnFp_NextPaymentDate = "msnfp_nextpaymentdate";
+			public const string MsnFp_PledgedByAccountId = "msnfp_pledgedbyaccountid";
+			public const string MsnFp_PledgedByAccountIdName = "msnfp_pledgedbyaccountidname";
+			public const string MsnFp_PledgedByAccountIdYomiName = "msnfp_pledgedbyaccountidyominame";
+			public const string MsnFp_PledgedByContactId = "msnfp_pledgedbycontactid";
+			public const string MsnFp_PledgedByContactIdName = "msnfp_pledgedbycontactidname";
+			public const string MsnFp_PledgedByContactIdYomiName = "msnfp_pledgedbycontactidyominame";
+			public const string MsnFp_PledgedOnAccountId = "msnfp_pledgedonaccountid";
+			public const string MsnFp_PledgedOnAccountIdName = "msnfp_pledgedonaccountidname";
+			public const string MsnFp_PledgedOnAccountIdYomiName = "msnfp_pledgedonaccountidyominame";
+			public const string MsnFp_PMtScHeD_DonorCommitment = "MsnFp_PMtScHeD_DonorCommitment";
+			public const string MsnFp_ReceivedDate = "msnfp_receiveddate";
+			public const string MsnFp_TotalAmount = "msnfp_totalamount";
+			public const string MsnFp_TotalAmount_Base = "msnfp_totalamount_base";
+			public const string OverriddenCreatedOn = "overriddencreatedon";
+			public const string OwnerId = "ownerid";
+			public const string OwnerIdName = "owneridname";
+			public const string OwnerIdYomiName = "owneridyominame";
+			public const string OwningBusinessUnit = "owningbusinessunit";
+			public const string OwningBusinessUnitName = "owningbusinessunitname";
+			public const string OwningTeam = "owningteam";
+			public const string OwningUser = "owninguser";
+			public const string SiFund_Account_MsnFp_DonorCommitment_736 = "sifund_account_msnfp_donorcommitment_736";
+			public const string SiFund_Anonymous = "sifund_anonymous";
+			public const string SiFund_AnonymousName = "sifund_anonymousname";
+			public const string SiFund_Appeal = "sifund_appeal";
+			public const string SiFund_AppealName = "sifund_appealname";
+			public const string SiFund_Billing_City = "sifund_billing_city";
+			public const string SiFund_Billing_Country = "sifund_billing_country";
+			public const string SiFund_Billing_Line1 = "sifund_billing_line1";
+			public const string SiFund_Billing_Line2 = "sifund_billing_line2";
+			public const string SiFund_Billing_Line3 = "sifund_billing_line3";
+			public const string SiFund_Billing_PostalCode = "sifund_billing_postalcode";
+			public const string SiFund_Billing_StateOrProvince = "sifund_billing_stateorprovince";
+			public const string SiFund_Commitment_DefaultDesignationId = "sifund_commitment_defaultdesignationid";
+			public const string SiFund_Commitment_DefaultDesignationIdName = "sifund_commitment_defaultdesignationidname";
+			public const string SiFund_Contact_MsnFp_DonorCommitment_736 = "sifund_contact_msnfp_donorcommitment_736";
+			public const string SiFund_Donor = "sifund_donor";
+			public const string SiFund_DonorName = "sifund_donorname";
+			public const string SiFund_DonorYomiName = "sifund_donoryominame";
+			public const string SiFund_EmailAddress1 = "sifund_emailaddress1";
+			public const string SiFund_FirstName = "sifund_firstname";
+			public const string SiFund_GiftBatch = "sifund_giftbatch";
+			public const string SiFund_GiftBatchName = "sifund_giftbatchname";
+			public const string SiFund_Identifier = "sifund_identifier";
+			public const string SiFund_LastName = "sifund_lastname";
+			public const string SiFund_MobilePhone = "sifund_mobilephone";
+			public const string SiFund_MsnFp_DonorCommitment_Appeal_SiFund_ApPeA = "sifund_msnfp_donorcommitment_Appeal_sifund_appea";
+			public const string SiFund_MsnFp_DonorCommitment_Package_SiFund_Pack = "sifund_msnfp_donorcommitment_Package_sifund_pack";
+			public const string SiFund_MsnFp_DonorCommitment_RelatedSchedule_Msn = "sifund_msnfp_donorcommitment_RelatedSchedule_msn";
+			public const string SiFund_MsnFp_Transaction_RelatedDonorCommitment_ = "SiFund_MsnFp_Transaction_RelatedDonorCommitment_";
+			public const string SiFund_Package = "sifund_package";
+			public const string SiFund_PackageName = "sifund_packagename";
+			public const string SiFund_PrimaryDesignation = "sifund_primarydesignation";
+			public const string SiFund_PrimaryDesignationName = "sifund_primarydesignationname";
+			public const string SiFund_RelatedSchedule = "sifund_relatedschedule";
+			public const string SiFund_RelatedScheduleName = "sifund_relatedschedulename";
+			public const string SiFund_Telephone1 = "sifund_telephone1";
+			public const string SiFund_Telephone2 = "sifund_telephone2";
+			public const string SiFund_TotalAmount_Balance = "sifund_totalamount_balance";
+			public const string SiFund_TotalAmount_Balance_Base = "sifund_totalamount_balance_base";
+			public const string SiFund_TransactionDescription = "sifund_transactiondescription";
+			public const string StateCode = "statecode";
+			public const string StateCodename = "statecodename";
+			public const string StatusCode = "statuscode";
+			public const string StatusCodename = "statuscodename";
+			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+			public const string TransactionCurrencyId = "transactioncurrencyid";
+			public const string TransactionCurrencyIdName = "transactioncurrencyidname";
+			public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
+			public const string VersionNumber = "versionnumber";
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
 		public MsnFp_DonorCommitment(System.Guid id) : 
 				base(EntityLogicalName, id)
 		{
@@ -18926,6 +19164,53 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_appealid")]
+		public string LRx_AppealId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_appealid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_appealid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_approach")]
+		public virtual LRx_Approach? LRx_Approach
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((LRx_Approach?)(EntityOptionSetEnum.GetEnum(this, "lrx_approach")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_approach", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_approachname")]
+		public string LRx_ApproachName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_approach"))
+				{
+					return this.FormattedValues["lrx_approach"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaign")]
 		public Microsoft.Xrm.Sdk.EntityReference LRx_Campaign
 		{
@@ -18938,6 +19223,21 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_campaign", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignid")]
+		public string LRx_CampaignId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_campaignid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_campaignid", value);
 			}
 		}
 		
@@ -18955,6 +19255,68 @@ namespace CrmEarlyBound
 				{
 					return default(string);
 				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_channel")]
+		public virtual LRx_Channel? LRx_Channel
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((LRx_Channel?)(EntityOptionSetEnum.GetEnum(this, "lrx_channel")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_channel", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_channelname")]
+		public string LRx_ChannelName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_channel"))
+				{
+					return this.FormattedValues["lrx_channel"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donorcommitmentid")]
+		public string LRx_DonorCommitmentId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_donorcommitmentid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_donorcommitmentid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donorid")]
+		public string LRx_DonorId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_donorid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_donorid", value);
 			}
 		}
 		
@@ -18990,6 +19352,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
+		public string LRx_ImportFilename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_importfilename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_importfilename", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_opportunity")]
 		public Microsoft.Xrm.Sdk.EntityReference LRx_Opportunity
 		{
@@ -19022,6 +19399,68 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_packageid")]
+		public string LRx_PackageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_packageid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_packageid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_pledgematch")]
+		public Microsoft.Xrm.Sdk.EntityReference LRx_PledgeMatch
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_pledgematch");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_pledgematch", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_pledgematchname")]
+		public string LRx_PledgeMatchName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_pledgematch"))
+				{
+					return this.FormattedValues["lrx_pledgematch"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_preferredacknowledgment")]
+		public string LRx_PreferredAcknowledgment
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_preferredacknowledgment");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_preferredacknowledgment", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_relatedconstituent")]
 		public Microsoft.Xrm.Sdk.EntityReference LRx_RelatedConstituent
 		{
@@ -19034,6 +19473,21 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_relatedconstituent", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_relatedconstituentid")]
+		public string LRx_RelatedConstituentId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_relatedconstituentid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_relatedconstituentid", value);
 			}
 		}
 		
@@ -19083,6 +19537,21 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_solicitor", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_solicitorid")]
+		public string LRx_SolicitorId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_solicitorid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_solicitorid", value);
 			}
 		}
 		
@@ -21118,6 +21587,9 @@ namespace CrmEarlyBound
 			public const string ExchangerAte = "exchangerate";
 			public const string ImportSequenceNumber = "importsequencenumber";
 			public const string LRx_Account_MsnFp_PaymentSchedule_927 = "lrx_account_msnfp_paymentschedule_927";
+			public const string LRx_AccountId = "lrx_accountid";
+			public const string LRx_Approach = "lrx_approach";
+			public const string LRx_ApproachName = "lrx_approachname";
 			public const string LRx_Campaign = "lrx_campaign";
 			public const string LRx_Campaign_Campaign_MsnFp_PaymentSchedule = "lrx_Campaign_Campaign_msnfp_PaymentSchedule";
 			public const string LRx_CampaignName = "lrx_campaignname";
@@ -21130,14 +21602,23 @@ namespace CrmEarlyBound
 			public const string LRx_CardBrandName = "lrx_cardbrandname";
 			public const string LRx_Channel = "lrx_channel";
 			public const string LRx_ChannelName = "lrx_channelname";
+			public const string LRx_ChargeOnCreate = "lrx_chargeoncreate";
+			public const string LRx_ChargeOnCreateName = "lrx_chargeoncreatename";
 			public const string LRx_Contact_MsnFp_PaymentSchedule_927 = "lrx_contact_msnfp_paymentschedule_927";
 			public const string LRx_FormulaR = "lrx_formular";
+			public const string LRx_GenerateAnnualReceipts = "lrx_generateannualreceipts";
+			public const string LRx_GenerateAnnualReceiptsName = "lrx_generateannualreceiptsname";
+			public const string LRx_ImportFilename = "lrx_importfilename";
+			public const string LRx_InvoiceIdentifier = "lrx_invoiceidentifier";
 			public const string LRx_MsnFp_Designation = "lrx_msnfp_designation";
 			public const string LRx_MsnFp_DesignationName = "lrx_msnfp_designationname";
 			public const string LRx_MsnFp_PaymentSchedule_RelatedConstituent_Contact = "lrx_msnfp_paymentschedule_RelatedConstituent_contact";
 			public const string LRx_PaymentMethod = "lrx_paymentmethod";
 			public const string LRx_PaymentMethodName = "lrx_paymentmethodname";
+			public const string LRx_PreferredAcknowledgment = "lrx_preferredacknowledgment";
 			public const string LRx_PsAutoNumber = "lrx_psautonumber";
+			public const string LRx_ReceiptEndDate = "lrx_receiptenddate";
+			public const string LRx_ReceiptStartDate = "lrx_receiptstartdate";
 			public const string LRx_RelatedConstituent = "lrx_relatedconstituent";
 			public const string LRx_RelatedConstituentName = "lrx_relatedconstituentname";
 			public const string LRx_RelatedConstituentYomiName = "lrx_relatedconstituentyominame";
@@ -21440,6 +21921,53 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_accountid")]
+		public string LRx_AccountId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_accountid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_accountid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_approach")]
+		public virtual LRx_Approach? LRx_Approach
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((LRx_Approach?)(EntityOptionSetEnum.GetEnum(this, "lrx_approach")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_approach", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_approachname")]
+		public string LRx_ApproachName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_approach"))
+				{
+					return this.FormattedValues["lrx_approach"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaign")]
 		public Microsoft.Xrm.Sdk.EntityReference LRx_Campaign
 		{
@@ -21613,6 +22141,38 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_chargeoncreate")]
+		public System.Nullable<bool> LRx_ChargeOnCreate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("lrx_chargeoncreate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_chargeoncreate", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_chargeoncreatename")]
+		public string LRx_ChargeOnCreateName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_chargeoncreate"))
+				{
+					return this.FormattedValues["lrx_chargeoncreate"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_formular")]
 		public string LRx_FormulaR
 		{
@@ -21620,6 +22180,68 @@ namespace CrmEarlyBound
 			get
 			{
 				return this.GetAttributeValue<string>("lrx_formular");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_generateannualreceipts")]
+		public System.Nullable<bool> LRx_GenerateAnnualReceipts
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("lrx_generateannualreceipts");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_generateannualreceipts", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_generateannualreceiptsname")]
+		public string LRx_GenerateAnnualReceiptsName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_generateannualreceipts"))
+				{
+					return this.FormattedValues["lrx_generateannualreceipts"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
+		public string LRx_ImportFilename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_importfilename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_importfilename", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_invoiceidentifier")]
+		public string LRx_InvoiceIdentifier
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_invoiceidentifier");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_invoiceidentifier", value);
 			}
 		}
 		
@@ -21687,6 +22309,21 @@ namespace CrmEarlyBound
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_preferredacknowledgment")]
+		public string LRx_PreferredAcknowledgment
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_preferredacknowledgment");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_preferredacknowledgment", value);
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_psautonumber")]
 		public string LRx_PsAutoNumber
 		{
@@ -21699,6 +22336,36 @@ namespace CrmEarlyBound
 			set
 			{
 				this.SetAttributeValue("lrx_psautonumber", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_receiptenddate")]
+		public System.Nullable<System.DateTime> LRx_ReceiptEndDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lrx_receiptenddate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_receiptenddate", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_receiptstartdate")]
+		public System.Nullable<System.DateTime> LRx_ReceiptStartDate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lrx_receiptstartdate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_receiptstartdate", value);
 			}
 		}
 		
@@ -23830,181 +24497,196 @@ namespace CrmEarlyBound
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("msnfp_transaction")]
 	public partial class MsnFp_Transaction : Microsoft.Xrm.Sdk.Entity
 	{
-
-        /// <summary>
-        /// Available fields, a the time of codegen, for the msnfp_transaction entity
-        /// </summary>
-        public partial class Fields
-        {
-            public const string CreatedBy = "createdby";
-            public const string CreatedByName = "createdbyname";
-            public const string CreatedByYomiName = "createdbyyominame";
-            public const string CreatedOn = "createdon";
-            public const string CreatedOnBehalfBy = "createdonbehalfby";
-            public const string CreatedOnBehalfByName = "createdonbehalfbyname";
-            public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
-            public const string ExchangerAte = "exchangerate";
-            public const string ImportSequenceNumber = "importsequencenumber";
-            public const string LRx_Amount_Receipted = "lrx_amount_receipted";
-            public const string LRx_Amount_Receipted_Base = "lrx_amount_receipted_base";
-            public const string LRx_AmountMembership = "lrx_amountmembership";
-            public const string LRx_AmountMembership_Base = "lrx_amountmembership_base";
-            public const string LRx_AmountMembershipRefunded = "lrx_amountmembershiprefunded";
-            public const string LRx_AmountMembershipRefunded_Base = "lrx_amountmembershiprefunded_base";
-            public const string LRx_AmountNonreceiptAbleRefunded = "lrx_amountnonreceiptablerefunded";
-            public const string LRx_AmountNonreceiptAbleRefunded_Base = "lrx_amountnonreceiptablerefunded_base";
-            public const string LRx_AmountRefunded = "lrx_amountrefunded";
-            public const string LRx_AmountRefunded_Base = "lrx_amountrefunded_base";
-            public const string LRx_AmountTaxRefunded = "lrx_amounttaxrefunded";
-            public const string LRx_AmountTaxRefunded_Base = "lrx_amounttaxrefunded_base";
-            public const string LRx_Campaign = "lrx_campaign";
-            public const string LRx_CampaignName = "lrx_campaignname";
-            public const string LRx_Channel = "lrx_channel";
-            public const string LRx_ChannelName = "lrx_channelname";
-            public const string LRx_Event = "lrx_event";
-            public const string LRx_EventName = "lrx_eventname";
-            public const string LRx_EventTeam = "lrx_eventteam";
-            public const string LRx_EventTeamName = "lrx_eventteamname";
-            public const string LRx_FundRaisinDonationId = "lrx_fundraisindonationid";
-            public const string LRx_Membership = "lrx_membership";
-            public const string LRx_MembershipName = "lrx_membershipname";
-            public const string LRx_PrimaryMembership = "lrx_primarymembership";
-            public const string LRx_PrimaryMembershipName = "lrx_primarymembershipname";
-            public const string LRx_Product = "lrx_product";
-            public const string LRx_ProductName = "lrx_productname";
-            public const string LRx_ReceiptGenerated = "lrx_receiptgenerated";
-            public const string LRx_ReceiptGeneratedName = "lrx_receiptgeneratedname";
-            public const string LRx_Registrations = "lrx_registrations";
-            public const string LRx_RegistrationsName = "lrx_registrationsname";
-            public const string LRx_RelatedConstituent = "lrx_relatedconstituent";
-            public const string LRx_RelatedConstituentName = "lrx_relatedconstituentname";
-            public const string LRx_RelatedConstituentYomiName = "lrx_relatedconstituentyominame";
-            public const string LRx_SetName = "lrx_setname";
-            public const string LRx_Solicitor = "lrx_solicitor";
-            public const string LRx_SolicitorName = "lrx_solicitorname";
-            public const string LRx_SolicitorYomiName = "lrx_solicitoryominame";
-            public const string LRx_TodaySdAte = "lrx_todaysdate";
-            public const string LRx_TotalAmountRefunded = "lrx_totalamountrefunded";
-            public const string LRx_TotalAmountRefunded_Base = "lrx_totalamountrefunded_base";
-            public const string ModifiedBy = "modifiedby";
-            public const string ModifiedByName = "modifiedbyname";
-            public const string ModifiedByYomiName = "modifiedbyyominame";
-            public const string ModifiedOn = "modifiedon";
-            public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
-            public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
-            public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
-            public const string MsnFp_AdjustmentComment = "msnfp_adjustmentcomment";
-            public const string MsnFp_AdjustmentReason = "msnfp_adjustmentreason";
-            public const string MsnFp_AdjustmentReasonName = "msnfp_adjustmentreasonname";
-            public const string MsnFp_AdjustmentType = "msnfp_adjustmenttype";
-            public const string MsnFp_AdjustmentTypeName = "msnfp_adjustmenttypename";
-            public const string MsnFp_Amount = "msnfp_amount";
-            public const string MsnFp_Amount_Base = "msnfp_amount_base";
-            public const string MsnFp_Anonymity = "msnfp_anonymity";
-            public const string MsnFp_AnonymityName = "msnfp_anonymityname";
-            public const string MsnFp_BookDate = "msnfp_bookdate";
-            public const string MsnFp_DataEntryReference = "msnfp_dataentryreference";
-            public const string MsnFp_DataEntrySource = "msnfp_dataentrysource";
-            public const string MsnFp_DataEntrySourceName = "msnfp_dataentrysourcename";
-            public const string MsnFp_EffectiveSourceCode = "msnfp_effectivesourcecode";
-            public const string MsnFp_ExchangerAteDate = "msnfp_exchangeratedate";
-            public const string MsnFp_IsAdjusted = "msnfp_isadjusted";
-            public const string MsnFp_IsAdjustedName = "msnfp_isadjustedname";
-            public const string MsnFp_Name = "msnfp_name";
-            public const string MsnFp_OriginalTxNAdjustedId = "msnfp_originaltxnadjustedid";
-            public const string MsnFp_OriginalTxNAdJusteDidName = "msnfp_originaltxnadjustedidname";
-            public const string MsnFp_OriginatingSourceCode = "msnfp_originatingsourcecode";
-            public const string MsnFp_PostedDate = "msnfp_posteddate";
-            public const string MsnFp_ReceiptOnContactId = "msnfp_receiptoncontactid";
-            public const string MsnFp_ReceiptOnContactIdName = "msnfp_receiptoncontactidname";
-            public const string MsnFp_ReceiptOnContactIdYomiName = "msnfp_receiptoncontactidyominame";
-            public const string MsnFp_ReceivedDate = "msnfp_receiveddate";
-            public const string MsnFp_Transaction_PaymentMethodId = "msnfp_transaction_paymentmethodid";
-            public const string MsnFp_Transaction_PaymentMethodIdName = "msnfp_transaction_paymentmethodidname";
-            public const string MsnFp_Transaction_PaymentScheduleId = "msnfp_transaction_paymentscheduleid";
-            public const string MsnFp_Transaction_PaymentScheduleIdName = "msnfp_transaction_paymentscheduleidname";
-            public const string MsnFp_Transaction_ReceiptOnAccountId = "msnfp_transaction_receiptonaccountid";
-            public const string MsnFp_Transaction_ReceiptOnAccountIdName = "msnfp_transaction_receiptonaccountidname";
-            public const string MsnFp_Transaction_ReceiptOnAccountIdYomiName = "msnfp_transaction_receiptonaccountidyominame";
-            public const string MsnFp_TransactionId = "msnfp_transactionid";
-            public const string Id = "msnfp_transactionid";
-            public const string ReferencingMsnFp_TxN_OriginalTxNAdjusted = "msnfp_txn_originalTxnAdjusted";
-            public const string OverriddenCreatedOn = "overriddencreatedon";
-            public const string OwnerId = "ownerid";
-            public const string OwnerIdName = "owneridname";
-            public const string OwnerIdYomiName = "owneridyominame";
-            public const string OwningBusinessUnit = "owningbusinessunit";
-            public const string OwningBusinessUnitName = "owningbusinessunitname";
-            public const string OwningTeam = "owningteam";
-            public const string OwningUser = "owninguser";
-            public const string ReferencedMsnFp_TxN_OriginalTxNAdjusted = "ReferencedMsnFp_TxN_OriginalTxNAdjusted";
-            public const string ReferencedSiFund_MsnFp_Transaction_ParentTransaction_MsnFp = "ReferencedSiFund_MsnFp_Transaction_ParentTransaction_MsnFp";
-            public const string SiFund_Amount_NonreceiptAble = "sifund_amount_nonreceiptable";
-            public const string SiFund_Amount_NonreceiptAble_Base = "sifund_amount_nonreceiptable_base";
-            public const string SiFund_Amount_Receipted = "sifund_amount_receipted";
-            public const string SiFund_Amount_Receipted_Base = "sifund_amount_receipted_base";
-            public const string SiFund_Amount_Tax = "sifund_amount_tax";
-            public const string SiFund_Amount_Tax_Base = "sifund_amount_tax_base";
-            public const string SiFund_Anonymous = "sifund_anonymous";
-            public const string SiFund_AnonymousName = "sifund_anonymousname";
-            public const string SiFund_Appeal = "sifund_appeal";
-            public const string SiFund_AppealName = "sifund_appealname";
-            public const string SiFund_Billing_City = "sifund_billing_city";
-            public const string SiFund_Billing_Country = "sifund_billing_country";
-            public const string SiFund_Billing_Line1 = "sifund_billing_line1";
-            public const string SiFund_Billing_Line2 = "sifund_billing_line2";
-            public const string SiFund_Billing_Line3 = "sifund_billing_line3";
-            public const string SiFund_Billing_PostalCode = "sifund_billing_postalcode";
-            public const string SiFund_Billing_StateOrProvince = "sifund_billing_stateorprovince";
-            public const string SiFund_CcBrandCode = "sifund_ccbrandcode";
-            public const string SiFund_CcBrandCodename = "sifund_ccbrandcodename";
-            public const string SiFund_CheckWiredAte = "sifund_checkwiredate";
-            public const string SiFund_CheckWiRenumber = "sifund_checkwirenumber";
-            public const string SiFund_DepositDate = "sifund_depositdate";
-            public const string SiFund_Description = "sifund_description";
-            public const string SiFund_Donor = "sifund_donor";
-            public const string SiFund_DonorName = "sifund_donorname";
-            public const string SiFund_DonorYomiName = "sifund_donoryominame";
-            public const string SiFund_EmailAddress1 = "sifund_emailaddress1";
-            public const string SiFund_FirstName = "sifund_firstname";
-            public const string SiFund_GiftBatch = "sifund_giftbatch";
-            public const string SiFund_GiftBatchName = "sifund_giftbatchname";
-            public const string SiFund_LastName = "sifund_lastname";
-            public const string SiFund_MobilePhone = "sifund_mobilephone";
-            public const string ReferencingSiFund_MsnFp_Transaction_ParentTransaction_MsnFp = "sifund_msnfp_transaction_ParentTransaction_msnfp";
-            public const string SiFund_OrganizationName = "sifund_organizationname";
-            public const string SiFund_Package = "sifund_package";
-            public const string SiFund_PackageName = "sifund_packagename";
-            public const string SiFund_ParentTransaction = "sifund_parenttransaction";
-            public const string SiFund_ParentTransactionName = "sifund_parenttransactionname";
-            public const string SiFund_PaymentTypeCode = "sifund_paymenttypecode";
-            public const string SiFund_PaymentTypeCodename = "sifund_paymenttypecodename";
-            public const string SiFund_PrimaryDesignation = "sifund_primarydesignation";
-            public const string SiFund_PrimaryDesignationName = "sifund_primarydesignationname";
-            public const string SiFund_Receipt = "sifund_receipt";
-            public const string SiFund_ReceiptName = "sifund_receiptname";
-            public const string SiFund_Ref_Amount = "sifund_ref_amount";
-            public const string SiFund_Ref_Amount_Base = "sifund_ref_amount_base";
-            public const string SiFund_RelatedDonorCommitment = "sifund_relateddonorcommitment";
-            public const string SiFund_RelatedDonorCommitmentName = "sifund_relateddonorcommitmentname";
-            public const string SiFund_Telephone1 = "sifund_telephone1";
-            public const string SiFund_Telephone2 = "sifund_telephone2";
-            public const string SiFund_ThirdPartyReceipt = "sifund_thirdpartyreceipt";
-            public const string SiFund_TransactionDescription = "sifund_transactiondescription";
-            public const string SiFund_TypeCode = "sifund_typecode";
-            public const string SiFund_TypeCodename = "sifund_typecodename";
-            public const string StateCode = "statecode";
-            public const string StateCodename = "statecodename";
-            public const string StatusCode = "statuscode";
-            public const string StatusCodename = "statuscodename";
-            public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
-            public const string TransactionCurrencyId = "transactioncurrencyid";
-            public const string TransactionCurrencyIdName = "transactioncurrencyidname";
-            public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
-            public const string VersionNumber = "versionnumber";
-        }
-
-        [System.Diagnostics.DebuggerNonUserCode()]
+		
+		/// <summary>
+		/// Available fields, a the time of codegen, for the msnfp_transaction entity
+		/// </summary>
+		public partial class Fields
+		{
+			public const string CreatedBy = "createdby";
+			public const string CreatedByName = "createdbyname";
+			public const string CreatedByYomiName = "createdbyyominame";
+			public const string CreatedOn = "createdon";
+			public const string CreatedOnBehalfBy = "createdonbehalfby";
+			public const string CreatedOnBehalfByName = "createdonbehalfbyname";
+			public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
+			public const string ExchangerAte = "exchangerate";
+			public const string ImportSequenceNumber = "importsequencenumber";
+			public const string LRx_Account_LastTransactionId_MsnFp_Transaction = "LRx_Account_LastTransactionId_MsnFp_Transaction";
+			public const string LRx_Account_MsnFp_Transaction_223 = "lrx_account_msnfp_transaction_223";
+			public const string LRx_Amount_Receipted = "lrx_amount_receipted";
+			public const string LRx_Amount_Receipted_Base = "lrx_amount_receipted_base";
+			public const string LRx_AmountMembership = "lrx_amountmembership";
+			public const string LRx_AmountMembership_Base = "lrx_amountmembership_base";
+			public const string LRx_AmountMembershipRefunded = "lrx_amountmembershiprefunded";
+			public const string LRx_AmountMembershipRefunded_Base = "lrx_amountmembershiprefunded_base";
+			public const string LRx_AmountNonreceiptAbleRefunded = "lrx_amountnonreceiptablerefunded";
+			public const string LRx_AmountNonreceiptAbleRefunded_Base = "lrx_amountnonreceiptablerefunded_base";
+			public const string LRx_AmountRefunded = "lrx_amountrefunded";
+			public const string LRx_AmountRefunded_Base = "lrx_amountrefunded_base";
+			public const string LRx_AmountTaxRefunded = "lrx_amounttaxrefunded";
+			public const string LRx_AmountTaxRefunded_Base = "lrx_amounttaxrefunded_base";
+			public const string LRx_Campaign = "lrx_campaign";
+			public const string LRx_Campaign_Campaign_MsnFp_Transaction = "lrx_Campaign_Campaign_msnfp_Transaction";
+			public const string LRx_CampaignName = "lrx_campaignname";
+			public const string LRx_Channel = "lrx_channel";
+			public const string LRx_ChannelName = "lrx_channelname";
+			public const string LRx_Contact_LastTransaction_MsnFp_Transaction = "LRx_Contact_LastTransaction_MsnFp_Transaction";
+			public const string LRx_Contact_MsnFp_Transaction_223 = "lrx_contact_msnfp_transaction_223";
+			public const string LRx_Event = "lrx_event";
+			public const string LRx_EventName = "lrx_eventname";
+			public const string LRx_EventTeam = "lrx_eventteam";
+			public const string LRx_EventTeamName = "lrx_eventteamname";
+			public const string LRx_FundRaisinDonationId = "lrx_fundraisindonationid";
+			public const string LRx_Membership = "lrx_membership";
+			public const string LRx_MembershipName = "lrx_membershipname";
+			public const string LRx_MsnFp_Transaction_RelatedConstituent_Contact = "lrx_msnfp_transaction_RelatedConstituent_contact";
+			public const string LRx_PrimaryMembership = "lrx_primarymembership";
+			public const string LRx_PrimaryMembershipName = "lrx_primarymembershipname";
+			public const string LRx_Product = "lrx_product";
+			public const string LRx_ProductName = "lrx_productname";
+			public const string LRx_ReceiptGenerated = "lrx_receiptgenerated";
+			public const string LRx_ReceiptGeneratedName = "lrx_receiptgeneratedname";
+			public const string LRx_Refund_Transaction_MsnFp_Transaction = "LRx_Refund_Transaction_MsnFp_Transaction";
+			public const string LRx_Registrations = "lrx_registrations";
+			public const string LRx_RegistrationsName = "lrx_registrationsname";
+			public const string LRx_RelatedConstituent = "lrx_relatedconstituent";
+			public const string LRx_RelatedConstituentName = "lrx_relatedconstituentname";
+			public const string LRx_RelatedConstituentYomiName = "lrx_relatedconstituentyominame";
+			public const string LRx_SetName = "lrx_setname";
+			public const string LRx_Solicitor = "lrx_solicitor";
+			public const string LRx_SolicitorName = "lrx_solicitorname";
+			public const string LRx_SolicitorYomiName = "lrx_solicitoryominame";
+			public const string LRx_TodaySdAte = "lrx_todaysdate";
+			public const string LRx_TotalAmountRefunded = "lrx_totalamountrefunded";
+			public const string LRx_TotalAmountRefunded_Base = "lrx_totalamountrefunded_base";
+			public const string ModifiedBy = "modifiedby";
+			public const string ModifiedByName = "modifiedbyname";
+			public const string ModifiedByYomiName = "modifiedbyyominame";
+			public const string ModifiedOn = "modifiedon";
+			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
+			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
+			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
+			public const string MsnFp_AdjustmentComment = "msnfp_adjustmentcomment";
+			public const string MsnFp_AdjustmentReason = "msnfp_adjustmentreason";
+			public const string MsnFp_AdjustmentReasonName = "msnfp_adjustmentreasonname";
+			public const string MsnFp_AdjustmentType = "msnfp_adjustmenttype";
+			public const string MsnFp_AdjustmentTypeName = "msnfp_adjustmenttypename";
+			public const string MsnFp_Amount = "msnfp_amount";
+			public const string MsnFp_Amount_Base = "msnfp_amount_base";
+			public const string MsnFp_Anonymity = "msnfp_anonymity";
+			public const string MsnFp_AnonymityName = "msnfp_anonymityname";
+			public const string MsnFp_BookDate = "msnfp_bookdate";
+			public const string MsnFp_Contact_MsnFp_Transaction = "msnfp_contact_msnfp_transaction";
+			public const string MsnFp_DataEntryReference = "msnfp_dataentryreference";
+			public const string MsnFp_DataEntrySource = "msnfp_dataentrysource";
+			public const string MsnFp_DataEntrySourceName = "msnfp_dataentrysourcename";
+			public const string MsnFp_EffectiveSourceCode = "msnfp_effectivesourcecode";
+			public const string MsnFp_ExchangerAteDate = "msnfp_exchangeratedate";
+			public const string MsnFp_IsAdjusted = "msnfp_isadjusted";
+			public const string MsnFp_IsAdjustedName = "msnfp_isadjustedname";
+			public const string MsnFp_Name = "msnfp_name";
+			public const string MsnFp_OriginalTxNAdjustedId = "msnfp_originaltxnadjustedid";
+			public const string MsnFp_OriginalTxNAdJusteDidName = "msnfp_originaltxnadjustedidname";
+			public const string MsnFp_OriginatingSourceCode = "msnfp_originatingsourcecode";
+			public const string MsnFp_PostedDate = "msnfp_posteddate";
+			public const string MsnFp_ReceiptOnContactId = "msnfp_receiptoncontactid";
+			public const string MsnFp_ReceiptOnContactIdName = "msnfp_receiptoncontactidname";
+			public const string MsnFp_ReceiptOnContactIdYomiName = "msnfp_receiptoncontactidyominame";
+			public const string MsnFp_ReceivedDate = "msnfp_receiveddate";
+			public const string MsnFp_Transaction_PaymentMethodId = "msnfp_transaction_paymentmethodid";
+			public const string MsnFp_Transaction_PaymentMethodIdName = "msnfp_transaction_paymentmethodidname";
+			public const string MsnFp_Transaction_PaymentScheduleId = "msnfp_transaction_paymentscheduleid";
+			public const string MsnFp_Transaction_PaymentScheduleIdName = "msnfp_transaction_paymentscheduleidname";
+			public const string MsnFp_Transaction_ReceiptOnAccountId = "msnfp_transaction_receiptonaccountid";
+			public const string MsnFp_Transaction_ReceiptOnAccountIdName = "msnfp_transaction_receiptonaccountidname";
+			public const string MsnFp_Transaction_ReceiptOnAccountIdYomiName = "msnfp_transaction_receiptonaccountidyominame";
+			public const string MsnFp_TransactionId = "msnfp_transactionid";
+			public const string Id = "msnfp_transactionid";
+			public const string ReferencingMsnFp_TxN_OriginalTxNAdjusted = "msnfp_txn_originalTxnAdjusted";
+			public const string MsnFp_TxN_PaymentSchedule = "msnfp_txn_paymentSchedule";
+			public const string MsnFp_TxN_ReceiptOnAccount = "msnfp_txn_receiptOnAccount";
+			public const string OverriddenCreatedOn = "overriddencreatedon";
+			public const string OwnerId = "ownerid";
+			public const string OwnerIdName = "owneridname";
+			public const string OwnerIdYomiName = "owneridyominame";
+			public const string OwningBusinessUnit = "owningbusinessunit";
+			public const string OwningBusinessUnitName = "owningbusinessunitname";
+			public const string OwningTeam = "owningteam";
+			public const string OwningUser = "owninguser";
+			public const string ReferencedMsnFp_TxN_OriginalTxNAdjusted = "ReferencedMsnFp_TxN_OriginalTxNAdjusted";
+			public const string ReferencedSiFund_MsnFp_Transaction_ParentTransaction_MsnFp = "ReferencedSiFund_MsnFp_Transaction_ParentTransaction_MsnFp";
+			public const string SiFund_Account_MsnFp_Transaction_227 = "sifund_account_msnfp_transaction_227";
+			public const string SiFund_Amount_NonreceiptAble = "sifund_amount_nonreceiptable";
+			public const string SiFund_Amount_NonreceiptAble_Base = "sifund_amount_nonreceiptable_base";
+			public const string SiFund_Amount_Receipted = "sifund_amount_receipted";
+			public const string SiFund_Amount_Receipted_Base = "sifund_amount_receipted_base";
+			public const string SiFund_Amount_Tax = "sifund_amount_tax";
+			public const string SiFund_Amount_Tax_Base = "sifund_amount_tax_base";
+			public const string SiFund_Anonymous = "sifund_anonymous";
+			public const string SiFund_AnonymousName = "sifund_anonymousname";
+			public const string SiFund_Appeal = "sifund_appeal";
+			public const string SiFund_AppealName = "sifund_appealname";
+			public const string SiFund_Billing_City = "sifund_billing_city";
+			public const string SiFund_Billing_Country = "sifund_billing_country";
+			public const string SiFund_Billing_Line1 = "sifund_billing_line1";
+			public const string SiFund_Billing_Line2 = "sifund_billing_line2";
+			public const string SiFund_Billing_Line3 = "sifund_billing_line3";
+			public const string SiFund_Billing_PostalCode = "sifund_billing_postalcode";
+			public const string SiFund_Billing_StateOrProvince = "sifund_billing_stateorprovince";
+			public const string SiFund_CcBrandCode = "sifund_ccbrandcode";
+			public const string SiFund_CcBrandCodename = "sifund_ccbrandcodename";
+			public const string SiFund_CheckWiredAte = "sifund_checkwiredate";
+			public const string SiFund_CheckWiRenumber = "sifund_checkwirenumber";
+			public const string SiFund_Contact_MsnFp_Transaction_227 = "sifund_contact_msnfp_transaction_227";
+			public const string SiFund_DepositDate = "sifund_depositdate";
+			public const string SiFund_Description = "sifund_description";
+			public const string SiFund_Donor = "sifund_donor";
+			public const string SiFund_DonorName = "sifund_donorname";
+			public const string SiFund_DonorYomiName = "sifund_donoryominame";
+			public const string SiFund_EmailAddress1 = "sifund_emailaddress1";
+			public const string SiFund_FirstName = "sifund_firstname";
+			public const string SiFund_GiftBatch = "sifund_giftbatch";
+			public const string SiFund_GiftBatchName = "sifund_giftbatchname";
+			public const string SiFund_LastName = "sifund_lastname";
+			public const string SiFund_MobilePhone = "sifund_mobilephone";
+			public const string SiFund_MsnFp_Transaction_Appeal_SiFund_Appeal = "sifund_msnfp_transaction_Appeal_sifund_appeal";
+			public const string SiFund_MsnFp_Transaction_Package_SiFund_Package = "sifund_msnfp_transaction_Package_sifund_package";
+			public const string ReferencingSiFund_MsnFp_Transaction_ParentTransaction_MsnFp = "sifund_msnfp_transaction_ParentTransaction_msnfp";
+			public const string SiFund_MsnFp_Transaction_RelatedDonorCommitment_ = "sifund_msnfp_transaction_RelatedDonorCommitment_";
+			public const string SiFund_OrganizationName = "sifund_organizationname";
+			public const string SiFund_Package = "sifund_package";
+			public const string SiFund_PackageName = "sifund_packagename";
+			public const string SiFund_ParentTransaction = "sifund_parenttransaction";
+			public const string SiFund_ParentTransactionName = "sifund_parenttransactionname";
+			public const string SiFund_PaymentTypeCode = "sifund_paymenttypecode";
+			public const string SiFund_PaymentTypeCodename = "sifund_paymenttypecodename";
+			public const string SiFund_PrimaryDesignation = "sifund_primarydesignation";
+			public const string SiFund_PrimaryDesignationName = "sifund_primarydesignationname";
+			public const string SiFund_Receipt = "sifund_receipt";
+			public const string SiFund_ReceiptName = "sifund_receiptname";
+			public const string SiFund_Ref_Amount = "sifund_ref_amount";
+			public const string SiFund_Ref_Amount_Base = "sifund_ref_amount_base";
+			public const string SiFund_RelatedDonorCommitment = "sifund_relateddonorcommitment";
+			public const string SiFund_RelatedDonorCommitmentName = "sifund_relateddonorcommitmentname";
+			public const string SiFund_Telephone1 = "sifund_telephone1";
+			public const string SiFund_Telephone2 = "sifund_telephone2";
+			public const string SiFund_ThirdPartyReceipt = "sifund_thirdpartyreceipt";
+			public const string SiFund_TransactionDescription = "sifund_transactiondescription";
+			public const string SiFund_TypeCode = "sifund_typecode";
+			public const string SiFund_TypeCodename = "sifund_typecodename";
+			public const string StateCode = "statecode";
+			public const string StateCodename = "statecodename";
+			public const string StatusCode = "statuscode";
+			public const string StatusCodename = "statuscodename";
+			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+			public const string TransactionCurrencyId = "transactioncurrencyid";
+			public const string TransactionCurrencyIdName = "transactioncurrencyidname";
+			public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
+			public const string VersionNumber = "versionnumber";
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
 		public MsnFp_Transaction(System.Guid id) : 
 				base(EntityLogicalName, id)
 		{
@@ -24479,6 +25161,24 @@ namespace CrmEarlyBound
 				{
 					return default(string);
 				}
+			}
+		}
+		
+		/// <summary>
+		/// Contains Fund Raisin Donation ID coming from API integration
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_fundraisindonationid")]
+		public System.Nullable<int> LRx_FundRaisinDonationId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_fundraisindonationid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_fundraisindonationid", value);
 			}
 		}
 		
@@ -27104,1235 +27804,1312 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sifund_appeal")]
-    public partial class SiFund_Appeal : Microsoft.Xrm.Sdk.Entity
-    {
-
-        /// <summary>
-        /// Available fields, a the time of codegen, for the sifund_appeal entity
-        /// </summary>
-        public partial class Fields
-        {
-            public const string CreatedBy = "createdby";
-            public const string CreatedByName = "createdbyname";
-            public const string CreatedByYomiName = "createdbyyominame";
-            public const string CreatedOn = "createdon";
-            public const string CreatedOnBehalfBy = "createdonbehalfby";
-            public const string CreatedOnBehalfByName = "createdonbehalfbyname";
-            public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
-            public const string ExchangerAte = "exchangerate";
-            public const string ImportSequenceNumber = "importsequencenumber";
-            public const string LRx_AppealId = "lrx_appealid";
-            public const string LRx_AppealTotalRevenue = "lrx_appealtotalrevenue";
-            public const string LRx_AppealTotalRevenue_Base = "lrx_appealtotalrevenue_base";
-            public const string LRx_Campaign = "lrx_campaign";
-            public const string LRx_CampaignId = "lrx_campaignid";
-            public const string LRx_CampaignName = "lrx_campaignname";
-            public const string LRx_DonationCount = "lrx_donationcount";
-            public const string LRx_EventTablesSoldCount = "lrx_eventtablessoldcount";
-            public const string LRx_ImportFilename = "lrx_importfilename";
-            public const string LRx_PledgeCount = "lrx_pledgecount";
-            public const string LRx_ProductsOldCount = "lrx_productsoldcount";
-            public const string LRx_RegistrationCount = "lrx_registrationcount";
-            public const string LRx_SponsorshipCount = "lrx_sponsorshipcount";
-            public const string LRx_TotalDonations = "lrx_totaldonations";
-            public const string LRx_TotalDonations_Base = "lrx_totaldonations_base";
-            public const string LRx_TotalEventTablesSold = "lrx_totaleventtablessold";
-            public const string LRx_TotalEventTablesSold_Base = "lrx_totaleventtablessold_base";
-            public const string LRx_TotalOutstandingPledges = "lrx_totaloutstandingpledges";
-            public const string LRx_TotalOutstandingPledges_Base = "lrx_totaloutstandingpledges_base";
-            public const string LRx_TotalPledges = "lrx_totalpledges";
-            public const string LRx_TotalPledges_Base = "lrx_totalpledges_base";
-            public const string LRx_TotalProductsSold = "lrx_totalproductssold";
-            public const string LRx_TotalProductsSold_Base = "lrx_totalproductssold_base";
-            public const string LRx_TotalRegistrations = "lrx_totalregistrations";
-            public const string LRx_TotalRegistrations_Base = "lrx_totalregistrations_base";
-            public const string LRx_TotalRevenue = "lrx_totalrevenue";
-            public const string LRx_TotalRevenue_Base = "lrx_totalrevenue_base";
-            public const string LRx_TotalSponsorship = "lrx_totalsponsorship";
-            public const string LRx_TotalSponsorship_Base = "lrx_totalsponsorship_base";
-            public const string ModifiedBy = "modifiedby";
-            public const string ModifiedByName = "modifiedbyname";
-            public const string ModifiedByYomiName = "modifiedbyyominame";
-            public const string ModifiedOn = "modifiedon";
-            public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
-            public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
-            public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
-            public const string OverriddenCreatedOn = "overriddencreatedon";
-            public const string OwnerId = "ownerid";
-            public const string OwnerIdName = "owneridname";
-            public const string OwnerIdYomiName = "owneridyominame";
-            public const string OwningBusinessUnit = "owningbusinessunit";
-            public const string OwningBusinessUnitName = "owningbusinessunitname";
-            public const string OwningTeam = "owningteam";
-            public const string OwningUser = "owninguser";
-            public const string SiFund_AppealId = "sifund_appealid";
-            public const string Id = "sifund_appealid";
-            public const string SiFund_EstimatedRevenue = "sifund_estimatedrevenue";
-            public const string SiFund_EstimatedRevenue_Base = "sifund_estimatedrevenue_base";
-            public const string SiFund_Expenses = "sifund_expenses";
-            public const string SiFund_Expenses_Base = "sifund_expenses_base";
-            public const string SiFund_Identifier = "sifund_identifier";
-            public const string SiFund_Package_Appeal_SiFund_Appeal = "SiFund_Package_Appeal_SiFund_Appeal";
-            public const string StateCode = "statecode";
-            public const string StateCodename = "statecodename";
-            public const string StatusCode = "statuscode";
-            public const string StatusCodename = "statuscodename";
-            public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
-            public const string TransactionCurrencyId = "transactioncurrencyid";
-            public const string TransactionCurrencyIdName = "transactioncurrencyidname";
-            public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
-            public const string VersionNumber = "versionnumber";
-        }
-
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Appeal(System.Guid id) :
-                base(EntityLogicalName, id)
-        {
-        }
-
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Appeal(string keyName, object keyValue) :
-                base(EntityLogicalName, keyName, keyValue)
-        {
-        }
-
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Appeal(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) :
-                base(EntityLogicalName, keyAttributes)
-        {
-        }
-
-        /// <summary>
-        /// Default Constructor.
-        /// </summary>
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Appeal() :
-                base(EntityLogicalName)
-        {
-        }
-
-        public const string PrimaryIdAttribute = "sifund_appealid";
-
-        public const string PrimaryNameAttribute = "sifund_identifier";
-
-        public const string EntitySchemaName = "sifund_appeal";
-
-        public const string EntityLogicalName = "sifund_appeal";
-
-        public const string EntityLogicalCollectionName = "sifund_appeals";
-
-        public const string EntitySetName = "sifund_appeals";
-
-        /// <summary>
-        /// Unique identifier of the user who created the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
-        public Microsoft.Xrm.Sdk.EntityReference CreatedBy
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyname")]
-        public string CreatedByName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("createdby"))
-                {
-                    return this.FormattedValues["createdby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyyominame")]
-        public string CreatedByYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("createdby"))
-                {
-                    return this.FormattedValues["createdby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Date and time when the record was created.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
-        public System.Nullable<System.DateTime> CreatedOn
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier of the delegate user who created the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
-        public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("createdonbehalfby", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyname")]
-        public string CreatedOnBehalfByName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("createdonbehalfby"))
-                {
-                    return this.FormattedValues["createdonbehalfby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyyominame")]
-        public string CreatedOnBehalfByYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("createdonbehalfby"))
-                {
-                    return this.FormattedValues["createdonbehalfby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Exchange rate for the currency associated with the entity with respect to the base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("exchangerate")]
-        public System.Nullable<decimal> ExchangerAte
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<decimal>>("exchangerate");
-            }
-        }
-
-        /// <summary>
-        /// Sequence number of the import that created this record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
-        public System.Nullable<int> ImportSequenceNumber
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("importsequencenumber");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("importsequencenumber", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_appealid")]
-        public string LRx_AppealId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("lrx_appealid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_appealid", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_appealtotalrevenue")]
-        public Microsoft.Xrm.Sdk.Money LRx_AppealTotalRevenue
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_appealtotalrevenue");
-            }
-        }
-
-        /// <summary>
-        /// Value of the Appeal Total Revenue in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_appealtotalrevenue_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_AppealTotalRevenue_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_appealtotalrevenue_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaign")]
-        public Microsoft.Xrm.Sdk.EntityReference LRx_Campaign
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_campaign");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_campaign", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignid")]
-        public string LRx_CampaignId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("lrx_campaignid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_campaignid", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignname")]
-        public string LRx_CampaignName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("lrx_campaign"))
-                {
-                    return this.FormattedValues["lrx_campaign"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donationcount")]
-        public System.Nullable<int> LRx_DonationCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_donationcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_donationcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_eventtablessoldcount")]
-        public System.Nullable<int> LRx_EventTablesSoldCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_eventtablessoldcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_eventtablessoldcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
-        public string LRx_ImportFilename
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("lrx_importfilename");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_importfilename", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_pledgecount")]
-        public System.Nullable<int> LRx_PledgeCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_pledgecount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_pledgecount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_productsoldcount")]
-        public System.Nullable<int> LRx_ProductsOldCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_productsoldcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_productsoldcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_registrationcount")]
-        public System.Nullable<int> LRx_RegistrationCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_registrationcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_registrationcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_sponsorshipcount")]
-        public System.Nullable<int> LRx_SponsorshipCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_sponsorshipcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_sponsorshipcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaldonations")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalDonations
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaldonations");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totaldonations", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Donations in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaldonations_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalDonations_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaldonations_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaleventtablessold")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalEventTablesSold
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaleventtablessold");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totaleventtablessold", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Event Tables Sold ($) in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaleventtablessold_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalEventTablesSold_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaleventtablessold_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaloutstandingpledges")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalOutstandingPledges
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaloutstandingpledges");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totaloutstandingpledges", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Outstanding Pledges in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaloutstandingpledges_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalOutstandingPledges_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaloutstandingpledges_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalpledges")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalPledges
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalpledges");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalpledges", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Pledges in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalpledges_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalPledges_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalpledges_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalproductssold")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalProductsSold
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalproductssold");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalproductssold", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Products Sold ($) in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalproductssold_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalProductsSold_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalproductssold_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalregistrations")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalRegistrations
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalregistrations");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalregistrations", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Registrations ($) in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalregistrations_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalRegistrations_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalregistrations_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalrevenue")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalRevenue
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalrevenue");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalrevenue", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Revenue in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalrevenue_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalRevenue_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalrevenue_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalsponsorship")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalSponsorship
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalsponsorship");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalsponsorship", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Sponsorship ($) in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalsponsorship_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalSponsorship_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalsponsorship_base");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier of the user who modified the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
-        public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyname")]
-        public string ModifiedByName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("modifiedby"))
-                {
-                    return this.FormattedValues["modifiedby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyyominame")]
-        public string ModifiedByYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("modifiedby"))
-                {
-                    return this.FormattedValues["modifiedby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Date and time when the record was modified.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
-        public System.Nullable<System.DateTime> ModifiedOn
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier of the delegate user who modified the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
-        public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("modifiedonbehalfby", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyname")]
-        public string ModifiedOnBehalfByName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("modifiedonbehalfby"))
-                {
-                    return this.FormattedValues["modifiedonbehalfby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyyominame")]
-        public string ModifiedOnBehalfByYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("modifiedonbehalfby"))
-                {
-                    return this.FormattedValues["modifiedonbehalfby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Date and time that the record was migrated.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overriddencreatedon")]
-        public System.Nullable<System.DateTime> OverriddenCreatedOn
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>("overriddencreatedon");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("overriddencreatedon", value);
-            }
-        }
-
-        /// <summary>
-        /// Owner Id
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ownerid")]
-        public Microsoft.Xrm.Sdk.EntityReference OwnerId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ownerid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("ownerid", value);
-            }
-        }
-
-        /// <summary>
-        /// Name of the owner
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridname")]
-        public string OwnerIdName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("ownerid"))
-                {
-                    return this.FormattedValues["ownerid"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Yomi name of the owner
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridyominame")]
-        public string OwnerIdYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("ownerid"))
-                {
-                    return this.FormattedValues["ownerid"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier for the business unit that owns the record
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunit")]
-        public Microsoft.Xrm.Sdk.EntityReference OwningBusinessUnit
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunitname")]
-        public string OwningBusinessUnitName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("owningbusinessunit"))
-                {
-                    return this.FormattedValues["owningbusinessunit"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier for the team that owns the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningteam")]
-        public Microsoft.Xrm.Sdk.EntityReference OwningTeam
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier for the user that owns the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owninguser")]
-        public Microsoft.Xrm.Sdk.EntityReference OwningUser
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier for entity instances
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appealid")]
-        public System.Nullable<System.Guid> SiFund_AppealId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<System.Guid>>("sifund_appealid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("sifund_appealid", value);
-                if (value.HasValue)
-                {
-                    base.Id = value.Value;
-                }
-                else
-                {
-                    base.Id = System.Guid.Empty;
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appealid")]
-        public override System.Guid Id
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return base.Id;
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SiFund_AppealId = value;
-            }
-        }
-
-        /// <summary>
-        /// The estimated or forecasted revenue for this package
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_estimatedrevenue")]
-        public Microsoft.Xrm.Sdk.Money SiFund_EstimatedRevenue
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_estimatedrevenue");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("sifund_estimatedrevenue", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Estimated Revenue in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_estimatedrevenue_base")]
-        public Microsoft.Xrm.Sdk.Money SiFund_EstimatedRevenue_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_estimatedrevenue_base");
-            }
-        }
-
-        /// <summary>
-        /// The total amount that requires topping up the total expenses.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_expenses")]
-        public Microsoft.Xrm.Sdk.Money SiFund_Expenses
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_expenses");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("sifund_expenses", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Expenses in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_expenses_base")]
-        public Microsoft.Xrm.Sdk.Money SiFund_Expenses_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_expenses_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_identifier")]
-        public string SiFund_Identifier
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("sifund_identifier");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("sifund_identifier", value);
-            }
-        }
-
-        /// <summary>
-        /// Status of the Appeal
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-        public virtual SiFund_Appeal_StateCode? StateCode
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return ((SiFund_Appeal_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("statecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecodename")]
-        public string StateCodename
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("statecode"))
-                {
-                    return this.FormattedValues["statecode"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Reason for the status of the Appeal
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-        public virtual SiFund_Appeal_StatusCode? StatusCode
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return ((SiFund_Appeal_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscodename")]
-        public string StatusCodename
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("statuscode"))
-                {
-                    return this.FormattedValues["statuscode"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// For internal use only.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
-        public System.Nullable<int> TimeZoneRuleVersionNumber
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("timezoneruleversionnumber", value);
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier of the currency associated with the entity.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyid")]
-        public Microsoft.Xrm.Sdk.EntityReference TransactionCurrencyId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("transactioncurrencyid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("transactioncurrencyid", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyidname")]
-        public string TransactionCurrencyIdName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("transactioncurrencyid"))
-                {
-                    return this.FormattedValues["transactioncurrencyid"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Time zone code that was in use when the record was created.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
-        public System.Nullable<int> UtcConversionTimeZoneCode
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("utcconversiontimezonecode", value);
-            }
-        }
-
-        /// <summary>
-        /// Version Number
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
-        public System.Nullable<long> VersionNumber
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
-            }
-        }
-
-        /// <summary>
-        /// 1:N sifund_package_Appeal_sifund_appeal
-        /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_package_Appeal_sifund_appeal")]
-        public System.Collections.Generic.IEnumerable<CrmEarlyBound.SiFund_Package> SiFund_Package_Appeal_SiFund_Appeal
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetRelatedEntities<CrmEarlyBound.SiFund_Package>("sifund_package_Appeal_sifund_appeal", null);
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetRelatedEntities<CrmEarlyBound.SiFund_Package>("sifund_package_Appeal_sifund_appeal", null, value);
-            }
-        }
-
-        /// <summary>
-        /// Constructor for populating via LINQ queries given a LINQ anonymous type
-        /// <param name="anonymousType">LINQ anonymous type.</param>
-        /// </summary>
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Appeal(object anonymousType) :
-                this()
-        {
+	public partial class SiFund_Appeal : Microsoft.Xrm.Sdk.Entity
+	{
+		
+		/// <summary>
+		/// Available fields, a the time of codegen, for the sifund_appeal entity
+		/// </summary>
+		public partial class Fields
+		{
+			public const string CreatedBy = "createdby";
+			public const string CreatedByName = "createdbyname";
+			public const string CreatedByYomiName = "createdbyyominame";
+			public const string CreatedOn = "createdon";
+			public const string CreatedOnBehalfBy = "createdonbehalfby";
+			public const string CreatedOnBehalfByName = "createdonbehalfbyname";
+			public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
+			public const string ExchangerAte = "exchangerate";
+			public const string ImportSequenceNumber = "importsequencenumber";
+			public const string LRx_AppealId = "lrx_appealid";
+			public const string LRx_AppealTotalRevenue = "lrx_appealtotalrevenue";
+			public const string LRx_AppealTotalRevenue_Base = "lrx_appealtotalrevenue_base";
+			public const string LRx_Campaign = "lrx_campaign";
+			public const string LRx_Campaign_Campaign_SiFund_Appeal = "lrx_Campaign_Campaign_sifund_appeal";
+			public const string LRx_CampaignId = "lrx_campaignid";
+			public const string LRx_CampaignName = "lrx_campaignname";
+			public const string LRx_DonationCount = "lrx_donationcount";
+			public const string LRx_EventTablesSoldCount = "lrx_eventtablessoldcount";
+			public const string LRx_ImportFilename = "lrx_importfilename";
+			public const string LRx_PledgeCount = "lrx_pledgecount";
+			public const string LRx_ProductsOldCount = "lrx_productsoldcount";
+			public const string LRx_RegistrationCount = "lrx_registrationcount";
+			public const string LRx_SponsorshipCount = "lrx_sponsorshipcount";
+			public const string LRx_TotalDonations = "lrx_totaldonations";
+			public const string LRx_TotalDonations_Base = "lrx_totaldonations_base";
+			public const string LRx_TotalEventTablesSold = "lrx_totaleventtablessold";
+			public const string LRx_TotalEventTablesSold_Base = "lrx_totaleventtablessold_base";
+			public const string LRx_TotalOutstandingPledges = "lrx_totaloutstandingpledges";
+			public const string LRx_TotalOutstandingPledges_Base = "lrx_totaloutstandingpledges_base";
+			public const string LRx_TotalPledges = "lrx_totalpledges";
+			public const string LRx_TotalPledges_Base = "lrx_totalpledges_base";
+			public const string LRx_TotalProductsSold = "lrx_totalproductssold";
+			public const string LRx_TotalProductsSold_Base = "lrx_totalproductssold_base";
+			public const string LRx_TotalRegistrations = "lrx_totalregistrations";
+			public const string LRx_TotalRegistrations_Base = "lrx_totalregistrations_base";
+			public const string LRx_TotalRevenue = "lrx_totalrevenue";
+			public const string LRx_TotalRevenue_Base = "lrx_totalrevenue_base";
+			public const string LRx_TotalSponsorship = "lrx_totalsponsorship";
+			public const string LRx_TotalSponsorship_Base = "lrx_totalsponsorship_base";
+			public const string ModifiedBy = "modifiedby";
+			public const string ModifiedByName = "modifiedbyname";
+			public const string ModifiedByYomiName = "modifiedbyyominame";
+			public const string ModifiedOn = "modifiedon";
+			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
+			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
+			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
+			public const string OverriddenCreatedOn = "overriddencreatedon";
+			public const string OwnerId = "ownerid";
+			public const string OwnerIdName = "owneridname";
+			public const string OwnerIdYomiName = "owneridyominame";
+			public const string OwningBusinessUnit = "owningbusinessunit";
+			public const string OwningBusinessUnitName = "owningbusinessunitname";
+			public const string OwningTeam = "owningteam";
+			public const string OwningUser = "owninguser";
+			public const string SiFund_AppealId = "sifund_appealid";
+			public const string Id = "sifund_appealid";
+			public const string SiFund_EstimatedRevenue = "sifund_estimatedrevenue";
+			public const string SiFund_EstimatedRevenue_Base = "sifund_estimatedrevenue_base";
+			public const string SiFund_Expenses = "sifund_expenses";
+			public const string SiFund_Expenses_Base = "sifund_expenses_base";
+			public const string SiFund_Identifier = "sifund_identifier";
+			public const string SiFund_MsnFp_DonorCommitment_Appeal_SiFund_ApPeA = "SiFund_MsnFp_DonorCommitment_Appeal_SiFund_ApPeA";
+			public const string SiFund_MsnFp_PaymentSchedule_Appeal_SiFund_ApPeA = "SiFund_MsnFp_PaymentSchedule_Appeal_SiFund_ApPeA";
+			public const string SiFund_MsnFp_Transaction_Appeal_SiFund_Appeal = "SiFund_MsnFp_Transaction_Appeal_SiFund_Appeal";
+			public const string SiFund_Package_Appeal_SiFund_Appeal = "SiFund_Package_Appeal_SiFund_Appeal";
+			public const string StateCode = "statecode";
+			public const string StateCodename = "statecodename";
+			public const string StatusCode = "statuscode";
+			public const string StatusCodename = "statuscodename";
+			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+			public const string TransactionCurrencyId = "transactioncurrencyid";
+			public const string TransactionCurrencyIdName = "transactioncurrencyidname";
+			public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
+			public const string VersionNumber = "versionnumber";
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Appeal(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Appeal(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Appeal(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Appeal() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string PrimaryIdAttribute = "sifund_appealid";
+		
+		public const string PrimaryNameAttribute = "sifund_identifier";
+		
+		public const string EntitySchemaName = "sifund_appeal";
+		
+		public const string EntityLogicalName = "sifund_appeal";
+		
+		public const string EntityLogicalCollectionName = "sifund_appeals";
+		
+		public const string EntitySetName = "sifund_appeals";
+		
+		/// <summary>
+		/// Unique identifier of the user who created the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyname")]
+		public string CreatedByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdby"))
+				{
+					return this.FormattedValues["createdby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyyominame")]
+		public string CreatedByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdby"))
+				{
+					return this.FormattedValues["createdby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the record was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("createdonbehalfby", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyname")]
+		public string CreatedOnBehalfByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdonbehalfby"))
+				{
+					return this.FormattedValues["createdonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyyominame")]
+		public string CreatedOnBehalfByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdonbehalfby"))
+				{
+					return this.FormattedValues["createdonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Exchange rate for the currency associated with the entity with respect to the base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("exchangerate")]
+		public System.Nullable<decimal> ExchangerAte
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<decimal>>("exchangerate");
+			}
+		}
+		
+		/// <summary>
+		/// Sequence number of the import that created this record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		public System.Nullable<int> ImportSequenceNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("importsequencenumber");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("importsequencenumber", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_appealid")]
+		public string LRx_AppealId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_appealid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_appealid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_appealtotalrevenue")]
+		public Microsoft.Xrm.Sdk.Money LRx_AppealTotalRevenue
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_appealtotalrevenue");
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Appeal Total Revenue in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_appealtotalrevenue_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_AppealTotalRevenue_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_appealtotalrevenue_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaign")]
+		public Microsoft.Xrm.Sdk.EntityReference LRx_Campaign
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_campaign");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_campaign", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignid")]
+		public string LRx_CampaignId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_campaignid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_campaignid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignname")]
+		public string LRx_CampaignName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_campaign"))
+				{
+					return this.FormattedValues["lrx_campaign"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donationcount")]
+		public System.Nullable<int> LRx_DonationCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_donationcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_donationcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_eventtablessoldcount")]
+		public System.Nullable<int> LRx_EventTablesSoldCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_eventtablessoldcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_eventtablessoldcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
+		public string LRx_ImportFilename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_importfilename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_importfilename", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_pledgecount")]
+		public System.Nullable<int> LRx_PledgeCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_pledgecount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_pledgecount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_productsoldcount")]
+		public System.Nullable<int> LRx_ProductsOldCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_productsoldcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_productsoldcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_registrationcount")]
+		public System.Nullable<int> LRx_RegistrationCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_registrationcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_registrationcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_sponsorshipcount")]
+		public System.Nullable<int> LRx_SponsorshipCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_sponsorshipcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_sponsorshipcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaldonations")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalDonations
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaldonations");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totaldonations", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Donations in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaldonations_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalDonations_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaldonations_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaleventtablessold")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalEventTablesSold
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaleventtablessold");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totaleventtablessold", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Event Tables Sold ($) in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaleventtablessold_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalEventTablesSold_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaleventtablessold_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaloutstandingpledges")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalOutstandingPledges
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaloutstandingpledges");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totaloutstandingpledges", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Outstanding Pledges in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaloutstandingpledges_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalOutstandingPledges_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaloutstandingpledges_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalpledges")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalPledges
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalpledges");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalpledges", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Pledges in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalpledges_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalPledges_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalpledges_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalproductssold")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalProductsSold
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalproductssold");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalproductssold", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Products Sold ($) in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalproductssold_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalProductsSold_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalproductssold_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalregistrations")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalRegistrations
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalregistrations");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalregistrations", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Registrations ($) in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalregistrations_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalRegistrations_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalregistrations_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalrevenue")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalRevenue
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalrevenue");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalrevenue", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Revenue in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalrevenue_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalRevenue_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalrevenue_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalsponsorship")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalSponsorship
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalsponsorship");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalsponsorship", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Sponsorship ($) in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalsponsorship_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalSponsorship_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalsponsorship_base");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who modified the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyname")]
+		public string ModifiedByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedby"))
+				{
+					return this.FormattedValues["modifiedby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyyominame")]
+		public string ModifiedByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedby"))
+				{
+					return this.FormattedValues["modifiedby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the record was modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who modified the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("modifiedonbehalfby", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyname")]
+		public string ModifiedOnBehalfByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedonbehalfby"))
+				{
+					return this.FormattedValues["modifiedonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyyominame")]
+		public string ModifiedOnBehalfByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedonbehalfby"))
+				{
+					return this.FormattedValues["modifiedonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Date and time that the record was migrated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overriddencreatedon")]
+		public System.Nullable<System.DateTime> OverriddenCreatedOn
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overriddencreatedon");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("overriddencreatedon", value);
+			}
+		}
+		
+		/// <summary>
+		/// Owner Id
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ownerid")]
+		public Microsoft.Xrm.Sdk.EntityReference OwnerId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ownerid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("ownerid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Name of the owner
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridname")]
+		public string OwnerIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("ownerid"))
+				{
+					return this.FormattedValues["ownerid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Yomi name of the owner
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridyominame")]
+		public string OwnerIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("ownerid"))
+				{
+					return this.FormattedValues["ownerid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for the business unit that owns the record
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunit")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningBusinessUnit
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunitname")]
+		public string OwningBusinessUnitName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("owningbusinessunit"))
+				{
+					return this.FormattedValues["owningbusinessunit"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for the team that owns the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningteam")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningTeam
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for the user that owns the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owninguser")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningUser
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for entity instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appealid")]
+		public System.Nullable<System.Guid> SiFund_AppealId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sifund_appealid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sifund_appealid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appealid")]
+		public override System.Guid Id
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return base.Id;
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SiFund_AppealId = value;
+			}
+		}
+		
+		/// <summary>
+		/// The estimated or forecasted revenue for this package
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_estimatedrevenue")]
+		public Microsoft.Xrm.Sdk.Money SiFund_EstimatedRevenue
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_estimatedrevenue");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sifund_estimatedrevenue", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Estimated Revenue in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_estimatedrevenue_base")]
+		public Microsoft.Xrm.Sdk.Money SiFund_EstimatedRevenue_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_estimatedrevenue_base");
+			}
+		}
+		
+		/// <summary>
+		/// The total amount that requires topping up the total expenses.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_expenses")]
+		public Microsoft.Xrm.Sdk.Money SiFund_Expenses
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_expenses");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sifund_expenses", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Expenses in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_expenses_base")]
+		public Microsoft.Xrm.Sdk.Money SiFund_Expenses_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_expenses_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_identifier")]
+		public string SiFund_Identifier
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("sifund_identifier");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sifund_identifier", value);
+			}
+		}
+		
+		/// <summary>
+		/// Status of the Appeal
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
+		public virtual SiFund_Appeal_StateCode? StateCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((SiFund_Appeal_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("statecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecodename")]
+		public string StateCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("statecode"))
+				{
+					return this.FormattedValues["statecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Reason for the status of the Appeal
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
+		public virtual SiFund_Appeal_StatusCode? StatusCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((SiFund_Appeal_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscodename")]
+		public string StatusCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("statuscode"))
+				{
+					return this.FormattedValues["statuscode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		public System.Nullable<int> TimeZoneRuleVersionNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("timezoneruleversionnumber", value);
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the currency associated with the entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyid")]
+		public Microsoft.Xrm.Sdk.EntityReference TransactionCurrencyId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("transactioncurrencyid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("transactioncurrencyid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyidname")]
+		public string TransactionCurrencyIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("transactioncurrencyid"))
+				{
+					return this.FormattedValues["transactioncurrencyid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Time zone code that was in use when the record was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		public System.Nullable<int> UtcConversionTimeZoneCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("utcconversiontimezonecode", value);
+			}
+		}
+		
+		/// <summary>
+		/// Version Number
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N sifund_msnfp_donorcommitment_Appeal_sifund_appea
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_msnfp_donorcommitment_Appeal_sifund_appea")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.MsnFp_DonorCommitment> SiFund_MsnFp_DonorCommitment_Appeal_SiFund_ApPeA
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.MsnFp_DonorCommitment>("sifund_msnfp_donorcommitment_Appeal_sifund_appea", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<CrmEarlyBound.MsnFp_DonorCommitment>("sifund_msnfp_donorcommitment_Appeal_sifund_appea", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N sifund_msnfp_paymentschedule_Appeal_sifund_appea
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_msnfp_paymentschedule_Appeal_sifund_appea")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.MsnFp_PaymentSchedule> SiFund_MsnFp_PaymentSchedule_Appeal_SiFund_ApPeA
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.MsnFp_PaymentSchedule>("sifund_msnfp_paymentschedule_Appeal_sifund_appea", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<CrmEarlyBound.MsnFp_PaymentSchedule>("sifund_msnfp_paymentschedule_Appeal_sifund_appea", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N sifund_msnfp_transaction_Appeal_sifund_appeal
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_msnfp_transaction_Appeal_sifund_appeal")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.MsnFp_Transaction> SiFund_MsnFp_Transaction_Appeal_SiFund_Appeal
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.MsnFp_Transaction>("sifund_msnfp_transaction_Appeal_sifund_appeal", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<CrmEarlyBound.MsnFp_Transaction>("sifund_msnfp_transaction_Appeal_sifund_appeal", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N sifund_package_Appeal_sifund_appeal
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_package_Appeal_sifund_appeal")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.SiFund_Package> SiFund_Package_Appeal_SiFund_Appeal
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.SiFund_Package>("sifund_package_Appeal_sifund_appeal", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<CrmEarlyBound.SiFund_Package>("sifund_package_Appeal_sifund_appeal", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lrx_Campaign_Campaign_sifund_appeal
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaign")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lrx_Campaign_Campaign_sifund_appeal")]
+		public CrmEarlyBound.Campaign LRx_Campaign_Campaign_SiFund_Appeal
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.Campaign>("lrx_Campaign_Campaign_sifund_appeal", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<CrmEarlyBound.Campaign>("lrx_Campaign_Campaign_sifund_appeal", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// Constructor for populating via LINQ queries given a LINQ anonymous type
+		/// <param name="anonymousType">LINQ anonymous type.</param>
+		/// </summary>
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Appeal(object anonymousType) : 
+				this()
+		{
             foreach (var p in anonymousType.GetType().GetProperties())
             {
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
-
-                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+            
+                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
-                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
+                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);
                 }
-
+            
                 switch (name)
                 {
                     case "id":
@@ -28340,8 +29117,8 @@ namespace CrmEarlyBound
                         Attributes["sifund_appealid"] = base.Id;
                         break;
                     case "sifund_appealid":
-                        var id = (System.Nullable<System.Guid>)value;
-                        if (id == null) { continue; }
+                        var id = (System.Nullable<System.Guid>) value;
+                        if(id == null){ continue; }
                         base.Id = id.Value;
                         Attributes[name] = base.Id;
                         break;
@@ -28354,1284 +29131,1361 @@ namespace CrmEarlyBound
                         break;
                 }
             }
-        }
-    }
-
-    [System.Runtime.Serialization.DataContractAttribute()]
+		}
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sifund_package")]
-    public partial class SiFund_Package : Microsoft.Xrm.Sdk.Entity
-    {
-
-        /// <summary>
-        /// Available fields, a the time of codegen, for the sifund_package entity
-        /// </summary>
-        public partial class Fields
-        {
-            public const string CreatedBy = "createdby";
-            public const string CreatedByName = "createdbyname";
-            public const string CreatedByYomiName = "createdbyyominame";
-            public const string CreatedOn = "createdon";
-            public const string CreatedOnBehalfBy = "createdonbehalfby";
-            public const string CreatedOnBehalfByName = "createdonbehalfbyname";
-            public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
-            public const string ExchangerAte = "exchangerate";
-            public const string ImportSequenceNumber = "importsequencenumber";
-            public const string LRx_AppealId = "lrx_appealid";
-            public const string LRx_Campaign = "lrx_campaign";
-            public const string LRx_CampaignId = "lrx_campaignid";
-            public const string LRx_CampaignName = "lrx_campaignname";
-            public const string LRx_DonationCount = "lrx_donationcount";
-            public const string LRx_EventTablesSoldCount = "lrx_eventtablessoldcount";
-            public const string LRx_ImportFilename = "lrx_importfilename";
-            public const string LRx_PackageId = "lrx_packageid";
-            public const string LRx_PackageTotalRevenue = "lrx_packagetotalrevenue";
-            public const string LRx_PackageTotalRevenue_Base = "lrx_packagetotalrevenue_base";
-            public const string LRx_PledgeCount = "lrx_pledgecount";
-            public const string LRx_ProductsOldCount = "lrx_productsoldcount";
-            public const string LRx_RegistrationCount = "lrx_registrationcount";
-            public const string LRx_SponsorshipCount = "lrx_sponsorshipcount";
-            public const string LRx_TotalDonations = "lrx_totaldonations";
-            public const string LRx_TotalDonations_Base = "lrx_totaldonations_base";
-            public const string LRx_TotalEventTablesSold = "lrx_totaleventtablessold";
-            public const string LRx_TotalEventTablesSold_Base = "lrx_totaleventtablessold_base";
-            public const string LRx_TotalOutstandingPledges = "lrx_totaloutstandingpledges";
-            public const string LRx_TotalOutstandingPledges_Base = "lrx_totaloutstandingpledges_base";
-            public const string LRx_TotalPledges = "lrx_totalpledges";
-            public const string LRx_TotalPledges_Base = "lrx_totalpledges_base";
-            public const string LRx_TotalProductsSold = "lrx_totalproductssold";
-            public const string LRx_TotalProductsSold_Base = "lrx_totalproductssold_base";
-            public const string LRx_TotalRegistrations = "lrx_totalregistrations";
-            public const string LRx_TotalRegistrations_Base = "lrx_totalregistrations_base";
-            public const string LRx_TotalRevenue = "lrx_totalrevenue";
-            public const string LRx_TotalRevenue_Base = "lrx_totalrevenue_base";
-            public const string LRx_TotalSponsorship = "lrx_totalsponsorship";
-            public const string LRx_TotalSponsorship_Base = "lrx_totalsponsorship_base";
-            public const string ModifiedBy = "modifiedby";
-            public const string ModifiedByName = "modifiedbyname";
-            public const string ModifiedByYomiName = "modifiedbyyominame";
-            public const string ModifiedOn = "modifiedon";
-            public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
-            public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
-            public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
-            public const string OverriddenCreatedOn = "overriddencreatedon";
-            public const string OwnerId = "ownerid";
-            public const string OwnerIdName = "owneridname";
-            public const string OwnerIdYomiName = "owneridyominame";
-            public const string OwningBusinessUnit = "owningbusinessunit";
-            public const string OwningBusinessUnitName = "owningbusinessunitname";
-            public const string OwningTeam = "owningteam";
-            public const string OwningUser = "owninguser";
-            public const string SiFund_Appeal = "sifund_appeal";
-            public const string SiFund_AppealName = "sifund_appealname";
-            public const string SiFund_ExpectedRevenue = "sifund_expectedrevenue";
-            public const string SiFund_ExpectedRevenue_Base = "sifund_expectedrevenue_base";
-            public const string SiFund_Identifier = "sifund_identifier";
-            public const string SiFund_Package_Appeal_SiFund_Appeal = "sifund_package_Appeal_sifund_appeal";
-            public const string SiFund_PackageId = "sifund_packageid";
-            public const string Id = "sifund_packageid";
-            public const string SiFund_PackageName = "sifund_packagename";
-            public const string StateCode = "statecode";
-            public const string StateCodename = "statecodename";
-            public const string StatusCode = "statuscode";
-            public const string StatusCodename = "statuscodename";
-            public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
-            public const string TransactionCurrencyId = "transactioncurrencyid";
-            public const string TransactionCurrencyIdName = "transactioncurrencyidname";
-            public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
-            public const string VersionNumber = "versionnumber";
-        }
-
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Package(System.Guid id) :
-                base(EntityLogicalName, id)
-        {
-        }
-
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Package(string keyName, object keyValue) :
-                base(EntityLogicalName, keyName, keyValue)
-        {
-        }
-
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Package(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) :
-                base(EntityLogicalName, keyAttributes)
-        {
-        }
-
-        /// <summary>
-        /// Default Constructor.
-        /// </summary>
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Package() :
-                base(EntityLogicalName)
-        {
-        }
-
-        public const string PrimaryIdAttribute = "sifund_packageid";
-
-        public const string PrimaryNameAttribute = "sifund_identifier";
-
-        public const string EntitySchemaName = "sifund_package";
-
-        public const string EntityLogicalName = "sifund_package";
-
-        public const string EntityLogicalCollectionName = "sifund_packages";
-
-        public const string EntitySetName = "sifund_packages";
-
-        /// <summary>
-        /// Unique identifier of the user who created the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
-        public Microsoft.Xrm.Sdk.EntityReference CreatedBy
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyname")]
-        public string CreatedByName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("createdby"))
-                {
-                    return this.FormattedValues["createdby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyyominame")]
-        public string CreatedByYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("createdby"))
-                {
-                    return this.FormattedValues["createdby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Date and time when the record was created.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
-        public System.Nullable<System.DateTime> CreatedOn
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier of the delegate user who created the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
-        public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("createdonbehalfby", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyname")]
-        public string CreatedOnBehalfByName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("createdonbehalfby"))
-                {
-                    return this.FormattedValues["createdonbehalfby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyyominame")]
-        public string CreatedOnBehalfByYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("createdonbehalfby"))
-                {
-                    return this.FormattedValues["createdonbehalfby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Exchange rate for the currency associated with the entity with respect to the base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("exchangerate")]
-        public System.Nullable<decimal> ExchangerAte
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<decimal>>("exchangerate");
-            }
-        }
-
-        /// <summary>
-        /// Sequence number of the import that created this record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
-        public System.Nullable<int> ImportSequenceNumber
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("importsequencenumber");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("importsequencenumber", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_appealid")]
-        public string LRx_AppealId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("lrx_appealid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_appealid", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaign")]
-        public Microsoft.Xrm.Sdk.EntityReference LRx_Campaign
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_campaign");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_campaign", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignid")]
-        public string LRx_CampaignId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("lrx_campaignid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_campaignid", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignname")]
-        public string LRx_CampaignName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("lrx_campaign"))
-                {
-                    return this.FormattedValues["lrx_campaign"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donationcount")]
-        public System.Nullable<int> LRx_DonationCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_donationcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_donationcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_eventtablessoldcount")]
-        public System.Nullable<int> LRx_EventTablesSoldCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_eventtablessoldcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_eventtablessoldcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
-        public string LRx_ImportFilename
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("lrx_importfilename");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_importfilename", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_packageid")]
-        public string LRx_PackageId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("lrx_packageid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_packageid", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_packagetotalrevenue")]
-        public Microsoft.Xrm.Sdk.Money LRx_PackageTotalRevenue
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_packagetotalrevenue");
-            }
-        }
-
-        /// <summary>
-        /// Value of the Package Total Revenue in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_packagetotalrevenue_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_PackageTotalRevenue_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_packagetotalrevenue_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_pledgecount")]
-        public System.Nullable<int> LRx_PledgeCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_pledgecount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_pledgecount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_productsoldcount")]
-        public System.Nullable<int> LRx_ProductsOldCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_productsoldcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_productsoldcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_registrationcount")]
-        public System.Nullable<int> LRx_RegistrationCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_registrationcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_registrationcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_sponsorshipcount")]
-        public System.Nullable<int> LRx_SponsorshipCount
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("lrx_sponsorshipcount");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_sponsorshipcount", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaldonations")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalDonations
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaldonations");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totaldonations", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Donations in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaldonations_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalDonations_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaldonations_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaleventtablessold")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalEventTablesSold
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaleventtablessold");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totaleventtablessold", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Event Tables Sold ($) in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaleventtablessold_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalEventTablesSold_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaleventtablessold_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaloutstandingpledges")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalOutstandingPledges
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaloutstandingpledges");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totaloutstandingpledges", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Outstanding Pledges in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaloutstandingpledges_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalOutstandingPledges_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaloutstandingpledges_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalpledges")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalPledges
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalpledges");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalpledges", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Pledges in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalpledges_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalPledges_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalpledges_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalproductssold")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalProductsSold
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalproductssold");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalproductssold", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Products Sold ($) in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalproductssold_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalProductsSold_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalproductssold_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalregistrations")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalRegistrations
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalregistrations");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalregistrations", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Registrations ($) in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalregistrations_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalRegistrations_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalregistrations_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalrevenue")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalRevenue
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalrevenue");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalrevenue", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Revenue in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalrevenue_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalRevenue_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalrevenue_base");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalsponsorship")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalSponsorship
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalsponsorship");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("lrx_totalsponsorship", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Total Sponsorship ($) in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalsponsorship_base")]
-        public Microsoft.Xrm.Sdk.Money LRx_TotalSponsorship_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalsponsorship_base");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier of the user who modified the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
-        public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyname")]
-        public string ModifiedByName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("modifiedby"))
-                {
-                    return this.FormattedValues["modifiedby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyyominame")]
-        public string ModifiedByYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("modifiedby"))
-                {
-                    return this.FormattedValues["modifiedby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Date and time when the record was modified.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
-        public System.Nullable<System.DateTime> ModifiedOn
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier of the delegate user who modified the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
-        public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("modifiedonbehalfby", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyname")]
-        public string ModifiedOnBehalfByName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("modifiedonbehalfby"))
-                {
-                    return this.FormattedValues["modifiedonbehalfby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyyominame")]
-        public string ModifiedOnBehalfByYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("modifiedonbehalfby"))
-                {
-                    return this.FormattedValues["modifiedonbehalfby"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Date and time that the record was migrated.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overriddencreatedon")]
-        public System.Nullable<System.DateTime> OverriddenCreatedOn
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>("overriddencreatedon");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("overriddencreatedon", value);
-            }
-        }
-
-        /// <summary>
-        /// Owner Id
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ownerid")]
-        public Microsoft.Xrm.Sdk.EntityReference OwnerId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ownerid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("ownerid", value);
-            }
-        }
-
-        /// <summary>
-        /// Name of the owner
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridname")]
-        public string OwnerIdName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("ownerid"))
-                {
-                    return this.FormattedValues["ownerid"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Yomi name of the owner
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridyominame")]
-        public string OwnerIdYomiName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("ownerid"))
-                {
-                    return this.FormattedValues["ownerid"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier for the business unit that owns the record
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunit")]
-        public Microsoft.Xrm.Sdk.EntityReference OwningBusinessUnit
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunitname")]
-        public string OwningBusinessUnitName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("owningbusinessunit"))
-                {
-                    return this.FormattedValues["owningbusinessunit"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier for the team that owns the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningteam")]
-        public Microsoft.Xrm.Sdk.EntityReference OwningTeam
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier for the user that owns the record.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owninguser")]
-        public Microsoft.Xrm.Sdk.EntityReference OwningUser
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
-            }
-        }
-
-        /// <summary>
-        /// The related appeal record that this package will be parented by.
-        ///
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appeal")]
-        public Microsoft.Xrm.Sdk.EntityReference SiFund_Appeal
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("sifund_appeal");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("sifund_appeal", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appealname")]
-        public string SiFund_AppealName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("sifund_appeal"))
-                {
-                    return this.FormattedValues["sifund_appeal"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Type the expected revenue for the package for return on investment projections and post-package reporting.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_expectedrevenue")]
-        public Microsoft.Xrm.Sdk.Money SiFund_ExpectedRevenue
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_expectedrevenue");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("sifund_expectedrevenue", value);
-            }
-        }
-
-        /// <summary>
-        /// Value of the Estimated Revenue in base currency.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_expectedrevenue_base")]
-        public Microsoft.Xrm.Sdk.Money SiFund_ExpectedRevenue_Base
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_expectedrevenue_base");
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier for entity instances
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_identifier")]
-        public string SiFund_Identifier
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("sifund_identifier");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("sifund_identifier", value);
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier for entity instances
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_packageid")]
-        public System.Nullable<System.Guid> SiFund_PackageId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<System.Guid>>("sifund_packageid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("sifund_packageid", value);
-                if (value.HasValue)
-                {
-                    base.Id = value.Value;
-                }
-                else
-                {
-                    base.Id = System.Guid.Empty;
-                }
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_packageid")]
-        public override System.Guid Id
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return base.Id;
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SiFund_PackageId = value;
-            }
-        }
-
-        /// <summary>
-        /// The display name for this package.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_packagename")]
-        public string SiFund_PackageName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<string>("sifund_packagename");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("sifund_packagename", value);
-            }
-        }
-
-        /// <summary>
-        /// Status of the Package
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-        public virtual SiFund_Package_StateCode? StateCode
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return ((SiFund_Package_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("statecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecodename")]
-        public string StateCodename
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("statecode"))
-                {
-                    return this.FormattedValues["statecode"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Reason for the status of the Package
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-        public virtual SiFund_Package_StatusCode? StatusCode
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return ((SiFund_Package_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscodename")]
-        public string StatusCodename
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("statuscode"))
-                {
-                    return this.FormattedValues["statuscode"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// For internal use only.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
-        public System.Nullable<int> TimeZoneRuleVersionNumber
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("timezoneruleversionnumber", value);
-            }
-        }
-
-        /// <summary>
-        /// Unique identifier of the currency associated with the entity.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyid")]
-        public Microsoft.Xrm.Sdk.EntityReference TransactionCurrencyId
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("transactioncurrencyid");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("transactioncurrencyid", value);
-            }
-        }
-
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyidname")]
-        public string TransactionCurrencyIdName
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                if (this.FormattedValues.Contains("transactioncurrencyid"))
-                {
-                    return this.FormattedValues["transactioncurrencyid"];
-                }
-                else
-                {
-                    return default(string);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Time zone code that was in use when the record was created.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
-        public System.Nullable<int> UtcConversionTimeZoneCode
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode");
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetAttributeValue("utcconversiontimezonecode", value);
-            }
-        }
-
-        /// <summary>
-        /// Version Number
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
-        public System.Nullable<long> VersionNumber
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
-            }
-        }
-
-        /// <summary>
-        /// N:1 sifund_package_Appeal_sifund_appeal
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appeal")]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_package_Appeal_sifund_appeal")]
-        public CrmEarlyBound.SiFund_Appeal SiFund_Package_Appeal_SiFund_Appeal
-        {
-            [System.Diagnostics.DebuggerNonUserCode()]
-            get
-            {
-                return this.GetRelatedEntity<CrmEarlyBound.SiFund_Appeal>("sifund_package_Appeal_sifund_appeal", null);
-            }
-            [System.Diagnostics.DebuggerNonUserCode()]
-            set
-            {
-                this.SetRelatedEntity<CrmEarlyBound.SiFund_Appeal>("sifund_package_Appeal_sifund_appeal", null, value);
-            }
-        }
-
-        /// <summary>
-        /// Constructor for populating via LINQ queries given a LINQ anonymous type
-        /// <param name="anonymousType">LINQ anonymous type.</param>
-        /// </summary>
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public SiFund_Package(object anonymousType) :
-                this()
-        {
+	public partial class SiFund_Package : Microsoft.Xrm.Sdk.Entity
+	{
+		
+		/// <summary>
+		/// Available fields, a the time of codegen, for the sifund_package entity
+		/// </summary>
+		public partial class Fields
+		{
+			public const string CreatedBy = "createdby";
+			public const string CreatedByName = "createdbyname";
+			public const string CreatedByYomiName = "createdbyyominame";
+			public const string CreatedOn = "createdon";
+			public const string CreatedOnBehalfBy = "createdonbehalfby";
+			public const string CreatedOnBehalfByName = "createdonbehalfbyname";
+			public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
+			public const string ExchangerAte = "exchangerate";
+			public const string ImportSequenceNumber = "importsequencenumber";
+			public const string LRx_AppealId = "lrx_appealid";
+			public const string LRx_Campaign = "lrx_campaign";
+			public const string LRx_Campaign_Campaign_SiFund_Package = "lrx_Campaign_Campaign_sifund_package";
+			public const string LRx_CampaignId = "lrx_campaignid";
+			public const string LRx_CampaignName = "lrx_campaignname";
+			public const string LRx_DonationCount = "lrx_donationcount";
+			public const string LRx_EventTablesSoldCount = "lrx_eventtablessoldcount";
+			public const string LRx_ImportFilename = "lrx_importfilename";
+			public const string LRx_PackageId = "lrx_packageid";
+			public const string LRx_PackageTotalRevenue = "lrx_packagetotalrevenue";
+			public const string LRx_PackageTotalRevenue_Base = "lrx_packagetotalrevenue_base";
+			public const string LRx_PledgeCount = "lrx_pledgecount";
+			public const string LRx_ProductsOldCount = "lrx_productsoldcount";
+			public const string LRx_RegistrationCount = "lrx_registrationcount";
+			public const string LRx_SponsorshipCount = "lrx_sponsorshipcount";
+			public const string LRx_TotalDonations = "lrx_totaldonations";
+			public const string LRx_TotalDonations_Base = "lrx_totaldonations_base";
+			public const string LRx_TotalEventTablesSold = "lrx_totaleventtablessold";
+			public const string LRx_TotalEventTablesSold_Base = "lrx_totaleventtablessold_base";
+			public const string LRx_TotalOutstandingPledges = "lrx_totaloutstandingpledges";
+			public const string LRx_TotalOutstandingPledges_Base = "lrx_totaloutstandingpledges_base";
+			public const string LRx_TotalPledges = "lrx_totalpledges";
+			public const string LRx_TotalPledges_Base = "lrx_totalpledges_base";
+			public const string LRx_TotalProductsSold = "lrx_totalproductssold";
+			public const string LRx_TotalProductsSold_Base = "lrx_totalproductssold_base";
+			public const string LRx_TotalRegistrations = "lrx_totalregistrations";
+			public const string LRx_TotalRegistrations_Base = "lrx_totalregistrations_base";
+			public const string LRx_TotalRevenue = "lrx_totalrevenue";
+			public const string LRx_TotalRevenue_Base = "lrx_totalrevenue_base";
+			public const string LRx_TotalSponsorship = "lrx_totalsponsorship";
+			public const string LRx_TotalSponsorship_Base = "lrx_totalsponsorship_base";
+			public const string ModifiedBy = "modifiedby";
+			public const string ModifiedByName = "modifiedbyname";
+			public const string ModifiedByYomiName = "modifiedbyyominame";
+			public const string ModifiedOn = "modifiedon";
+			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
+			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
+			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
+			public const string OverriddenCreatedOn = "overriddencreatedon";
+			public const string OwnerId = "ownerid";
+			public const string OwnerIdName = "owneridname";
+			public const string OwnerIdYomiName = "owneridyominame";
+			public const string OwningBusinessUnit = "owningbusinessunit";
+			public const string OwningBusinessUnitName = "owningbusinessunitname";
+			public const string OwningTeam = "owningteam";
+			public const string OwningUser = "owninguser";
+			public const string SiFund_Appeal = "sifund_appeal";
+			public const string SiFund_AppealName = "sifund_appealname";
+			public const string SiFund_ExpectedRevenue = "sifund_expectedrevenue";
+			public const string SiFund_ExpectedRevenue_Base = "sifund_expectedrevenue_base";
+			public const string SiFund_Identifier = "sifund_identifier";
+			public const string SiFund_MsnFp_DonorCommitment_Package_SiFund_Pack = "SiFund_MsnFp_DonorCommitment_Package_SiFund_Pack";
+			public const string SiFund_MsnFp_PaymentSchedule_Package_SiFund_Pack = "SiFund_MsnFp_PaymentSchedule_Package_SiFund_Pack";
+			public const string SiFund_MsnFp_Transaction_Package_SiFund_Package = "SiFund_MsnFp_Transaction_Package_SiFund_Package";
+			public const string SiFund_Package_Appeal_SiFund_Appeal = "sifund_package_Appeal_sifund_appeal";
+			public const string SiFund_PackageId = "sifund_packageid";
+			public const string Id = "sifund_packageid";
+			public const string SiFund_PackageName = "sifund_packagename";
+			public const string StateCode = "statecode";
+			public const string StateCodename = "statecodename";
+			public const string StatusCode = "statuscode";
+			public const string StatusCodename = "statuscodename";
+			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+			public const string TransactionCurrencyId = "transactioncurrencyid";
+			public const string TransactionCurrencyIdName = "transactioncurrencyidname";
+			public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
+			public const string VersionNumber = "versionnumber";
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Package(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Package(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Package(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Package() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string PrimaryIdAttribute = "sifund_packageid";
+		
+		public const string PrimaryNameAttribute = "sifund_identifier";
+		
+		public const string EntitySchemaName = "sifund_package";
+		
+		public const string EntityLogicalName = "sifund_package";
+		
+		public const string EntityLogicalCollectionName = "sifund_packages";
+		
+		public const string EntitySetName = "sifund_packages";
+		
+		/// <summary>
+		/// Unique identifier of the user who created the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyname")]
+		public string CreatedByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdby"))
+				{
+					return this.FormattedValues["createdby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyyominame")]
+		public string CreatedByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdby"))
+				{
+					return this.FormattedValues["createdby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the record was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("createdonbehalfby", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyname")]
+		public string CreatedOnBehalfByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdonbehalfby"))
+				{
+					return this.FormattedValues["createdonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfbyyominame")]
+		public string CreatedOnBehalfByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("createdonbehalfby"))
+				{
+					return this.FormattedValues["createdonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Exchange rate for the currency associated with the entity with respect to the base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("exchangerate")]
+		public System.Nullable<decimal> ExchangerAte
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<decimal>>("exchangerate");
+			}
+		}
+		
+		/// <summary>
+		/// Sequence number of the import that created this record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		public System.Nullable<int> ImportSequenceNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("importsequencenumber");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("importsequencenumber", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_appealid")]
+		public string LRx_AppealId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_appealid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_appealid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaign")]
+		public Microsoft.Xrm.Sdk.EntityReference LRx_Campaign
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_campaign");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_campaign", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignid")]
+		public string LRx_CampaignId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_campaignid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_campaignid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaignname")]
+		public string LRx_CampaignName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("lrx_campaign"))
+				{
+					return this.FormattedValues["lrx_campaign"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donationcount")]
+		public System.Nullable<int> LRx_DonationCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_donationcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_donationcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_eventtablessoldcount")]
+		public System.Nullable<int> LRx_EventTablesSoldCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_eventtablessoldcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_eventtablessoldcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_importfilename")]
+		public string LRx_ImportFilename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_importfilename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_importfilename", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_packageid")]
+		public string LRx_PackageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("lrx_packageid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_packageid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_packagetotalrevenue")]
+		public Microsoft.Xrm.Sdk.Money LRx_PackageTotalRevenue
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_packagetotalrevenue");
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Package Total Revenue in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_packagetotalrevenue_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_PackageTotalRevenue_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_packagetotalrevenue_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_pledgecount")]
+		public System.Nullable<int> LRx_PledgeCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_pledgecount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_pledgecount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_productsoldcount")]
+		public System.Nullable<int> LRx_ProductsOldCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_productsoldcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_productsoldcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_registrationcount")]
+		public System.Nullable<int> LRx_RegistrationCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_registrationcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_registrationcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_sponsorshipcount")]
+		public System.Nullable<int> LRx_SponsorshipCount
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("lrx_sponsorshipcount");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_sponsorshipcount", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaldonations")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalDonations
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaldonations");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totaldonations", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Donations in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaldonations_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalDonations_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaldonations_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaleventtablessold")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalEventTablesSold
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaleventtablessold");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totaleventtablessold", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Event Tables Sold ($) in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaleventtablessold_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalEventTablesSold_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaleventtablessold_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaloutstandingpledges")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalOutstandingPledges
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaloutstandingpledges");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totaloutstandingpledges", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Outstanding Pledges in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totaloutstandingpledges_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalOutstandingPledges_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totaloutstandingpledges_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalpledges")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalPledges
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalpledges");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalpledges", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Pledges in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalpledges_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalPledges_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalpledges_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalproductssold")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalProductsSold
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalproductssold");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalproductssold", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Products Sold ($) in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalproductssold_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalProductsSold_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalproductssold_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalregistrations")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalRegistrations
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalregistrations");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalregistrations", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Registrations ($) in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalregistrations_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalRegistrations_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalregistrations_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalrevenue")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalRevenue
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalrevenue");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalrevenue", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Revenue in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalrevenue_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalRevenue_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalrevenue_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalsponsorship")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalSponsorship
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalsponsorship");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("lrx_totalsponsorship", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Total Sponsorship ($) in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalsponsorship_base")]
+		public Microsoft.Xrm.Sdk.Money LRx_TotalSponsorship_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_totalsponsorship_base");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who modified the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyname")]
+		public string ModifiedByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedby"))
+				{
+					return this.FormattedValues["modifiedby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedbyyominame")]
+		public string ModifiedByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedby"))
+				{
+					return this.FormattedValues["modifiedby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the record was modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who modified the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("modifiedonbehalfby", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyname")]
+		public string ModifiedOnBehalfByName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedonbehalfby"))
+				{
+					return this.FormattedValues["modifiedonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfbyyominame")]
+		public string ModifiedOnBehalfByYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("modifiedonbehalfby"))
+				{
+					return this.FormattedValues["modifiedonbehalfby"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Date and time that the record was migrated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overriddencreatedon")]
+		public System.Nullable<System.DateTime> OverriddenCreatedOn
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overriddencreatedon");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("overriddencreatedon", value);
+			}
+		}
+		
+		/// <summary>
+		/// Owner Id
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ownerid")]
+		public Microsoft.Xrm.Sdk.EntityReference OwnerId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ownerid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("ownerid", value);
+			}
+		}
+		
+		/// <summary>
+		/// Name of the owner
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridname")]
+		public string OwnerIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("ownerid"))
+				{
+					return this.FormattedValues["ownerid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Yomi name of the owner
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owneridyominame")]
+		public string OwnerIdYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("ownerid"))
+				{
+					return this.FormattedValues["ownerid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for the business unit that owns the record
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunit")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningBusinessUnit
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunitname")]
+		public string OwningBusinessUnitName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("owningbusinessunit"))
+				{
+					return this.FormattedValues["owningbusinessunit"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for the team that owns the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningteam")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningTeam
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for the user that owns the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owninguser")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningUser
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
+			}
+		}
+		
+		/// <summary>
+		/// The related appeal record that this package will be parented by.
+		///
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appeal")]
+		public Microsoft.Xrm.Sdk.EntityReference SiFund_Appeal
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("sifund_appeal");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sifund_appeal", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appealname")]
+		public string SiFund_AppealName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("sifund_appeal"))
+				{
+					return this.FormattedValues["sifund_appeal"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Type the expected revenue for the package for return on investment projections and post-package reporting.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_expectedrevenue")]
+		public Microsoft.Xrm.Sdk.Money SiFund_ExpectedRevenue
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_expectedrevenue");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sifund_expectedrevenue", value);
+			}
+		}
+		
+		/// <summary>
+		/// Value of the Estimated Revenue in base currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_expectedrevenue_base")]
+		public Microsoft.Xrm.Sdk.Money SiFund_ExpectedRevenue_Base
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("sifund_expectedrevenue_base");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for entity instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_identifier")]
+		public string SiFund_Identifier
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("sifund_identifier");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sifund_identifier", value);
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for entity instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_packageid")]
+		public System.Nullable<System.Guid> SiFund_PackageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sifund_packageid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sifund_packageid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_packageid")]
+		public override System.Guid Id
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return base.Id;
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SiFund_PackageId = value;
+			}
+		}
+		
+		/// <summary>
+		/// The display name for this package.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_packagename")]
+		public string SiFund_PackageName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("sifund_packagename");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("sifund_packagename", value);
+			}
+		}
+		
+		/// <summary>
+		/// Status of the Package
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
+		public virtual SiFund_Package_StateCode? StateCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((SiFund_Package_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("statecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecodename")]
+		public string StateCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("statecode"))
+				{
+					return this.FormattedValues["statecode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Reason for the status of the Package
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
+		public virtual SiFund_Package_StatusCode? StatusCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((SiFund_Package_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscodename")]
+		public string StatusCodename
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("statuscode"))
+				{
+					return this.FormattedValues["statuscode"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		public System.Nullable<int> TimeZoneRuleVersionNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("timezoneruleversionnumber", value);
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the currency associated with the entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyid")]
+		public Microsoft.Xrm.Sdk.EntityReference TransactionCurrencyId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("transactioncurrencyid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("transactioncurrencyid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyidname")]
+		public string TransactionCurrencyIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("transactioncurrencyid"))
+				{
+					return this.FormattedValues["transactioncurrencyid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Time zone code that was in use when the record was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		public System.Nullable<int> UtcConversionTimeZoneCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("utcconversiontimezonecode", value);
+			}
+		}
+		
+		/// <summary>
+		/// Version Number
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N sifund_msnfp_donorcommitment_Package_sifund_pack
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_msnfp_donorcommitment_Package_sifund_pack")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.MsnFp_DonorCommitment> SiFund_MsnFp_DonorCommitment_Package_SiFund_Pack
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.MsnFp_DonorCommitment>("sifund_msnfp_donorcommitment_Package_sifund_pack", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<CrmEarlyBound.MsnFp_DonorCommitment>("sifund_msnfp_donorcommitment_Package_sifund_pack", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N sifund_msnfp_paymentschedule_Package_sifund_pack
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_msnfp_paymentschedule_Package_sifund_pack")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.MsnFp_PaymentSchedule> SiFund_MsnFp_PaymentSchedule_Package_SiFund_Pack
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.MsnFp_PaymentSchedule>("sifund_msnfp_paymentschedule_Package_sifund_pack", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<CrmEarlyBound.MsnFp_PaymentSchedule>("sifund_msnfp_paymentschedule_Package_sifund_pack", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N sifund_msnfp_transaction_Package_sifund_package
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_msnfp_transaction_Package_sifund_package")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.MsnFp_Transaction> SiFund_MsnFp_Transaction_Package_SiFund_Package
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.MsnFp_Transaction>("sifund_msnfp_transaction_Package_sifund_package", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<CrmEarlyBound.MsnFp_Transaction>("sifund_msnfp_transaction_Package_sifund_package", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lrx_Campaign_Campaign_sifund_package
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_campaign")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lrx_Campaign_Campaign_sifund_package")]
+		public CrmEarlyBound.Campaign LRx_Campaign_Campaign_SiFund_Package
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.Campaign>("lrx_Campaign_Campaign_sifund_package", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<CrmEarlyBound.Campaign>("lrx_Campaign_Campaign_sifund_package", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 sifund_package_Appeal_sifund_appeal
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sifund_appeal")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sifund_package_Appeal_sifund_appeal")]
+		public CrmEarlyBound.SiFund_Appeal SiFund_Package_Appeal_SiFund_Appeal
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.SiFund_Appeal>("sifund_package_Appeal_sifund_appeal", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<CrmEarlyBound.SiFund_Appeal>("sifund_package_Appeal_sifund_appeal", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// Constructor for populating via LINQ queries given a LINQ anonymous type
+		/// <param name="anonymousType">LINQ anonymous type.</param>
+		/// </summary>
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiFund_Package(object anonymousType) : 
+				this()
+		{
             foreach (var p in anonymousType.GetType().GetProperties())
             {
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
-
-                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+            
+                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
-                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
+                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);
                 }
-
+            
                 switch (name)
                 {
                     case "id":
@@ -29639,8 +30493,8 @@ namespace CrmEarlyBound
                         Attributes["sifund_packageid"] = base.Id;
                         break;
                     case "sifund_packageid":
-                        var id = (System.Nullable<System.Guid>)value;
-                        if (id == null) { continue; }
+                        var id = (System.Nullable<System.Guid>) value;
+                        if(id == null){ continue; }
                         base.Id = id.Value;
                         Attributes[name] = base.Id;
                         break;
@@ -29653,7 +30507,7 @@ namespace CrmEarlyBound
                         break;
                 }
             }
-        }
-    }
+		}
+	}
 }
 #pragma warning restore CS1591
