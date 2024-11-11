@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fundraising-Engagement.Plugins", "Fundraising-Engagement.Plugins.csproj", "{C9012FA8-8D98-4490-A22E-9167909DD052}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNQHF-Fundraising-Engagement", "FNQHF-Fundraising-Engagement\FNQHF-Fundraising-Engagement.csproj", "{19EEDD63-DBDD-40D6-B7DD-1E8DA1530982}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C9012FA8-8D98-4490-A22E-9167909DD052}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9012FA8-8D98-4490-A22E-9167909DD052}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9012FA8-8D98-4490-A22E-9167909DD052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19EEDD63-DBDD-40D6-B7DD-1E8DA1530982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19EEDD63-DBDD-40D6-B7DD-1E8DA1530982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19EEDD63-DBDD-40D6-B7DD-1E8DA1530982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19EEDD63-DBDD-40D6-B7DD-1E8DA1530982}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
