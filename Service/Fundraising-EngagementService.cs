@@ -73,14 +73,20 @@ namespace Fundraising_Engagement.Plugins.Service
                     MsnFp_Transaction.Fields.StatusCode,
                     MsnFp_Transaction.Fields.MsnFp_Amount,
                     MsnFp_Transaction.Fields.MsnFp_BookDate,
-                    MsnFp_Transaction.Fields.SiFund_TypeCode
+                    MsnFp_Transaction.Fields.SiFund_TypeCode,
+                    MsnFp_Transaction.Fields.LRx_AmountRefunded
                  );
 
-                // CurrentGiving Sum, All related transactions where statuscode = Completed, 
+                // CurrentGiving Sum, All related transactions where statuscode = Completed, Partial Refund 
                 var givingCriteria = new Dictionary<string, (ConditionOperator, object)>
                 {
-                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
-                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
+                        {
+                            (int)MsnFp_Transaction_StatusCode.Completed,
+                            (int)MsnFp_Transaction_StatusCode.PartialRefund
+                        })
+                    },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
                 };
 
                 decimal currentYearGivingAmount = CalculateGivingRollup(Contact.EntityLogicalName, donorId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Donor, MsnFp_Transaction.Fields.MsnFp_Amount,
@@ -165,14 +171,20 @@ namespace Fundraising_Engagement.Plugins.Service
                     MsnFp_Transaction.Fields.StatusCode,
                     MsnFp_Transaction.Fields.MsnFp_Amount,
                     MsnFp_Transaction.Fields.MsnFp_BookDate,
-                    MsnFp_Transaction.Fields.SiFund_TypeCode
+                    MsnFp_Transaction.Fields.SiFund_TypeCode,
+                    MsnFp_Transaction.Fields.LRx_AmountRefunded
                  );
 
-                // CurrentGiving Sum, All related transactions where statuscode = Completed, 
+                // CurrentGiving Sum, All related transactions where statuscode = Completed,Partial Refund 
                 var givingCriteria = new Dictionary<string, (ConditionOperator, object)>
                 {
-                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
-                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
+                        {
+                            (int)MsnFp_Transaction_StatusCode.Completed,
+                            (int)MsnFp_Transaction_StatusCode.PartialRefund
+                        })
+                    },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
                 };
 
                 decimal currentYearGivingAmount = CalculateGivingRollup(Contact.EntityLogicalName, donorId, MsnFp_Transaction.EntityLogicalName, MsnFp_Transaction.Fields.SiFund_Donor, MsnFp_Transaction.Fields.MsnFp_Amount,
@@ -236,8 +248,13 @@ namespace Fundraising_Engagement.Plugins.Service
 
             var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
             {
-                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
-                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+                   { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
+                        {
+                            (int)MsnFp_Transaction_StatusCode.Completed,
+                            (int)MsnFp_Transaction_StatusCode.PartialRefund
+                        })
+                    },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
             };
 
 
@@ -318,8 +335,13 @@ namespace Fundraising_Engagement.Plugins.Service
 
             var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
             {
-                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
-                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
+                        {
+                            (int)MsnFp_Transaction_StatusCode.Completed,
+                            (int)MsnFp_Transaction_StatusCode.PartialRefund
+                        })
+                    },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
             };
 
 
@@ -493,13 +515,19 @@ namespace Fundraising_Engagement.Plugins.Service
             ColumnSet filterFields = new ColumnSet(
                     MsnFp_Transaction.Fields.StatusCode,
                     MsnFp_Transaction.Fields.MsnFp_Amount,
-                    MsnFp_Transaction.Fields.SiFund_TypeCode
+                    MsnFp_Transaction.Fields.SiFund_TypeCode,
+                    MsnFp_Transaction.Fields.LRx_AmountRefunded
              );
 
             var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
             {
-                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
-                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
+                        {
+                            (int)MsnFp_Transaction_StatusCode.Completed,
+                            (int)MsnFp_Transaction_StatusCode.PartialRefund
+                        })
+                    },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
             };
 
             if (relatedDonorCommitment != Guid.Empty)
@@ -530,13 +558,20 @@ namespace Fundraising_Engagement.Plugins.Service
             ColumnSet filterFields = new ColumnSet(
                     MsnFp_Transaction.Fields.StatusCode,
                     MsnFp_Transaction.Fields.MsnFp_Amount,
-                    MsnFp_Transaction.Fields.SiFund_TypeCode
+                    MsnFp_Transaction.Fields.SiFund_TypeCode,
+                    MsnFp_Transaction.Fields.LRx_AmountRefunded
              );
 
             var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
             {
-                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
-                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+                     { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
+                                {
+                                    (int)MsnFp_Transaction_StatusCode.Completed,
+                                    (int)MsnFp_Transaction_StatusCode.PartialRefund
+                                })
+                            },
+                     { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
+
             };
 
             if (transactionrecord.SiFund_RelatedDonorCommitment != null && (transactionrecord.SiFund_RelatedDonorCommitment.Id != Guid.Empty))
@@ -595,13 +630,19 @@ namespace Fundraising_Engagement.Plugins.Service
             ColumnSet filterFields = new ColumnSet(
                   MsnFp_Transaction.Fields.StatusCode,
                   MsnFp_Transaction.Fields.MsnFp_Amount,
-                  MsnFp_Transaction.Fields.SiFund_TypeCode
+                  MsnFp_Transaction.Fields.SiFund_TypeCode,
+                  MsnFp_Transaction.Fields.LRx_AmountRefunded
             );
 
             var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
             {
-                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_StatusCode.Completed) },
-                    { MsnFp_Transaction.Fields.SiFund_TypeCode,(ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation)}
+                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
+                        {
+                            (int)MsnFp_Transaction_StatusCode.Completed,
+                            (int)MsnFp_Transaction_StatusCode.PartialRefund
+                        })
+                    },
+                    { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
             };
 
             if (entityId != Guid.Empty)
@@ -909,7 +950,8 @@ namespace Fundraising_Engagement.Plugins.Service
                     SiFund_Amount_NonreceiptAble = new Money(newAmountNonReceipted),
                     LRx_AmountMembership = new Money(newAmountMembership),
                     SiFund_Amount_Tax = new Money(newAmountTax),
-                    StatusCode = statusCode
+                    StatusCode = statusCode,
+                    MsnFp_IsAdjusted = true
 
                 };
                 _service.Update(parentTransaction);
@@ -2069,6 +2111,7 @@ namespace Fundraising_Engagement.Plugins.Service
         public decimal CalculateGivingRollup(string parentEntityLogicalName, Guid parentId, string childEntityLogicalName, string childToParentLookupField, string rollupField, ColumnSet filterFields,
             Dictionary<string, (ConditionOperator, object)> criteria, DateTime? startDate = null, DateTime? endDate = null)
         {
+            string refundfield = MsnFp_Transaction.Fields.LRx_AmountRefunded;
 
             QueryExpression query = new QueryExpression(childEntityLogicalName)
             {
@@ -2084,7 +2127,15 @@ namespace Fundraising_Engagement.Plugins.Service
 
             foreach (var criterion in criteria)
             {
-                query.Criteria.AddCondition(new ConditionExpression(criterion.Key, criterion.Value.Item1, criterion.Value.Item2));
+                // Check if the condition uses 'ConditionOperator.In'
+                if (criterion.Value.Item1 == ConditionOperator.In && criterion.Value.Item2 is IEnumerable<object> values)
+                {
+                    query.Criteria.AddCondition(new ConditionExpression(criterion.Key, ConditionOperator.In, values.ToArray()));
+                }
+                else
+                {
+                    query.Criteria.AddCondition(new ConditionExpression(criterion.Key, criterion.Value.Item1, criterion.Value.Item2));
+                }
             }
 
             // Add date range condition for MsnFp_BookDate if startDate and endDate are provided
@@ -2098,12 +2149,23 @@ namespace Fundraising_Engagement.Plugins.Service
             EntityCollection childRecords = _service.RetrieveMultiple(query);
 
             decimal total = 0; //default to 0 if no rollup child records found
+            decimal totalRefunded = 0;
+
+            //total refunds if any
+            // Check if filterFields contains LRx_AmountRefunded
+            if (filterFields.Columns.Contains(MsnFp_Transaction.Fields.LRx_AmountRefunded))
+            {
+                totalRefunded = childRecords.Entities
+                    .Where(e => e.Contains(refundfield))
+                    .Sum(e => ((Money)e[refundfield]).Value);
+            }
+
 
             total = childRecords.Entities
                 .Where(e => e.Contains(rollupField))
                 .Sum(e => ((Money)e[rollupField]).Value);
 
-            return total;
+            return total-totalRefunded;
         }
 
         public decimal CalculateCount(string parentEntityLogicalName, Guid parentId, string childEntityLogicalName, string childToParentLookupField, ColumnSet filterFields,
@@ -2124,7 +2186,15 @@ namespace Fundraising_Engagement.Plugins.Service
 
             foreach (var criterion in criteria)
             {
-                query.Criteria.AddCondition(new ConditionExpression(criterion.Key, criterion.Value.Item1, criterion.Value.Item2));
+                // Check if the condition uses 'ConditionOperator.In'
+                if (criterion.Value.Item1 == ConditionOperator.In && criterion.Value.Item2 is IEnumerable<object> values)
+                {
+                    query.Criteria.AddCondition(new ConditionExpression(criterion.Key, ConditionOperator.In, values.ToArray()));
+                }
+                else
+                {
+                    query.Criteria.AddCondition(new ConditionExpression(criterion.Key, criterion.Value.Item1, criterion.Value.Item2));
+                }
             }
 
             // Add date range condition for MsnFp_BookDate if startDate and endDate are provided
@@ -2159,7 +2229,15 @@ namespace Fundraising_Engagement.Plugins.Service
 
             foreach (var criterion in criteria)
             {
-                query.Criteria.AddCondition(new ConditionExpression(criterion.Key, criterion.Value.Item1, criterion.Value.Item2));
+                // Check if the condition uses 'ConditionOperator.In'
+                if (criterion.Value.Item1 == ConditionOperator.In && criterion.Value.Item2 is IEnumerable<object> values)
+                {
+                    query.Criteria.AddCondition(new ConditionExpression(criterion.Key, ConditionOperator.In, values.ToArray()));
+                }
+                else
+                {
+                    query.Criteria.AddCondition(new ConditionExpression(criterion.Key, criterion.Value.Item1, criterion.Value.Item2));
+                }
             }
 
             if (!string.IsNullOrEmpty(orderByField))
