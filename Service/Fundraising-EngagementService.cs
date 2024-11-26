@@ -1955,13 +1955,27 @@ namespace Fundraising_Engagement.Plugins.Service
                                     EntityReference customerToId = (EntityReference)pledgeRecord[LRx_PledgeMatch.Fields.LRx_CustomerToId];
                                     decimal computedAmount = (totalAmount * percentageDecimal) / 100;
 
-                                    var newDonorCommitment = new Entity(MsnFp_DonorCommitment.EntityLogicalName)
+                                    Entity newDonorCommitment;
+                                    if (customerToId.LogicalName == Contact.EntityLogicalName)
                                     {
-                                        [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Contact.EntityLogicalName, customerToId.Id),
-                                        [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
-                                        [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = donorCommitmentRecord.MsnFp_BookDate.Value,
-                                        [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, donorCommitmentRecord.LRx_Campaign.Id)
-                                    };
+                                        newDonorCommitment = new Entity(MsnFp_DonorCommitment.EntityLogicalName)
+                                        {
+                                            [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Contact.EntityLogicalName, customerToId.Id),
+                                            [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
+                                            [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = donorCommitmentRecord.MsnFp_BookDate.Value,
+                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, donorCommitmentRecord.LRx_Campaign.Id)
+                                        };
+                                    }
+                                    else
+                                    {
+                                        newDonorCommitment = new Entity(MsnFp_DonorCommitment.EntityLogicalName)
+                                        {
+                                            [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Account.EntityLogicalName, customerToId.Id),
+                                            [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
+                                            [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = donorCommitmentRecord.MsnFp_BookDate.Value,
+                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, donorCommitmentRecord.LRx_Campaign.Id)
+                                        };
+                                    }
 
                                     // Create the donor commitment record in Dynamics 365
                                     var donorCommitmentId = _service.Create(newDonorCommitment);
@@ -2024,13 +2038,27 @@ namespace Fundraising_Engagement.Plugins.Service
                                     EntityReference customerToId = (EntityReference)tRecord[LRx_PledgeMatch.Fields.LRx_CustomerToId];
                                     decimal computedAmount = (totalAmount * percentageDecimal) / 100;
 
-                                    var newDonorCommitment = new Entity(MsnFp_DonorCommitment.EntityLogicalName)
+                                    Entity newDonorCommitment;
+                                    if (customerToId.LogicalName == Contact.EntityLogicalName)
                                     {
-                                        [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Contact.EntityLogicalName, customerToId.Id),
-                                        [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
-                                        [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = transactionRecord.MsnFp_BookDate.Value,
-                                        [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, transactionRecord.LRx_Campaign.Id)
-                                    };
+                                        newDonorCommitment = new Entity(MsnFp_DonorCommitment.EntityLogicalName)
+                                        {
+                                            [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Contact.EntityLogicalName, customerToId.Id),
+                                            [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
+                                            [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = transactionRecord.MsnFp_BookDate.Value,
+                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, transactionRecord.LRx_Campaign.Id)
+                                        };
+                                    }
+                                    else
+                                    {
+                                        newDonorCommitment = new Entity(MsnFp_DonorCommitment.EntityLogicalName)
+                                        {
+                                            [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Account.EntityLogicalName, customerToId.Id),
+                                            [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
+                                            [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = transactionRecord.MsnFp_BookDate.Value,
+                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, transactionRecord.LRx_Campaign.Id)
+                                        };
+                                    }
 
                                     // Create the donor commitment record in Dynamics 365
                                     var donorCommitmentId = _service.Create(newDonorCommitment);
