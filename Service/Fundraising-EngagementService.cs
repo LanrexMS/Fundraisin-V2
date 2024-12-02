@@ -1920,7 +1920,7 @@ namespace Fundraising_Engagement.Plugins.Service
                 {
                     QueryExpression query = new QueryExpression(LRx_PledgeMatch.EntityLogicalName)
                     {
-                        ColumnSet = new ColumnSet(LRx_PledgeMatch.Fields.LRx_CustomerToId, LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges, LRx_PledgeMatch.Fields.LRx_Percentage),
+                        ColumnSet = new ColumnSet(LRx_PledgeMatch.Fields.LRx_PledgeMatchId, LRx_PledgeMatch.Fields.LRx_CustomerToId, LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges, LRx_PledgeMatch.Fields.LRx_Percentage),
                         Criteria = new FilterExpression
                         {
                             Conditions =
@@ -1963,7 +1963,8 @@ namespace Fundraising_Engagement.Plugins.Service
                                             [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Contact.EntityLogicalName, customerToId.Id),
                                             [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
                                             [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = donorCommitmentRecord.MsnFp_BookDate.Value,
-                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, donorCommitmentRecord.LRx_Campaign.Id)
+                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, donorCommitmentRecord.LRx_Campaign.Id),
+                                            [MsnFp_DonorCommitment.Fields.LRx_PledgeMatch] = new EntityReference(LRx_PledgeMatch.EntityLogicalName, (Guid)pledgeRecord[LRx_PledgeMatch.Fields.LRx_PledgeMatchId])
                                         };
                                     }
                                     else
@@ -1973,7 +1974,8 @@ namespace Fundraising_Engagement.Plugins.Service
                                             [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Account.EntityLogicalName, customerToId.Id),
                                             [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
                                             [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = donorCommitmentRecord.MsnFp_BookDate.Value,
-                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, donorCommitmentRecord.LRx_Campaign.Id)
+                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, donorCommitmentRecord.LRx_Campaign.Id),
+                                            [MsnFp_DonorCommitment.Fields.LRx_PledgeMatch] = new EntityReference(LRx_PledgeMatch.EntityLogicalName, (Guid)pledgeRecord[LRx_PledgeMatch.Fields.LRx_PledgeMatchId])
                                         };
                                     }
 
@@ -2003,7 +2005,7 @@ namespace Fundraising_Engagement.Plugins.Service
                 {
                     QueryExpression query = new QueryExpression(LRx_PledgeMatch.EntityLogicalName)
                     {
-                        ColumnSet = new ColumnSet(LRx_PledgeMatch.Fields.LRx_CustomerToId, LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges, LRx_PledgeMatch.Fields.LRx_Percentage),
+                        ColumnSet = new ColumnSet(LRx_PledgeMatch.Fields.LRx_PledgeMatchId, LRx_PledgeMatch.Fields.LRx_CustomerToId, LRx_PledgeMatch.Fields.LRx_ApplyToDonationsOrPledges, LRx_PledgeMatch.Fields.LRx_Percentage),
                         Criteria = new FilterExpression
                         {
                             Conditions =
@@ -2046,7 +2048,8 @@ namespace Fundraising_Engagement.Plugins.Service
                                             [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Contact.EntityLogicalName, customerToId.Id),
                                             [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
                                             [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = transactionRecord.MsnFp_BookDate.Value,
-                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, transactionRecord.LRx_Campaign.Id)
+                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, transactionRecord.LRx_Campaign.Id),
+                                            [MsnFp_DonorCommitment.Fields.LRx_PledgeMatch] = new EntityReference(LRx_PledgeMatch.EntityLogicalName, (Guid)tRecord[LRx_PledgeMatch.Fields.LRx_PledgeMatchId])
                                         };
                                     }
                                     else
@@ -2056,7 +2059,8 @@ namespace Fundraising_Engagement.Plugins.Service
                                             [MsnFp_DonorCommitment.Fields.SiFund_Donor] = new EntityReference(Account.EntityLogicalName, customerToId.Id),
                                             [MsnFp_DonorCommitment.Fields.MsnFp_TotalAmount] = new Money(computedAmount),
                                             [MsnFp_DonorCommitment.Fields.MsnFp_BookDate] = transactionRecord.MsnFp_BookDate.Value,
-                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, transactionRecord.LRx_Campaign.Id)
+                                            [MsnFp_DonorCommitment.Fields.LRx_Campaign] = new EntityReference(Campaign.EntityLogicalName, transactionRecord.LRx_Campaign.Id),
+                                            [MsnFp_DonorCommitment.Fields.LRx_PledgeMatch] = new EntityReference(LRx_PledgeMatch.EntityLogicalName, (Guid)tRecord[LRx_PledgeMatch.Fields.LRx_PledgeMatchId])
                                         };
                                     }
 
