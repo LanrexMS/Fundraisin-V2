@@ -1868,36 +1868,71 @@ namespace Fundraising_Engagement.Plugins.Service
             }
         }
 
-        public void ComputeDonorCommitmentPaid(Guid donorCommitmentId, MsnFp_DonorCommitment donorCommitmentRecord)
+        public void ComputeDonorCommitmentPaid(Guid fundingPaymentScheduleId, LRx_FundingPaymentSchedule fundingPaymentScheduleRecord)
         {
-            if (donorCommitmentId != Guid.Empty) {
-                donorCommitmentRecord = (MsnFp_DonorCommitment)RetrieveRecord(
-                    MsnFp_DonorCommitment.EntityLogicalName,
-                    donorCommitmentId,
-                    MsnFp_DonorCommitment.Fields.LRx_FundingAgreement
+            if (fundingPaymentScheduleId != Guid.Empty) {
+                fundingPaymentScheduleRecord = (LRx_FundingPaymentSchedule)RetrieveRecord(
+                    LRx_FundingPaymentSchedule.EntityLogicalName,
+                    fundingPaymentScheduleId,
+                    LRx_FundingPaymentSchedule.Fields.LRx_FundingAgreement
                 );
             }          
 
-            if (donorCommitmentRecord != null &&
-                donorCommitmentRecord.LRx_FundingAgreement != null &&
-                donorCommitmentRecord.LRx_FundingAgreement.Id != Guid.Empty) {
+            if (fundingPaymentScheduleRecord != null &&
+                fundingPaymentScheduleRecord.LRx_FundingAgreement != null &&
+                fundingPaymentScheduleRecord.LRx_FundingAgreement.Id != Guid.Empty) {
 
                 decimal totalAmountPaidRevenue = 0;
-                int amountPaidCount = 0;
+                string fieldToBeComputed = LRx_FundingPaymentSchedule.Fields.LRx_Amount;
 
-                totalAmountPaidRevenue = CalculateAmountRevenue(
-                    MsnFp_DonorCommitment.EntityLogicalName,
-                    MsnFp_DonorCommitment.Fields.LRx_TotalAmountPaid,
-                    MsnFp_DonorCommitment.Fields.LRx_FundingAgreement,
-                    donorCommitmentRecord.LRx_FundingAgreement.Id,
-                    out amountPaidCount
-                );
-                var parentEvent = new LRx_FundingAgreement
+                QueryExpression query = new QueryExpression(LRx_FundingPaymentSchedule.EntityLogicalName)
                 {
-                    Id = donorCommitmentRecord.LRx_FundingAgreement.Id,
+                    ColumnSet = new ColumnSet(fieldToBeComputed),
+                    Criteria = new FilterExpression
+                    {
+                        Conditions =
+                        {
+                            new ConditionExpression(LRx_FundingPaymentSchedule.Fields.LRx_FundingAgreement, ConditionOperator.Equal, fundingPaymentScheduleRecord.LRx_FundingAgreement.Id),
+                            new ConditionExpression(LRx_FundingPaymentSchedule.Fields.LRx_DateReceived, ConditionOperator.NotNull)
+
+                        }
+                    }
+                };
+
+                // Execute the query to get related records
+                EntityCollection fundingPaymentScheduleFetch = _service.RetrieveMultiple(query);
+
+                // If no records are returned, simply return 0 for the revenue
+                if (fundingPaymentScheduleFetch.Entities == null)
+                {
+                    totalAmountPaidRevenue = 0;
+                }
+
+                // Sum up the values using LINQ for cleaner code
+                totalAmountPaidRevenue = fundingPaymentScheduleFetch.Entities
+                    .Where(record => record.Contains(fieldToBeComputed) && record[fieldToBeComputed] != null)
+                    .Sum(record =>
+                    {
+                        if (record[fieldToBeComputed] is Money moneyValue)
+                        {
+                            return moneyValue.Value; // If it's of type Money, return the decimal value.
+                        }
+                        else if (record[fieldToBeComputed] is int intValue)
+                        {
+                            return (decimal)intValue; // If it's an int, convert to decimal.
+                        }
+                        else
+                        {
+                            return 0m; // If it's neither Money nor int, return 0 or handle as appropriate.
+                        }
+                    });
+
+                var parentFundingAgreement = new LRx_FundingAgreement
+                {
+                    Id = fundingPaymentScheduleRecord.LRx_FundingAgreement.Id,
                     LRx_DonorCommitmentPaid = new Money(totalAmountPaidRevenue)
                 };
-                _service.Update(parentEvent);
+                _service.Update(parentFundingAgreement);
             }
         }
 
