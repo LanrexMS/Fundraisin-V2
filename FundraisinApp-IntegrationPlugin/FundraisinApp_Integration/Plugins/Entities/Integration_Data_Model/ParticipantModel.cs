@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Entities.Integration_Data_Model
+{
+    public class ParticipantModel
+    {
+        public string TotalRecords { get; set; }
+        public string MemberId { get; set; }
+        public string CharityId { get; set; }
+        public string MemberHash { get; set; }
+        public string MemberLoginToken { get; set; }
+        public string RelatedMemberId { get; set; }
+        public string MRegoNumber { get; set; }
+        public string FbUserId { get; set; }
+        public string FbUserPic { get; set; }
+        public string GoogleUserId { get; set; }
+        public string AppleUserId { get; set; }
+        public string MStatusType { get; set; }
+        public string MTitle { get; set; }
+        public string MFname { get; set; }
+        public string MLname { get; set; }
+        public string MLnamePrefix { get; set; }
+        public string MMiddle { get; set; }
+        public string MMaiden { get; set; }
+        public string MEmail { get; set; }
+        public string MUsername { get; set; }
+        public string MPass { get; set; }
+        public string MDob { get; set; }
+        public string MGender { get; set; }
+        public string MLanguage { get; set; }
+        public string MAddressUnit { get; set; }
+        public string MAddressNumber { get; set; }
+        public string MAddressStreet { get; set; }
+        public string MAddress2 { get; set; }
+        public string MAddressSuburb { get; set; }
+        public string MAddressCity { get; set; }
+        public string MAddressPCode { get; set; }
+        public string MAddressState { get; set; }
+        public string MAddressCountry { get; set; }
+        public string MAddressDpid { get; set; }
+        public string MAddressBarcode { get; set; }
+        public string KwAddress { get; set; }
+        public string PostalIsSame { get; set; }
+        public string MPostalUnit { get; set; }
+        public string MPostalNumber { get; set; }
+        public string MPostalStreet { get; set; }
+        public string MPostalAddress2 { get; set; }
+        public string MPostalSuburb { get; set; }
+        public string MPostalCity { get; set; }
+        public string MPostalPCode { get; set; }
+        public string MPostalState { get; set; }
+        public string MPostalCountry { get; set; }
+        public string MPostalDpid { get; set; }
+        public string MPostalBarcode { get; set; }
+        public string MPhoneHome { get; set; }
+        public string MPhoneWork { get; set; }
+        public string MPhoneMobile { get; set; }
+        public string MPhoneMobileSuffix { get; set; }
+        public string MEmergencyContact { get; set; }
+        public string MEmergencyContactAlt { get; set; }
+        public string MEmergencyContactType { get; set; }
+        public string MEmergencyPhone { get; set; }
+        public string MMedicalConditions { get; set; }
+        public string MMedicalConditionsText { get; set; }
+        public string MBusinessContactName { get; set; }
+        public string MBusinessContactNumber { get; set; }
+        public string MMedication { get; set; }
+        public string MMedicationDetails { get; set; }
+        public string MHospitalised { get; set; }
+        public string MHospitalisedDetails { get; set; }
+        public string MDietNotes { get; set; }
+        public string MAdditionCare { get; set; }
+        public string MTwitter { get; set; }
+        public string MInstagram { get; set; }
+        public string MPinterest { get; set; }
+        public string MSnapchat { get; set; }
+        public string ParticipatedPrior { get; set; }
+        public string MPhoto { get; set; }
+        public string MCoverPhotoPersonal { get; set; }
+        public string MBackground { get; set; }
+        public string MInSupport { get; set; }
+        public string MCodeblockPersonal { get; set; }
+        public string MCodeblockPersonalMobile { get; set; }
+        public string MConfirmationSent { get; set; }
+        public string MReminderSent { get; set; }
+        public string MDonationSent { get; set; }
+        public string MGoalSent { get; set; }
+        public string MAlertDonation { get; set; }
+        public string MAlertTriggers { get; set; }
+        public string MAgreedWaiver { get; set; }
+        public string MNameAlt { get; set; }
+        public string MGalleryTitle { get; set; }
+        public string MGalleryCopy { get; set; }
+        public string MRankingOverallOn { get; set; }
+        public string MRankingTeamOn { get; set; }
+        public string AgreeSiteTerms { get; set; }
+        public string ParticipatedBefore { get; set; }
+        public string AgreeToPay { get; set; }
+        public string AgreeOver18 { get; set; }
+        public string AgreeToFundraise { get; set; }
+        public string MCompany { get; set; }
+        public string MCompanyMatchGiving { get; set; }
+        public string MPosition { get; set; }
+        public string MBio { get; set; }
+        public string MShirtSize { get; set; }
+        public string Referral { get; set; }
+        public string IsMobile { get; set; }
+        public string Optin { get; set; }
+        public string MOptin { get; set; }
+        public string MOptinText { get; set; }
+        public string MOptinDate { get; set; }
+        public string MOptinEmail { get; set; }
+        public string MOptinSms { get; set; }
+        public string MOptinPost { get; set; }
+        public string MOptinPhone { get; set; }
+        public string MExternalOptout { get; set; }
+        public string MExternalOptoutDate { get; set; }
+        public string MOptoutTriggers { get; set; }
+        public string MOptoutTriggersDate { get; set; }
+        public string MemberMfaCode { get; set; }
+        public string CrmMemberId { get; set; }
+        public string EcrmCustomerId { get; set; }
+        public string ScrmCustomerId { get; set; }
+        public string GatewayCustomerRef { get; set; }
+        public string GatewayCardRef { get; set; }
+        public string NoIndex { get; set; }
+        public string MStatus { get; set; }
+        public string LastLoggedIn { get; set; }
+        public string LoginAttempts { get; set; }
+        public string LastLoginAttempt { get; set; }
+        public string EcrmLastSyncedDate { get; set; }
+        public string ScrmLastSyncedDate { get; set; }
+        public string LastUpdated { get; set; }
+        public string DateCreated { get; set; }
+
+    }
+}

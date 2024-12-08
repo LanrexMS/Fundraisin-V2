@@ -18,6 +18,9 @@ using System.Net.Http.Headers;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System.Text.RegularExpressions;
+using System.Runtime.CompilerServices;
+using System.Activities;
+using System.Diagnostics.Eventing.Reader;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -30,6 +33,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         private string apiDonationBaseUrl = "https://lanrex.funraisin.com.au/api/donations";
         private string apiTransactionBaseUrl = "https://lanrex.funraisin.com.au/api/transactions";
         private string apiEventBaseUrl = "https://lanrex.funraisin.com.au/api/events";
+        private string apiParticipantBaseUrl = "https://lanrex.funraisin.com.au/api/participants";
         private string username = "nico.benito@lanrex.com.au";
         private string password = "Lanrex12345!";
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
@@ -106,35 +110,16 @@ namespace FundraisinApp_Integration.Plugins.Service
                     DonationId = int.TryParse(strArray2[1], out result2) ? result2 : 0,
                     EventId = int.TryParse(strArray2[2], out result1) ? result1 : 0,
                 };
-                Entity existingContact = this.FindExistingContact(donation);
+                Entity existingContact = this.FindExistingContact(donation.DFname, donation.DLname, donation.DEmail);
                 if (existingContact != null)
                     this.UpdateContactRecord(existingContact.Id, donation);
                 else
                     this.CreateContactRecord(donation);
+
                 donationCsv.Add(donation);
             }
             return donationCsv;
         }
-
-        private Entity FindExistingContact(DonationModel donation)
-        {
-            QueryExpression queryExpression = new QueryExpression("contact")
-            {
-                ColumnSet = new ColumnSet(true)
-            };
-            queryExpression.Criteria.AddCondition("firstname", (ConditionOperator)0, new object[1] {
-                (object) donation.DFname
-              });
-                    queryExpression.Criteria.AddCondition("lastname", (ConditionOperator)0, new object[1] {
-                (object) donation.DLname
-              });
-                    queryExpression.Criteria.AddCondition("emailaddress1", (ConditionOperator)0, new object[1] {
-                (object) donation.DEmail
-              });
-
-            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
-        }
-
         private void CreateContactRecord(DonationModel donation)
         {
             Guid contactId = this._service.Create(new Entity("contact")
@@ -143,7 +128,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                 ["lastname"] = (object)donation.DLname,
                 ["emailaddress1"] = (object)donation.DEmail,
                 ["telephone1"] = (object)donation.DPhone,
-                ["mobilephone"] = (object)donation.DPhoneMobile
+                ["mobilephone"] = (object)donation.DPhoneMobile,
+                ["lrx_fundraisinmemberid"] = (object)donation.MemberId
             });
             this.GetFundraisinTransactionRecord(donation, contactId);
         }
@@ -156,7 +142,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                 ["lastname"] = (object)donation.DLname,
                 ["emailaddress1"] = (object)donation.DEmail,
                 ["telephone1"] = (object)donation.DPhone,
-                ["mobilephone"] = (object)donation.DPhoneMobile
+                ["mobilephone"] = (object)donation.DPhoneMobile,
+                ["lrx_fundraisinmemberid"] = (object)donation.MemberId
             });
             this.GetFundraisinTransactionRecord(donation, contactId);
         }
@@ -295,7 +282,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                         ["msnfp_bookdate"] = (object)transaction.DateCreated,
                         ["lrx_fundraisindonationid"] = (object)transaction.DonationId
                     };
-                    this._tracingService.Trace(string.Format("Donor: {0} ; DonationType: {1}", (object)contactId, (object)num), Array.Empty<object>());
                     this._service.Create(entity);
                     break;
                 case "refund":
@@ -334,6 +320,14 @@ namespace FundraisinApp_Integration.Plugins.Service
                 }
             }
             List<EventModel> eventList = this.ParseEventCsvHelper(csvContent);
+            foreach (var eventRecord in eventList)
+            {
+                Entity existingEvent = this.FindExistingEvent(eventRecord);
+                if (existingEvent != null)
+                    this.UpdateEventRecord(existingEvent.Id, eventRecord);
+                else
+                    this.CreateEventRecord(eventRecord);
+            }
         }
 
         public List<EventModel> ParseEventCsvHelper(string csvContent)
@@ -355,8 +349,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 foreach (var record in records)
                 {
-                    
-
                     // Add the event model to the list
                     eventsList.Add(record);
                 }
@@ -365,7 +357,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             return eventsList;
         }
 
-        private Entity FindExistingEvent(EventModel eventList)
+        public Entity FindExistingEvent(EventModel eventList)
         {
             QueryExpression queryExpression = new QueryExpression("lrx_event")
             {
@@ -377,17 +369,162 @@ namespace FundraisinApp_Integration.Plugins.Service
             return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
         }
 
-        private void CreateEventRecord(EventModel eventRecord)
+        public void CreateEventRecord(EventModel EventRecord)
         {
-            /*Guid eventId = this._service.Create(new Entity("contact")
+            Guid eventId = this._service.Create(new Entity("lrx_event")
             {
-                ["firstname"] = (object)donation.DFname,
-                ["lastname"] = (object)donation.DLname,
-                ["emailaddress1"] = (object)donation.DEmail,
-                ["telephone1"] = (object)donation.DPhone,
-                ["mobilephone"] = (object)donation.DPhoneMobile
+                ["lrx_name"] = (string)EventRecord.EventName,
+                ["lrx_campaign"] = (object)new EntityReference("campaign", new Guid("d5bf32ce-d9e1-4a2a-914f-9ded53e1b41a")),
+                ["lrx_fundraisineventid"] = (int)EventRecord.EventId
             });
-            this.GetFundraisinTransactionRecord(donation, contactId);*/
+        }
+        public void UpdateEventRecord(Guid EventId, EventModel EventRecord)
+        {
+            this._service.Update(new Entity("lrx_event", EventId)
+            {               
+                ["lrx_name"] = (string)EventRecord.EventName,
+                ["lrx_fundraisineventid"] = (int)EventRecord.EventId
+            });
+        }
+
+        public void GetFundraisinParticipantRecords()
+        {
+            string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)this.apiParticipantBaseUrl, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
+            string csvContent = "";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+                try
+                {
+                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        csvContent = result.Content.ReadAsStringAsync().Result;
+                        this._tracingService.Trace("API Success", Array.Empty<object>());
+                    }
+                    else
+                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
+                }
+                catch (HttpRequestException ex)
+                {
+                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
+                }
+            }
+            List<ParticipantModel> participantList = this.ParseParticipantCsvHelper(csvContent);
+            foreach (var participant in participantList)
+            {
+                Entity existingMember = FindExistingContactMemberID(int.Parse(participant.MemberId));
+                if (existingMember == null)
+                {
+                    Entity existingContact = FindExistingContact(participant.MFname, participant.MLname, participant.MEmail);
+                    if (existingContact == null) {
+                        Guid contactId = this._service.Create(new Entity("contact")
+                        {
+                            ["firstname"] = (object)participant.MFname,
+                            ["lastname"] = (object)participant.MLname,
+                            ["emailaddress1"] = (object)participant.MEmail,
+                            ["telephone1"] = (object)participant.MPhoneHome,
+                            ["mobilephone"] = (object)participant.MPhoneMobile,
+                            ["address1_line1"] = (object)participant.MAddressStreet,
+                            ["address1_city"] = (object)participant.MAddressSuburb,
+                            ["address1_postalcode"] = (object)participant.MAddressPCode,
+                            ["address1_stateorprovince"] = (object)participant.MAddressState,
+                            ["address1_country"] = (object)participant.MAddressCountry,
+                            ["lrx_fundraisinmemberid"] = int.Parse(participant.MemberId)
+                        });
+                    }
+                    else
+                    {
+                        this._service.Update(new Entity("contact", existingContact.Id)
+                        {
+                            ["telephone1"] = (object)participant.MPhoneHome,
+                            ["mobilephone"] = (object)participant.MPhoneMobile,
+                            ["address1_line1"] = (object)participant.MAddressStreet,
+                            ["address1_city"] = (object)participant.MAddressSuburb,
+                            ["address1_postalcode"] = (object)participant.MAddressPCode,
+                            ["address1_stateorprovince"] = (object)participant.MAddressState,
+                            ["address1_country"] = (object)participant.MAddressCountry,
+                            ["lrx_fundraisinmemberid"] = int.Parse(participant.MemberId)
+                        });
+                    }
+                }
+                else
+                {
+                    this._service.Update(new Entity("contact", existingMember.Id)
+                    {
+                        ["firstname"] = (object)participant.MFname,
+                        ["lastname"] = (object)participant.MLname,
+                        ["emailaddress1"] = (object)participant.MEmail,
+                        ["telephone1"] = (object)participant.MPhoneHome,
+                        ["mobilephone"] = (object)participant.MPhoneMobile,
+                        ["address1_line1"] = (object)participant.MAddressStreet,
+                        ["address1_city"] = (object)participant.MAddressSuburb,
+                        ["address1_postalcode"] = (object)participant.MAddressPCode,
+                        ["address1_stateorprovince"] = (object)participant.MAddressState,
+                        ["address1_country"] = (object)participant.MAddressCountry,
+                        ["lrx_fundraisinmemberid"] = int.Parse(participant.MemberId)
+                    });
+                }
+            }
+        }
+
+        public List<ParticipantModel> ParseParticipantCsvHelper(string csvContent)
+        {
+            var participantList = new List<ParticipantModel>();
+
+            using (var reader = new StringReader(csvContent))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,  // Read the header row
+                TrimOptions = CsvHelper.Configuration.TrimOptions.Trim, // Remove extra spaces
+            }))
+            {
+                // Register the custom mapping
+                csv.Context.RegisterClassMap<ParticipantModelMap>();
+
+                // Read and map the records
+                var records = csv.GetRecords<ParticipantModel>().ToList();
+
+                foreach (var record in records)
+                {
+                    // Add the event model to the list
+                    participantList.Add(record);
+                }
+            }
+
+            return participantList;
+        }
+
+        //reusable functions
+        private Entity FindExistingContact(string fName, string lNAme, string emailAdd)
+        {
+            QueryExpression queryExpression = new QueryExpression("contact")
+            {
+                ColumnSet = new ColumnSet(true)
+            };
+            queryExpression.Criteria.AddCondition("firstname", (ConditionOperator)0, new object[1] {
+                fName
+            });
+            queryExpression.Criteria.AddCondition("lastname", (ConditionOperator)0, new object[1] {
+                lNAme
+            });
+            queryExpression.Criteria.AddCondition("emailaddress1", (ConditionOperator)0, new object[1] {
+                emailAdd
+            });
+
+            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
+        }
+
+        public Entity FindExistingContactMemberID(int MemberId)
+        {
+            QueryExpression queryExpression = new QueryExpression("contact")
+            {
+                ColumnSet = new ColumnSet(true)
+            };
+            queryExpression.Criteria.AddCondition("lrx_fundraisinmemberid", (ConditionOperator)0, new object[1] {
+                (object) MemberId
+              });
+            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
         }
     }
 }
