@@ -21,6 +21,7 @@ using System.Text.RegularExpressions;
 using System.Runtime.CompilerServices;
 using System.Activities;
 using System.Diagnostics.Eventing.Reader;
+using System.IdentityModel.Protocols.WSTrust;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -34,6 +35,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         private string apiTransactionBaseUrl = "https://lanrex.funraisin.com.au/api/transactions";
         private string apiEventBaseUrl = "https://lanrex.funraisin.com.au/api/events";
         private string apiParticipantBaseUrl = "https://lanrex.funraisin.com.au/api/participants";
+        private string apiParticipantEventBaseUrl = "https://lanrex.funraisin.com.au/api/participantsevents";
         private string username = "nico.benito@lanrex.com.au";
         private string password = "Lanrex12345!";
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
@@ -53,27 +55,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public void GetFundraisinDonationRecords()
         {
-            string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)this.apiDonationBaseUrl, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
-            string csvContent = "";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-                try
-                {
-                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        csvContent = result.Content.ReadAsStringAsync().Result;
-                        this._tracingService.Trace("API Success", Array.Empty<object>());
-                    }
-                    else
-                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
-                }
-                catch (HttpRequestException ex)
-                {
-                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
-                }
-            }
+            string csvContent = CallFundRaisinAPI((object)this.apiDonationBaseUrl);
             List<DonationModel> donationList = this.ParseDonationCsv(csvContent);
         }
 
@@ -152,6 +134,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         {
             string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}&donation_id={5}", (object)this.apiTransactionBaseUrl, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit, (object)donation.DonationId);
             string csvContent = "";
+            // do not reuse api call function here as it has a different parameter
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
@@ -274,15 +257,33 @@ namespace FundraisinApp_Integration.Plugins.Service
             {
                 case "donation":
                     num = 856660001;
-                    Entity entity = new Entity("msnfp_transaction")
+                    Entity transactionEntity = null;
+                    if (transaction.EventId != 0)
                     {
-                        ["sifund_donor"] = (object)new EntityReference("contact", contactId),
-                        ["msnfp_amount"] = (object)new Money(Math.Abs(transaction.TransactionValue)),
-                        ["statuscode"] = (object)num,
-                        ["msnfp_bookdate"] = (object)transaction.DateCreated,
-                        ["lrx_fundraisindonationid"] = (object)transaction.DonationId
-                    };
-                    this._service.Create(entity);
+                        Entity existingEvent = FindExistingEventID(transaction.EventId);
+                        transactionEntity = new Entity("msnfp_transaction")
+                        {
+                            ["sifund_donor"] = (object)new EntityReference("contact", contactId),
+                            ["msnfp_amount"] = (object)new Money(Math.Abs(transaction.TransactionValue)),
+                            ["statuscode"] = (object)num,
+                            ["msnfp_bookdate"] = (object)transaction.DateCreated,
+                            ["lrx_fundraisindonationid"] = (object)transaction.DonationId,
+                            ["lrx_event"] = (object)new EntityReference("lrx_event", existingEvent.Id),
+                        };
+                    }
+                    else
+                    {
+                        transactionEntity = new Entity("msnfp_transaction")
+                        {
+                            ["sifund_donor"] = (object)new EntityReference("contact", contactId),
+                            ["msnfp_amount"] = (object)new Money(Math.Abs(transaction.TransactionValue)),
+                            ["statuscode"] = (object)num,
+                            ["msnfp_bookdate"] = (object)transaction.DateCreated,
+                            ["lrx_fundraisindonationid"] = (object)transaction.DonationId
+                        };
+                    }
+                    
+                    this._service.Create(transactionEntity);
                     break;
                 case "refund":
                     num = 856660005;
@@ -298,28 +299,9 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public void GetFundraisinEventRecords()
         {
-            string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)this.apiEventBaseUrl, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
-            string csvContent = "";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-                try
-                {
-                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        csvContent = result.Content.ReadAsStringAsync().Result;
-                        this._tracingService.Trace("API Success", Array.Empty<object>());
-                    }
-                    else
-                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
-                }
-                catch (HttpRequestException ex)
-                {
-                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
-                }
-            }
-            List<EventModel> eventList = this.ParseEventCsvHelper(csvContent);
+            string csvContent = CallFundRaisinAPI((object)this.apiEventBaseUrl);
+            //List<EventModel> eventList = this.ParseEventCsvHelper(csvContent);
+            var eventList = ParseCsvHelper<EventModel, EventModelMap>(csvContent);
             foreach (var eventRecord in eventList)
             {
                 Entity existingEvent = this.FindExistingEvent(eventRecord);
@@ -329,34 +311,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                     this.CreateEventRecord(eventRecord);
             }
         }
-
-        public List<EventModel> ParseEventCsvHelper(string csvContent)
-        {
-            var eventsList = new List<EventModel>();
-
-            using (var reader = new StringReader(csvContent))
-            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = true,  // Read the header row
-                TrimOptions = CsvHelper.Configuration.TrimOptions.Trim, // Remove extra spaces
-            }))
-            {
-                // Register the custom mapping
-                csv.Context.RegisterClassMap<EventModelMap>();
-
-                // Read and map the records
-                var records = csv.GetRecords<EventModel>().ToList();
-
-                foreach (var record in records)
-                {
-                    // Add the event model to the list
-                    eventsList.Add(record);
-                }
-            }
-
-            return eventsList;
-        }
-
         public Entity FindExistingEvent(EventModel eventList)
         {
             QueryExpression queryExpression = new QueryExpression("lrx_event")
@@ -368,7 +322,6 @@ namespace FundraisinApp_Integration.Plugins.Service
               });
             return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
         }
-
         public void CreateEventRecord(EventModel EventRecord)
         {
             Guid eventId = this._service.Create(new Entity("lrx_event")
@@ -389,28 +342,9 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public void GetFundraisinParticipantRecords()
         {
-            string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)this.apiParticipantBaseUrl, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
-            string csvContent = "";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-                try
-                {
-                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        csvContent = result.Content.ReadAsStringAsync().Result;
-                        this._tracingService.Trace("API Success", Array.Empty<object>());
-                    }
-                    else
-                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
-                }
-                catch (HttpRequestException ex)
-                {
-                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
-                }
-            }
-            List<ParticipantModel> participantList = this.ParseParticipantCsvHelper(csvContent);
+            string csvContent = CallFundRaisinAPI((object)this.apiParticipantBaseUrl);
+            //List<ParticipantModel> participantList = this.ParseParticipantCsvHelper(csvContent);
+            var participantList = ParseCsvHelper<ParticipantModel, ParticipantModelMap>(csvContent);
             foreach (var participant in participantList)
             {
                 Entity existingMember = FindExistingContactMemberID(int.Parse(participant.MemberId));
@@ -468,31 +402,47 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
         }
 
-        public List<ParticipantModel> ParseParticipantCsvHelper(string csvContent)
+        public void GetRegistrationFromParticipantEventRecord()
         {
-            var participantList = new List<ParticipantModel>();
+            string csvContent = CallFundRaisinAPI((object)this.apiParticipantEventBaseUrl);
 
-            using (var reader = new StringReader(csvContent))
-            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+            var participantEventList = ParseCsvHelper<ParticipantEventModel, ParticipantEventModelMap>(csvContent);
+            foreach (var participantEvent in participantEventList)
             {
-                HasHeaderRecord = true,  // Read the header row
-                TrimOptions = CsvHelper.Configuration.TrimOptions.Trim, // Remove extra spaces
-            }))
-            {
-                // Register the custom mapping
-                csv.Context.RegisterClassMap<ParticipantModelMap>();
+                Guid contactID = Guid.Empty;
+                Guid eventID = Guid.Empty;
+                Entity existingMember = FindExistingContactMemberID(int.Parse(participantEvent.Member_Id));
+                if (existingMember == null)
+                    contactID = (Guid)existingMember.Id;
 
-                // Read and map the records
-                var records = csv.GetRecords<ParticipantModel>().ToList();
+                Entity existingEvent = FindExistingEventID(int.Parse(participantEvent.Event_Id));
+                if (existingEvent == null)
+                    eventID = (Guid)existingEvent.Id;
 
-                foreach (var record in records)
+                if (contactID == Guid.Empty || eventID == Guid.Empty)
                 {
-                    // Add the event model to the list
-                    participantList.Add(record);
+                    this._tracingService.Trace("No ID found for record " + participantEvent.Member_Id);
+                    continue;
+                }
+                    
+                Entity existingRegistration = FindExistingRegistration(contactID);
+                if(existingRegistration == null)
+                {
+                    Guid registrationID = this._service.Create(new Entity("lrx_registrations")
+                    {
+                        ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_constituentorganization"] = (object)new EntityReference("contact", contactID)
+                    });
+                }
+                else
+                {
+                    this._service.Update(new Entity("lrx_registrations", existingRegistration.Id)
+                    {
+                        ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_constituentorganization"] = (object)new EntityReference("contact", contactID)
+                    });
                 }
             }
-
-            return participantList;
         }
 
         //reusable functions
@@ -525,6 +475,78 @@ namespace FundraisinApp_Integration.Plugins.Service
                 (object) MemberId
               });
             return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
+        }
+
+        public Entity FindExistingEventID(int eventID)
+        {
+            QueryExpression queryExpression = new QueryExpression("lrx_event")
+            {
+                ColumnSet = new ColumnSet(true)
+            };
+            queryExpression.Criteria.AddCondition("lrx_fundraisineventid", (ConditionOperator)0, new object[1] {
+                (object) eventID
+              });
+            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
+        }
+
+        public Entity FindExistingRegistration(Guid contactID)
+        {
+            QueryExpression queryExpression = new QueryExpression("lrx_registrations")
+            {
+                ColumnSet = new ColumnSet(true)
+            };
+            queryExpression.Criteria.AddCondition("lrx_constituentorganization", (ConditionOperator)0, new object[1] {
+                (object) contactID
+              });
+            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
+        }
+
+        public List<TModel> ParseCsvHelper<TModel, TMap>(string csvContent)
+        where TMap : ClassMap<TModel>
+        {
+            var resultList = new List<TModel>();
+
+            using (var reader = new StringReader(csvContent))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true, // Read the header row
+                TrimOptions = CsvHelper.Configuration.TrimOptions.Trim, // Remove extra spaces
+            }))
+            {
+                // Register the custom mapping
+                csv.Context.RegisterClassMap<TMap>();
+
+                // Read and map the records
+                resultList = csv.GetRecords<TModel>().ToList();
+            }
+
+            return resultList;
+        }
+
+        public string CallFundRaisinAPI(object apiEndpoint)
+        {
+            string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)apiEndpoint, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
+            string csvContent = "";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+                try
+                {
+                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        csvContent = result.Content.ReadAsStringAsync().Result;
+                        this._tracingService.Trace("API Success", Array.Empty<object>());
+                    }
+                    else
+                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
+                }
+                catch (HttpRequestException ex)
+                {
+                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
+                }
+            }
+            return csvContent;
         }
     }
 }
