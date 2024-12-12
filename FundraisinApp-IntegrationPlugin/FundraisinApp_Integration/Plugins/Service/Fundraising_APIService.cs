@@ -22,6 +22,7 @@ using System.Runtime.CompilerServices;
 using System.Activities;
 using System.Diagnostics.Eventing.Reader;
 using System.IdentityModel.Protocols.WSTrust;
+using Microsoft.Xrm.Sdk.PluginTelemetry;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -36,6 +37,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         private string apiEventBaseUrl = "https://lanrex.funraisin.com.au/api/events";
         private string apiParticipantBaseUrl = "https://lanrex.funraisin.com.au/api/participants";
         private string apiParticipantEventBaseUrl = "https://lanrex.funraisin.com.au/api/participantsevents";
+        private string apiTicketBaseUrl = "https://lanrex.funraisin.com.au/api/tickets";
         private string username = "nico.benito@lanrex.com.au";
         private string password = "Lanrex12345!";
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
@@ -92,7 +94,15 @@ namespace FundraisinApp_Integration.Plugins.Service
                     DonationId = int.TryParse(strArray2[1], out result2) ? result2 : 0,
                     EventId = int.TryParse(strArray2[2], out result1) ? result1 : 0,
                 };
-                Entity existingContact = this.FindExistingContact(donation.DFname, donation.DLname, donation.DEmail);
+
+                var conditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("firstname", ConditionOperator.Equal, donation.DFname),
+                    new ConditionExpression("lastname", ConditionOperator.Equal, donation.DLname),
+                    new ConditionExpression("emailaddress1", ConditionOperator.Equal, donation.DEmail)
+                };
+
+                Entity existingContact = FindExistingRecord("contact", conditions);
                 if (existingContact != null)
                     this.UpdateContactRecord(existingContact.Id, donation);
                 else
@@ -260,7 +270,12 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Entity transactionEntity = null;
                     if (transaction.EventId != 0)
                     {
-                        Entity existingEvent = FindExistingEventID(transaction.EventId);
+                        var EventSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, transaction.EventId)
+                        };
+
+                        Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
                         transactionEntity = new Entity("msnfp_transaction")
                         {
                             ["sifund_donor"] = (object)new EntityReference("contact", contactId),
@@ -347,10 +362,22 @@ namespace FundraisinApp_Integration.Plugins.Service
             var participantList = ParseCsvHelper<ParticipantModel, ParticipantModelMap>(csvContent);
             foreach (var participant in participantList)
             {
-                Entity existingMember = FindExistingContactMemberID(int.Parse(participant.MemberId));
+                var MemberSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, participant.MemberId)
+                };
+
+                Entity existingMember = FindExistingRecord("contact", MemberSearchConditions);
                 if (existingMember == null)
                 {
-                    Entity existingContact = FindExistingContact(participant.MFname, participant.MLname, participant.MEmail);
+                    var ContactSearchConditions = new List<ConditionExpression>
+                    {
+                        new ConditionExpression("firstname", ConditionOperator.Equal, participant.MFname),
+                        new ConditionExpression("lastname", ConditionOperator.Equal, participant.MLname),
+                        new ConditionExpression("emailaddress1", ConditionOperator.Equal, participant.MEmail)
+                    };
+
+                    Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
                     if (existingContact == null) {
                         Guid contactId = this._service.Create(new Entity("contact")
                         {
@@ -411,21 +438,37 @@ namespace FundraisinApp_Integration.Plugins.Service
             {
                 Guid contactID = Guid.Empty;
                 Guid eventID = Guid.Empty;
-                Entity existingMember = FindExistingContactMemberID(int.Parse(participantEvent.Member_Id));
-                if (existingMember == null)
+                var MemberSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, participantEvent.Member_Id)
+                };
+
+                Entity existingMember = FindExistingRecord("contact", MemberSearchConditions);
+                if (existingMember != null)
                     contactID = (Guid)existingMember.Id;
 
-                Entity existingEvent = FindExistingEventID(int.Parse(participantEvent.Event_Id));
-                if (existingEvent == null)
+                var EventSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, participantEvent.Event_Id)
+                };
+
+                Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
+                if (existingEvent != null)
                     eventID = (Guid)existingEvent.Id;
 
                 if (contactID == Guid.Empty || eventID == Guid.Empty)
                 {
-                    this._tracingService.Trace("No ID found for record " + participantEvent.Member_Id);
+                    this._tracingService.Trace("No contact or event found for record " + participantEvent.Member_Id);
                     continue;
                 }
-                    
-                Entity existingRegistration = FindExistingRegistration(contactID);
+
+                var RegistrationSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_constituentorganization", ConditionOperator.Equal, contactID),
+                    new ConditionExpression("lrx_event", ConditionOperator.Equal, eventID)
+                };
+
+                Entity existingRegistration = FindExistingRecord("lrx_registrations", RegistrationSearchConditions);
                 if(existingRegistration == null)
                 {
                     Guid registrationID = this._service.Create(new Entity("lrx_registrations")
@@ -445,60 +488,83 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
         }
 
+        public void GetFundraisinTicketRecords()
+        {
+            string csvContent = CallFundRaisinAPI((object)this.apiTicketBaseUrl);
+
+            var ticketList = ParseCsvHelper<TicketsModel, TicketsModelMap>(csvContent);
+            foreach (var tickets in ticketList)
+            {
+                Guid eventID = Guid.Empty;
+                var EventSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, tickets.event_id)
+                };
+
+                Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
+                if (existingEvent != null)
+                    eventID = (Guid)existingEvent.Id;
+
+                if (eventID == Guid.Empty)
+                {
+                    this._tracingService.Trace("No event found for record " + tickets.ticket_id);
+                    continue;
+                }
+
+                var TicketSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinticketid", ConditionOperator.Equal, tickets.ticket_id)
+                };
+
+                Entity existingTicket = FindExistingRecord("lrx_eventticket", TicketSearchConditions);
+                if (existingTicket == null)
+                {
+                    Guid TicketID = this._service.Create(new Entity("lrx_eventticket")
+                    {
+                        ["lrx_name"] = (object)tickets.ticket_name,
+                        ["lrx_quantity"] = int.Parse(tickets.num_tickets),
+                        ["lrx_eventticketdescription"] = (object)tickets.ticket_description,
+                        ["lrx_amount"] = new Money(decimal.Parse(tickets.ticket_price)),
+                        ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_fundraisinticketid"] = int.Parse(tickets.ticket_id)
+                    });
+                }
+                else
+                {
+                    this._service.Update(new Entity("lrx_eventticket", existingTicket.Id)
+                    {
+                        ["lrx_name"] = (object)tickets.ticket_name,
+                        ["lrx_quantity"] = int.Parse(tickets.num_tickets),
+                        ["lrx_eventticketdescription"] = (object)tickets.ticket_description,
+                        ["lrx_amount"] = new Money(decimal.Parse(tickets.ticket_price)),
+                        ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_fundraisinticketid"] = int.Parse(tickets.ticket_id)
+                    });
+                }
+            }
+        }
+
         //reusable functions
-        private Entity FindExistingContact(string fName, string lNAme, string emailAdd)
-        {
-            QueryExpression queryExpression = new QueryExpression("contact")
-            {
-                ColumnSet = new ColumnSet(true)
-            };
-            queryExpression.Criteria.AddCondition("firstname", (ConditionOperator)0, new object[1] {
-                fName
-            });
-            queryExpression.Criteria.AddCondition("lastname", (ConditionOperator)0, new object[1] {
-                lNAme
-            });
-            queryExpression.Criteria.AddCondition("emailaddress1", (ConditionOperator)0, new object[1] {
-                emailAdd
-            });
 
-            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
-        }
-
-        public Entity FindExistingContactMemberID(int MemberId)
+        public Entity FindExistingRecord(string entityName, List<ConditionExpression> conditions, ColumnSet columnSet = null)
         {
-            QueryExpression queryExpression = new QueryExpression("contact")
-            {
-                ColumnSet = new ColumnSet(true)
-            };
-            queryExpression.Criteria.AddCondition("lrx_fundraisinmemberid", (ConditionOperator)0, new object[1] {
-                (object) MemberId
-              });
-            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
-        }
+            if (string.IsNullOrEmpty(entityName))
+                throw new ArgumentException("Entity name cannot be null or empty.", nameof(entityName));
 
-        public Entity FindExistingEventID(int eventID)
-        {
-            QueryExpression queryExpression = new QueryExpression("lrx_event")
-            {
-                ColumnSet = new ColumnSet(true)
-            };
-            queryExpression.Criteria.AddCondition("lrx_fundraisineventid", (ConditionOperator)0, new object[1] {
-                (object) eventID
-              });
-            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
-        }
+            if (conditions == null || conditions.Count == 0)
+                throw new ArgumentException("At least one condition must be provided.", nameof(conditions));
 
-        public Entity FindExistingRegistration(Guid contactID)
-        {
-            QueryExpression queryExpression = new QueryExpression("lrx_registrations")
+            var queryExpression = new QueryExpression(entityName)
             {
-                ColumnSet = new ColumnSet(true)
+                ColumnSet = columnSet ?? new ColumnSet(true) // Default to retrieve all columns if none are specified
             };
-            queryExpression.Criteria.AddCondition("lrx_constituentorganization", (ConditionOperator)0, new object[1] {
-                (object) contactID
-              });
-            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
+
+            foreach (var condition in conditions)
+            {
+                queryExpression.Criteria.AddCondition(condition);
+            }
+
+            return this._service.RetrieveMultiple(queryExpression).Entities.FirstOrDefault();
         }
 
         public List<TModel> ParseCsvHelper<TModel, TMap>(string csvContent)
