@@ -38,6 +38,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         private string apiParticipantBaseUrl = "https://lanrex.funraisin.com.au/api/participants";
         private string apiParticipantEventBaseUrl = "https://lanrex.funraisin.com.au/api/participantsevents";
         private string apiTicketBaseUrl = "https://lanrex.funraisin.com.au/api/tickets";
+        private string apiTicketHolderBaseURL = "https://lanrex.funraisin.com.au/api/ticketholders";
         private string username = "nico.benito@lanrex.com.au";
         private string password = "Lanrex12345!";
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
@@ -544,8 +545,148 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
         }
 
-        //reusable functions
+        public void GetFundraisinTicketHolderRecord()
+        {
+            string csvContent = CallFundRaisinAPI((object)this.apiTicketHolderBaseURL);
 
+            var TicketHolderList = ParseCsvHelper<TicketHolderModel, TicketHolderModelMap>(csvContent);
+            foreach (var TicketHolders in TicketHolderList)
+            {
+                Guid GuestcontactId = Guid.Empty;
+                var GuestSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinguestid", ConditionOperator.Equal, TicketHolders.guest_id)
+                };
+                Entity existingGuest = FindExistingRecord("contact", GuestSearchConditions);
+                if (existingGuest == null)
+                {
+                    var ContactSearchConditions = new List<ConditionExpression>
+                    {
+                        new ConditionExpression("firstname", ConditionOperator.Equal, TicketHolders.g_fname),
+                        new ConditionExpression("lastname", ConditionOperator.Equal, TicketHolders.g_lname),
+                        new ConditionExpression("emailaddress1", ConditionOperator.Equal, TicketHolders.g_email)
+                    };
+
+                    Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
+                    if (existingContact == null)
+                    {
+                        GuestcontactId = this._service.Create(new Entity("contact")
+                        {
+                            ["firstname"] = (object)TicketHolders.g_fname,
+                            ["lastname"] = (object)TicketHolders.g_lname,
+                            ["emailaddress1"] = (object)TicketHolders.g_email,
+                            ["telephone1"] = (string)TicketHolders.g_phone_suffix + (string)TicketHolders.g_phone,
+                            ["mobilephone"] = (string)TicketHolders.g_phone_suffix + (string)TicketHolders.g_phone,
+                            ["address1_line1"] = (string)TicketHolders.g_address_unit + (string)TicketHolders.g_address_street,
+                            ["address1_city"] = (object)TicketHolders.g_address_suburb,
+                            ["address1_postalcode"] = (object)TicketHolders.g_address_pcode,
+                            ["address1_stateorprovince"] = (object)TicketHolders.g_address_state,
+                            ["address1_country"] = (object)TicketHolders.g_address_country,
+                            ["lrx_fundraisinguestid"] = int.Parse(TicketHolders.guest_id)
+                        });
+                    }
+                    else
+                    {
+                        GuestcontactId = existingContact.Id;
+                        this._service.Update(new Entity("contact", existingContact.Id)
+                        {
+                            ["telephone1"] = (string)TicketHolders.g_phone_suffix + (string)TicketHolders.g_phone,
+                            ["mobilephone"] = (string)TicketHolders.g_phone_suffix + (string)TicketHolders.g_phone,
+                            ["address1_line1"] = (string)TicketHolders.g_address_unit + (string)TicketHolders.g_address_street,
+                            ["address1_city"] = (object)TicketHolders.g_address_suburb,
+                            ["address1_postalcode"] = (object)TicketHolders.g_address_pcode,
+                            ["address1_stateorprovince"] = (object)TicketHolders.g_address_state,
+                            ["address1_country"] = (object)TicketHolders.g_address_country,
+                            ["lrx_fundraisinguestid"] = int.Parse(TicketHolders.guest_id)
+                        });
+                    }
+                }
+                else
+                {
+                    GuestcontactId = existingGuest.Id;
+                    this._service.Update(new Entity("contact", existingGuest.Id)
+                    {
+                        ["firstname"] = (object)TicketHolders.g_fname,
+                        ["lastname"] = (object)TicketHolders.g_lname,
+                        ["emailaddress1"] = (object)TicketHolders.g_email,
+                        ["telephone1"] = (string)TicketHolders.g_phone_suffix + (string)TicketHolders.g_phone,
+                        ["mobilephone"] = (string)TicketHolders.g_phone_suffix + (string)TicketHolders.g_phone,
+                        ["address1_line1"] = (string)TicketHolders.g_address_unit + (string)TicketHolders.g_address_street,
+                        ["address1_city"] = (object)TicketHolders.g_address_suburb,
+                        ["address1_postalcode"] = (object)TicketHolders.g_address_pcode,
+                        ["address1_stateorprovince"] = (object)TicketHolders.g_address_state,
+                        ["address1_country"] = (object)TicketHolders.g_address_country,
+                        ["lrx_fundraisinguestid"] = int.Parse(TicketHolders.guest_id)
+                    });
+                }
+
+                Guid registrationContactID = Guid.Empty;
+                Guid eventID = Guid.Empty;
+                Guid registrationID = Guid.Empty;
+                var MemberSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, TicketHolders.member_id)
+                };
+
+                Entity existingMember = FindExistingRecord("contact", MemberSearchConditions);
+                if (existingMember != null)
+                    registrationContactID = (Guid)existingMember.Id;
+
+                var EventSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, TicketHolders.event_id)
+                };
+
+                Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
+                if (existingEvent != null)
+                    eventID = (Guid)existingEvent.Id;
+
+                var RegistrationSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_constituentorganization", ConditionOperator.Equal, registrationContactID),
+                    new ConditionExpression("lrx_event", ConditionOperator.Equal, eventID)
+                };
+
+                Entity existingRegistration = FindExistingRecord("lrx_registrations", RegistrationSearchConditions);
+                if (existingRegistration != null)
+                    registrationID = (Guid)existingRegistration.Id;
+
+                if (registrationContactID == Guid.Empty || eventID == Guid.Empty || registrationID == Guid.Empty)
+                {
+                    this._tracingService.Trace("No registration record or event found for record " + TicketHolders.guest_id);
+                    continue;
+                }
+
+                var TicketHolderSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_tickerholder", ConditionOperator.Equal, GuestcontactId),
+                    new ConditionExpression("lrx_event", ConditionOperator.Equal, eventID),
+                    new ConditionExpression("lrx_parentregistration", ConditionOperator.Equal, registrationID),
+                };
+
+                Entity existingTicketHolder = FindExistingRecord("lrx_ticketholders", TicketHolderSearchConditions);
+                if (existingTicketHolder == null)
+                {
+                    Guid ticketHolderID = this._service.Create(new Entity("lrx_ticketholders")
+                    {
+                        ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_tickerholder"] = (object)new EntityReference("contact", GuestcontactId),
+                        ["lrx_parentregistration"] = (object)new EntityReference("contact", registrationID)
+                    });
+                }
+                else
+                {
+                    this._service.Update(new Entity("lrx_ticketholders", existingTicketHolder.Id)
+                    {
+                        ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_tickerholder"] = (object)new EntityReference("contact", GuestcontactId),
+                        ["lrx_parentregistration"] = (object)new EntityReference("contact", registrationID)
+                    });
+                }
+            }
+        }
+
+        //reusable functions
         public Entity FindExistingRecord(string entityName, List<ConditionExpression> conditions, ColumnSet columnSet = null)
         {
             if (string.IsNullOrEmpty(entityName))
