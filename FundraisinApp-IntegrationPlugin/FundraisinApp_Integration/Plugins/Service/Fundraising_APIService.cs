@@ -32,6 +32,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         private readonly IOrganizationService _service;
         private readonly IPluginExecutionContext _context;
         private readonly ITracingService _tracingService;
+        private string baseURL = "https://lanrex.funraisin.com.au/api/";
         private string apiDonationBaseUrl = "https://lanrex.funraisin.com.au/api/donations";
         private string apiTransactionBaseUrl = "https://lanrex.funraisin.com.au/api/transactions";
         private string apiEventBaseUrl = "https://lanrex.funraisin.com.au/api/events";
@@ -681,6 +682,59 @@ namespace FundraisinApp_Integration.Plugins.Service
                         ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
                         ["lrx_tickerholder"] = (object)new EntityReference("contact", GuestcontactId),
                         ["lrx_parentregistration"] = (object)new EntityReference("contact", registrationID)
+                    });
+                }
+            }
+        }
+
+        public void GetFundRaisinProductRecord()
+        {
+            string url = baseURL + "products";
+            string csvContent = CallFundRaisinAPI((object)url);
+
+            var productList = ParseCsvHelper<ProductModel, ProductModelMap>(csvContent);
+            foreach (var products in productList)
+            {
+                var productType = 856660000; //Default to product type
+                if (products.product_type == "ecard")
+                    productType = 856660001; //change to virtual type if ecard
+
+                var ProductSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, products.product_id)
+                };
+                Entity existingProduct = FindExistingRecord("lrx_inventoryproduct", ProductSearchConditions);
+                
+                if (existingProduct == null)
+                {
+                    Guid productID = this._service.Create(new Entity("lrx_inventoryproduct")
+                    {
+                        ["lrx_name"] = (object)products.product_name,
+                        ["lrx_producttype"] = new OptionSetValue(productType),
+                        ["lrx_productprice"] = (object)new Money(decimal.Parse(products.product_price)),
+                        ["lrx_productcost"] = (object)new Money(decimal.Parse(products.product_cost)),
+                        ["lrx_maximumbuyqty"] = int.Parse(products.max_buy_limit),
+                        ["lrx_minimumbuyqty"] = int.Parse(products.min_buy_limit),
+                        ["lrx_stocklevels"] = int.Parse(products.product_stock),
+                        ["lrx_crmid"] = (object)products.crm_product_id,
+                        ["lrx_description"] = (object)products.product_description,
+                        ["lrx_fundraisinproductid"] = int.Parse(products.product_id)
+                    });
+                }
+                else
+                {
+                    this._service.Update(new Entity("lrx_inventoryproduct", existingProduct.Id)
+                    {
+                        ["lrx_name"] = (object)products.product_name,
+                        ["lrx_producttype"] = new OptionSetValue(productType),
+                        ["lrx_productprice"] = (object)new Money(decimal.Parse(products.product_price)),
+                        ["lrx_productcost"] = (object)new Money(decimal.Parse(products.product_cost)),
+                        ["lrx_maximumbuyqty"] = int.Parse(products.max_buy_limit),
+                        ["lrx_minimumbuyqty"] = int.Parse(products.min_buy_limit),
+                        ["lrx_stocklevels"] = int.Parse(products.product_stock),
+                        ["lrx_crmid"] = (object)products.crm_product_id,
+                        ["lrx_description"] = (object)products.product_description,
+                        ["lrx_fundraisinproductid"] = int.Parse(products.product_id)
                     });
                 }
             }
