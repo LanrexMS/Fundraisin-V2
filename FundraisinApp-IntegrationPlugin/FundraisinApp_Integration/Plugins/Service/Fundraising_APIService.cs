@@ -23,6 +23,7 @@ using System.Activities;
 using System.Diagnostics.Eventing.Reader;
 using System.IdentityModel.Protocols.WSTrust;
 using Microsoft.Xrm.Sdk.PluginTelemetry;
+using Newtonsoft.Json.Linq;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -32,34 +33,40 @@ namespace FundraisinApp_Integration.Plugins.Service
         private readonly IOrganizationService _service;
         private readonly IPluginExecutionContext _context;
         private readonly ITracingService _tracingService;
-        private string baseURL = "https://lanrex.funraisin.com.au/api/";
-        private string apiDonationBaseUrl = "https://lanrex.funraisin.com.au/api/donations";
-        private string apiTransactionBaseUrl = "https://lanrex.funraisin.com.au/api/transactions";
-        private string apiEventBaseUrl = "https://lanrex.funraisin.com.au/api/events";
-        private string apiParticipantBaseUrl = "https://lanrex.funraisin.com.au/api/participants";
-        private string apiParticipantEventBaseUrl = "https://lanrex.funraisin.com.au/api/participantsevents";
-        private string apiTicketBaseUrl = "https://lanrex.funraisin.com.au/api/tickets";
-        private string apiTicketHolderBaseURL = "https://lanrex.funraisin.com.au/api/ticketholders";
+        public string baseURL = "https://lanrex.funraisin.com.au/api/";
         private string username = "nico.benito@lanrex.com.au";
         private string password = "Lanrex12345!";
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
-        private string dateFrom = "2024-09-26";
-        private string dateTo = "2024-09-26";
+        private string dateFrom = "";
+        private string dateTo = "";
         private int limit = 1000;
 
         public Fundraising_APIService(
           IOrganizationService service,
           IPluginExecutionContext context,
-          ITracingService tracingService)
+          ITracingService tracingService,
+          object JSONinput)
         {
             this._service = service;
             this._context = context;
             this._tracingService = tracingService;
+
+            // Parse the JSON input
+            JObject jsonInput = JObject.Parse(JSONinput.ToString());
+
+            // Assign the values to the variables
+            this.baseURL = jsonInput["baseURL"]?.ToString();
+            this.username = jsonInput["username"]?.ToString();
+            this.password = jsonInput["password"]?.ToString();
+            this.apikey = jsonInput["apikey"]?.ToString();
+            this.dateFrom = jsonInput["dateFrom"]?.ToString();
+            this.dateTo = jsonInput["dateTo"]?.ToString();
         }
 
         public void GetFundraisinDonationRecords()
         {
-            string csvContent = CallFundRaisinAPI((object)this.apiDonationBaseUrl);
+            string donationURL = baseURL + "donations";
+            string csvContent = CallFundRaisinAPI((object)donationURL);
             List<DonationModel> donationList = this.ParseDonationCsv(csvContent);
         }
 
@@ -144,7 +151,8 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public void GetFundraisinTransactionRecord(DonationModel donation, Guid contactId)
         {
-            string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}&donation_id={5}", (object)this.apiTransactionBaseUrl, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit, (object)donation.DonationId);
+            string transactionURL = baseURL + "transactions";
+            string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}&donation_id={5}", (object)transactionURL, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit, (object)donation.DonationId);
             string csvContent = "";
             // do not reuse api call function here as it has a different parameter
             using (HttpClient httpClient = new HttpClient())
@@ -316,7 +324,8 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public void GetFundraisinEventRecords()
         {
-            string csvContent = CallFundRaisinAPI((object)this.apiEventBaseUrl);
+            string eventURL = baseURL + "events";
+            string csvContent = CallFundRaisinAPI((object)eventURL);
             //List<EventModel> eventList = this.ParseEventCsvHelper(csvContent);
             var eventList = ParseCsvHelper<EventModel, EventModelMap>(csvContent);
             foreach (var eventRecord in eventList)
@@ -359,7 +368,8 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public void GetFundraisinParticipantRecords()
         {
-            string csvContent = CallFundRaisinAPI((object)this.apiParticipantBaseUrl);
+            string participantURL = baseURL + "participants";
+            string csvContent = CallFundRaisinAPI((object)participantURL);
             //List<ParticipantModel> participantList = this.ParseParticipantCsvHelper(csvContent);
             var participantList = ParseCsvHelper<ParticipantModel, ParticipantModelMap>(csvContent);
             foreach (var participant in participantList)
@@ -433,7 +443,8 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public void GetRegistrationFromParticipantEventRecord()
         {
-            string csvContent = CallFundRaisinAPI((object)this.apiParticipantEventBaseUrl);
+            string participantEventURL = baseURL + "participantsevents";
+            string csvContent = CallFundRaisinAPI((object)participantEventURL);
 
             var participantEventList = ParseCsvHelper<ParticipantEventModel, ParticipantEventModelMap>(csvContent);
             foreach (var participantEvent in participantEventList)
@@ -492,7 +503,8 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public void GetFundraisinTicketRecords()
         {
-            string csvContent = CallFundRaisinAPI((object)this.apiTicketBaseUrl);
+            string ticketURL = baseURL + "tickets";
+            string csvContent = CallFundRaisinAPI((object)ticketURL);
 
             var ticketList = ParseCsvHelper<TicketsModel, TicketsModelMap>(csvContent);
             foreach (var tickets in ticketList)
@@ -548,7 +560,8 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public void GetFundraisinTicketHolderRecord()
         {
-            string csvContent = CallFundRaisinAPI((object)this.apiTicketHolderBaseURL);
+            string ticketHolderURL = baseURL + "ticketholders";
+            string csvContent = CallFundRaisinAPI((object)ticketHolderURL);
 
             var TicketHolderList = ParseCsvHelper<TicketHolderModel, TicketHolderModelMap>(csvContent);
             foreach (var TicketHolders in TicketHolderList)
@@ -740,7 +753,65 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
         }
 
-        //reusable functions
+        public void GetFundRaisinProductOptionsRecord()
+        {
+            string url = baseURL + "productoptions";
+            string csvContent = CallFundRaisinAPI((object)url);
+
+            var productOptionList = ParseCsvHelper<ProductOptionModel, ProductOptionModelMap>(csvContent);
+            foreach (var productoptions in productOptionList)
+            {
+                var productOptionType = 856660002; // default to others
+                if (productoptions.option_type == "size")
+                    productOptionType = 856660000; //change to size
+                if (productoptions.option_type == "colour")
+                    productOptionType = 856660001; //change to size
+
+                var statusCode = 1; // default to draft
+                if (productoptions.option_status == "1")
+                    statusCode = 856660001; //change to size
+
+                var ProductSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, productoptions.product_id)
+                };
+                Entity existingProduct = FindExistingRecord("lrx_inventoryproduct", ProductSearchConditions);
+
+                if (existingProduct != null) {
+                    Guid productID = (Guid)existingProduct.Id;
+                    var ProductOptionSearchConditions = new List<ConditionExpression>
+                    {
+                        new ConditionExpression("lrx_inventoryproduct", ConditionOperator.Equal, existingProduct.Id),
+                        new ConditionExpression("lrx_name", ConditionOperator.Equal, productoptions.option_name)
+                    };
+                    Entity existingProductOption = FindExistingRecord("lrx_productoptions", ProductOptionSearchConditions);
+
+                    if (existingProductOption == null) {
+                        Guid productOptionID = this._service.Create(new Entity("lrx_productoptions")
+                        {
+                            ["lrx_name"] = (object)productoptions.option_name,
+                            ["lrx_optiontype"] = new OptionSetValue(productOptionType),
+                            ["statuscode"] = new OptionSetValue(statusCode),
+                            ["lrx_stock"] = (object)productoptions.option_stock,
+                            ["lrx_inventoryproduct"] = (object)new EntityReference("lrx_inventoryproduct", productID)
+                        });
+                    }
+                    else
+                    {
+                        this._service.Update(new Entity("lrx_productoptions", existingProductOption.Id)
+                        {
+                            ["lrx_name"] = (object)productoptions.option_name,
+                            ["lrx_optiontype"] = new OptionSetValue(productOptionType),
+                            ["statuscode"] = new OptionSetValue(statusCode),
+                            ["lrx_stock"] = (object)productoptions.option_stock,
+                            ["lrx_inventoryproduct"] = (object)new EntityReference("lrx_inventoryproduct", productID)
+                        });
+                    }
+                }
+            }
+        }
+
+         //reusable functions
         public Entity FindExistingRecord(string entityName, List<ConditionExpression> conditions, ColumnSet columnSet = null)
         {
             if (string.IsNullOrEmpty(entityName))
@@ -786,7 +857,16 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public string CallFundRaisinAPI(object apiEndpoint)
         {
-            string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)apiEndpoint, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
+
+            string requestUri = "";
+            if (dateFrom != "" && dateTo != "")
+            {
+                requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}&date_from={5}&date_to={6}", (object)apiEndpoint, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit, (object)this.dateFrom, (object)this.dateTo);
+            }
+            else
+            {
+                requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)apiEndpoint, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
+            }
             string csvContent = "";
             using (HttpClient httpClient = new HttpClient())
             {

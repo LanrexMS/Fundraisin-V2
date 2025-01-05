@@ -57,13 +57,13 @@ namespace FundraisinApp_Integration.Plugins
             try
             {
                 object inputParameter = ((DataCollection<string, object>)((IExecutionContext)service1).InputParameters)["lrx_fundraisinIntegrationJSONParams"];
-                new Fundraising_APIService(organizationService, service1, service2).GetFundraisinEventRecords();
-                new Fundraising_APIService(organizationService, service1, service2).GetFundraisinParticipantRecords();
-                new Fundraising_APIService(organizationService, service1, service2).GetFundraisinTicketRecords();
-                new Fundraising_APIService(organizationService, service1, service2).GetRegistrationFromParticipantEventRecord();
-                new Fundraising_APIService(organizationService, service1, service2).GetFundraisinTicketHolderRecord();
-                new Fundraising_APIService(organizationService, service1, service2).GetFundRaisinProductRecord();
-                new Fundraising_APIService(organizationService, service1, service2).GetFundraisinDonationRecords();
+                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinEventRecords();
+                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinParticipantRecords();
+                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketRecords();
+                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetRegistrationFromParticipantEventRecord();
+                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketHolderRecord();
+                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductRecord();
+                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinDonationRecords();
             }
             catch (Exception ex)
             {
