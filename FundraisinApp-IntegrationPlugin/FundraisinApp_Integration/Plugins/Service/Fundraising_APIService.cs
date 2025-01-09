@@ -792,7 +792,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_name"] = (object)productoptions.option_name,
                             ["lrx_optiontype"] = new OptionSetValue(productOptionType),
                             ["statuscode"] = new OptionSetValue(statusCode),
-                            ["lrx_stock"] = (object)productoptions.option_stock,
+                            ["lrx_stock"] = int.Parse(productoptions.option_stock),
                             ["lrx_inventoryproduct"] = (object)new EntityReference("lrx_inventoryproduct", productID)
                         });
                     }
@@ -803,7 +803,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_name"] = (object)productoptions.option_name,
                             ["lrx_optiontype"] = new OptionSetValue(productOptionType),
                             ["statuscode"] = new OptionSetValue(statusCode),
-                            ["lrx_stock"] = (object)productoptions.option_stock,
+                            ["lrx_stock"] = int.Parse(productoptions.option_stock),
                             ["lrx_inventoryproduct"] = (object)new EntityReference("lrx_inventoryproduct", productID)
                         });
                     }
