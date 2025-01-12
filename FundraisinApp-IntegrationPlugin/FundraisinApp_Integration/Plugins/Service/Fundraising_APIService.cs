@@ -326,44 +326,31 @@ namespace FundraisinApp_Integration.Plugins.Service
         {
             string eventURL = baseURL + "events";
             string csvContent = CallFundRaisinAPI((object)eventURL);
-            //List<EventModel> eventList = this.ParseEventCsvHelper(csvContent);
             var eventList = ParseCsvHelper<EventModel, EventModelMap>(csvContent);
             foreach (var eventRecord in eventList)
             {
-                Entity existingEvent = this.FindExistingEvent(eventRecord);
+                var EventSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, eventRecord.EventId)
+                };
+                Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions); ;
                 if (existingEvent != null)
-                    this.UpdateEventRecord(existingEvent.Id, eventRecord);
-                else
-                    this.CreateEventRecord(eventRecord);
+                {
+                    this._service.Update(new Entity("lrx_event", existingEvent.Id)
+                    {
+                        ["lrx_name"] = (string)eventRecord.EventName,
+                        ["lrx_fundraisineventid"] = (int)eventRecord.EventId
+                    });
+                }
+                else {
+                    Guid eventId = this._service.Create(new Entity("lrx_event")
+                    {
+                        ["lrx_name"] = (string)eventRecord.EventName,
+                        ["lrx_campaign"] = (object)new EntityReference("campaign", new Guid("d5bf32ce-d9e1-4a2a-914f-9ded53e1b41a")),
+                        ["lrx_fundraisineventid"] = (int)eventRecord.EventId
+                    });
+                }                    
             }
-        }
-        public Entity FindExistingEvent(EventModel eventList)
-        {
-            QueryExpression queryExpression = new QueryExpression("lrx_event")
-            {
-                ColumnSet = new ColumnSet(true)
-            };
-            queryExpression.Criteria.AddCondition("lrx_fundraisineventid", (ConditionOperator)0, new object[1] {
-                (object) eventList.EventId
-              });
-            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
-        }
-        public void CreateEventRecord(EventModel EventRecord)
-        {
-            Guid eventId = this._service.Create(new Entity("lrx_event")
-            {
-                ["lrx_name"] = (string)EventRecord.EventName,
-                ["lrx_campaign"] = (object)new EntityReference("campaign", new Guid("d5bf32ce-d9e1-4a2a-914f-9ded53e1b41a")),
-                ["lrx_fundraisineventid"] = (int)EventRecord.EventId
-            });
-        }
-        public void UpdateEventRecord(Guid EventId, EventModel EventRecord)
-        {
-            this._service.Update(new Entity("lrx_event", EventId)
-            {               
-                ["lrx_name"] = (string)EventRecord.EventName,
-                ["lrx_fundraisineventid"] = (int)EventRecord.EventId
-            });
         }
 
         public void GetFundraisinParticipantRecords()
@@ -521,7 +508,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 if (eventID == Guid.Empty)
                 {
-                    this._tracingService.Trace("No event found for record " + tickets.ticket_id);
+                    this._tracingService.Trace("No event found for ticket record " + tickets.ticket_id);
                     continue;
                 }
 
@@ -769,7 +756,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 var statusCode = 1; // default to draft
                 if (productoptions.option_status == "1")
-                    statusCode = 856660001; //change to size
+                    statusCode = 856660001;
 
                 var ProductSearchConditions = new List<ConditionExpression>
                 {
@@ -793,7 +780,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_optiontype"] = new OptionSetValue(productOptionType),
                             ["statuscode"] = new OptionSetValue(statusCode),
                             ["lrx_stock"] = int.Parse(productoptions.option_stock),
-                            ["lrx_inventoryproduct"] = (object)new EntityReference("lrx_inventoryproduct", productID)
+                            ["lrx_inventoryproduct"] = (object)new EntityReference("lrx_inventoryproduct", productID),
+                            ["lrx_fundraisinoptionid"] = int.Parse(productoptions.option_id)
                         });
                     }
                     else
@@ -804,9 +792,86 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_optiontype"] = new OptionSetValue(productOptionType),
                             ["statuscode"] = new OptionSetValue(statusCode),
                             ["lrx_stock"] = int.Parse(productoptions.option_stock),
-                            ["lrx_inventoryproduct"] = (object)new EntityReference("lrx_inventoryproduct", productID)
+                            ["lrx_inventoryproduct"] = (object)new EntityReference("lrx_inventoryproduct", productID),
+                            ["lrx_fundraisinoptionid"] = int.Parse(productoptions.option_id)
                         });
                     }
+                }
+            }
+        }
+
+        public void GetFundRaisinEventTeamsRecord()
+        {
+            string url = baseURL + "teams";
+            string csvContent = CallFundRaisinAPI((object)url);
+
+            var EventTeamList = ParseCsvHelper<EventTeamModel, EventTeamModelMap>(csvContent);
+            foreach (var eventTeams in EventTeamList)
+            {
+                Guid eventID = Guid.Empty;
+                var EventSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, eventTeams.event_id)
+                };
+
+                Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
+                if (existingEvent != null)
+                    eventID = (Guid)existingEvent.Id;
+
+                if (eventID == Guid.Empty)
+                {
+                    this._tracingService.Trace("No event found for team record " + eventTeams.team_id);
+                    continue;
+                }
+
+                Guid contactID = Guid.Empty;
+                var ContactSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, eventTeams.captain_id)
+                };
+
+                Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
+
+                if (existingContact != null)
+                    contactID = (Guid)existingContact.Id;
+
+                if (contactID == Guid.Empty)
+                {
+                    this._tracingService.Trace("No captain found for team record " + eventTeams.team_id);
+                    continue;
+                }
+
+                var EventTeamSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinteamid", ConditionOperator.Equal, eventTeams.team_id)
+                };
+                
+                Entity existingEventTeam = FindExistingRecord("lrx_eventteam", EventTeamSearchConditions);
+                if (existingEventTeam == null)
+                {
+                    Guid eventTeamID = this._service.Create(new Entity("lrx_eventteam")
+                    {
+                        ["lrx_name"] = (object)eventTeams.t_name,
+                        ["lrx_registeredby"] = (object)new EntityReference("contact", contactID),
+                        ["lrx_dateregistered"] = DateTime.Parse(eventTeams.date_created),
+                        ["lrx_fundraisinggoalpledge"] = new Money(decimal.Parse(eventTeams.t_target)),
+                        ["lrx_teamdescription"] = (object)eventTeams.t_page_title,
+                        ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_fundraisinteamid"] = int.Parse(eventTeams.team_id)
+                    });
+                }
+                else
+                {
+                    this._service.Update(new Entity("lrx_eventteam", existingEventTeam.Id)
+                    {
+                        ["lrx_name"] = (object)eventTeams.t_name,
+                        ["lrx_registeredby"] = (object)new EntityReference("contact", contactID),
+                        ["lrx_dateregistered"] = DateTime.Parse(eventTeams.date_created),
+                        ["lrx_fundraisinggoalpledge"] = new Money(decimal.Parse(eventTeams.t_target)),
+                        ["lrx_teamdescription"] = (object)eventTeams.t_page_title,
+                        ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_fundraisinteamid"] = int.Parse(eventTeams.team_id)
+                    });
                 }
             }
         }
