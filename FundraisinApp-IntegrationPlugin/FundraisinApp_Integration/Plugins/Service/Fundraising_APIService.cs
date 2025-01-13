@@ -24,6 +24,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.IdentityModel.Protocols.WSTrust;
 using Microsoft.Xrm.Sdk.PluginTelemetry;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics.Tracing;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -339,6 +340,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                     this._service.Update(new Entity("lrx_event", existingEvent.Id)
                     {
                         ["lrx_name"] = (string)eventRecord.EventName,
+                        ["lrx_goal"] = new Money(decimal.Parse(eventRecord.EventTarget)),
+                        ["lrx_description"] = eventRecord.EventShortDesc,
+                        //["lrx_campaign"] = (object)new EntityReference("campaign", new Guid("d5bf32ce-d9e1-4a2a-914f-9ded53e1b41a")),
                         ["lrx_fundraisineventid"] = (int)eventRecord.EventId
                     });
                 }
@@ -346,7 +350,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Guid eventId = this._service.Create(new Entity("lrx_event")
                     {
                         ["lrx_name"] = (string)eventRecord.EventName,
-                        ["lrx_campaign"] = (object)new EntityReference("campaign", new Guid("d5bf32ce-d9e1-4a2a-914f-9ded53e1b41a")),
+                        ["lrx_goal"] = new Money(decimal.Parse(eventRecord.EventTarget)),
+                        ["lrx_description"] = eventRecord.EventShortDesc,
+                        //["lrx_campaign"] = (object)new EntityReference("campaign", new Guid("d5bf32ce-d9e1-4a2a-914f-9ded53e1b41a")),
                         ["lrx_fundraisineventid"] = (int)eventRecord.EventId
                     });
                 }                    
@@ -853,7 +859,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     {
                         ["lrx_name"] = (object)eventTeams.t_name,
                         ["lrx_registeredby"] = (object)new EntityReference("contact", contactID),
-                        ["lrx_dateregistered"] = DateTime.Parse(eventTeams.date_created),
+                        ["lrx_dateregistered"] = (object)eventTeams.date_created,
                         ["lrx_fundraisinggoalpledge"] = new Money(decimal.Parse(eventTeams.t_target)),
                         ["lrx_teamdescription"] = (object)eventTeams.t_page_title,
                         ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
@@ -866,7 +872,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     {
                         ["lrx_name"] = (object)eventTeams.t_name,
                         ["lrx_registeredby"] = (object)new EntityReference("contact", contactID),
-                        ["lrx_dateregistered"] = DateTime.Parse(eventTeams.date_created),
+                        ["lrx_dateregistered"] = (object)eventTeams.date_created,
                         ["lrx_fundraisinggoalpledge"] = new Money(decimal.Parse(eventTeams.t_target)),
                         ["lrx_teamdescription"] = (object)eventTeams.t_page_title,
                         ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),

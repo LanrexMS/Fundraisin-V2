@@ -54,7 +54,7 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
         public string EventBanner { get; set; }
         public string EventMobileBanner { get; set; }
         public string EventImage { get; set; }
-        public decimal EventTarget { get; set; }
+        public string EventTarget { get; set; }
         public DateTime EventDate { get; set; }
         public DateTime EventExpiry { get; set; }
         public string EventLocation { get; set; }
