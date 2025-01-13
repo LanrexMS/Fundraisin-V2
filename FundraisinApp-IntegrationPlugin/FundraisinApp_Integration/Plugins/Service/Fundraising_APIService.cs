@@ -882,6 +882,60 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
         }
 
+        public void GetFundRaisinOrganisationRecord()
+        {
+            string url = baseURL + "orgpages";
+            string csvContent = CallFundRaisinAPI((object)url);
+
+            var OrganisationList = ParseCsvHelper<OrganisationModel, OrganisationModelMap>(csvContent);
+            foreach (var organisations in OrganisationList)
+            {
+                Guid contactID = Guid.Empty;
+                var ContactSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, organisations.created_member_id)
+                };
+
+                Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
+
+                if (existingContact != null)
+                    contactID = (Guid)existingContact.Id;
+
+                if (contactID == Guid.Empty)
+                {
+                    this._tracingService.Trace("No primary contact found for organisation record " + organisations.org_id);
+                    continue;
+                }
+
+                var OrganisationSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinorgid", ConditionOperator.Equal, organisations.org_id)
+                };
+
+                Entity existingOrganisation = FindExistingRecord("account", OrganisationSearchConditions);
+                if (existingOrganisation == null)
+                {
+                    Guid organisationID = this._service.Create(new Entity("account")
+                    {
+                        ["name"] = (object)organisations.org_name,
+                        ["primarycontactid"] = (object)new EntityReference("contact", contactID),
+                        ["msnfp_accounttype"] = new OptionSetValue(844060001),
+                        ["lrx_fundraisinorgid"] = int.Parse(organisations.org_id)
+                    });
+                }
+                else
+                {
+                    this._service.Update(new Entity("account", existingOrganisation.Id)
+                    {
+                        ["name"] = (object)organisations.org_name,
+                        ["primarycontactid"] = (object)new EntityReference("contact", contactID),
+                        ["msnfp_accounttype"] = new OptionSetValue(844060001),
+                        ["lrx_fundraisinorgid"] = int.Parse(organisations.org_id)
+                    });
+                }
+            }
+        }
+
          //reusable functions
         public Entity FindExistingRecord(string entityName, List<ConditionExpression> conditions, ColumnSet columnSet = null)
         {

@@ -59,6 +59,7 @@ namespace FundraisinApp_Integration.Plugins
                 object inputParameter = ((DataCollection<string, object>)((IExecutionContext)service1).InputParameters)["lrx_fundraisinIntegrationJSONParams"];
                 new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinEventRecords();
                 new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinParticipantRecords();
+                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinOrganisationRecord();
                 new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketRecords();
                 new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetRegistrationFromParticipantEventRecord();
                 new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketHolderRecord();
