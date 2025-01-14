@@ -11,322 +11,164 @@ namespace FundraisinApp_Integration.Plugins.Entities.Integration_Data_Model
 {
   public class DonationModel
   {
-    public int TotalRecords { get; set; }
-
-    public int DonationId { get; set; }
-
-    public int EventId { get; set; }
-
-    public int OrgId { get; set; }
-
-    public int TeamId { get; set; }
-
-    public int MemberId { get; set; }
-
-    public int CauseId { get; set; }
-
-    public string FbUserId { get; set; }
-
-    public string FbUserPic { get; set; }
-
-    public int HistoryId { get; set; }
-
-    public int CharityId { get; set; }
-
-    public int PageId { get; set; }
-
-    public int EventPageId { get; set; }
-
-    public int SmsCodeId { get; set; }
-
-    public int SaleId { get; set; }
-
-    public int SaleItemId { get; set; }
-
-    public int ProductId { get; set; }
-
-    public int RaffleSaleId { get; set; }
-
-    public int MatchedId { get; set; }
-
-    public int RelatedDonationId { get; set; }
-
-    public string DonationHash { get; set; }
-
-    public string DonationType { get; set; }
-
-    public int CampaignId { get; set; }
-
-    public string DonationFrequency { get; set; }
-
-    public string DonationPeriod { get; set; }
-
-    public int NumberDonations { get; set; }
-
-    public string DonationReason { get; set; }
-
-    public string DonationReasonFor { get; set; }
-
-    public int DonationInterval { get; set; }
-
-    public string DisplayOn { get; set; }
-
-    public string DPhoto { get; set; }
-
-    public string DTitle { get; set; }
-
-    public string DFname { get; set; }
-
-    public string DLname { get; set; }
-
-    public string DLnamePrefix { get; set; }
-
-    public string DOrganisation { get; set; }
-
-    public string DEmail { get; set; }
-
-    public bool IsFundraiserEmail { get; set; }
-
-    public string CareOfEmail { get; set; }
-
-    public bool DOptin { get; set; }
-
-    public bool DExternalOptout { get; set; }
-
-    public DateTime DExternalOptoutDate { get; set; }
-
-    public bool DOptinEmail { get; set; }
-
-    public bool DOptinSms { get; set; }
-
-    public bool DOptinPost { get; set; }
-
-    public bool DOptinPhone { get; set; }
-
-    public string DOptinText { get; set; }
-
-    public bool DOptinCharity { get; set; }
-
-    public bool DOptinFees { get; set; }
-
-    public Decimal DOptinFeesRate { get; set; }
-
-    public Decimal DFee { get; set; }
-
-    public string DGender { get; set; }
-
-    public string DLanguage { get; set; }
-
-    public DateTime DDob { get; set; }
-
-    public string DAddressUnit { get; set; }
-
-    public string DAddressNumber { get; set; }
-
-    public string DAddressStreet { get; set; }
-
-    public string DAddress2 { get; set; }
-
-    public string DAddressSuburb { get; set; }
-
-    public string DAddressPCode { get; set; }
-
-    public string DAddressState { get; set; }
-
-    public string DAddressCountry { get; set; }
-
-    public string DAddressDpid { get; set; }
-
-    public string DAddressBarcode { get; set; }
-
-    public string DPhone { get; set; }
-
-    public string DPhoneHome { get; set; }
-
-    public string DPhoneWork { get; set; }
-
-    public string DPhoneMobile { get; set; }
-
-    public string DPhoneMobileSuffix { get; set; }
-
-    public string DComments { get; set; }
-
-    public string DResponse { get; set; }
-
-    public bool DLeaveMessage { get; set; }
-
-    public string DDisplayName { get; set; }
-
-    public string DReceipt { get; set; }
-
-    public bool DAnonymous { get; set; }
-
-    public Decimal DAmount { get; set; }
-
-    public Decimal DAmountLocal { get; set; }
-
-    public string DCurrency { get; set; }
-
-    public Decimal DCurrencyRate { get; set; }
-
-    public Decimal DCurrencyPlatformRate { get; set; }
-
-    public Decimal DAmountFree { get; set; }
-
-    public Decimal DAmountSel { get; set; }
-
-    public string GatewayCustomerRef { get; set; }
-
-    public string GatewayCardRef { get; set; }
-
-    public string PoNumber { get; set; }
-
-    public string TaxRef { get; set; }
-
-    public string PaymentIntentId { get; set; }
-
-    public DateTime PaymentIntentCreated { get; set; }
-
-    public string StripePaymentMethod { get; set; }
-
-    public string CardType { get; set; }
-
-    public string CardCountry { get; set; }
-
-    public string CardBrand { get; set; }
-
-    public string PaymentMethod { get; set; }
-
-    public string CardNumber { get; set; }
-
-    public string CardName { get; set; }
-
-    public string CardExpiry { get; set; }
-
-    public string ChequeName { get; set; }
-
-    public string ChequeNumber { get; set; }
-
-    public string EftReference { get; set; }
-
-    public bool IsEft { get; set; }
-
-    public string BsbNumber { get; set; }
-
-    public string AccountName { get; set; }
-
-    public string AccountNumber { get; set; }
-
-    public DateTime DatePaid { get; set; }
-
-    public DateTime DateBanked { get; set; }
-
-    public string DStatus { get; set; }
-
-    public string DReceiptNum { get; set; }
-
-    public bool DReceiptSent { get; set; }
-
-    public bool IsMobile { get; set; }
-
-    public bool IsDonation { get; set; }
-
-    public bool IsProfileDonation { get; set; }
-
-    public Decimal DRefundAmount { get; set; }
-
-    public Decimal DRefundAmountLocal { get; set; }
-
-    public string DRefundReason { get; set; }
-
-    public DateTime DRefundDate { get; set; }
-
-    public DateTime DReissueDate { get; set; }
-
-    public bool GiftAid { get; set; }
-
-    public bool SentThanks { get; set; }
-
-    public bool InMemory { get; set; }
-
-    public string InMemoryTitle { get; set; }
-
-    public string InMemoryFname { get; set; }
-
-    public string InMemoryLname { get; set; }
-
-    public string InMemoryEmail { get; set; }
-
-    public string InMemoryAddress1 { get; set; }
-
-    public string InMemoryAddress2 { get; set; }
-
-    public string InMemoryCard { get; set; }
-
-    public string InMemoryCardTo { get; set; }
-
-    public string EcardFirstName { get; set; }
-
-    public string EcardLastName { get; set; }
-
-    public string EcardEmail { get; set; }
-
-    public string EcardComments { get; set; }
-
-    public string EcardAddress { get; set; }
-
-    public string KwAddress { get; set; }
-
-    public double DonorLat { get; set; }
-
-    public double DonorLng { get; set; }
-
-    public string DonorIp { get; set; }
-
-    public string DonorUserAgent { get; set; }
-
-    public string UtmCampaign { get; set; }
-
-    public string UtmSource { get; set; }
-
-    public string UtmMedium { get; set; }
-
-    public string UtmContent { get; set; }
-
-    public string UtmTerm { get; set; }
-
-    public string DonationTags { get; set; }
-
-    public string DonorMfaCode { get; set; }
-
-    public string CrmDonorId { get; set; }
-
-    public string FbDonationId { get; set; }
-
-    public bool FunraisinSynced { get; set; }
-
-    public string EcrmCustomerId { get; set; }
-
-    public string ScrmCustomerId { get; set; }
-
-    public DateTime LastLoggedIn { get; set; }
-
-    public DateTime EcrmLastSyncedDate { get; set; }
-
-    public DateTime ScrmLastSyncedDate { get; set; }
-
-    public string Dtd { get; set; }
-
-    public bool DtdProcessed { get; set; }
-
-    public int DtdCompanyId { get; set; }
-
-    public string DtdCompanyName { get; set; }
-
-    public string DtdIdentifier { get; set; }
-
-    public DateTime LastUpdated { get; set; }
-
-    public DateTime DateCreated { get; set; }
-  }
+        public string Total_records { get; set; }
+        public string Donation_id { get; set; }
+        public string Event_id { get; set; }
+        public string Org_id { get; set; }
+        public string Team_id { get; set; }
+        public string Member_id { get; set; }
+        public string Cause_id { get; set; }
+        public string Fbuser_id { get; set; }
+        public string Fbuser_pic { get; set; }
+        public string History_id { get; set; }
+        public string Charity_id { get; set; }
+        public string Page_id { get; set; }
+        public string Event_page_id { get; set; }
+        public string Smscode_id { get; set; }
+        public string Sale_id { get; set; }
+        public string Sale_item_id { get; set; }
+        public string Product_id { get; set; }
+        public string Raffle_sale_id { get; set; }
+        public string Matched_id { get; set; }
+        public string Related_donation_id { get; set; }
+        public string Donation_hash { get; set; }
+        public string Donation_type { get; set; }
+        public string Campaign_id { get; set; }
+        public string Donation_frequency { get; set; }
+        public string Donation_period { get; set; }
+        public string Number_donations { get; set; }
+        public string Donation_reason { get; set; }
+        public string Donation_reason_for { get; set; }
+        public string Donation_interval { get; set; }
+        public string Display_on { get; set; }
+        public string D_photo { get; set; }
+        public string D_title { get; set; }
+        public string D_fname { get; set; }
+        public string D_lname { get; set; }
+        public string D_lname_prefix { get; set; }
+        public string D_organisation { get; set; }
+        public string D_email { get; set; }
+        public string Is_fundraiser_email { get; set; }
+        public string Care_of_email { get; set; }
+        public string D_optin { get; set; }
+        public string D_external_optout { get; set; }
+        public string D_external_optout_date { get; set; }
+        public string D_optin_email { get; set; }
+        public string D_optin_sms { get; set; }
+        public string D_optin_post { get; set; }
+        public string D_optin_phone { get; set; }
+        public string D_optin_text { get; set; }
+        public string D_optin_charity { get; set; }
+        public string D_optin_fees { get; set; }
+        public string D_optin_fees_rate { get; set; }
+        public string D_fee { get; set; }
+        public string D_gender { get; set; }
+        public string D_language { get; set; }
+        public string D_dob { get; set; }
+        public string D_address_unit { get; set; }
+        public string D_address_number { get; set; }
+        public string D_address_street { get; set; }
+        public string D_address_2 { get; set; }
+        public string D_address_suburb { get; set; }
+        public string D_address_pcode { get; set; }
+        public string D_address_state { get; set; }
+        public string D_address_country { get; set; }
+        public string D_address_dpid { get; set; }
+        public string D_address_barcode { get; set; }
+        public string D_phone { get; set; }
+        public string D_phone_home { get; set; }
+        public string D_phone_work { get; set; }
+        public string D_phone_mobile { get; set; }
+        public string D_phone_mobile_suffix { get; set; }
+        public string D_comments { get; set; }
+        public string D_response { get; set; }
+        public string D_leave_message { get; set; }
+        public string D_display_name { get; set; }
+        public string D_receipt { get; set; }
+        public string D_anonymous { get; set; }
+        public string D_amount { get; set; }
+        public string D_amount_local { get; set; }
+        public string D_currency { get; set; }
+        public string D_currency_rate { get; set; }
+        public string D_currency_platform_rate { get; set; }
+        public string D_amount_free { get; set; }
+        public string D_amount_sel { get; set; }
+        public string Gateway_customer_ref { get; set; }
+        public string Gateway_card_ref { get; set; }
+        public string Po_number { get; set; }
+        public string Tax_ref { get; set; }
+        public string Payment_intent_id { get; set; }
+        public string Payment_intent_created { get; set; }
+        public string Stripe_payment_method { get; set; }
+        public string Card_type { get; set; }
+        public string Card_country { get; set; }
+        public string Card_brand { get; set; }
+        public string Payment_method { get; set; }
+        public string Card_number { get; set; }
+        public string Card_name { get; set; }
+        public string Card_expiry { get; set; }
+        public string Cheque_name { get; set; }
+        public string Cheque_number { get; set; }
+        public string Eft_reference { get; set; }
+        public string Is_eft { get; set; }
+        public string Bsb_number { get; set; }
+        public string Account_name { get; set; }
+        public string Account_number { get; set; }
+        public string Date_paid { get; set; }
+        public string Date_banked { get; set; }
+        public string D_status { get; set; }
+        public string D_receipt_num { get; set; }
+        public string D_receipt_sent { get; set; }
+        public string Is_mobile { get; set; }
+        public string Is_donation { get; set; }
+        public string Is_profile_donation { get; set; }
+        public string D_refund_amount { get; set; }
+        public string D_refund_amount_local { get; set; }
+        public string D_refund_reason { get; set; }
+        public string D_refund_date { get; set; }
+        public string D_reissue_date { get; set; }
+        public string Gift_aid { get; set; }
+        public string Sent_thanks { get; set; }
+        public string In_memory { get; set; }
+        public string In_memory_title { get; set; }
+        public string In_memory_fname { get; set; }
+        public string In_memory_lname { get; set; }
+        public string In_memory_email { get; set; }
+        public string In_memory_address1 { get; set; }
+        public string In_memory_address2 { get; set; }
+        public string In_memory_card { get; set; }
+        public string In_memory_card_to { get; set; }
+        public string Ecard_first_name { get; set; }
+        public string Ecard_last_name { get; set; }
+        public string Ecard_email { get; set; }
+        public string Ecard_comments { get; set; }
+        public string Ecard_address { get; set; }
+        public string Kw_address { get; set; }
+        public string Donor_lat { get; set; }
+        public string Donor_lng { get; set; }
+        public string Donor_ip { get; set; }
+        public string Donor_useragent { get; set; }
+        public string Utm_campaign { get; set; }
+        public string Utm_source { get; set; }
+        public string Utm_medium { get; set; }
+        public string Utm_content { get; set; }
+        public string Utm_term { get; set; }
+        public string Donation_tags { get; set; }
+        public string Donor_mfa_code { get; set; }
+        public string Crm_donor_id { get; set; }
+        public string Fb_donation_id { get; set; }
+        public string Funraisin_synced { get; set; }
+        public string Ecrm_customer_id { get; set; }
+        public string Scrm_customer_id { get; set; }
+        public string Last_logged_in { get; set; }
+        public string Ecrm_last_synced_date { get; set; }
+        public string Scrm_last_synced_date { get; set; }
+        public string Dtd { get; set; }
+        public string Dtd_processed { get; set; }
+        public string Dtd_company_id { get; set; }
+        public string Dtd_company_name { get; set; }
+        public string Dtd_identifier { get; set; }
+        public string Last_updated { get; set; }
+        public string Date_created { get; set; }
+    }
 }

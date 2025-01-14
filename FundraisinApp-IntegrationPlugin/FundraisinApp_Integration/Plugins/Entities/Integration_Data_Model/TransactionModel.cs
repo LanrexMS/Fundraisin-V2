@@ -9,84 +9,47 @@ using System;
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Entities.Integration_Data_Model
 {
-  public class TransactionModel
-  {
-    public int TotalRecords { get; set; }
+    public class TransactionModel
+    {
+        public string Total_records { get; set; }
+        public string Transaction_id { get; set; }
+        public string Transaction_type { get; set; }
+        public string Charity_id { get; set; }
+        public string Transaction_value { get; set; }
+        public string Currency { get; set; }
+        public string Currency_rate { get; set; }
+        public string Transaction_fees { get; set; }
+        public string Transaction_fees_rate { get; set; }
+        public string Transaction_fees_gateway { get; set; }
+        public string Transaction_fees_mandatory { get; set; }
+        public string Transaction_tax { get; set; }
+        public string Is_reconciled { get; set; }
+        public string Transaction_notes { get; set; }
+        public string Payment_type { get; set; }
+        public string Payment_reference { get; set; }
+        public string Balance_transaction_id { get; set; }
+        public string Payout_id { get; set; }
+        public string Account_id { get; set; }
+        public string Po_number { get; set; }
+        public string Member_id { get; set; }
+        public string History_id { get; set; }
+        public string Donation_id { get; set; }
+        public string Schedule_id { get; set; }
+        public string Billing_id { get; set; }
+        public string Payment_id { get; set; }
+        public string Sale_id { get; set; }
+        public string Raffle_id { get; set; }
+        public string Event_id { get; set; }
+        public string Page_id { get; set; }
+        public string Event_page_id { get; set; }
+        public string Related_transaction_id { get; set; }
+        public string Gl_code1 { get; set; }
+        public string Gl_code2 { get; set; }
+        public string Fb_payment_id { get; set; }
+        public string Crm_transaction_id { get; set; }
+        public string Funraisin_synced { get; set; }
+        public string Giftaid_claimed { get; set; }
+        public string Date_created { get; set; }
+    }
 
-    public int TransactionId { get; set; }
-
-    public string TransactionType { get; set; }
-
-    public int CharityId { get; set; }
-
-    public Decimal TransactionValue { get; set; }
-
-    public string Currency { get; set; }
-
-    public Decimal CurrencyRate { get; set; }
-
-    public Decimal TransactionFees { get; set; }
-
-    public Decimal TransactionFeesRate { get; set; }
-
-    public Decimal TransactionFeesGateway { get; set; }
-
-    public Decimal TransactionFeesMandatory { get; set; }
-
-    public Decimal TransactionTax { get; set; }
-
-    public bool IsReconciled { get; set; }
-
-    public string TransactionNotes { get; set; }
-
-    public string PaymentType { get; set; }
-
-    public string PaymentReference { get; set; }
-
-    public string BalanceTransactionId { get; set; }
-
-    public string PayoutId { get; set; }
-
-    public string AccountId { get; set; }
-
-    public string PoNumber { get; set; }
-
-    public int MemberId { get; set; }
-
-    public int HistoryId { get; set; }
-
-    public int DonationId { get; set; }
-
-    public int ScheduleId { get; set; }
-
-    public int BillingId { get; set; }
-
-    public int PaymentId { get; set; }
-
-    public int SaleId { get; set; }
-
-    public int RaffleId { get; set; }
-
-    public int EventId { get; set; }
-
-    public int PageId { get; set; }
-
-    public int EventPageId { get; set; }
-
-    public int RelatedTransactionId { get; set; }
-
-    public string GlCode1 { get; set; }
-
-    public string GlCode2 { get; set; }
-
-    public string FbPaymentId { get; set; }
-
-    public string CrmTransactionId { get; set; }
-
-    public bool FunraisinSynced { get; set; }
-
-    public bool GiftaidClaimed { get; set; }
-
-    public DateTime DateCreated { get; set; }
-  }
 }

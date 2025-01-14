@@ -40,6 +40,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
         private string dateFrom = "";
         private string dateTo = "";
+        private string donationID = "";
         private int limit = 1000;
 
         public Fundraising_APIService(
@@ -62,265 +63,6 @@ namespace FundraisinApp_Integration.Plugins.Service
             this.apikey = jsonInput["apikey"]?.ToString();
             this.dateFrom = jsonInput["dateFrom"]?.ToString();
             this.dateTo = jsonInput["dateTo"]?.ToString();
-        }
-
-        public void GetFundraisinDonationRecords()
-        {
-            string donationURL = baseURL + "donations";
-            string csvContent = CallFundRaisinAPI((object)donationURL);
-            List<DonationModel> donationList = this.ParseDonationCsv(csvContent);
-        }
-
-        public List<DonationModel> ParseDonationCsv(string csvContent)
-        {
-            List<DonationModel> donationCsv = new List<DonationModel>();
-            string[] strArray1 = csvContent.Split(new string[2] {
-                "\r\n",
-                "\n"
-              }, StringSplitOptions.RemoveEmptyEntries);
-
-            for (int index1 = 1; index1 < strArray1.Length; ++index1)
-            {
-                string[] strArray2 = strArray1[index1].Split(',');
-                for (int index2 = 0; index2 < strArray2.Length; ++index2)
-                    strArray2[index2] = strArray2[index2].Trim('"');
-                int result1;
-                int result2;
-                DonationModel donation = new DonationModel()
-                {
-                    DFname = strArray2[32],
-                    DLname = strArray2[33] + strArray2[34],
-                    DEmail = strArray2[36],
-                    DPhone = strArray2[64],
-                    DPhoneWork = strArray2[66],
-                    DPhoneMobile = strArray2[68] + strArray2[67],
-                    DAddress2 = strArray2[57],
-                    DAddressSuburb = strArray2[58],
-                    DAddressPCode = strArray2[59],
-                    DAddressState = strArray2[60],
-                    DAddressCountry = strArray2[61],
-                    MemberId = int.TryParse(strArray2[5], out result1) ? result1 : 0,
-                    DStatus = strArray2[105],
-                    DonationId = int.TryParse(strArray2[1], out result2) ? result2 : 0,
-                    EventId = int.TryParse(strArray2[2], out result1) ? result1 : 0,
-                };
-
-                var conditions = new List<ConditionExpression>
-                {
-                    new ConditionExpression("firstname", ConditionOperator.Equal, donation.DFname),
-                    new ConditionExpression("lastname", ConditionOperator.Equal, donation.DLname),
-                    new ConditionExpression("emailaddress1", ConditionOperator.Equal, donation.DEmail)
-                };
-
-                Entity existingContact = FindExistingRecord("contact", conditions);
-                if (existingContact != null)
-                    this.UpdateContactRecord(existingContact.Id, donation);
-                else
-                    this.CreateContactRecord(donation);
-
-                donationCsv.Add(donation);
-            }
-            return donationCsv;
-        }
-        private void CreateContactRecord(DonationModel donation)
-        {
-            Guid contactId = this._service.Create(new Entity("contact")
-            {
-                ["firstname"] = (object)donation.DFname,
-                ["lastname"] = (object)donation.DLname,
-                ["emailaddress1"] = (object)donation.DEmail,
-                ["telephone1"] = (object)donation.DPhone,
-                ["mobilephone"] = (object)donation.DPhoneMobile,
-                ["lrx_fundraisinmemberid"] = (object)donation.MemberId
-            });
-            this.GetFundraisinTransactionRecord(donation, contactId);
-        }
-
-        private void UpdateContactRecord(Guid contactId, DonationModel donation)
-        {
-            this._service.Update(new Entity("contact", contactId)
-            {
-                ["firstname"] = (object)donation.DFname,
-                ["lastname"] = (object)donation.DLname,
-                ["emailaddress1"] = (object)donation.DEmail,
-                ["telephone1"] = (object)donation.DPhone,
-                ["mobilephone"] = (object)donation.DPhoneMobile,
-                ["lrx_fundraisinmemberid"] = (object)donation.MemberId
-            });
-            this.GetFundraisinTransactionRecord(donation, contactId);
-        }
-
-        public void GetFundraisinTransactionRecord(DonationModel donation, Guid contactId)
-        {
-            string transactionURL = baseURL + "transactions";
-            string requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}&donation_id={5}", (object)transactionURL, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit, (object)donation.DonationId);
-            string csvContent = "";
-            // do not reuse api call function here as it has a different parameter
-            using (HttpClient httpClient = new HttpClient())
-            {
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-                try
-                {
-                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        csvContent = result.Content.ReadAsStringAsync().Result;
-                    }
-                    else
-                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
-                }
-                catch (HttpRequestException ex)
-                {
-                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
-                }
-            }
-            
-            List<TransactionModel> transactionList = this.ParseTransactionCsv(csvContent, contactId);
-        }
-
-        public List<TransactionModel> ParseTransactionCsv(string csvContent, Guid contactId)
-        {
-            List<TransactionModel> source = new List<TransactionModel>();
-            string[] strArray1 = csvContent.Split(new string[2] {
-                "\r\n",
-                "\n"
-              }, StringSplitOptions.RemoveEmptyEntries);
-            for (int rowIndex = 1; rowIndex < strArray1.Length; ++rowIndex)
-            {
-                // Split the current row into columns
-                string[] columns = strArray1[rowIndex].Split(',');
-
-                // Trim quotes from each column
-                for (int colIndex = 0; colIndex < columns.Length; ++colIndex)
-                {
-                    columns[colIndex] = columns[colIndex].Trim('"');
-                }
-
-                // Create and populate the TransactionModel instance
-                var transactionModel = new TransactionModel
-                {
-                    TotalRecords = int.TryParse(columns[0], out int totalRecords) ? totalRecords : 0,
-                    TransactionId = int.TryParse(columns[1], out int transactionId) ? transactionId : 0,
-                    TransactionType = columns[2],
-                    CharityId = int.TryParse(columns[3], out int charityId) ? charityId : 0,
-                    TransactionValue = decimal.TryParse(columns[4], out decimal transactionValue) ? transactionValue : 0M,
-                    Currency = columns[5],
-                    CurrencyRate = decimal.TryParse(columns[6], out decimal currencyRate) ? currencyRate : 0M,
-                    TransactionFees = decimal.TryParse(columns[7], out decimal transactionFees) ? transactionFees : 0M,
-                    TransactionFeesRate = decimal.TryParse(columns[8], out decimal feesRate) ? feesRate : 0M,
-                    TransactionFeesGateway = decimal.TryParse(columns[9], out decimal gatewayFees) ? gatewayFees : 0M,
-                    TransactionFeesMandatory = decimal.TryParse(columns[10], out decimal mandatoryFees) ? mandatoryFees : 0M,
-                    TransactionTax = decimal.TryParse(columns[11], out decimal transactionTax) ? transactionTax : 0M,
-                    IsReconciled = columns[12] == "Y",
-                    TransactionNotes = columns[13],
-                    PaymentType = columns[14],
-                    PaymentReference = columns[15],
-                    BalanceTransactionId = columns[16],
-                    PayoutId = columns[17],
-                    AccountId = columns[18],
-                    PoNumber = columns[19],
-                    MemberId = int.TryParse(columns[20], out int memberId) ? memberId : 0,
-                    HistoryId = int.TryParse(columns[21], out int historyId) ? historyId : 0,
-                    DonationId = int.TryParse(columns[22], out int donationId) ? donationId : 0,
-                    ScheduleId = int.TryParse(columns[23], out int scheduleId) ? scheduleId : 0,
-                    BillingId = int.TryParse(columns[24], out int billingId) ? billingId : 0,
-                    PaymentId = int.TryParse(columns[25], out int paymentId) ? paymentId : 0,
-                    SaleId = int.TryParse(columns[26], out int saleId) ? saleId : 0,
-                    RaffleId = int.TryParse(columns[27], out int raffleId) ? raffleId : 0,
-                    EventId = int.TryParse(columns[28], out int eventId) ? eventId : 0,
-                    PageId = int.TryParse(columns[29], out int pageId) ? pageId : 0,
-                    EventPageId = int.TryParse(columns[30], out int eventPageId) ? eventPageId : 0,
-                    RelatedTransactionId = int.TryParse(columns[31], out int relatedTransactionId) ? relatedTransactionId : 0,
-                    GlCode1 = columns[32],
-                    GlCode2 = columns[33],
-                    FbPaymentId = columns[34],
-                    CrmTransactionId = columns[35],
-                    FunraisinSynced = columns[36] == "Y",
-                    GiftaidClaimed = columns[37] == "Y",
-                    DateCreated = DateTime.TryParse(columns[38], out DateTime dateCreated) ? dateCreated : DateTime.MinValue
-                };
-
-                // Add the model to the collection
-                source.Add(transactionModel);
-            }
-
-            foreach (TransactionModel transaction in source.OrderBy<TransactionModel, int>((Func<TransactionModel, int>)(t => !(t.TransactionType.ToLower() == "refund") ? 0 : 1)).ThenBy<TransactionModel, DateTime>((Func<TransactionModel, DateTime>)(t => t.DateCreated)).ToList<TransactionModel>())
-            {
-                if (this.FindExistingTransaction(transaction) != null)
-                {
-                    this.UpdateTransactionRecord(contactId, transaction);
-                }
-                else
-                {
-                    this.CreateTransactionRecord(contactId, transaction);
-                }
-
-            }
-            return source;
-        }
-
-        private Entity FindExistingTransaction(TransactionModel transaction)
-        {
-            QueryExpression queryExpression = new QueryExpression("msnfp_transaction")
-            {
-                ColumnSet = new ColumnSet(true)
-            };
-            queryExpression.Criteria.AddCondition("lrx_fundraisindonationid", (ConditionOperator)0, new object[1] {
-                (object) transaction.DonationId
-              });
-            return ((IEnumerable<Entity>)this._service.RetrieveMultiple((QueryBase)queryExpression).Entities).FirstOrDefault<Entity>();
-        }
-
-        private void CreateTransactionRecord(Guid contactId, TransactionModel transaction)
-        {
-            int num = 856660001; //completed for now but nee
-            switch (transaction.TransactionType.ToLower())
-            {
-                case "donation":
-                    num = 856660001;
-                    Entity transactionEntity = null;
-                    if (transaction.EventId != 0)
-                    {
-                        var EventSearchConditions = new List<ConditionExpression>
-                        {
-                            new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, transaction.EventId)
-                        };
-
-                        Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
-                        transactionEntity = new Entity("msnfp_transaction")
-                        {
-                            ["sifund_donor"] = (object)new EntityReference("contact", contactId),
-                            ["msnfp_amount"] = (object)new Money(Math.Abs(transaction.TransactionValue)),
-                            ["statuscode"] = (object)num,
-                            ["msnfp_bookdate"] = (object)transaction.DateCreated,
-                            ["lrx_fundraisindonationid"] = (object)transaction.DonationId,
-                            ["lrx_event"] = (object)new EntityReference("lrx_event", existingEvent.Id),
-                        };
-                    }
-                    else
-                    {
-                        transactionEntity = new Entity("msnfp_transaction")
-                        {
-                            ["sifund_donor"] = (object)new EntityReference("contact", contactId),
-                            ["msnfp_amount"] = (object)new Money(Math.Abs(transaction.TransactionValue)),
-                            ["statuscode"] = (object)num,
-                            ["msnfp_bookdate"] = (object)transaction.DateCreated,
-                            ["lrx_fundraisindonationid"] = (object)transaction.DonationId
-                        };
-                    }
-                    
-                    this._service.Create(transactionEntity);
-                    break;
-                case "refund":
-                    num = 856660005;
-                    //for discussion
-                    break;
-            }
-        }
-
-        private void UpdateTransactionRecord(Guid contactId, TransactionModel transaction)
-        {
-            //for discussion
         }
 
         public void GetFundraisinEventRecords()
@@ -936,6 +678,180 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
         }
 
+        public void GetFundRaisinTransactionRecord()
+        {
+            string url = baseURL + "transactions";
+            string csvContent = CallFundRaisinAPI((object)url);
+
+            var TransactionList = ParseCsvHelper<TransactionModel, TransactionModelMap>(csvContent);
+            foreach (var transactions in TransactionList)
+            {         
+                if (transactions.Transaction_type == "donation") {
+                    string donationUrl = baseURL + "donations";
+                    string csvDonationContent = CallFundRaisinAPI((object)url);
+                    donationID = transactions.Donation_id;
+
+                    var donationList = ParseCsvHelper<DonationModel, DonationModelMap>(csvDonationContent);
+                    Guid contactID = Guid.Empty;
+                    foreach (var donations in donationList) 
+                    {
+                        var ContactSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("firstname", ConditionOperator.Equal, donations.D_fname),
+                            new ConditionExpression("lastname", ConditionOperator.Equal, donations.D_lname),
+                            new ConditionExpression("emailaddress1", ConditionOperator.Equal, donations.D_email)
+                        };
+
+                        Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
+                        if (existingContact == null)
+                        {
+                            string addressStreet = donations.D_address_number + donations.D_address_street;
+                            Guid contactId = this._service.Create(new Entity("contact")
+                            {
+                                ["firstname"] = (object)donations.D_fname,
+                                ["lastname"] = (object)donations.D_lname,
+                                ["emailaddress1"] = (object)donations.D_email,
+                                ["telephone1"] = (object)donations.D_phone,
+                                ["mobilephone"] = (object)donations.D_phone_mobile,
+                                ["address1_line1"] = (object)addressStreet,
+                                ["address1_city"] = (object)donations.D_address_suburb,
+                                ["address1_postalcode"] = (object)donations.D_address_pcode,
+                                ["address1_stateorprovince"] = (object)donations.D_address_state,
+                                ["address1_country"] = (object)donations.D_address_country,
+                                ["lrx_fundraisinmemberid"] = int.Parse(donations.Member_id)
+                            });
+                            contactID = contactId;
+                        }
+                        else
+                        {
+                            string addressStreet = donations.D_address_number + donations.D_address_street;
+                            this._service.Update(new Entity("contact", existingContact.Id)
+                            {
+                                ["firstname"] = (object)donations.D_fname,
+                                ["lastname"] = (object)donations.D_lname,
+                                ["emailaddress1"] = (object)donations.D_email,
+                                ["telephone1"] = (object)donations.D_phone,
+                                ["mobilephone"] = (object)donations.D_phone_mobile,
+                                ["address1_line1"] = (object)addressStreet,
+                                ["address1_city"] = (object)donations.D_address_suburb,
+                                ["address1_postalcode"] = (object)donations.D_address_pcode,
+                                ["address1_stateorprovince"] = (object)donations.D_address_state,
+                                ["address1_country"] = (object)donations.D_address_country,
+                                ["lrx_fundraisinmemberid"] = int.Parse(donations.Member_id)
+                            });
+                            contactID = existingContact.Id;
+                        }                       
+                    }
+                    donationID = ""; //reset donation id for base URL
+
+                    Guid eventID = Guid.Empty;
+                    if (transactions.Event_id != "0")
+                    {
+                        eventID = Guid.Empty;
+                        var EventSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, transactions.Event_id)
+                        };
+
+                        Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
+                        if (existingEvent != null)
+                            eventID = (Guid)existingEvent.Id;
+
+                        if (eventID == Guid.Empty)
+                        {
+                            this._tracingService.Trace("No event found for transaction record " + transactions.Transaction_id);
+                        }
+                    }
+
+                    var TransactionSearchConditions = new List<ConditionExpression>
+                    {
+                        new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, transactions.Transaction_id),
+                    };
+
+                    Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+                    if(existingTransaction == null)
+                    {
+                        Guid transactionId = this._service.Create(new Entity("msnfp_transaction")
+                        {
+                            ["sifund_donor"] = (object)new EntityReference("contact", contactID),
+                            ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
+                            ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value)),
+                            ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
+                            ["statuscode "] = new OptionSetValue(856660001),
+                            ["sifund_typecode"] = new OptionSetValue(844060000),
+                            ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                        });
+                    }
+                } //end of donation transaction type
+
+                if (transactions.Transaction_type == "registration" || transactions.Transaction_type == "merchandise")
+                {
+                    int transactionType = 844060003; //default registration
+                    if (transactions.Transaction_type == "merchandise")
+                        transactionType = 844060004;
+
+                    Guid eventID = Guid.Empty;
+                    if (transactions.Event_id != "0")
+                    {
+                        eventID = Guid.Empty;
+                        var EventSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, transactions.Event_id)
+                        };
+
+                        Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
+                        if (existingEvent != null)
+                            eventID = (Guid)existingEvent.Id;
+
+                        if (eventID == Guid.Empty)
+                        {
+                            this._tracingService.Trace("No event found for transaction record " + transactions.Transaction_id);
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                    Guid contactID = Guid.Empty;
+                    var ContactSearchConditions = new List<ConditionExpression>
+                    {
+                        new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, transactions.Member_id)
+                    };
+
+                    Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
+
+                    if (existingContact != null)
+                        contactID = (Guid)existingContact.Id;
+
+                    if (contactID == Guid.Empty)
+                    {
+                        continue;
+                    }
+
+                    var TransactionSearchConditions = new List<ConditionExpression>
+                    {
+                        new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, transactions.Transaction_id),
+                    };
+
+                    Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+                    if (existingTransaction == null)
+                    {
+                        Guid transactionId = this._service.Create(new Entity("msnfp_transaction")
+                        {
+                            ["sifund_donor"] = (object)new EntityReference("contact", contactID),
+                            ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
+                            ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value)),
+                            ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
+                            ["statuscode "] = new OptionSetValue(856660001),
+                            ["sifund_typecode"] = new OptionSetValue(transactionType),
+                            ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                        });
+                    }
+                }
+            }
+        }
+
          //reusable functions
         public Entity FindExistingRecord(string entityName, List<ConditionExpression> conditions, ColumnSet columnSet = null)
         {
@@ -991,6 +907,11 @@ namespace FundraisinApp_Integration.Plugins.Service
             else
             {
                 requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)apiEndpoint, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
+            }
+
+            if(donationID != "")
+            {
+                requestUri = requestUri + "&donation_id=" + donationID;
             }
             string csvContent = "";
             using (HttpClient httpClient = new HttpClient())

@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\DonationModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\DonationModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventTeamModel.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TicketsModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TicketsModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TransactionModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TransactionModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\FundraisinIntegration.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Service\Fundraising_APIService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

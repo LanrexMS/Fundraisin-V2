@@ -66,7 +66,7 @@ namespace FundraisinApp_Integration.Plugins
                 new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinEventTeamsRecord();
                 new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductRecord();
                 new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductOptionsRecord();
-                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinDonationRecords();
+                new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinTransactionRecord();
             }
             catch (Exception ex)
             {
