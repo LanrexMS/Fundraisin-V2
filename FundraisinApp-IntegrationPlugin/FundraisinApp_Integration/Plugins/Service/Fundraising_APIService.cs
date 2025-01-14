@@ -186,14 +186,23 @@ namespace FundraisinApp_Integration.Plugins.Service
             {
                 Guid contactID = Guid.Empty;
                 Guid eventID = Guid.Empty;
+                string ContactFullName = "";
+                string EventName = "";
                 var MemberSearchConditions = new List<ConditionExpression>
                 {
                     new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, participantEvent.Member_Id)
                 };
 
                 Entity existingMember = FindExistingRecord("contact", MemberSearchConditions);
-                if (existingMember != null)
+                if (existingMember != null) {
                     contactID = (Guid)existingMember.Id;
+                    // Retrieve full name if available
+                    if (existingMember.Attributes.Contains("fullname"))
+                    {
+                        ContactFullName = existingMember["fullname"].ToString();
+                    }
+                }
+                    
 
                 var EventSearchConditions = new List<ConditionExpression>
                 {
@@ -201,8 +210,14 @@ namespace FundraisinApp_Integration.Plugins.Service
                 };
 
                 Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
-                if (existingEvent != null)
+                if (existingEvent != null) {
                     eventID = (Guid)existingEvent.Id;
+                    // Retrieve event name if available
+                    if (existingEvent.Attributes.Contains("lrx_name"))
+                    {
+                        EventName = existingEvent["lrx_name"].ToString();
+                    }
+                }                   
 
                 if (contactID == Guid.Empty || eventID == Guid.Empty)
                 {
@@ -215,13 +230,14 @@ namespace FundraisinApp_Integration.Plugins.Service
                     new ConditionExpression("lrx_constituentorganization", ConditionOperator.Equal, contactID),
                     new ConditionExpression("lrx_event", ConditionOperator.Equal, eventID)
                 };
-
+                string identifierName = ContactFullName + " - " + EventName;
                 Entity existingRegistration = FindExistingRecord("lrx_registrations", RegistrationSearchConditions);
                 if(existingRegistration == null)
                 {
                     Guid registrationID = this._service.Create(new Entity("lrx_registrations")
                     {
                         ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_name"] = (object)identifierName,
                         ["lrx_constituentorganization"] = (object)new EntityReference("contact", contactID)                        
                     });
                 }
@@ -230,6 +246,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     this._service.Update(new Entity("lrx_registrations", existingRegistration.Id)
                     {
                         ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
+                        ["lrx_name"] = (object)identifierName,
                         ["lrx_constituentorganization"] = (object)new EntityReference("contact", contactID)
                     });
                 }
