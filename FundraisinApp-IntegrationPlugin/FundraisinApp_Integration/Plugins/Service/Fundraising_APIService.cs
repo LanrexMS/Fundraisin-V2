@@ -25,6 +25,7 @@ using System.IdentityModel.Protocols.WSTrust;
 using Microsoft.Xrm.Sdk.PluginTelemetry;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics.Tracing;
+using System.Web.Util;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -40,7 +41,6 @@ namespace FundraisinApp_Integration.Plugins.Service
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
         private string dateFrom = "";
         private string dateTo = "";
-        private string donationID = "";
         private int limit = 1000;
 
         public Fundraising_APIService(
@@ -222,7 +222,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Guid registrationID = this._service.Create(new Entity("lrx_registrations")
                     {
                         ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
-                        ["lrx_constituentorganization"] = (object)new EntityReference("contact", contactID)
+                        ["lrx_constituentorganization"] = (object)new EntityReference("contact", contactID)                        
                     });
                 }
                 else
@@ -688,61 +688,62 @@ namespace FundraisinApp_Integration.Plugins.Service
             {         
                 if (transactions.Transaction_type == "donation") {
                     string donationUrl = baseURL + "donations";
-                    string csvDonationContent = CallFundRaisinAPI((object)url);
-                    donationID = transactions.Donation_id;
-
+                    string csvDonationContent = CallFundRaisinAPI((object)donationUrl);
+                    
                     var donationList = ParseCsvHelper<DonationModel, DonationModelMap>(csvDonationContent);
+                    
                     Guid contactID = Guid.Empty;
                     foreach (var donations in donationList) 
                     {
-                        var ContactSearchConditions = new List<ConditionExpression>
-                        {
-                            new ConditionExpression("firstname", ConditionOperator.Equal, donations.D_fname),
-                            new ConditionExpression("lastname", ConditionOperator.Equal, donations.D_lname),
-                            new ConditionExpression("emailaddress1", ConditionOperator.Equal, donations.D_email)
-                        };
+                        if (donations.Donation_id == transactions.Donation_id) {
+                            var ContactSearchConditions = new List<ConditionExpression>
+                            {
+                                new ConditionExpression("firstname", ConditionOperator.Equal, donations.D_fname),
+                                new ConditionExpression("lastname", ConditionOperator.Equal, donations.D_lname),
+                                new ConditionExpression("emailaddress1", ConditionOperator.Equal, donations.D_email)
+                            };
 
-                        Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
-                        if (existingContact == null)
-                        {
-                            string addressStreet = donations.D_address_number + donations.D_address_street;
-                            Guid contactId = this._service.Create(new Entity("contact")
+                            Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
+                            if (existingContact == null)
                             {
-                                ["firstname"] = (object)donations.D_fname,
-                                ["lastname"] = (object)donations.D_lname,
-                                ["emailaddress1"] = (object)donations.D_email,
-                                ["telephone1"] = (object)donations.D_phone,
-                                ["mobilephone"] = (object)donations.D_phone_mobile,
-                                ["address1_line1"] = (object)addressStreet,
-                                ["address1_city"] = (object)donations.D_address_suburb,
-                                ["address1_postalcode"] = (object)donations.D_address_pcode,
-                                ["address1_stateorprovince"] = (object)donations.D_address_state,
-                                ["address1_country"] = (object)donations.D_address_country,
-                                ["lrx_fundraisinmemberid"] = int.Parse(donations.Member_id)
-                            });
-                            contactID = contactId;
-                        }
-                        else
-                        {
-                            string addressStreet = donations.D_address_number + donations.D_address_street;
-                            this._service.Update(new Entity("contact", existingContact.Id)
+                                string addressStreet = donations.D_address_number + donations.D_address_street;
+                                Guid contactId = this._service.Create(new Entity("contact")
+                                {
+                                    ["firstname"] = (object)donations.D_fname,
+                                    ["lastname"] = (object)donations.D_lname,
+                                    ["emailaddress1"] = (object)donations.D_email,
+                                    ["telephone1"] = (object)donations.D_phone,
+                                    ["mobilephone"] = (object)donations.D_phone_mobile,
+                                    ["address1_line1"] = (object)addressStreet,
+                                    ["address1_city"] = (object)donations.D_address_suburb,
+                                    ["address1_postalcode"] = (object)donations.D_address_pcode,
+                                    ["address1_stateorprovince"] = (object)donations.D_address_state,
+                                    ["address1_country"] = (object)donations.D_address_country,
+                                    ["lrx_fundraisinmemberid"] = int.Parse(donations.Member_id)
+                                });
+                                contactID = contactId;
+                            }
+                            else
                             {
-                                ["firstname"] = (object)donations.D_fname,
-                                ["lastname"] = (object)donations.D_lname,
-                                ["emailaddress1"] = (object)donations.D_email,
-                                ["telephone1"] = (object)donations.D_phone,
-                                ["mobilephone"] = (object)donations.D_phone_mobile,
-                                ["address1_line1"] = (object)addressStreet,
-                                ["address1_city"] = (object)donations.D_address_suburb,
-                                ["address1_postalcode"] = (object)donations.D_address_pcode,
-                                ["address1_stateorprovince"] = (object)donations.D_address_state,
-                                ["address1_country"] = (object)donations.D_address_country,
-                                ["lrx_fundraisinmemberid"] = int.Parse(donations.Member_id)
-                            });
-                            contactID = existingContact.Id;
+                                string addressStreet = donations.D_address_number + donations.D_address_street;
+                                this._service.Update(new Entity("contact", existingContact.Id)
+                                {
+                                    ["firstname"] = (object)donations.D_fname,
+                                    ["lastname"] = (object)donations.D_lname,
+                                    ["emailaddress1"] = (object)donations.D_email,
+                                    ["telephone1"] = (object)donations.D_phone,
+                                    ["mobilephone"] = (object)donations.D_phone_mobile,
+                                    ["address1_line1"] = (object)addressStreet,
+                                    ["address1_city"] = (object)donations.D_address_suburb,
+                                    ["address1_postalcode"] = (object)donations.D_address_pcode,
+                                    ["address1_stateorprovince"] = (object)donations.D_address_state,
+                                    ["address1_country"] = (object)donations.D_address_country,
+                                    ["lrx_fundraisinmemberid"] = int.Parse(donations.Member_id)
+                                });
+                                contactID = existingContact.Id;
+                            }
                         }                       
                     }
-                    donationID = ""; //reset donation id for base URL
 
                     Guid eventID = Guid.Empty;
                     if (transactions.Event_id != "0")
@@ -777,7 +778,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
-                            ["statuscode "] = new OptionSetValue(856660001),
+                            ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(844060000),
                             ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
                         });
@@ -843,7 +844,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
-                            ["statuscode "] = new OptionSetValue(856660001),
+                            ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(transactionType),
                             ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
                         });
@@ -909,10 +910,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                 requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)apiEndpoint, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
             }
 
-            if(donationID != "")
-            {
-                requestUri = requestUri + "&donation_id=" + donationID;
-            }
             string csvContent = "";
             using (HttpClient httpClient = new HttpClient())
             {
