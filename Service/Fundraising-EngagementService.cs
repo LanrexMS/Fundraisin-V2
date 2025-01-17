@@ -976,14 +976,14 @@ namespace Fundraising_Engagement.Plugins.Service
             //run code only for pledge schedule
             if (paymentScheduleRecord.SiFund_ScheduleTypeCode == MsnFp_PaymentSchedule_SiFund_ScheduleTypeCode.PledgeSchedule)
             {
-                if (paymentScheduleRecord.MsnFp_FrequencyInterval != null && paymentScheduleRecord.MsnFp_Frequency != null && paymentSchedule.MsnFp_RecurringAmount != null)
+                if (paymentScheduleRecord.MsnFp_FrequencyInterval != null && paymentScheduleRecord.MsnFp_Frequency != null && paymentScheduleRecord.MsnFp_RecurringAmount != null)
                 {
 
                     //set frequency interval variables
                     var startDate = paymentScheduleRecord.MsnFp_FirstPaymentDate ?? DateTime.Today;
                     var frequency = paymentScheduleRecord.MsnFp_Frequency;
                     int? intervals = paymentScheduleRecord.MsnFp_FrequencyInterval;
-                    Money amount = paymentSchedule.MsnFp_RecurringAmount;
+                    Money amount = paymentScheduleRecord.MsnFp_RecurringAmount;
 
                     decimal commitmentAmount = (amount?.Value ?? 0m) / (intervals ?? 1);
 
@@ -1024,6 +1024,31 @@ namespace Fundraising_Engagement.Plugins.Service
                         _service.Create(childCommitment);
                     }
                 }
+            }
+
+        }
+
+        public void PaymentScheduleAmountReceipted(MsnFp_PaymentSchedule paymentSchedule)
+        {
+            MsnFp_PaymentSchedule paymentScheduleRecord = (MsnFp_PaymentSchedule)RetrieveRecord(
+              MsnFp_PaymentSchedule.EntityLogicalName,
+              paymentSchedule.Id,
+              MsnFp_PaymentSchedule.Fields.MsnFp_RecurringAmount
+    
+          );
+
+            if (paymentScheduleRecord.MsnFp_RecurringAmount != null)
+            {
+
+                Money amount = paymentScheduleRecord.MsnFp_RecurringAmount;
+
+                var paymentScheduleUpdate = new MsnFp_PaymentSchedule
+                {
+                    Id = paymentSchedule.Id,
+                    SiFund_Amount_Receipted= amount
+                };
+
+                _service.Update(paymentScheduleUpdate);
             }
 
         }

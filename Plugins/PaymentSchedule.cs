@@ -34,9 +34,11 @@ namespace Fundraising_Engagement.Plugins.Plugins
                     {
                         case "Create":
                             fundraisingService.CreatePledgeCommitments(paymentSchedule);
+                            fundraisingService.PaymentScheduleAmountReceipted(paymentSchedule);
                             break;
                         case "Update":
                             fundraisingService.CreatePledgeCommitments(paymentSchedule);
+                            fundraisingService.PaymentScheduleAmountReceipted(paymentSchedule);
                             break;
                         default:
                             break;
