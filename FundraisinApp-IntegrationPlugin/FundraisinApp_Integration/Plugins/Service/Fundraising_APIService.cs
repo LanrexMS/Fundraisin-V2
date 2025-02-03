@@ -36,18 +36,15 @@ namespace FundraisinApp_Integration.Plugins.Service
         private readonly IPluginExecutionContext _context;
         private readonly ITracingService _tracingService;
         public string baseURL = "https://lanrex.funraisin.com.au/api/";
-        private string username = "nico.benito@lanrex.com.au";
-        private string password = "Lanrex12345!";
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
         private string dateFrom = "";
         private string dateTo = "";
-        private int limit = 1000;
 
         public Fundraising_APIService(
-          IOrganizationService service,
-          IPluginExecutionContext context,
-          ITracingService tracingService,
-          object JSONinput)
+        IOrganizationService service,
+        IPluginExecutionContext context,
+        ITracingService tracingService,
+        object JSONinput)
         {
             this._service = service;
             this._context = context;
@@ -58,12 +55,22 @@ namespace FundraisinApp_Integration.Plugins.Service
 
             // Assign the values to the variables
             this.baseURL = jsonInput["baseURL"]?.ToString();
-            this.username = jsonInput["username"]?.ToString();
-            this.password = jsonInput["password"]?.ToString();
             this.apikey = jsonInput["apikey"]?.ToString();
-            this.dateFrom = jsonInput["dateFrom"]?.ToString();
-            this.dateTo = jsonInput["dateTo"]?.ToString();
+
+            string format = "MM-dd-yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+
+            if (DateTime.TryParseExact(jsonInput["dateFrom"]?.ToString(), format, provider, DateTimeStyles.None, out DateTime parsedDateFrom))
+            {
+                this.dateFrom = parsedDateFrom.ToString("yyyy-MM-dd");
+            }
+
+            if (DateTime.TryParseExact(jsonInput["dateTo"]?.ToString(), format, provider, DateTimeStyles.None, out DateTime parsedDateTo))
+            {
+                this.dateTo = parsedDateTo.ToString("yyyy-MM-dd");
+            }
         }
+
 
         public void GetFundraisinEventRecords()
         {
@@ -99,6 +106,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     });
                 }                    
             }
+            this._tracingService.Trace("Event Record Fundraisin API Completed");
         }
 
         public void GetFundraisinParticipantRecords()
@@ -174,6 +182,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     });
                 }
             }
+
+            this._tracingService.Trace("Participant Record Fundraisin API Completed");
         }
 
         public void GetRegistrationFromParticipantEventRecord()
@@ -251,6 +261,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     });
                 }
             }
+
+            this._tracingService.Trace("Registration Record Fundraisin API Completed");
         }
 
         public void GetFundraisinTicketRecords()
@@ -308,6 +320,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     });
                 }
             }
+
+            this._tracingService.Trace("Ticket Record Fundraisin API Completed");
         }
 
         public void GetFundraisinTicketHolderRecord()
@@ -450,6 +464,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     });
                 }
             }
+
+            this._tracingService.Trace("Ticket Holder Record Fundraisin API Completed");
         }
 
         public void GetFundRaisinProductRecord()
@@ -503,6 +519,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     });
                 }
             }
+
+            this._tracingService.Trace("Product Record Fundraisin API Completed");
         }
 
         public void GetFundRaisinProductOptionsRecord()
@@ -563,6 +581,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     }
                 }
             }
+
+            this._tracingService.Trace("Product Option Record Fundraisin API Completed");
         }
 
         public void GetFundRaisinEventTeamsRecord()
@@ -639,6 +659,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     });
                 }
             }
+
+            this._tracingService.Trace("Event Team Record Fundraisin API Completed");
         }
 
         public void GetFundRaisinOrganisationRecord()
@@ -693,6 +715,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     });
                 }
             }
+
+            this._tracingService.Trace("Organisation Record Fundraisin API Completed");
         }
 
         public void GetFundRaisinTransactionRecord()
@@ -705,8 +729,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             {         
                 if (transactions.Transaction_type == "donation") {
                     string donationUrl = baseURL + "donations";
-                    string csvDonationContent = CallFundRaisinAPI((object)donationUrl);
-                    
+                    string csvDonationContent = CallFundRaisinAPI((object)donationUrl); 
                     var donationList = ParseCsvHelper<DonationModel, DonationModelMap>(csvDonationContent);
                     
                     Guid contactID = Guid.Empty;
@@ -721,6 +744,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                             };
 
                             Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
+
+                            //create contact if not existing else update contact
                             if (existingContact == null)
                             {
                                 string addressStreet = donations.D_address_number + donations.D_address_street;
@@ -762,6 +787,73 @@ namespace FundraisinApp_Integration.Plugins.Service
                         }                       
                     }
 
+                    Guid scheduleID = Guid.Empty;
+                    if (transactions.Schedule_id != "0") 
+                    {
+                        string ScheduledonationUrl = baseURL + "scheduleddonations";
+                        string csvScheduleDonationContent = CallFundRaisinAPI((object)ScheduledonationUrl);
+
+                        var scheduledDonationList = ParseCsvHelper<ScheduleModel, ScheduleModelMap>(csvScheduleDonationContent);
+
+                        foreach (var scheduleddonations in scheduledDonationList)
+                        {
+                            if (scheduleddonations.ScheduleId == transactions.Schedule_id)
+                            {
+                                var ContactSearchConditions = new List<ConditionExpression>
+                                {
+                                    new ConditionExpression("lrx_fundraisinpaymentscheduleid", ConditionOperator.Equal, scheduleddonations.ScheduleId),
+                                };
+
+                                Entity existingRecord = FindExistingRecord("msnfp_paymentschedule", ContactSearchConditions);
+
+                                var frequencyType = 856660003; // default to monthly
+                                if (scheduleddonations.donation_frequency == "weekly")
+                                    frequencyType = 856660002; //change to weekly
+                                if (scheduleddonations.donation_frequency == "yearly")
+                                    frequencyType = 856660004; //change to years
+                                if (scheduleddonations.donation_frequency == "fortnightly")
+                                    frequencyType = 856660005; //change to forthnightly
+
+                                decimal totalRecurringAmmount = decimal.Parse(transactions.Transaction_value) * int.Parse(scheduleddonations.donation_period);
+
+                                //create payment schedule if not existing else update contact
+                                if (existingRecord == null)
+                                {
+                                    Guid paymentScheduleId = this._service.Create(new Entity("msnfp_paymentschedule")
+                                    {
+                                        ["sifund_donor"] = (object)new EntityReference("contact", contactID),
+                                        ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
+                                        ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                                        ["msnfp_recurringamount"] = new Money(totalRecurringAmmount),
+                                        ["msnfp_frequency"] = new OptionSetValue(frequencyType),
+                                        ["msnfp_frequencyinterval"] = int.Parse(scheduleddonations.donation_day),
+                                        ["sifund_bookdate"] = DateTime.Parse(scheduleddonations.date_created),
+                                        ["msnfp_lastpaymentdate"] = DateTime.Parse(transactions.Date_created),                                     
+                                        ["lrx_fundraisinpaymentscheduleid"] = int.Parse(scheduleddonations.ScheduleId)
+                                    });
+                                    scheduleID = paymentScheduleId;
+                                }
+                                else
+                                {
+                                    this._service.Update(new Entity("msnfp_paymentschedule", existingRecord.Id)
+                                    {
+                                        ["sifund_donor"] = (object)new EntityReference("contact", contactID),
+                                        ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
+                                        ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                                        ["msnfp_recurringamount"] = new Money(totalRecurringAmmount),
+                                        ["msnfp_frequency"] = new OptionSetValue(frequencyType),
+                                        ["msnfp_frequencyinterval"] = int.Parse(scheduleddonations.donation_day),
+                                        ["sifund_bookdate"] = DateTime.Parse(scheduleddonations.date_created),
+                                        ["msnfp_lastpaymentdate"] = DateTime.Parse(transactions.Date_created),
+                                        ["lrx_fundraisinpaymentscheduleid"] = int.Parse(scheduleddonations.ScheduleId)
+                                    });
+                                    scheduleID = existingRecord.Id;
+                                }
+                            }
+                        }
+                    }
+                    
+
                     Guid eventID = Guid.Empty;
                     if (transactions.Event_id != "0")
                     {
@@ -793,6 +885,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         {
                             ["sifund_donor"] = (object)new EntityReference("contact", contactID),
                             ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
+                            ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? (object)new EntityReference("msnfp_paymentschedule", scheduleID) : null,
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
                             ["statuscode"] = new OptionSetValue(856660001),
@@ -868,6 +961,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     }
                 }
             }
+
+            this._tracingService.Trace("Transaction Record Fundraisin API Completed");
         }
 
          //reusable functions
@@ -920,11 +1015,11 @@ namespace FundraisinApp_Integration.Plugins.Service
             string requestUri = "";
             if (dateFrom != "" && dateTo != "")
             {
-                requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}&date_from={5}&date_to={6}", (object)apiEndpoint, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit, (object)this.dateFrom, (object)this.dateTo);
+                requestUri = string.Format("{0}?apikey={1}&date_from={2}&date_to={3}", (object)apiEndpoint, (object)this.apikey, (object)this.dateFrom, (object)this.dateTo);
             }
             else
             {
-                requestUri = string.Format("{0}?username={1}&password={2}&apikey={3}&limit={4}", (object)apiEndpoint, (object)this.username, (object)this.password, (object)this.apikey, (object)this.limit);
+                requestUri = string.Format("{0}?apikey={1}", (object)apiEndpoint, (object)this.apikey);
             }
 
             string csvContent = "";
@@ -937,7 +1032,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                     if (result.IsSuccessStatusCode)
                     {
                         csvContent = result.Content.ReadAsStringAsync().Result;
-                        this._tracingService.Trace("API Success", Array.Empty<object>());
                     }
                     else
                         this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
