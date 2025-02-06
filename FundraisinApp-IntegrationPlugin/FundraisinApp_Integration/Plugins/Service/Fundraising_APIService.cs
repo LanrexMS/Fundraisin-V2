@@ -37,6 +37,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         private readonly ITracingService _tracingService;
         public string baseURL = "https://lanrex.funraisin.com.au/api/";
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
+        private string campaignName = "";
         private string dateFrom = "";
         private string dateTo = "";
 
@@ -56,6 +57,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             // Assign the values to the variables
             this.baseURL = jsonInput["baseURL"]?.ToString();
             this.apikey = jsonInput["apikey"]?.ToString();
+            this.campaignName = jsonInput["defaultCampaignName"]?.ToString();
 
             string format = "MM-dd-yyyy";
             CultureInfo provider = CultureInfo.InvariantCulture;
@@ -725,6 +727,17 @@ namespace FundraisinApp_Integration.Plugins.Service
             string csvContent = CallFundRaisinAPI((object)url);
 
             var TransactionList = ParseCsvHelper<TransactionModel, TransactionModelMap>(csvContent);
+            Guid defaultCampaignID = Guid.Empty;
+            var CampaignSearchConditions = new List<ConditionExpression>
+            {
+                new ConditionExpression("name", ConditionOperator.Equal, (object)this.campaignName)
+            };
+
+            Entity existingCampaign = FindExistingRecord("campaign", CampaignSearchConditions);
+            if (existingCampaign != null) {
+                defaultCampaignID = existingCampaign.Id;
+            }
+
             foreach (var transactions in TransactionList)
             {         
                 if (transactions.Transaction_type == "donation") {
@@ -885,9 +898,11 @@ namespace FundraisinApp_Integration.Plugins.Service
                         {
                             ["sifund_donor"] = (object)new EntityReference("contact", contactID),
                             ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
+                            ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
                             ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? (object)new EntityReference("msnfp_paymentschedule", scheduleID) : null,
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
+                            ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
                             ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(844060000),
                             ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
@@ -946,14 +961,17 @@ namespace FundraisinApp_Integration.Plugins.Service
                     };
 
                     Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+
                     if (existingTransaction == null)
                     {
                         Guid transactionId = this._service.Create(new Entity("msnfp_transaction")
                         {
                             ["sifund_donor"] = (object)new EntityReference("contact", contactID),
+                            ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
                             ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
+                            ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
                             ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(transactionType),
                             ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
