@@ -38,8 +38,10 @@ namespace FundraisinApp_Integration.Plugins.Service
         public string baseURL = "https://lanrex.funraisin.com.au/api/";
         private string apikey = "27f88fda055da35f0cf54d8f168a8753";
         private string campaignName = "";
+        private string paymentMethod = "";
         private string dateFrom = "";
         private string dateTo = "";
+        bool updateTransaction = false;
 
         public Fundraising_APIService(
         IOrganizationService service,
@@ -58,6 +60,8 @@ namespace FundraisinApp_Integration.Plugins.Service
             this.baseURL = jsonInput["baseURL"]?.ToString();
             this.apikey = jsonInput["apikey"]?.ToString();
             this.campaignName = jsonInput["defaultCampaignName"]?.ToString();
+            this.paymentMethod = jsonInput["defaultPaymentMethodName"]?.ToString();
+            this.updateTransaction = bool.Parse(jsonInput["updateTransaction"]?.ToString());
 
             string format = "MM-dd-yyyy";
             CultureInfo provider = CultureInfo.InvariantCulture;
@@ -738,14 +742,19 @@ namespace FundraisinApp_Integration.Plugins.Service
                 defaultCampaignID = existingCampaign.Id;
             }
 
+            
+
             foreach (var transactions in TransactionList)
-            {         
+            {
+                Guid defaultPaymentMethodId = Guid.Empty;
+
                 if (transactions.Transaction_type == "donation") {
                     string donationUrl = baseURL + "donations";
                     string csvDonationContent = CallFundRaisinAPI((object)donationUrl); 
                     var donationList = ParseCsvHelper<DonationModel, DonationModelMap>(csvDonationContent);
                     
                     Guid contactID = Guid.Empty;
+                    Guid scheduleID = Guid.Empty;
                     foreach (var donations in donationList) 
                     {
                         if (donations.Donation_id == transactions.Donation_id) {
@@ -797,75 +806,96 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 });
                                 contactID = existingContact.Id;
                             }
-                        }                       
-                    }
 
-                    Guid scheduleID = Guid.Empty;
-                    if (transactions.Schedule_id != "0") 
-                    {
-                        string ScheduledonationUrl = baseURL + "scheduleddonations";
-                        string csvScheduleDonationContent = CallFundRaisinAPI((object)ScheduledonationUrl);
-
-                        var scheduledDonationList = ParseCsvHelper<ScheduleModel, ScheduleModelMap>(csvScheduleDonationContent);
-
-                        foreach (var scheduleddonations in scheduledDonationList)
-                        {
-                            if (scheduleddonations.ScheduleId == transactions.Schedule_id)
+                            string pMethodUniqueName = (object)this.paymentMethod + " - " + contactID.ToString();
+                            var PMethodSearchConditions = new List<ConditionExpression>
                             {
-                                var ContactSearchConditions = new List<ConditionExpression>
+                                new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
+                            };
+                            Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
+                            if (existingPMethod != null)
+                            {
+                                defaultPaymentMethodId = existingPMethod.Id;
+                            }
+                            else
+                            {
+                                Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
                                 {
-                                    new ConditionExpression("lrx_fundraisinpaymentscheduleid", ConditionOperator.Equal, scheduleddonations.ScheduleId),
-                                };
+                                    ["msnfp_name"] = pMethodUniqueName,
+                                    ["lrx_customer"] = (object)new EntityReference("contact", contactID),
+                                    ["msnfp_type"] = new OptionSetValue(100000000)
 
-                                Entity existingRecord = FindExistingRecord("msnfp_paymentschedule", ContactSearchConditions);
+                                });
+                                defaultPaymentMethodId = pmethodId;
+                            }
 
-                                var frequencyType = 856660003; // default to monthly
-                                if (scheduleddonations.donation_frequency == "weekly")
-                                    frequencyType = 856660002; //change to weekly
-                                if (scheduleddonations.donation_frequency == "yearly")
-                                    frequencyType = 856660004; //change to years
-                                if (scheduleddonations.donation_frequency == "fortnightly")
-                                    frequencyType = 856660005; //change to forthnightly
+                            string ScheduledonationUrl = baseURL + "scheduleddonations";
+                            string csvScheduleDonationContent = CallFundRaisinAPI((object)ScheduledonationUrl);
 
-                                decimal totalRecurringAmmount = decimal.Parse(transactions.Transaction_value) * int.Parse(scheduleddonations.donation_period);
+                            var scheduledDonationList = ParseCsvHelper<ScheduleModel, ScheduleModelMap>(csvScheduleDonationContent);
 
-                                //create payment schedule if not existing else update contact
-                                if (existingRecord == null)
+                            foreach (var scheduleddonations in scheduledDonationList)
+                            {
+                                if (scheduleddonations.donation_id == transactions.Donation_id)
                                 {
-                                    Guid paymentScheduleId = this._service.Create(new Entity("msnfp_paymentschedule")
+                                    var PScheduleSearchConditions = new List<ConditionExpression>
                                     {
-                                        ["sifund_donor"] = (object)new EntityReference("contact", contactID),
-                                        ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
-                                        ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
-                                        ["msnfp_recurringamount"] = new Money(totalRecurringAmmount),
-                                        ["msnfp_frequency"] = new OptionSetValue(frequencyType),
-                                        ["msnfp_frequencyinterval"] = int.Parse(scheduleddonations.donation_day),
-                                        ["sifund_bookdate"] = DateTime.Parse(scheduleddonations.date_created),
-                                        ["msnfp_lastpaymentdate"] = DateTime.Parse(transactions.Date_created),                                     
-                                        ["lrx_fundraisinpaymentscheduleid"] = int.Parse(scheduleddonations.ScheduleId)
-                                    });
-                                    scheduleID = paymentScheduleId;
-                                }
-                                else
-                                {
-                                    this._service.Update(new Entity("msnfp_paymentschedule", existingRecord.Id)
+                                        new ConditionExpression("lrx_fundraisinpaymentscheduleid", ConditionOperator.Equal, scheduleddonations.ScheduleId),
+                                    };
+
+                                    Entity existingRecord = FindExistingRecord("msnfp_paymentschedule", PScheduleSearchConditions);
+
+                                    var frequencyType = 856660003; // default to monthly
+                                    if (scheduleddonations.donation_frequency == "weekly")
+                                        frequencyType = 856660002; //change to weekly
+                                    if (scheduleddonations.donation_frequency == "yearly")
+                                        frequencyType = 856660004; //change to years
+                                    if (scheduleddonations.donation_frequency == "fortnightly")
+                                        frequencyType = 856660005; //change to forthnightly
+
+                                    decimal totalRecurringAmmount = decimal.Parse(scheduleddonations.d_amount) - decimal.Parse(transactions.Transaction_fees);
+
+                                    //create payment schedule if not existing else update contact
+                                    if (existingRecord == null)
                                     {
-                                        ["sifund_donor"] = (object)new EntityReference("contact", contactID),
-                                        ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
-                                        ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
-                                        ["msnfp_recurringamount"] = new Money(totalRecurringAmmount),
-                                        ["msnfp_frequency"] = new OptionSetValue(frequencyType),
-                                        ["msnfp_frequencyinterval"] = int.Parse(scheduleddonations.donation_day),
-                                        ["sifund_bookdate"] = DateTime.Parse(scheduleddonations.date_created),
-                                        ["msnfp_lastpaymentdate"] = DateTime.Parse(transactions.Date_created),
-                                        ["lrx_fundraisinpaymentscheduleid"] = int.Parse(scheduleddonations.ScheduleId)
-                                    });
-                                    scheduleID = existingRecord.Id;
+                                        Guid paymentScheduleId = this._service.Create(new Entity("msnfp_paymentschedule")
+                                        {
+                                            ["sifund_donor"] = (object)new EntityReference("contact", contactID),
+                                            ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
+                                            ["lrx_paymentmethod"] = defaultPaymentMethodId != Guid.Empty ? (object)new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                            ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
+                                            ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                                            ["msnfp_recurringamount"] = new Money(totalRecurringAmmount),
+                                            ["msnfp_frequency"] = new OptionSetValue(frequencyType),
+                                            ["msnfp_frequencyinterval"] = int.Parse(scheduleddonations.donation_day),
+                                            ["sifund_bookdate"] = DateTime.Parse(scheduleddonations.date_created),
+                                            ["msnfp_lastpaymentdate"] = DateTime.Parse(transactions.Date_created),
+                                            ["lrx_fundraisinpaymentscheduleid"] = int.Parse(scheduleddonations.ScheduleId)
+                                        });
+                                        scheduleID = paymentScheduleId;
+                                    }
+                                    else
+                                    {
+                                        this._service.Update(new Entity("msnfp_paymentschedule", existingRecord.Id)
+                                        {
+                                            ["sifund_donor"] = (object)new EntityReference("contact", contactID),
+                                            ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
+                                            ["lrx_paymentmethod"] = defaultPaymentMethodId != Guid.Empty ? (object)new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                            ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
+                                            ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                                            ["msnfp_recurringamount"] = new Money(totalRecurringAmmount),
+                                            ["msnfp_frequency"] = new OptionSetValue(frequencyType),
+                                            ["msnfp_frequencyinterval"] = int.Parse(scheduleddonations.donation_day),
+                                            ["sifund_bookdate"] = DateTime.Parse(scheduleddonations.date_created),
+                                            ["msnfp_lastpaymentdate"] = DateTime.Parse(transactions.Date_created),
+                                            ["lrx_fundraisinpaymentscheduleid"] = int.Parse(scheduleddonations.ScheduleId)
+                                        });
+                                        scheduleID = existingRecord.Id;
+                                    }
                                 }
                             }
-                        }
-                    }
-                    
+                        }                       
+                    }                    
 
                     Guid eventID = Guid.Empty;
                     if (transactions.Event_id != "0")
@@ -899,14 +929,37 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["sifund_donor"] = (object)new EntityReference("contact", contactID),
                             ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
                             ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
+                            ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? (object)new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,                          
                             ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? (object)new EntityReference("msnfp_paymentschedule", scheduleID) : null,
-                            ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value)),
+                            ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
                             ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                            ["lrx_donationpaymenttype"] = scheduleID != Guid.Empty ? new OptionSetValue(856660001) : new OptionSetValue(856660000),
                             ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(844060000),
                             ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
                         });
+                    }
+                    else
+                    {
+                        if (this.updateTransaction)
+                        {
+                            this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
+                            {
+                                ["sifund_donor"] = (object)new EntityReference("contact", contactID),
+                                ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
+                                ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
+                                ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? (object)new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? (object)new EntityReference("msnfp_paymentschedule", scheduleID) : null,
+                                ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
+                                ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
+                                ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                                ["lrx_donationpaymenttype"] = scheduleID != Guid.Empty ? new OptionSetValue(856660001) : new OptionSetValue(856660000),
+                                ["statuscode"] = new OptionSetValue(856660001),
+                                ["sifund_typecode"] = new OptionSetValue(844060000),
+                                ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                            });
+                        }
                     }
                 } //end of donation transaction type
 
@@ -954,6 +1007,30 @@ namespace FundraisinApp_Integration.Plugins.Service
                     {
                         continue;
                     }
+                    else
+                    {
+                        string pMethodUniqueName = (object)this.paymentMethod + " - " + contactID.ToString();
+                        var PMethodSearchConditions = new List<ConditionExpression>
+                            {
+                                new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
+                            };
+                        Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
+                        if (existingPMethod != null)
+                        {
+                            defaultPaymentMethodId = existingPMethod.Id;
+                        }
+                        else
+                        {
+                            Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
+                            {
+                                ["msnfp_name"] = pMethodUniqueName,
+                                ["lrx_customer"] = (object)new EntityReference("contact", contactID),
+                                ["msnfp_type"] = new OptionSetValue(100000000)
+
+                            });
+                            defaultPaymentMethodId = pmethodId;
+                        }
+                    }
 
                     var TransactionSearchConditions = new List<ConditionExpression>
                     {
@@ -968,14 +1045,118 @@ namespace FundraisinApp_Integration.Plugins.Service
                         {
                             ["sifund_donor"] = (object)new EntityReference("contact", contactID),
                             ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
+                            ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? (object)new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                             ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
-                            ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value)),
+                            ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
                             ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
                             ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(transactionType),
                             ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
                         });
+                    }
+                    else
+                    {
+                        if (this.updateTransaction)
+                        {
+                            this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
+                            {
+                                ["sifund_donor"] = (object)new EntityReference("contact", contactID),
+                                ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
+                                ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? (object)new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
+                                ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
+                                ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
+                                ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                                ["statuscode"] = new OptionSetValue(856660001),
+                                ["sifund_typecode"] = new OptionSetValue(transactionType),
+                                ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                            });
+                        }
+                    }
+                }//end of registration transaction
+
+                if (transactions.Transaction_type == "refund")
+                {
+                    this._tracingService.Trace("Refund Started");
+                    var originalTransaction = TransactionList
+                        .FirstOrDefault(t => t.Donation_id == transactions.Donation_id && t.Transaction_type != "refund");
+
+                    if (originalTransaction != null)
+                    {
+                        this._tracingService.Trace("Original Transaction fetch: " + originalTransaction.Transaction_id);
+                        var originalTransactionId = originalTransaction.Transaction_id;
+                        decimal transactionAmount = decimal.Parse(originalTransaction.Transaction_value) - decimal.Parse(originalTransaction.Transaction_fees);
+
+                        var TransactionSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, originalTransaction.Transaction_id),
+                        };
+
+                        Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+                        if (existingTransaction != null && existingTransaction.Attributes.Contains("sifund_donor"))
+                        {
+                            Guid donorId = Guid.Empty; // Get the GUID of the donor
+                            var donor = existingTransaction.GetAttributeValue<EntityReference>("sifund_donor");
+                            if (donor != null)
+                            {
+                                donorId = donor.Id; // Get the GUID of the donor
+                            }
+                            this._tracingService.Trace("Donor fetch: " + donor.Name);
+                            var RefundSearchConditions = new List<ConditionExpression>
+                            {
+                                new ConditionExpression("lrx_fundraisinrefundid", ConditionOperator.Equal, transactions.Transaction_id),
+                            };
+
+                            Entity existingRefund = FindExistingRecord("lrx_refund", RefundSearchConditions);
+                            if (existingRefund == null)
+                            {
+                                this._tracingService.Trace("Creating Refund: ");
+                                Guid RefundRecordId = this._service.Create(new Entity("lrx_refund")
+                                {
+                                    ["lrx_customer"] = (object)new EntityReference("contact", donorId),
+                                    ["lrx_transaction"] = (object)new EntityReference("msnfp_transaction", existingTransaction.Id),
+                                    ["lrx_totalamountpaidrefund"] = new Money(transactionAmount),
+                                    ["lrx_amountreceiptablerefund"] = new Money(transactionAmount),
+                                    ["lrx_totalamountpaid"] = new Money(transactionAmount),
+                                    ["lrx_amountreceiptable"] = new Money(transactionAmount),
+                                    ["lrx_refunddate"] = DateTime.Parse(transactions.Date_created),
+                                    ["lrx_refundtype"] = new OptionSetValue(844060002),
+                                    ["statuscode"] = new OptionSetValue(376750001),
+                                    ["lrx_fundraisinrefundid"] = int.Parse(transactions.Transaction_id)
+                                });
+                                this._tracingService.Trace("RefundID: " + RefundRecordId);
+
+                                this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
+                                {
+                                    ["statuscode"] = new OptionSetValue(856660005)
+                                });
+                            }
+                            else
+                            {
+                                if (this.updateTransaction)
+                                {
+                                    this._service.Update(new Entity("lrx_refund", existingRefund.Id)
+                                    {
+                                        ["lrx_customer"] = (object)new EntityReference("contact", donorId),
+                                        ["lrx_transaction"] = (object)new EntityReference("msnfp_transaction", existingTransaction.Id),
+                                        ["lrx_totalamountpaidrefund"] = new Money(transactionAmount),
+                                        ["lrx_amountreceiptablerefund"] = new Money(transactionAmount),
+                                        ["lrx_totalamountpaid"] = new Money(transactionAmount),
+                                        ["lrx_amountreceiptable"] = new Money(transactionAmount),
+                                        ["lrx_refunddate"] = DateTime.Parse(transactions.Date_created),
+                                        ["lrx_refundtype"] = new OptionSetValue(844060002),
+                                        ["statuscode"] = new OptionSetValue(376750001),
+                                        ["lrx_fundraisinrefundid"] = int.Parse(transactions.Transaction_id)
+                                    });
+
+                                    this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
+                                    {
+                                        ["statuscode"] = new OptionSetValue(856660005)
+                                    });
+                                }
+                            }
+                        }
                     }
                 }
             }
