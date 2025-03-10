@@ -29,7 +29,7 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
         public string EntryLimit { get; set; }
         public bool UseEntryCode { get; set; }
         public string EntryCode { get; set; }
-        public decimal EventFee { get; set; }
+        public string EventFee { get; set; }
         public string EventFeeDescription { get; set; }
         public decimal EventTicketPrice { get; set; }
         public int EventTickets { get; set; }
