@@ -1252,9 +1252,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                     {
                         string pMethodUniqueName = (object)this.paymentMethod + " - " + contactID.ToString();
                         var PMethodSearchConditions = new List<ConditionExpression>
-                            {
-                                new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
-                            };
+                        {
+                            new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
+                        };
                         Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
                         if (existingPMethod != null)
                         {
@@ -1363,9 +1363,15 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     };
 
                                     Entity existingInventoryProduct = FindExistingRecord("lrx_inventoryproduct", ProductSearchConditions);
-
-                                    if (existingInventoryProduct != null)
+                                    string productName = "";
+                                    string productOptionName = "";
+                                    if (existingInventoryProduct != null) {
                                         productID = (Guid)existingInventoryProduct.Id;
+                                        if (existingInventoryProduct.Attributes.Contains("lrx_name"))
+                                        {
+                                            productName = existingInventoryProduct["lrx_name"].ToString();
+                                        }
+                                    }                                     
 
                                     Guid productOption = Guid.Empty;
                                     var ProductOptionSearchConditions = new List<ConditionExpression>
@@ -1374,26 +1380,44 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     };
 
                                     Entity existingProductOption = FindExistingRecord("lrx_productoptions", ProductOptionSearchConditions);
-                                    if (existingProductOption != null)
+                                    if (existingProductOption != null) {
                                         productOption = (Guid)existingProductOption.Id;
+                                        if (existingProductOption.Attributes.Contains("lrx_name"))
+                                        {
+                                            productOptionName = existingProductOption["lrx_name"].ToString();
+                                        }
+                                    }
 
-                                    Guid eventProductID = this._service.Create(new Entity("lrx_eventproduct")
-                                    {
-                                        ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
-                                        ["lrx_product"] = productID != Guid.Empty ? (object)new EntityReference("lrx_inventoryproduct", productID) : null,
-                                        ["lrx_priceperproduct"] = new Money(decimal.Parse(saleItems.unit_cost)),
-                                        ["lrx_quantity"] = int.Parse(saleItems.quantity),
-                                    });
 
-                                    Guid SaleProductId = this._service.Create(new Entity("lrx_product")
+                                    var EventProductSearchConditions = new List<ConditionExpression>
                                     {
-                                        ["lrx_constituentorganisation"] = (object)new EntityReference("contact", contactID),                                                    
-                                        ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
-                                        ["lrx_eventproduct"] = eventProductID != Guid.Empty ? (object)new EntityReference("lrx_eventproduct", eventProductID) : null,
-                                        ["lrx_productoption"] = productOption != Guid.Empty ? (object)new EntityReference("lrx_productoptions", productOption) : null,
-                                        ["lrx_quantity"] = int.Parse(saleItems.quantity),
-                                        ["lrx_priceperproduct"] = new Money(decimal.Parse(saleItems.unit_cost))
-                                    }); 
+                                        new ConditionExpression("lrx_fundraisineventproductid", ConditionOperator.Equal, int.Parse(saleItems.id))
+                                    };
+
+                                    Entity existingEventProduct = FindExistingRecord("lrx_eventproduct", EventProductSearchConditions);
+                                    if (existingEventProduct == null)
+                                    {
+                                        Guid eventProductID = this._service.Create(new Entity("lrx_eventproduct")
+                                        {
+                                            ["lrx_name"] = productName + " - " + productOption,
+                                            ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
+                                            ["lrx_product"] = productID != Guid.Empty ? (object)new EntityReference("lrx_inventoryproduct", productID) : null,
+                                            ["lrx_priceperproduct"] = new Money(decimal.Parse(saleItems.unit_cost)),
+                                            ["lrx_quantity"] = int.Parse(saleItems.quantity),
+                                            ["lrx_fundraisineventproductid"] = int.Parse(saleItems.id),
+                                        });
+
+                                        Guid SaleProductId = this._service.Create(new Entity("lrx_product")
+                                        {
+                                            ["lrx_name"] = productName + " - " + productOption,
+                                            ["lrx_constituentorganisation"] = (object)new EntityReference("contact", contactID),
+                                            ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
+                                            ["lrx_eventproduct"] = eventProductID != Guid.Empty ? (object)new EntityReference("lrx_eventproduct", eventProductID) : null,
+                                            ["lrx_productoption"] = productOption != Guid.Empty ? (object)new EntityReference("lrx_productoptions", productOption) : null,
+                                            ["lrx_quantity"] = int.Parse(saleItems.quantity),
+                                            ["lrx_priceperproduct"] = new Money(decimal.Parse(saleItems.unit_cost))
+                                        });
+                                    }                                     
                                 }
                             }
                         }
