@@ -19,6 +19,10 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
             Map(m => m.EventAboutInfo).Name("event_about_info");
             Map(m => m.EventWaiver).Name("event_waiver");
             Map(m => m.EventTarget).Name("event_target");
+            Map(m => m.EventDate).Name("event_date");
+            Map(m => m.EventClosedDate).Name("event_closed_date");
+            Map(m => m.EventLocation).Name("event_location");
+            
             // Add additional fields as needed...
         }
     }

@@ -128,6 +128,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\DataverseContext.cs" />
+    <Compile Include="Entities\Entities.cs" />
+    <Compile Include="Entities\EntityOptionSetEnum.cs" />
+    <Compile Include="Entities\OptionSets.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\CustomPageDetailModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\CustomPageDetailsModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\DonationModel.cs" />
@@ -159,8 +163,10 @@
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TransactionModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TransactionModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\FundraisinIntegration.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\RegistrationAmountRaised.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Service\Fundraising_APIService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Fundraising-IntegrationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

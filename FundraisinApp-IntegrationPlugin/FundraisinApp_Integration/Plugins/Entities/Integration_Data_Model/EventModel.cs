@@ -9,7 +9,7 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
     public class EventModel
     {
         public int TotalRecords { get; set; }
-        public int EventId { get; set; }
+        public string EventId { get; set; }
         public int CreatedMemberId { get; set; }
         public int DiyCategoryId { get; set; }
         public int CharityId { get; set; }
@@ -47,7 +47,7 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
         public string StPrefixTicket { get; set; }
         public string StPrefixShop { get; set; }
         public bool EventClosed { get; set; }
-        public DateTime? EventClosedDate { get; set; }
+        public string EventClosedDate { get; set; }
         public string EventClosedMsg { get; set; }
         public string EventShortDesc { get; set; }
         public string EventAboutInfo { get; set; }
@@ -55,8 +55,8 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
         public string EventMobileBanner { get; set; }
         public string EventImage { get; set; }
         public string EventTarget { get; set; }
-        public DateTime EventDate { get; set; }
-        public DateTime EventExpiry { get; set; }
+        public string EventDate { get; set; }
+        public string EventExpiry { get; set; }
         public string EventLocation { get; set; }
         public string EventState { get; set; }
         public string EventCountry { get; set; }
