@@ -27,6 +27,7 @@ using Newtonsoft.Json.Linq;
 using System.Diagnostics.Tracing;
 using System.Web.Util;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -84,7 +85,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
         }
 
-        public void GetFundraisinEventRecords()
+        public Task GetFundraisinEventRecords()
         {
             List<EventModel> fundraisingEvents = this.ParseCsvHelper<EventModel, EventModelMap>(this.CallFundRaisinAPI((object)(this.baseURL + "events")));
 
@@ -153,9 +154,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Fundraising Event Record Sync Completed", Array.Empty<object>());
+            return Task.CompletedTask;
         }
 
-        public void GetFundraisinParticipantRecords()
+        public Task GetFundraisinParticipantRecords()
         {
             string participantURL = baseURL + "participants";
             string csvContent = CallFundRaisinAPI((object)participantURL);
@@ -235,9 +237,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Participant Record Fundraisin API Completed");
+            return Task.CompletedTask;
         }
 
-        public void GetRegistrationFromParticipantEventRecord()
+        public Task GetRegistrationFromParticipantEventRecord()
         {
             string participantEventURL = baseURL + "participantsevents";
             string csvContent = CallFundRaisinAPI((object)participantEventURL);
@@ -292,7 +295,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 if (contactID == Guid.Empty || eventID == Guid.Empty)
                 {
-                    this._tracingService.Trace("No contact or event found for record " + participantEvent.Member_Id);
                     continue;
                 }
 
@@ -362,7 +364,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     ["lrx_priceperregistration"] = new Money(ticketAmount),
                     ["lrx_constituentorganization"] = new EntityReference("contact", contactID),
                     ["lrx_transaction"] = TransactionID != Guid.Empty ? new EntityReference("msnfp_transaction", TransactionID) : null,
-                    ["lrx_registeredby"] = paidByMember != Guid.Empty ? new EntityReference("contact", paidByMember) : null,
+                    ["lrx_registeredby"] = paidByMember != Guid.Empty ? new EntityReference("contact", paidByMember) : new EntityReference("contact", contactID),
                     ["lrx_registrationpaidby"] = paidMemberRegistration != Guid.Empty ? new EntityReference("lrx_registrations", paidMemberRegistration) : null,
                     ["lrx_promoid"] = int.TryParse(participantEvent.Promo_Id.ToString(), out int promoId) ? promoId : (int?)null,
                     ["lrx_fundraisinregistrationid"] = int.TryParse(participantEvent.History_Id, out int historyId) ? historyId : (int?)null
@@ -380,9 +382,10 @@ namespace FundraisinApp_Integration.Plugins.Service
 
             }
             this._tracingService.Trace("Registration Record Fundraisin API Completed");
+            return Task.CompletedTask;
         }
 
-        public void GetFundraisinTicketRecords()
+        public Task GetFundraisinTicketRecords()
         {
             string ticketURL = baseURL + "tickets";
             string csvContent = CallFundRaisinAPI((object)ticketURL);
@@ -402,7 +405,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 if (eventID == Guid.Empty)
                 {
-                    this._tracingService.Trace("No event found for ticket record " + tickets.ticket_id);
                     continue;
                 }
 
@@ -435,9 +437,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Ticket Record Fundraisin API Completed");
+            return Task.CompletedTask;
         }
 
-        public void GetFundraisinTicketHolderRecord()
+        public Task GetFundraisinTicketHolderRecord()
         {
             foreach (TicketHolderModel ticketHolder in this.ParseCsvHelper<TicketHolderModel, TicketHolderModelMap>(this.CallFundRaisinAPI((object)(this.baseURL + "ticketholders"))))
             {
@@ -474,18 +477,22 @@ namespace FundraisinApp_Integration.Plugins.Service
                 if (existingTicket != null)
                     ticketId = existingTicket.Id;
 
-                Entity existingRegistration = this.FindExistingRecord("lrx_registrations", new List<ConditionExpression>()
+                var existingRegistration = FindExistingRecord("lrx_registrations",
+                new List<ConditionExpression>
                 {
-                    new ConditionExpression("lrx_fundraisinregistrationid", ConditionOperator.Equal, (object)ticketHolder.history_id)
-                });
+                    new ConditionExpression("lrx_fundraisinregistrationid", ConditionOperator.Equal, ticketHolder.history_id)
+                },
+                new ColumnSet("lrx_transaction"));
 
                 if (existingRegistration != null) {
                     registrationId = existingRegistration.Id;
-                    if (existingRegistration.Attributes.Contains("lrx_transaction") && existingRegistration["lrx_transaction"] != null)
+                    if (existingRegistration.Attributes.TryGetValue("lrx_transaction", out var transactionObj) &&
+                    transactionObj is EntityReference transactionRef)
                     {
-                        TransactionID = ((EntityReference)existingRegistration["lrx_transaction"]).Id;
+                        TransactionID = transactionRef.Id;
+                        _tracingService.Trace($"Transaction ID: {TransactionID}");
                     }
-                }
+                }                
 
                 var MemberSearchConditions = new List<ConditionExpression>
                 {
@@ -500,7 +507,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 if (eventId == Guid.Empty || registrationId == Guid.Empty)
                 {
-                    this._tracingService.Trace("No registration record or event found for record " + ticketHolder.guest_id, Array.Empty<object>());
                     continue;
                 }
                 
@@ -581,6 +587,10 @@ namespace FundraisinApp_Integration.Plugins.Service
                     }
                     else
                     {
+                        if (registrationId == existingTicketRegistration.Id)
+                        {
+                            registrationEntity["lrx_registrationpaidby"] = null;
+                        }
                         registrationEntity.Id = existingTicketRegistration.Id;
                         this._service.Update(registrationEntity);
                     }
@@ -601,6 +611,9 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                             if (relatedRegistrationId != Guid.Empty)
                             {
+                                if (registrationId == relatedRegistrationId) {
+                                    relatedRegistrationId = Guid.Empty; //making sure that the payor is not related to her own registration
+                                }
                                 this._service.Update(new Entity("lrx_registrations", registrationId)
                                 {
                                     ["lrx_eventticket"] = ticketId != Guid.Empty ? (object)new EntityReference("lrx_eventticket", ticketId) : (object)null,
@@ -620,9 +633,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Ticket Holder Record Fundraising API Completed", Array.Empty<object>());
+            return Task.CompletedTask;
         }
 
-        public void GetFundRaisinProductRecord()
+        public Task GetFundRaisinProductRecord()
         {
             string url = baseURL + "products";
             string csvContent = CallFundRaisinAPI((object)url);
@@ -675,9 +689,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Product Record Fundraisin API Completed");
+            return Task.CompletedTask;
         }
 
-        public void GetFundRaisinProductOptionsRecord()
+        public Task GetFundRaisinProductOptionsRecord()
         {
             string url = baseURL + "productoptions";
             string csvContent = CallFundRaisinAPI((object)url);
@@ -739,9 +754,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Product Option Record Fundraisin API Completed");
+            return Task.CompletedTask;
         }
 
-        public void GetFundRaisinEventTeamsRecord()
+        public Task GetFundRaisinEventTeamsRecord()
         {
             string url = baseURL + "teams";
             string csvContent = CallFundRaisinAPI((object)url);
@@ -761,7 +777,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 if (eventID == Guid.Empty)
                 {
-                    this._tracingService.Trace("No event found for team record " + eventTeams.team_id);
                     continue;
                 }
 
@@ -778,7 +793,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 if (contactID == Guid.Empty)
                 {
-                    this._tracingService.Trace("No captain found for team record " + eventTeams.team_id);
                     continue;
                 }
 
@@ -817,9 +831,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Event Team Record Fundraisin API Completed");
+            return Task.CompletedTask;
         }
 
-        public void GetFundRaisinOrganisationRecord()
+        public Task GetFundRaisinOrganisationRecord()
         {
             string url = baseURL + "orgpages";
             string csvContent = CallFundRaisinAPI((object)url);
@@ -840,7 +855,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 if (contactID == Guid.Empty)
                 {
-                    this._tracingService.Trace("No primary contact found for organisation record " + organisations.org_id);
                     continue;
                 }
 
@@ -873,9 +887,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Organisation Record Fundraisin API Completed");
+            return Task.CompletedTask;
         }
 
-        public void GetFundRaisinPromoCodeRecord()
+        public Task GetFundRaisinPromoCodeRecord()
         {
             string url = baseURL + "promocodes";
             string csvContent = CallFundRaisinAPI((object)url);
@@ -917,9 +932,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Promocode Record Fundraisin API Completed");
+            return Task.CompletedTask;
         }
 
-        public void GetFundRaisinTransactionRecord()
+        public Task GetFundRaisinTransactionRecord()
         {
             var TransactionList = this.GetData<TransactionModel, TransactionModelMap>(this.baseURL, "transactions");
             var donationList = this.GetData<DonationModel, DonationModelMap>(this.baseURL, "donations");
@@ -930,315 +946,300 @@ namespace FundraisinApp_Integration.Plugins.Service
             var participantList = this.GetData<ParticipantModel, ParticipantModelMap>(this.baseURL, "participants");
             var eventList = this.GetData<EventModel, EventModelMap>(this.baseURL, "events");
 
-            Guid defaultCampaignID = Guid.Empty;
-            var CampaignSearchConditions = new List<ConditionExpression>
+            if (TransactionList != null &&
+                donationList != null &&
+                scheduledDonationList != null &&
+                saleItemList != null &&
+                productList != null &&
+                productOptionList != null &&
+                participantList != null &&
+                eventList != null)
             {
-                new ConditionExpression("name", ConditionOperator.Equal, (object)this.campaignName)
-            };
-
-            Entity existingCampaign = FindExistingRecord("campaign", CampaignSearchConditions);
-            if (existingCampaign != null)
-            {
-                defaultCampaignID = existingCampaign.Id;
-            }
-
-            foreach (var transactions in TransactionList)
-            {
-                Guid defaultPaymentMethodId = Guid.Empty;
-                Guid registrationID = Guid.Empty;
-                Guid teamID = Guid.Empty;
-                Guid contactID = Guid.Empty;
-                Guid eventID = Guid.Empty;
-                Guid scheduleID = Guid.Empty;
-                Guid solicitorID = Guid.Empty;
-                Guid promoGuid = Guid.Empty;
-
-                if (transactions.Event_id.Trim() != "0")
+                Guid defaultCampaignID = Guid.Empty;
+                var CampaignSearchConditions = new List<ConditionExpression>
                 {
-                    var EventSearchConditions = new List<ConditionExpression>
-                    {
-                        new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, transactions.Event_id)
-                    };
+                    new ConditionExpression("name", ConditionOperator.Equal, (object)this.campaignName)
+                };
 
-                    Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
-                    if (existingEvent != null)
-                        eventID = (Guid)existingEvent.Id;
+                Entity existingCampaign = FindExistingRecord("campaign", CampaignSearchConditions);
+                if (existingCampaign != null)
+                {
+                    defaultCampaignID = existingCampaign.Id;
                 }
 
-                if (transactions.Transaction_type == "donation")
+                foreach (var transactions in TransactionList)
                 {
-                    var matchDonationID = donationList.FirstOrDefault(d => d.Donation_id == transactions.Donation_id);
+                    Guid defaultPaymentMethodId = Guid.Empty;
+                    Guid registrationID = Guid.Empty;
+                    Guid teamID = Guid.Empty;
+                    Guid contactID = Guid.Empty;
+                    Guid eventID = Guid.Empty;
+                    Guid scheduleID = Guid.Empty;
+                    Guid solicitorID = Guid.Empty;
+                    Guid promoGuid = Guid.Empty;
 
-                    if (matchDonationID != null)
+                    if (transactions.Event_id.Trim() != "0")
                     {
-                        contactID = UpsertContact(matchDonationID);
-
-                        string pMethodUniqueName = (object)this.paymentMethod + " - " + contactID.ToString();
-                        var PMethodSearchConditions = new List<ConditionExpression>
+                        var EventSearchConditions = new List<ConditionExpression>
                         {
-                            new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
+                            new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, transactions.Event_id)
                         };
-                        Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
-                        if (existingPMethod != null)
+
+                        Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
+                        if (existingEvent != null)
+                            eventID = (Guid)existingEvent.Id;
+                    }
+
+                    if (transactions.Transaction_type == "donation")
+                    {
+                        decimal totalDonation = decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees);
+                        if (totalDonation == 0)
                         {
-                            defaultPaymentMethodId = existingPMethod.Id;
+                            continue;
                         }
-                        else
+                        var matchDonationID = donationList.FirstOrDefault(d => d.Donation_id == transactions.Donation_id);
+
+                        if (matchDonationID != null)
                         {
-                            Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
-                            {
-                                ["msnfp_name"] = pMethodUniqueName,
-                                ["lrx_customer"] = (object)new EntityReference("contact", contactID),
-                                ["msnfp_type"] = new OptionSetValue(100000000)
+                            contactID = UpsertContact(matchDonationID);
 
-                            });
-                            defaultPaymentMethodId = pmethodId;
-                        }
-
-                        var matchScheduleDonationID = scheduledDonationList.FirstOrDefault(sd => sd.donation_id == transactions.Donation_id);
-                        if (matchScheduleDonationID != null)
-                        {
-                            var PScheduleSearchConditions = new List<ConditionExpression>
+                            string pMethodUniqueName = (object)this.paymentMethod + " - " + contactID.ToString();
+                            var PMethodSearchConditions = new List<ConditionExpression>
                             {
-                                new ConditionExpression("lrx_fundraisinpaymentscheduleid", ConditionOperator.Equal, matchScheduleDonationID.ScheduleId),
+                                new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
                             };
-
-                            Entity existingRecord = FindExistingRecord("msnfp_paymentschedule", PScheduleSearchConditions);
-
-                            var frequencyType = 856660003; // default to monthly
-                            if (matchScheduleDonationID.donation_frequency == "weekly")
-                                frequencyType = 856660002; //change to weekly
-                            if (matchScheduleDonationID.donation_frequency == "yearly")
-                                frequencyType = 856660004; //change to years
-                            if (matchScheduleDonationID.donation_frequency == "fortnightly")
-                                frequencyType = 856660005; //change to forthnightly
-
-                            decimal totalRecurringAmmount = decimal.Parse(matchScheduleDonationID.d_amount) - decimal.Parse(transactions.Transaction_fees);
-
-                            Entity paymentSchedule = new Entity("msnfp_paymentschedule")
+                            Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
+                            if (existingPMethod != null)
                             {
-                                ["sifund_donor"] = new EntityReference("contact", contactID),
-                                ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
-                                ["lrx_paymentmethod"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
-                                ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
-                                ["sifund_paymenttypecode"] = new OptionSetValue(existingRecord == null ? 844060008 : 844060002), // Handles different payment type codes
-                                ["msnfp_recurringamount"] = new Money(totalRecurringAmmount),
-                                ["msnfp_frequency"] = new OptionSetValue(frequencyType),
-                                ["msnfp_frequencyinterval"] = int.Parse(matchScheduleDonationID.donation_day),
-                                ["sifund_bookdate"] = DateTime.Parse(matchScheduleDonationID.date_created),
-                                ["msnfp_lastpaymentdate"] = DateTime.Parse(transactions.Date_created),
-                                ["lrx_fundraisinpaymentscheduleid"] = int.Parse(matchScheduleDonationID.ScheduleId)
-                            };
-
-                            if (existingRecord == null)
-                            {
-                                scheduleID = this._service.Create(paymentSchedule);
+                                defaultPaymentMethodId = existingPMethod.Id;
                             }
                             else
                             {
-                                paymentSchedule.Id = existingRecord.Id;
-                                this._service.Update(paymentSchedule);
-                                scheduleID = existingRecord.Id;
-                            }
-                        }
-
-                        if (matchDonationID.History_id.Trim() != "0")
-                        {
-                            string customPageDetailURL = baseURLCustom + "getFundraiserPageDetails";
-                            string csvCustomPageDetailContent = CallFundRaisinCustomAPI((object)customPageDetailURL, matchDonationID.History_id);
-
-                            var pageDetailList = ParseCsvHelper<CustomPageDetailsModel, CustomPageDetailsModelMap>(csvCustomPageDetailContent);
-                            string pageMemberId = pageDetailList.FirstOrDefault()?.member_id;
-                            string pageFname = pageDetailList.FirstOrDefault()?.m_fname;
-                            string pageLname = pageDetailList.FirstOrDefault()?.m_lname;
-
-                            if (!string.Equals(matchDonationID.D_fname, pageFname, StringComparison.OrdinalIgnoreCase) &&
-                                !string.Equals(matchDonationID.D_lname, pageLname, StringComparison.OrdinalIgnoreCase))
-                            {
-                                var SolicitorSearchConditions = new List<ConditionExpression>
+                                Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
                                 {
-                                    new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, int.Parse(pageMemberId)),
+                                    ["msnfp_name"] = pMethodUniqueName,
+                                    ["lrx_customer"] = (object)new EntityReference("contact", contactID),
+                                    ["msnfp_type"] = new OptionSetValue(100000000)
+
+                                });
+                                defaultPaymentMethodId = pmethodId;
+                            }
+
+                            var matchScheduleDonationID = scheduledDonationList.FirstOrDefault(sd => sd.donation_id == transactions.Donation_id);
+                            if (matchScheduleDonationID != null)
+                            {
+                                var PScheduleSearchConditions = new List<ConditionExpression>
+                                {
+                                    new ConditionExpression("lrx_fundraisinpaymentscheduleid", ConditionOperator.Equal, matchScheduleDonationID.ScheduleId),
                                 };
 
-                                Entity existingSolicitor = FindExistingRecord("contact", SolicitorSearchConditions);
-                                if (existingSolicitor != null)
+                                Entity existingRecord = FindExistingRecord("msnfp_paymentschedule", PScheduleSearchConditions);
+
+                                var frequencyType = 856660003; // default to monthly
+                                if (matchScheduleDonationID.donation_frequency == "weekly")
+                                    frequencyType = 856660002; //change to weekly
+                                if (matchScheduleDonationID.donation_frequency == "yearly")
+                                    frequencyType = 856660004; //change to years
+                                if (matchScheduleDonationID.donation_frequency == "fortnightly")
+                                    frequencyType = 856660005; //change to forthnightly
+
+                                decimal totalRecurringAmmount = decimal.Parse(matchScheduleDonationID.d_amount) - decimal.Parse(transactions.Transaction_fees);
+
+                                Entity paymentSchedule = new Entity("msnfp_paymentschedule")
                                 {
-                                    solicitorID = existingSolicitor.Id;
+                                    ["sifund_donor"] = new EntityReference("contact", contactID),
+                                    ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
+                                    ["lrx_paymentmethod"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                    ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
+                                    ["sifund_paymenttypecode"] = new OptionSetValue(existingRecord == null ? 844060008 : 844060002), // Handles different payment type codes
+                                    ["msnfp_recurringamount"] = new Money(totalRecurringAmmount),
+                                    ["msnfp_frequency"] = new OptionSetValue(frequencyType),
+                                    ["msnfp_frequencyinterval"] = int.Parse(matchScheduleDonationID.donation_day),
+                                    ["sifund_bookdate"] = DateTime.Parse(matchScheduleDonationID.date_created),
+                                    ["msnfp_lastpaymentdate"] = DateTime.Parse(transactions.Date_created),
+                                    ["lrx_fundraisinpaymentscheduleid"] = int.Parse(matchScheduleDonationID.ScheduleId)
+                                };
+
+                                if (existingRecord == null)
+                                {
+                                    scheduleID = this._service.Create(paymentSchedule);
+                                }
+                                else
+                                {
+                                    paymentSchedule.Id = existingRecord.Id;
+                                    this._service.Update(paymentSchedule);
+                                    scheduleID = existingRecord.Id;
                                 }
                             }
-                        }
 
-                        if (matchDonationID.Team_id.Trim() != "0") 
-                        {                           
-                            var EventTeamSearchConditions = new List<ConditionExpression>
+                            if (matchDonationID.History_id.Trim() != "0")
                             {
-                                new ConditionExpression("lrx_fundraisinteamid", ConditionOperator.Equal, matchDonationID.Team_id.Trim())
-                            };
+                                string customPageDetailURL = baseURLCustom + "getFundraiserPageDetails";
+                                string csvCustomPageDetailContent = CallFundRaisinCustomAPI((object)customPageDetailURL, matchDonationID.History_id);
 
-                            Entity existingEventTeam = FindExistingRecord("lrx_eventteam", EventTeamSearchConditions);
-                            if (existingEventTeam != null)
-                            {
-                                teamID = existingEventTeam.Id;
-                            }                           
-                        }
-                    } // end of match donation variable
-                   
-                    var TransactionSearchConditions = new List<ConditionExpression>
-                    {
-                        new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, transactions.Transaction_id),
-                    };
+                                var pageDetailList = ParseCsvHelper<CustomPageDetailsModel, CustomPageDetailsModelMap>(csvCustomPageDetailContent);
+                                string pageMemberId = pageDetailList.FirstOrDefault()?.member_id;
+                                string pageFname = pageDetailList.FirstOrDefault()?.m_fname;
+                                string pageLname = pageDetailList.FirstOrDefault()?.m_lname;
 
-                    Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
-                    Entity transactionEntity = new Entity("msnfp_transaction")
-                    {
-                        ["sifund_donor"] = new EntityReference("contact", contactID),
-                        ["lrx_solicitor"] = solicitorID != Guid.Empty ? new EntityReference("contact", solicitorID) : null,
-                        ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
-                        ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
-                        ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
-                        ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
-                        ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
-                        ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? new EntityReference("msnfp_paymentschedule", scheduleID) : null,
-                        ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
-                        ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
-                        ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
-                        ["lrx_donationpaymenttype"] = new OptionSetValue(scheduleID != Guid.Empty ? 856660001 : 856660000),
-                        ["statuscode"] = new OptionSetValue(856660001),
-                        ["sifund_typecode"] = new OptionSetValue(844060000),
-                        ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
-                    };
+                                string pageFullName = $"{pageFname} {pageLname}".Trim();
+                                string matchFullName = $"{matchDonationID.D_fname} {matchDonationID.D_lname}".Trim();
 
-                    if (existingTransaction == null)
-                    {
-                        this._service.Create(transactionEntity);
-                    }
-                    else if (this.updateTransaction)
-                    {
-                        transactionEntity.Id = existingTransaction.Id;
-                        this._service.Update(transactionEntity);
-                    }
-                } //end of donation transaction type
-
-                if (transactions.Transaction_type == "registration" || transactions.Transaction_type == "merchandise")
-                {
-                    int transactionType = 844060003; //default registration
-
-                    var ContactSearchConditions = new List<ConditionExpression>
-                    {
-                        new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, transactions.Member_id)
-                    };
-
-                    Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
-
-                    if (existingContact != null)
-                        contactID = (Guid)existingContact.Id;
-
-                    if (contactID == Guid.Empty)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        string pMethodUniqueName = (object)this.paymentMethod + " - " + contactID.ToString();
-                        var PMethodSearchConditions = new List<ConditionExpression>
-                        {
-                            new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
-                        };
-                        Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
-                        if (existingPMethod != null)
-                        {
-                            defaultPaymentMethodId = existingPMethod.Id;
-                        }
-                        else
-                        {
-                            Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
-                            {
-                                ["msnfp_name"] = pMethodUniqueName,
-                                ["lrx_customer"] = (object)new EntityReference("contact", contactID),
-                                ["msnfp_type"] = new OptionSetValue(100000000)
-
-                            });
-                            defaultPaymentMethodId = pmethodId;
-                        }
-                    }
-
-                    if (transactions.Transaction_type == "merchandise")
-                    {
-                        transactionType = 844060004;
-                    }
-                    else
-                    {
-                        var RegistrationSearchConditions = new List<ConditionExpression>
-                        {
-                            new ConditionExpression("lrx_fundraisinregistrationid", ConditionOperator.Equal, transactions.History_id)
-                        };
-                        Entity existingRegistration = FindExistingRecord("lrx_registrations", RegistrationSearchConditions);
-                        if (existingRegistration != null)
-                        {
-                            registrationID = existingRegistration.Id;
-
-                            if (existingRegistration.Attributes.Contains("lrx_promoid"))
-                            {
-                                var PromoSearchConditions = new List<ConditionExpression>
+                                if (!string.Equals(matchFullName, pageFullName, StringComparison.OrdinalIgnoreCase))
                                 {
-                                    new ConditionExpression("lrx_fundraisinpromoid", ConditionOperator.Equal, existingRegistration["lrx_promoid"].ToString())
-                                };
-                                Entity existingPromo = FindExistingRecord("lrx_promocodeanddiscount", PromoSearchConditions);
-                                if (existingPromo != null)
-                                {
-                                    promoGuid = existingPromo.Id;
-                                }                              
+                                    var SolicitorSearchConditions = new List<ConditionExpression>
+                                    {
+                                        new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, int.Parse(pageMemberId)),
+                                    };
+
+                                    Entity existingSolicitor = FindExistingRecord("contact", SolicitorSearchConditions);
+                                    if (existingSolicitor != null)
+                                    {
+                                        solicitorID = existingSolicitor.Id;
+                                    }
+                                }
                             }
-                        }
-                    }
 
-                    var TransactionSearchConditions = new List<ConditionExpression>
-                    {
-                        new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, transactions.Transaction_id),
-                    };
+                            if (matchDonationID.Team_id.Trim() != "0")
+                            {
+                                var EventTeamSearchConditions = new List<ConditionExpression>
+                                {
+                                    new ConditionExpression("lrx_fundraisinteamid", ConditionOperator.Equal, matchDonationID.Team_id.Trim())
+                                };
 
-                    Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+                                Entity existingEventTeam = FindExistingRecord("lrx_eventteam", EventTeamSearchConditions);
+                                if (existingEventTeam != null)
+                                {
+                                    teamID = existingEventTeam.Id;
+                                }
+                            }
+                        } // end of match donation variable
 
-                    if (existingTransaction == null)
-                    {
-                        Guid transactionId = this._service.Create(new Entity("msnfp_transaction")
+                        var TransactionSearchConditions = new List<ConditionExpression>
                         {
-                            ["sifund_donor"] = (object)new EntityReference("contact", contactID),
-                            ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
-                            ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? (object)new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
-                            ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
-                            ["lrx_registrations"] = registrationID != Guid.Empty ? (object)new EntityReference("lrx_registrations", registrationID) : null,
-                            ["lrx_eventteam"] = teamID != Guid.Empty ? (object)new EntityReference("lrx_eventteam", teamID) : null,
-                            ["lrx_promocode"] = promoGuid != Guid.Empty ? (object)new EntityReference("lrx_promocodeanddiscount", promoGuid) : null,
+                            new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, transactions.Transaction_id),
+                        };
+
+                        Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+                        Entity transactionEntity = new Entity("msnfp_transaction")
+                        {
+                            ["sifund_donor"] = new EntityReference("contact", contactID),
+                            ["lrx_solicitor"] = solicitorID != Guid.Empty ? new EntityReference("contact", solicitorID) : null,
+                            ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
+                            ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
+                            ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
+                            ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
+                            ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                            ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? new EntityReference("msnfp_paymentschedule", scheduleID) : null,
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
                             ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                            ["lrx_donationpaymenttype"] = new OptionSetValue(scheduleID != Guid.Empty ? 856660001 : 856660000),
                             ["statuscode"] = new OptionSetValue(856660001),
-                            ["sifund_typecode"] = new OptionSetValue(transactionType),
+                            ["sifund_typecode"] = new OptionSetValue(844060000),
                             ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
-                        });
+                        };
 
-                        if(registrationID != Guid.Empty)
+                        if (existingTransaction == null)
                         {
-                            this._service.Update(new Entity("lrx_registrations", registrationID)
-                            {
-                                ["lrx_transaction"] = transactionId != Guid.Empty ? new EntityReference("msnfp_transaction", transactionId) : null
-                            });
+                            this._service.Create(transactionEntity);
                         }
-                    }
-                    else
-                    {
-                        if (this.updateTransaction)
+                        else if (this.updateTransaction)
                         {
-                            this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
+                            transactionEntity.Id = existingTransaction.Id;
+                            this._service.Update(transactionEntity);
+                        }
+                    } //end of donation transaction type
+
+
+                    if (transactions.Transaction_type == "registration" || transactions.Transaction_type == "merchandise")
+                    {
+                        int transactionType = 844060003; //default registration
+
+                        var ContactSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, transactions.Member_id)
+                        };
+
+                        Entity existingContact = FindExistingRecord("contact", ContactSearchConditions);
+
+                        if (existingContact != null)
+                            contactID = (Guid)existingContact.Id;
+                        if (contactID == Guid.Empty)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            string pMethodUniqueName = (object)this.paymentMethod + " - " + contactID.ToString();
+                            var PMethodSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
+                        };
+                            Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
+                            if (existingPMethod != null)
                             {
-                                ["sifund_donor"] = (object)new EntityReference("contact", contactID),
-                                ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? (object)new EntityReference("campaign", defaultCampaignID) : null,
-                                ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? (object)new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
-                                ["lrx_event"] = eventID != Guid.Empty ? (object)new EntityReference("lrx_event", eventID) : null,
-                                ["lrx_registrations"] = registrationID != Guid.Empty ? (object)new EntityReference("lrx_registrations", registrationID) : null,
-                                ["lrx_eventteam"] = teamID != Guid.Empty ? (object)new EntityReference("lrx_eventteam", teamID) : null,
-                                ["lrx_promocode"] = promoGuid != Guid.Empty ? (object)new EntityReference("lrx_promocodeanddiscount", promoGuid) : null,
+                                defaultPaymentMethodId = existingPMethod.Id;
+                            }
+                            else
+                            {
+                                Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
+                                {
+                                    ["msnfp_name"] = pMethodUniqueName,
+                                    ["lrx_customer"] = (object)new EntityReference("contact", contactID),
+                                    ["msnfp_type"] = new OptionSetValue(100000000)
+
+                                });
+                                defaultPaymentMethodId = pmethodId;
+                            }
+                        }
+                        if (transactions.Transaction_type == "merchandise")
+                        {
+                            transactionType = 844060004;
+                        }
+                        else
+                        {
+                            var RegistrationSearchConditions = new List<ConditionExpression>
+                            {
+                                new ConditionExpression("lrx_fundraisinregistrationid", ConditionOperator.Equal, transactions.History_id)
+                            };
+                            Entity existingRegistration = FindExistingRecord("lrx_registrations", RegistrationSearchConditions);
+                            if (existingRegistration != null)
+                            {
+                                registrationID = existingRegistration.Id;
+
+                                if (existingRegistration.Attributes.Contains("lrx_promoid"))
+                                {
+                                    var PromoSearchConditions = new List<ConditionExpression>
+                                    {
+                                        new ConditionExpression("lrx_fundraisinpromoid", ConditionOperator.Equal, existingRegistration["lrx_promoid"].ToString())
+                                    };
+                                    Entity existingPromo = FindExistingRecord("lrx_promocodeanddiscount", PromoSearchConditions);
+                                    if (existingPromo != null)
+                                    {
+                                        promoGuid = existingPromo.Id;
+                                    }
+                                }
+                            }
+                        }
+                        var TransactionSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, transactions.Transaction_id),
+                        };
+
+                        Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+
+                        if (existingTransaction == null)
+                        {
+                            Guid transactionId = this._service.Create(new Entity("msnfp_transaction")
+                            {
+                                ["sifund_donor"] = new EntityReference("contact", contactID),
+                                ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
+                                ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
+                                ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
+                                ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
+                                ["lrx_promocode"] = promoGuid != Guid.Empty ? new EntityReference("lrx_promocodeanddiscount", promoGuid) : null,
                                 ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
                                 ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
                                 ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
@@ -1251,187 +1252,192 @@ namespace FundraisinApp_Integration.Plugins.Service
                             {
                                 this._service.Update(new Entity("lrx_registrations", registrationID)
                                 {
-                                    ["lrx_transaction"] = existingTransaction.Id != Guid.Empty ? new EntityReference("msnfp_transaction", existingTransaction.Id) : null
+                                    ["lrx_transaction"] = transactionId != Guid.Empty ? new EntityReference("msnfp_transaction", transactionId) : null
                                 });
                             }
                         }
-                    }
-
-                    if (transactions.Sale_id != "0")
-                    {
-                        var salesItemMatchID = saleItemList.FirstOrDefault(si => si.sale_id == transactions.Sale_id);
-
-                        if (salesItemMatchID != null)
+                        else
                         {
-                            Guid productID = Guid.Empty;
-                            Guid productOption = Guid.Empty;
-                            string productName = "";
-                            string productOptionName = "";
-
-                            var matchingProduct = productList.FirstOrDefault(p => p.product_id == salesItemMatchID.product_id);
-                            if (matchingProduct != null)
+                            if (this.updateTransaction)
                             {
-                                productName = matchingProduct.product_name;
-                            }
+                                this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
+                                {
+                                    ["sifund_donor"] = new EntityReference("contact", contactID),
+                                    ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
+                                    ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                    ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
+                                    ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
+                                    ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
+                                    ["lrx_promocode"] = promoGuid != Guid.Empty ? new EntityReference("lrx_promocodeanddiscount", promoGuid) : null,
+                                    ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
+                                    ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
+                                    ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                                    ["statuscode"] = new OptionSetValue(856660001),
+                                    ["sifund_typecode"] = new OptionSetValue(transactionType),
+                                    ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                                });
 
-                            var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id == salesItemMatchID.product_id);
-                            if (matchingProductOption != null)
+                                if (registrationID != Guid.Empty)
+                                {
+                                    this._service.Update(new Entity("lrx_registrations", registrationID)
+                                    {
+                                        ["lrx_transaction"] = existingTransaction.Id != Guid.Empty ? new EntityReference("msnfp_transaction", existingTransaction.Id) : null
+                                    });
+                                }
+                            }
+                        }
+
+                        if (transactions.Sale_id != "0")
+                        {
+                            var salesItemMatchID = saleItemList.FirstOrDefault(si => si.sale_id == transactions.Sale_id);
+
+                            if (salesItemMatchID != null)
                             {
-                                productOptionName = matchingProductOption.option_name;
-                            }
+                                Guid productID = Guid.Empty;
+                                Guid productOption = Guid.Empty;
+                                string productName = "";
+                                string productOptionName = "";
 
-                            var productSearchConditions = new List<ConditionExpression>
+                                var matchingProduct = productList.FirstOrDefault(p => p.product_id == salesItemMatchID.product_id);
+                                if (matchingProduct != null)
+                                {
+                                    productName = matchingProduct.product_name;
+                                }
+
+                                var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id == salesItemMatchID.product_id);
+                                if (matchingProductOption != null)
+                                {
+                                    productOptionName = matchingProductOption.option_name;
+                                }
+
+                                var productSearchConditions = new List<ConditionExpression>
                             {
                                 new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, salesItemMatchID.product_id)
                             };
-                            Entity existingInventoryProduct = FindExistingRecord("lrx_inventoryproduct", productSearchConditions);
+                                Entity existingInventoryProduct = FindExistingRecord("lrx_inventoryproduct", productSearchConditions);
 
-                            if (existingInventoryProduct != null)
-                            {
-                                productID = existingInventoryProduct.Id;
-                            }
-                            else
-                            {
-                                continue;
-                            }
+                                if (existingInventoryProduct != null)
+                                {
+                                    productID = existingInventoryProduct.Id;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
 
-                            var productOptionSearchConditions = new List<ConditionExpression>
+                                var productOptionSearchConditions = new List<ConditionExpression>
                             {
                                 new ConditionExpression("lrx_fundraisinoptionid", ConditionOperator.Equal, salesItemMatchID.option_id)
                             };
-                            Entity existingProductOption = FindExistingRecord("lrx_productoptions", productOptionSearchConditions);
+                                Entity existingProductOption = FindExistingRecord("lrx_productoptions", productOptionSearchConditions);
 
-                            if (existingProductOption != null)
-                            {
-                                productOption = existingProductOption.Id;
-                            }
+                                if (existingProductOption != null)
+                                {
+                                    productOption = existingProductOption.Id;
+                                }
 
-                            var eventProductSearchConditions = new List<ConditionExpression>
+                                var eventProductSearchConditions = new List<ConditionExpression>
                             {
                                 new ConditionExpression("lrx_fundraisineventproductid", ConditionOperator.Equal, int.Parse(salesItemMatchID.id))
                             };
-                            Entity existingEventProduct = FindExistingRecord("lrx_eventproduct", eventProductSearchConditions);
+                                Entity existingEventProduct = FindExistingRecord("lrx_eventproduct", eventProductSearchConditions);
 
-                            if (existingEventProduct == null)
-                            {
-                                var eventProduct = new Entity("lrx_eventproduct")
+                                if (existingEventProduct == null)
                                 {
-                                    ["lrx_name"] = $"{productName} - {productOptionName}",
-                                    ["lrx_priceperproduct"] = new Money(decimal.TryParse(salesItemMatchID.unit_cost, out var price) ? price : 0),
-                                    ["lrx_quantity"] = int.TryParse(salesItemMatchID.quantity, out var quantity) ? quantity : 0,
-                                    ["lrx_fundraisineventproductid"] = int.TryParse(salesItemMatchID.id, out var eventProductId) ? eventProductId : 0
-                                };
+                                    var eventProduct = new Entity("lrx_eventproduct")
+                                    {
+                                        ["lrx_name"] = $"{productName} - {productOptionName}",
+                                        ["lrx_priceperproduct"] = new Money(decimal.TryParse(salesItemMatchID.unit_cost, out var price) ? price : 0),
+                                        ["lrx_quantity"] = int.TryParse(salesItemMatchID.quantity, out var quantity) ? quantity : 0,
+                                        ["lrx_fundraisineventproductid"] = int.TryParse(salesItemMatchID.id, out var eventProductId) ? eventProductId : 0
+                                    };
 
-                                // Add lookup fields only if they have valid GUIDs
-                                if (eventID != Guid.Empty)
-                                {
-                                    eventProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
+                                    // Add lookup fields only if they have valid GUIDs
+                                    if (eventID != Guid.Empty)
+                                    {
+                                        eventProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
+                                    }
+                                    if (productID != Guid.Empty)
+                                    {
+                                        eventProduct["lrx_product"] = new EntityReference("lrx_inventoryproduct", productID);
+                                    }
+
+                                    Guid eventProductID = _service.Create(eventProduct);
+
+                                    var saleProduct = new Entity("lrx_product")
+                                    {
+                                        ["lrx_name"] = $"{productName} - {productOptionName}",
+                                        ["lrx_constituentorganisation"] = new EntityReference("contact", contactID)
+                                    };
+
+                                    // Parse `quantity` safely
+                                    int parsedQuantity = 0;
+                                    if (int.TryParse(salesItemMatchID.quantity, out parsedQuantity))
+                                    {
+                                        saleProduct["lrx_quantity"] = parsedQuantity;
+                                    }
+
+                                    // Parse `unit_cost` safely
+                                    decimal parsedPrice = 0;
+                                    if (decimal.TryParse(salesItemMatchID.unit_cost, out parsedPrice))
+                                    {
+                                        saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
+                                    }
+
+                                    // Add lookup fields only if they have valid GUIDs
+                                    if (eventID != Guid.Empty)
+                                    {
+                                        saleProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
+                                    }
+                                    if (eventProductID != Guid.Empty)
+                                    {
+                                        saleProduct["lrx_eventproduct"] = new EntityReference("lrx_eventproduct", eventProductID);
+                                    }
+                                    if (productOption != Guid.Empty)
+                                    {
+                                        saleProduct["lrx_productoption"] = new EntityReference("lrx_productoptions", productOption);
+                                    }
+
+                                    _service.Create(saleProduct);
                                 }
-                                if (productID != Guid.Empty)
-                                {
-                                    eventProduct["lrx_product"] = new EntityReference("lrx_inventoryproduct", productID);
-                                }
-
-                                Guid eventProductID = _service.Create(eventProduct);
-
-                                var saleProduct = new Entity("lrx_product")
-                                {
-                                    ["lrx_name"] = $"{productName} - {productOptionName}",
-                                    ["lrx_constituentorganisation"] = new EntityReference("contact", contactID)
-                                };
-
-                                // Parse `quantity` safely
-                                int parsedQuantity = 0;
-                                if (int.TryParse(salesItemMatchID.quantity, out parsedQuantity))
-                                {
-                                    saleProduct["lrx_quantity"] = parsedQuantity;
-                                }
-
-                                // Parse `unit_cost` safely
-                                decimal parsedPrice = 0;
-                                if (decimal.TryParse(salesItemMatchID.unit_cost, out parsedPrice))
-                                {
-                                    saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
-                                }
-
-                                // Add lookup fields only if they have valid GUIDs
-                                if (eventID != Guid.Empty)
-                                {
-                                    saleProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
-                                }
-                                if (eventProductID != Guid.Empty)
-                                {
-                                    saleProduct["lrx_eventproduct"] = new EntityReference("lrx_eventproduct", eventProductID);
-                                }
-                                if (productOption != Guid.Empty)
-                                {
-                                    saleProduct["lrx_productoption"] = new EntityReference("lrx_productoptions", productOption);
-                                }
-
-                                _service.Create(saleProduct);
                             }
                         }
-                    }
-                }//end of registration transaction
+                    }//end of registration transaction
 
-                if (transactions.Transaction_type == "refund")
-                {
-                    var originalTransaction = TransactionList
-                        .FirstOrDefault(t => t.Donation_id == transactions.Donation_id && t.Transaction_type != "refund");
 
-                    if (originalTransaction != null)
+                    if (transactions.Transaction_type == "refund")
                     {
-                        var originalTransactionId = originalTransaction.Transaction_id;
-                        decimal transactionAmount = decimal.Parse(originalTransaction.Transaction_value) - decimal.Parse(originalTransaction.Transaction_fees);
+                        var originalTransaction = TransactionList
+                            .FirstOrDefault(t => t.Donation_id == transactions.Donation_id && t.Transaction_type != "refund");
 
-                        var TransactionSearchConditions = new List<ConditionExpression>
+                        if (originalTransaction != null)
+                        {
+                            var originalTransactionId = originalTransaction.Transaction_id;
+                            decimal transactionAmount = decimal.Parse(originalTransaction.Transaction_value) - decimal.Parse(originalTransaction.Transaction_fees);
+
+                            var TransactionSearchConditions = new List<ConditionExpression>
                         {
                             new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, originalTransaction.Transaction_id),
                         };
 
-                        Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
-                        if (existingTransaction != null && existingTransaction.Attributes.Contains("sifund_donor"))
-                        {
-                            Guid donorId = Guid.Empty; // Get the GUID of the donor
-                            var donor = existingTransaction.GetAttributeValue<EntityReference>("sifund_donor");
-                            if (donor != null)
+                            Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+                            if (existingTransaction != null && existingTransaction.Attributes.Contains("sifund_donor"))
                             {
-                                donorId = donor.Id; // Get the GUID of the donor
-                            }
-                            var RefundSearchConditions = new List<ConditionExpression>
+                                Guid donorId = Guid.Empty; // Get the GUID of the donor
+                                var donor = existingTransaction.GetAttributeValue<EntityReference>("sifund_donor");
+                                if (donor != null)
+                                {
+                                    donorId = donor.Id; // Get the GUID of the donor
+                                }
+                                var RefundSearchConditions = new List<ConditionExpression>
                             {
                                 new ConditionExpression("lrx_fundraisinrefundid", ConditionOperator.Equal, transactions.Transaction_id),
                             };
 
-                            Entity existingRefund = FindExistingRecord("lrx_refund", RefundSearchConditions);
-                            if (existingRefund == null)
-                            {
-                                this._tracingService.Trace("Creating Refund: ");
-                                Guid RefundRecordId = this._service.Create(new Entity("lrx_refund")
+                                Entity existingRefund = FindExistingRecord("lrx_refund", RefundSearchConditions);
+                                if (existingRefund == null)
                                 {
-                                    ["lrx_customer"] = (object)new EntityReference("contact", donorId),
-                                    ["lrx_transaction"] = (object)new EntityReference("msnfp_transaction", existingTransaction.Id),
-                                    ["lrx_totalamountpaidrefund"] = new Money(transactionAmount),
-                                    ["lrx_amountreceiptablerefund"] = new Money(transactionAmount),
-                                    ["lrx_totalamountpaid"] = new Money(transactionAmount),
-                                    ["lrx_amountreceiptable"] = new Money(transactionAmount),
-                                    ["lrx_refunddate"] = DateTime.Parse(transactions.Date_created),
-                                    ["lrx_refundtype"] = new OptionSetValue(844060002),
-                                    ["statuscode"] = new OptionSetValue(376750001),
-                                    ["lrx_fundraisinrefundid"] = int.Parse(transactions.Transaction_id)
-                                });
-                                this._tracingService.Trace("RefundID: " + RefundRecordId);
-
-                                this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
-                                {
-                                    ["statuscode"] = new OptionSetValue(856660005)
-                                });
-                            }
-                            else
-                            {
-                                if (this.updateTransaction)
-                                {
-                                    this._service.Update(new Entity("lrx_refund", existingRefund.Id)
+                                    Guid RefundRecordId = this._service.Create(new Entity("lrx_refund")
                                     {
                                         ["lrx_customer"] = (object)new EntityReference("contact", donorId),
                                         ["lrx_transaction"] = (object)new EntityReference("msnfp_transaction", existingTransaction.Id),
@@ -1450,6 +1456,30 @@ namespace FundraisinApp_Integration.Plugins.Service
                                         ["statuscode"] = new OptionSetValue(856660005)
                                     });
                                 }
+                                else
+                                {
+                                    if (this.updateTransaction)
+                                    {
+                                        this._service.Update(new Entity("lrx_refund", existingRefund.Id)
+                                        {
+                                            ["lrx_customer"] = (object)new EntityReference("contact", donorId),
+                                            ["lrx_transaction"] = (object)new EntityReference("msnfp_transaction", existingTransaction.Id),
+                                            ["lrx_totalamountpaidrefund"] = new Money(transactionAmount),
+                                            ["lrx_amountreceiptablerefund"] = new Money(transactionAmount),
+                                            ["lrx_totalamountpaid"] = new Money(transactionAmount),
+                                            ["lrx_amountreceiptable"] = new Money(transactionAmount),
+                                            ["lrx_refunddate"] = DateTime.Parse(transactions.Date_created),
+                                            ["lrx_refundtype"] = new OptionSetValue(844060002),
+                                            ["statuscode"] = new OptionSetValue(376750001),
+                                            ["lrx_fundraisinrefundid"] = int.Parse(transactions.Transaction_id)
+                                        });
+
+                                        this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
+                                        {
+                                            ["statuscode"] = new OptionSetValue(856660005)
+                                        });
+                                    }
+                                }
                             }
                         }
                     }
@@ -1457,6 +1487,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Transaction Record Fundraisin API Completed");
+            return Task.CompletedTask;
         }
 
         //reusable functions

@@ -1137,7 +1137,7 @@ namespace Fundraising_Engagement.Plugins.Service
                 }             
             }
 
-            LRx_EventTicket eventTicketRecord;
+            LRx_EventTicket eventTicketRecord = null;
 
             if (registrationRecord.LRx_EventTicket != null &&
             registrationRecord.LRx_EventTicket.Id != Guid.Empty)
@@ -1151,24 +1151,31 @@ namespace Fundraising_Engagement.Plugins.Service
             }
             else
             {
-                LRx_EventTable eventTable = (LRx_EventTable)RetrieveRecord(
+                if (registrationRecord.LRx_EventTable != null &&
+                    registrationRecord.LRx_EventTable.Id != Guid.Empty)
+                {
+                    LRx_EventTable eventTable = (LRx_EventTable)RetrieveRecord(
                     LRx_EventTable.EntityLogicalName,
                     registrationRecord.LRx_EventTable.Id,
                     LRx_EventTable.Fields.LRx_EventTicket
-                );
+                    );
 
-                eventTicketRecord = (LRx_EventTicket)RetrieveRecord(
-                    LRx_EventTicket.EntityLogicalName,
-                    eventTable.LRx_EventTicket.Id,
-                    LRx_EventTicket.Fields.LRx_TableTicket,
-                    LRx_EventTicket.Fields.LRx_EventTicketId
-                );
+                    if (eventTable.LRx_EventTicket != null &&
+                    eventTable.LRx_EventTicket.Id != Guid.Empty)
+                    {
+                        eventTicketRecord = (LRx_EventTicket)RetrieveRecord(
+                        LRx_EventTicket.EntityLogicalName,
+                        eventTable.LRx_EventTicket.Id,
+                        LRx_EventTicket.Fields.LRx_TableTicket,
+                        LRx_EventTicket.Fields.LRx_EventTicketId
+                        );
+                    }
+                }                    
             }
-
 
             decimal totalTicketRevenue = 0;
             int TicketCount = 0;
-            bool isTableTicket = (bool)eventTicketRecord.LRx_TableTicket.Value;
+            bool isTableTicket = eventTicketRecord?.LRx_TableTicket ?? false;
 
             if (isTableTicket)
             { //calculate table revenue

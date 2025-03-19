@@ -49,7 +49,10 @@ namespace Fundraising_Integration.Plugins.Service
             }
 
             EntityReference registrationRef = (EntityReference)transaction.Attributes["lrx_registrations"];
-            _tracingService.Trace($"Found lrx_registrations: {registrationRef.Id}");
+
+            if (registrationRef == null) { 
+                return;
+            }
 
             // Query all transactions related to this registration
             QueryExpression query = new QueryExpression("msnfp_transaction")
@@ -87,7 +90,7 @@ namespace Fundraising_Integration.Plugins.Service
             _tracingService.Trace($"Total computed amount: {totalAmount}");
 
             // Update lrx_amountraised field on registration entity
-            Entity registrationUpdate = new Entity("lrx_registration")
+            Entity registrationUpdate = new Entity("lrx_registrations")
             {
                 Id = registrationRef.Id
             };
