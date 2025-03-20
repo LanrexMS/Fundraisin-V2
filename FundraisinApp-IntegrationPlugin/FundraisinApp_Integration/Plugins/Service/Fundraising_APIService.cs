@@ -113,7 +113,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         ["lrx_name"] = (object)eventModel.EventName,
                         ["lrx_goal"] = (object)new Money(Decimal.Parse(eventModel.EventTarget)),
                         ["lrx_description"] = (object)eventModel.EventShortDesc,
-                        ["lrx_campaign"] = campaignId != Guid.Empty ? (object)new EntityReference("campaign", campaignId) : null,
+                        //["lrx_campaign"] = campaignId != Guid.Empty ? (object)new EntityReference("campaign", campaignId) : null,
                         ["lrx_fundraisineventid"] = int.Parse(eventModel.EventId),
                         ["lrx_location"] = (object)eventModel.EventLocation
                     };
@@ -136,7 +136,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         ["lrx_name"] = (object)eventModel.EventName,
                         ["lrx_goal"] = (object)new Money(Decimal.Parse(eventModel.EventTarget)),
                         ["lrx_description"] = (object)eventModel.EventShortDesc,
-                        ["lrx_campaign"] = campaignId != Guid.Empty ? (object)new EntityReference("campaign", campaignId) : null,
+                        //["lrx_campaign"] = campaignId != Guid.Empty ? (object)new EntityReference("campaign", campaignId) : null,
                         ["lrx_fundraisineventid"] = int.Parse(eventModel.EventId),
                         ["lrx_location"] = (object)eventModel.EventLocation
                     };
@@ -1048,7 +1048,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 Entity paymentSchedule = new Entity("msnfp_paymentschedule")
                                 {
                                     ["sifund_donor"] = new EntityReference("contact", contactID),
-                                    ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
+                                    //["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID),
                                     ["lrx_paymentmethod"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                                     ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
                                     ["sifund_paymenttypecode"] = new OptionSetValue(existingRecord == null ? 844060008 : 844060002), // Handles different payment type codes
@@ -1128,7 +1128,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
                             ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
                             ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
-                            ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
+                            //["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
                             ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                             ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? new EntityReference("msnfp_paymentschedule", scheduleID) : null,
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
@@ -1234,7 +1234,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             Guid transactionId = this._service.Create(new Entity("msnfp_transaction")
                             {
                                 ["sifund_donor"] = new EntityReference("contact", contactID),
-                                ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
+                                //["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
                                 ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                                 ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
                                 ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
@@ -1263,7 +1263,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
                                 {
                                     ["sifund_donor"] = new EntityReference("contact", contactID),
-                                    ["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
+                                    //["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
                                     ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                                     ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
                                     ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
@@ -1416,9 +1416,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                             decimal transactionAmount = decimal.Parse(originalTransaction.Transaction_value) - decimal.Parse(originalTransaction.Transaction_fees);
 
                             var TransactionSearchConditions = new List<ConditionExpression>
-                        {
-                            new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, originalTransaction.Transaction_id),
-                        };
+                            {
+                                new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, originalTransaction.Transaction_id),
+                            };
 
                             Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
                             if (existingTransaction != null && existingTransaction.Attributes.Contains("sifund_donor"))
