@@ -935,6 +935,123 @@ namespace FundraisinApp_Integration.Plugins.Service
             return Task.CompletedTask;
         }
 
+        public Task GetFundraisinRaffleRecords()
+        {
+            var raffleList = this.GetData<RaffleModel, RaffleModelMap>(this.baseURL, "raffles");
+            foreach (var raffle in raffleList)
+            {
+                Guid raffleID = Guid.Empty;
+                int entryStatus = 856660000; // default to open entry
+                int allowSinglePurchase = 856660000; // default to open entry
+
+                if (raffle.entries_closed != "N")
+                {
+                    entryStatus = 856660001;
+                }
+
+                if (raffle.allow_single_tickets != "Y")
+                {
+                    allowSinglePurchase = 856660001;
+                }
+                var RaffleSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_platformid", ConditionOperator.Equal, raffle.raffle_id)
+                };
+
+                Entity existingRaffle = FindExistingRecord("lrx_raffle", RaffleSearchConditions);
+              
+                Entity raffleEntity = new Entity("lrx_raffle")
+                {
+                    ["lrx_name"] = raffle.raffle_name,
+                    ["lrx_rafflecode"] = raffle.raffle_code,
+                    ["lrx_entrystatus"] = new OptionSetValue(entryStatus),
+                    ["lrx_closedmessage"] = raffle.raffle_closed_message,
+                    ["lrx_numberofticketsavailable"] = int.Parse(raffle.number_tickets),
+                    ["lrx_startingnumber"] = int.Parse(raffle.ticket_start),
+                    ["lrx_singleticketsallowsingleticketpurchases"] = new OptionSetValue(allowSinglePurchase),
+                    ["lrx_maximumpurchasable"] = int.Parse(raffle.max_tickets),
+                    ["lrx_singleticketprice"] = decimal.TryParse(raffle.ticket_price, out decimal price) ? new Money(price) : new Money(0),
+                    ["lrx_raffleshortdescription"] = raffle.raffle_short_desc,
+                    ["lrx_platformid"] = raffle.raffle_id,
+                    ["lrx_fundraisinraffleid"] = int.Parse(raffle.raffle_id)
+                };
+
+                if (!string.IsNullOrWhiteSpace(raffle.raffle_end_date) && raffle.raffle_end_date != "0000-00-00" &&
+                DateTime.TryParse(raffle.raffle_end_date, out DateTime raffleEndDate))
+                {
+                    raffleEntity["lrx_raffleexpiry"] = raffleEndDate;
+                }
+
+                if (existingRaffle == null)
+                {
+                    this._service.Create(raffleEntity);
+                }
+                else
+                {
+                    raffleEntity.Id = existingRaffle.Id;
+                    this._service.Update(raffleEntity);
+                }
+
+            }
+
+            this._tracingService.Trace("Raffle Record Fundraisin API Completed");
+            return Task.CompletedTask;
+        }
+
+        public Task GetFundraisinRaffleTicketOptionRecords()
+        {
+            var raffleTicketList = this.GetData<RaffleTicketModel, RaffleTicketModelMap>(this.baseURL, "raffletickets");
+            foreach (var raffleTicket in raffleTicketList)
+            {
+                Guid raffleTicketID = Guid.Empty;
+                Guid raffleID = Guid.Empty;
+
+                var RaffleSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_platformid", ConditionOperator.Equal, raffleTicket.raffle_id)
+                };
+
+                Entity existingRaffle = FindExistingRecord("lrx_raffle", RaffleSearchConditions);
+
+                if(existingRaffle == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    raffleID = existingRaffle.Id;
+                }
+
+                var RaffleTicketSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinraffleoptionid", ConditionOperator.Equal, raffleTicket.option_id)
+                };
+
+                Entity existingRaffleTicket = FindExistingRecord("lrx_raffleticketoption", RaffleTicketSearchConditions);
+                Entity raffleTicketEntity = new Entity("lrx_raffle")
+                {
+                    ["lrx_name"] = raffleTicket.option_description,
+                    ["lrx_tickets"] = raffleTicket.option_tickets,
+                    ["lrx_price"] = decimal.TryParse(raffleTicket.option_price, out decimal price) ? new Money(price) : new Money(0),
+                    ["lrx_raffle"] = new EntityReference("lrx_raffle", raffleID),
+                    ["lrx_fundraisinraffleoptionid"] = int.Parse(raffleTicket.option_id)
+                };
+
+                if (existingRaffleTicket == null)
+                {
+                    this._service.Create(raffleTicketEntity);
+                }
+                else
+                {
+                    raffleTicketEntity.Id = existingRaffleTicket.Id;
+                    this._service.Update(raffleTicketEntity);
+                }
+            }
+
+            this._tracingService.Trace("Raffle Ticket Option Record Fundraisin API Completed");
+            return Task.CompletedTask;
+        }
+
         public Task GetFundRaisinTransactionRecord()
         {
             var TransactionList = this.GetData<TransactionModel, TransactionModelMap>(this.baseURL, "transactions");
@@ -977,17 +1094,13 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Guid scheduleID = Guid.Empty;
                     Guid solicitorID = Guid.Empty;
                     Guid promoGuid = Guid.Empty;
+                    Guid campaignGuid = Guid.Empty;
+                    Guid appealGuid = Guid.Empty;
+                    Guid packageGuid = Guid.Empty;
 
                     if (transactions.Event_id.Trim() != "0")
-                    {
-                        var EventSearchConditions = new List<ConditionExpression>
-                        {
-                            new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, transactions.Event_id)
-                        };
-
-                        Entity existingEvent = FindExistingRecord("lrx_event", EventSearchConditions);
-                        if (existingEvent != null)
-                            eventID = (Guid)existingEvent.Id;
+                    {          
+                        eventID = CheckAndUpdateEvent(transactions.Event_id.Trim(), eventList, out campaignGuid, out appealGuid, out packageGuid);                         
                     }
 
                     if (transactions.Transaction_type == "donation")
@@ -1128,8 +1241,10 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
                             ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
                             ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
-                            //["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
-                            ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                            ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
+                            ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
+                            ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
+                            //["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                             ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? new EntityReference("msnfp_paymentschedule", scheduleID) : null,
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
@@ -1234,8 +1349,10 @@ namespace FundraisinApp_Integration.Plugins.Service
                             Guid transactionId = this._service.Create(new Entity("msnfp_transaction")
                             {
                                 ["sifund_donor"] = new EntityReference("contact", contactID),
-                                //["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
-                                ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
+                                ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
+                                ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
+                                //["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                                 ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
                                 ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
                                 ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
@@ -1263,8 +1380,10 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
                                 {
                                     ["sifund_donor"] = new EntityReference("contact", contactID),
-                                    //["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID) : null,
-                                    ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                    ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
+                                    ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
+                                    ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
+                                    //["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                                     ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
                                     ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
                                     ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
@@ -1656,6 +1775,106 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             return contactID;
+        }
+
+        private Guid UpsertContactFromRaffleSales(RaffleSalesModel raffleSales)
+        {
+            // Define search conditions to find an existing contact
+            var contactSearchConditions = new List<ConditionExpression>
+            {
+                new ConditionExpression("firstname", ConditionOperator.Equal, raffleSales.first_name),
+                new ConditionExpression("lastname", ConditionOperator.Equal, raffleSales.last_name),
+                new ConditionExpression("emailaddress1", ConditionOperator.Equal, raffleSales.email)
+            };
+
+            Entity existingContact = FindExistingRecord("contact", contactSearchConditions);
+            var addressStreet = $"{raffleSales.address_number} {raffleSales.address_street}".Trim();
+
+            // Prepare contact attributes
+            var contactAttributes = new Dictionary<string, object>
+            {
+                ["firstname"] = raffleSales.first_name,
+                ["lastname"] = raffleSales.last_name,
+                ["emailaddress1"] = raffleSales.email,
+                ["telephone1"] = raffleSales.phone,
+                ["mobilephone"] = raffleSales.mobile,
+                ["address1_line1"] = addressStreet,
+                ["address1_city"] = raffleSales.address_suburb,
+                ["address1_postalcode"] = raffleSales.address_postcode,
+                ["address1_stateorprovince"] = raffleSales.address_state,
+                ["address1_country"] = raffleSales.address_country,
+            };
+
+            Guid contactID;
+
+            if (existingContact == null)
+            {
+                var contactEntity = new Entity("contact");
+                foreach (var kvp in contactAttributes)
+                {
+                    contactEntity[kvp.Key] = kvp.Value;
+                }
+
+                contactID = this._service.Create(contactEntity);
+            }
+            else
+            {
+                var contactEntity = new Entity("contact", existingContact.Id);
+                foreach (var kvp in contactAttributes)
+                {
+                    contactEntity[kvp.Key] = kvp.Value;
+                }
+
+                this._service.Update(contactEntity);
+                contactID = existingContact.Id;
+            }
+
+            return contactID;
+        }
+
+        private Guid CheckAndUpdateEvent(
+            string eventId,
+            List<EventModel> eventList,
+            out Guid campaignId,
+            out Guid appealId,
+            out Guid packageId)
+        {
+            campaignId = Guid.Empty;
+            appealId = Guid.Empty;
+            packageId = Guid.Empty;
+
+            EventModel matchedEvent = eventList.FirstOrDefault(e => e.EventId == eventId);
+            if (matchedEvent == null)
+                return Guid.Empty;
+
+            Entity existingEvent = FindExistingRecord("lrx_event", new List<ConditionExpression>
+            {
+                new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, matchedEvent.EventId)
+            });
+
+            if (existingEvent != null)
+            {
+                if (existingEvent.Contains("lrx_campaign") && existingEvent["lrx_campaign"] is EntityReference campaignRef)
+                    campaignId = campaignRef.Id;
+                else
+                    campaignId = Guid.Empty;
+
+                if (existingEvent.Contains("lrx_sifund_appeal") && existingEvent["lrx_sifund_appeal"] is EntityReference appealRef)
+                    appealId = appealRef.Id;
+                else
+                    appealId = Guid.Empty;
+
+                if (existingEvent.Contains("lrx_sifund_package") && existingEvent["lrx_sifund_package"] is EntityReference packageRef)
+                    packageId = packageRef.Id;
+                else
+                    packageId = Guid.Empty;
+
+                return existingEvent.Id;
+            }
+            else
+            {
+                return Guid.Empty;
+            }
         }
 
     }

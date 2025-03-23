@@ -67,6 +67,8 @@ namespace FundraisinApp_Integration.Plugins
                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketHolderRecord();
                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductRecord();
                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductOptionsRecord();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleRecords();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleTicketOptionRecords();              
                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinTransactionRecord();
             }
             catch (Exception ex)
