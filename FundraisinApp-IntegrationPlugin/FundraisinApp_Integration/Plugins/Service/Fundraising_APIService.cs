@@ -1028,12 +1028,12 @@ namespace FundraisinApp_Integration.Plugins.Service
                 };
 
                 Entity existingRaffleTicket = FindExistingRecord("lrx_raffleticketoption", RaffleTicketSearchConditions);
-                Entity raffleTicketEntity = new Entity("lrx_raffle")
+                Entity raffleTicketEntity = new Entity("lrx_raffleticketoption")
                 {
                     ["lrx_name"] = raffleTicket.option_description,
                     ["lrx_tickets"] = raffleTicket.option_tickets,
                     ["lrx_price"] = decimal.TryParse(raffleTicket.option_price, out decimal price) ? new Money(price) : new Money(0),
-                    ["lrx_raffle"] = new EntityReference("lrx_raffle", raffleID),
+                    ["lrx_raffle"] = raffleID != Guid.Empty ? new EntityReference("lrx_raffle", raffleID) : null,
                     ["lrx_fundraisinraffleoptionid"] = int.Parse(raffleTicket.option_id)
                 };
 
@@ -1052,6 +1052,90 @@ namespace FundraisinApp_Integration.Plugins.Service
             return Task.CompletedTask;
         }
 
+        public Task GetFundraisinRaffleSalesRecords()
+        {
+            var raffleSalesList = this.GetData<RaffleSalesModel, RaffleSalesModelMap>(this.baseURL, "rafflesales");
+            var raffleList = this.GetData<RaffleModel, RaffleModelMap>(this.baseURL, "raffles");
+            foreach (var raffleSales in raffleSalesList)
+            {
+                Guid raffleSalesID = Guid.Empty;
+                Guid raffleOptionD = Guid.Empty;
+                Guid raffleID = Guid.Empty;
+                Guid contactID = Guid.Empty;
+
+                var RaffleSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_platformid", ConditionOperator.Equal, raffleSales.raffle_id)
+                };
+
+                Entity existingRaffle = FindExistingRecord("lrx_raffle", RaffleSearchConditions);
+
+                if (existingRaffle == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    raffleID = existingRaffle.Id;
+                }
+
+                var RaffleTicketSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinraffleoptionid", ConditionOperator.Equal, raffleSales.option_id)
+                };                
+
+                Entity existingRaffleTicket = FindExistingRecord("lrx_raffleticketoption", RaffleTicketSearchConditions);
+                if (existingRaffleTicket != null)
+                {
+                    raffleOptionD = existingRaffleTicket.Id;
+                }
+
+                contactID = UpsertContactFromRaffleSales(raffleSales);
+
+                var RaffleSalesSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinrafflesalesid", ConditionOperator.Equal, raffleSales.sale_id)
+                };
+
+                var raffleRecord = raffleList.FirstOrDefault(r => r.raffle_id == raffleSales.raffle_id);
+                string identifierName = $"{raffleSales.first_name} {raffleSales.last_name} - {raffleRecord.raffle_name}";
+                Entity existingRaffleSales = FindExistingRecord("lrx_rafflesales", RaffleSalesSearchConditions);
+                Entity raffleSalesEntity = new Entity("lrx_rafflesales")
+                {
+                    ["lrx_name"] = identifierName,
+                    ["lrx_customer"] = contactID != Guid.Empty ? new EntityReference("contact", contactID) : null,                 
+                    ["lrx_raffle"] = raffleID != Guid.Empty ? new EntityReference("lrx_raffle", raffleID) : null,
+                    ["lrx_raffleoption"] = raffleOptionD != Guid.Empty ? new EntityReference("lrx_raffleticketoption", raffleOptionD) : null,
+                    ["lrx_amountpaid"] = decimal.TryParse(raffleSales.sub_total, out decimal price) ? new Money(price) : new Money(0),
+                    ["lrx_ponumber"] = raffleSales.po_number,
+                    ["lrx_tickets"] = int.Parse(raffleSales.number_tickets),
+                    ["lrx_startingnumber"] = int.Parse(raffleSales.ticket_start),
+                    ["lrx_endingnumber"] = int.Parse(raffleSales.ticket_end),
+                    ["lrx_fundraisinrafflesalesid"] = int.Parse(raffleSales.sale_id)
+                };
+
+                if (!string.IsNullOrWhiteSpace(raffleSales.date_paid) && raffleSales.date_paid != "0000-00-00" &&
+                DateTime.TryParse(raffleSales.date_paid, out DateTime raffleSalesDate))
+                {
+                    raffleSalesEntity["lrx_datetimeofsale"] = raffleSalesDate;
+                }
+
+                if (existingRaffleSales == null)
+                {
+                    this._service.Create(raffleSalesEntity);
+                }
+                else
+                {
+                    raffleSalesEntity.Id = existingRaffleSales.Id;
+                    this._service.Update(raffleSalesEntity);
+                }
+
+            }
+
+            this._tracingService.Trace("Raffle Record Fundraisin API Completed");
+            return Task.CompletedTask;
+        }
+
         public Task GetFundRaisinTransactionRecord()
         {
             var TransactionList = this.GetData<TransactionModel, TransactionModelMap>(this.baseURL, "transactions");
@@ -1062,6 +1146,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             var productOptionList = this.GetData<ProductOptionModel, ProductOptionModelMap>(this.baseURL, "productoptions");
             var participantList = this.GetData<ParticipantModel, ParticipantModelMap>(this.baseURL, "participants");
             var eventList = this.GetData<EventModel, EventModelMap>(this.baseURL, "events");
+            var raffleSalesList = this.GetData<RaffleSalesModel, RaffleSalesModelMap>(this.baseURL, "rafflesales");
 
             if (TransactionList != null &&
                 donationList != null &&
@@ -1097,6 +1182,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Guid campaignGuid = Guid.Empty;
                     Guid appealGuid = Guid.Empty;
                     Guid packageGuid = Guid.Empty;
+                    Guid raffleSaleGuid = Guid.Empty;
+                    Guid transactionId = Guid.Empty;
 
                     if (transactions.Event_id.Trim() != "0")
                     {          
@@ -1116,7 +1203,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         {
                             contactID = UpsertContact(matchDonationID);
 
-                            string pMethodUniqueName = (object)this.paymentMethod + " - " + contactID.ToString();
+                            string pMethodUniqueName = (object)this.paymentMethod + " - Default";
                             var PMethodSearchConditions = new List<ConditionExpression>
                             {
                                 new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
@@ -1131,7 +1218,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
                                 {
                                     ["msnfp_name"] = pMethodUniqueName,
-                                    ["lrx_customer"] = (object)new EntityReference("contact", contactID),
                                     ["msnfp_type"] = new OptionSetValue(100000000)
 
                                 });
@@ -1161,7 +1247,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 Entity paymentSchedule = new Entity("msnfp_paymentschedule")
                                 {
                                     ["sifund_donor"] = new EntityReference("contact", contactID),
-                                    //["lrx_campaign"] = defaultCampaignID != Guid.Empty ? new EntityReference("campaign", defaultCampaignID),
                                     ["lrx_paymentmethod"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                                     ["sifund_scheduletypecode"] = new OptionSetValue(844060003),
                                     ["sifund_paymenttypecode"] = new OptionSetValue(existingRecord == null ? 844060008 : 844060002), // Handles different payment type codes
@@ -1241,10 +1326,10 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
                             ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
                             ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
-                            ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
-                            ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
-                            ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
-                            //["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                            ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : null,
+                            ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : null,
+                            ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : null,
+                            ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                             ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? new EntityReference("msnfp_paymentschedule", scheduleID) : null,
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
@@ -1266,7 +1351,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                         }
                     } //end of donation transaction type
 
-
                     if (transactions.Transaction_type == "registration" || transactions.Transaction_type == "merchandise")
                     {
                         int transactionType = 844060003; //default registration
@@ -1286,11 +1370,11 @@ namespace FundraisinApp_Integration.Plugins.Service
                         }
                         else
                         {
-                            string pMethodUniqueName = (object)this.paymentMethod + " - " + contactID.ToString();
+                            string pMethodUniqueName = (object)this.paymentMethod + " - Default";
                             var PMethodSearchConditions = new List<ConditionExpression>
-                        {
-                            new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
-                        };
+                            {
+                                new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
+                            };
                             Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
                             if (existingPMethod != null)
                             {
@@ -1301,7 +1385,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
                                 {
                                     ["msnfp_name"] = pMethodUniqueName,
-                                    ["lrx_customer"] = (object)new EntityReference("contact", contactID),
                                     ["msnfp_type"] = new OptionSetValue(100000000)
 
                                 });
@@ -1343,16 +1426,15 @@ namespace FundraisinApp_Integration.Plugins.Service
                         };
 
                         Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
-
                         if (existingTransaction == null)
                         {
-                            Guid transactionId = this._service.Create(new Entity("msnfp_transaction")
+                            transactionId = this._service.Create(new Entity("msnfp_transaction")
                             {
                                 ["sifund_donor"] = new EntityReference("contact", contactID),
                                 ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
                                 ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
                                 ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
-                                //["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                                 ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
                                 ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
                                 ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
@@ -1364,14 +1446,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 ["sifund_typecode"] = new OptionSetValue(transactionType),
                                 ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
                             });
-
-                            if (registrationID != Guid.Empty)
-                            {
-                                this._service.Update(new Entity("lrx_registrations", registrationID)
-                                {
-                                    ["lrx_transaction"] = transactionId != Guid.Empty ? new EntityReference("msnfp_transaction", transactionId) : null
-                                });
-                            }
                         }
                         else
                         {
@@ -1383,7 +1457,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
                                     ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
                                     ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
-                                    //["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                    ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                                     ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
                                     ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
                                     ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
@@ -1394,16 +1468,16 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     ["statuscode"] = new OptionSetValue(856660001),
                                     ["sifund_typecode"] = new OptionSetValue(transactionType),
                                     ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
-                                });
-
-                                if (registrationID != Guid.Empty)
-                                {
-                                    this._service.Update(new Entity("lrx_registrations", registrationID)
-                                    {
-                                        ["lrx_transaction"] = existingTransaction.Id != Guid.Empty ? new EntityReference("msnfp_transaction", existingTransaction.Id) : null
-                                    });
-                                }
+                                });   
                             }
+                        }
+
+                        if (registrationID != Guid.Empty)
+                        {
+                            this._service.Update(new Entity("lrx_registrations", registrationID)
+                            {
+                                ["lrx_transaction"] = existingTransaction != null ? new EntityReference("msnfp_transaction", existingTransaction.Id) : new EntityReference("msnfp_transaction", transactionId)
+                            });
                         }
 
                         if (transactions.Sale_id != "0")
@@ -1430,9 +1504,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 }
 
                                 var productSearchConditions = new List<ConditionExpression>
-                            {
-                                new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, salesItemMatchID.product_id)
-                            };
+                                {
+                                    new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, salesItemMatchID.product_id)
+                                };
                                 Entity existingInventoryProduct = FindExistingRecord("lrx_inventoryproduct", productSearchConditions);
 
                                 if (existingInventoryProduct != null)
@@ -1445,9 +1519,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 }
 
                                 var productOptionSearchConditions = new List<ConditionExpression>
-                            {
-                                new ConditionExpression("lrx_fundraisinoptionid", ConditionOperator.Equal, salesItemMatchID.option_id)
-                            };
+                                {
+                                    new ConditionExpression("lrx_fundraisinoptionid", ConditionOperator.Equal, salesItemMatchID.option_id)
+                                };
                                 Entity existingProductOption = FindExistingRecord("lrx_productoptions", productOptionSearchConditions);
 
                                 if (existingProductOption != null)
@@ -1456,9 +1530,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 }
 
                                 var eventProductSearchConditions = new List<ConditionExpression>
-                            {
-                                new ConditionExpression("lrx_fundraisineventproductid", ConditionOperator.Equal, int.Parse(salesItemMatchID.id))
-                            };
+                                {
+                                    new ConditionExpression("lrx_fundraisineventproductid", ConditionOperator.Equal, int.Parse(salesItemMatchID.id))
+                                };
                                 Entity existingEventProduct = FindExistingRecord("lrx_eventproduct", eventProductSearchConditions);
 
                                 if (existingEventProduct == null)
@@ -1523,6 +1597,103 @@ namespace FundraisinApp_Integration.Plugins.Service
                         }
                     }//end of registration transaction
 
+                    if (transactions.Transaction_type == "raffle")
+                    {
+                        int transactionType = 844060005; //default raffle
+
+                        var raffleSalesRecord = raffleSalesList?.FirstOrDefault(rs => rs.sale_id == transactions.Sale_id);
+
+                        if(raffleSalesRecord != null)
+                        {
+                            contactID = UpsertContactFromRaffleSales(raffleSalesRecord);
+                        }
+
+                        if (contactID == Guid.Empty)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            string pMethodUniqueName = (object)this.paymentMethod + " - Default";
+                            var PMethodSearchConditions = new List<ConditionExpression>
+                            {
+                                new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
+                            };
+                            Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
+                            if (existingPMethod != null)
+                            {
+                                defaultPaymentMethodId = existingPMethod.Id;
+                            }
+                            else
+                            {
+                                Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
+                                {
+                                    ["msnfp_name"] = pMethodUniqueName,
+                                    ["msnfp_type"] = new OptionSetValue(100000000)
+                                });
+                                defaultPaymentMethodId = pmethodId;
+                            }
+                        }
+
+                        var RaffleSalesSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("lrx_fundraisinrafflesalesid", ConditionOperator.Equal, raffleSalesRecord.sale_id)
+                        };
+
+                        Entity existingRaffleSales = FindExistingRecord("lrx_rafflesales", RaffleSalesSearchConditions);
+
+                        if (existingRaffleSales != null) {
+                            raffleSaleGuid = existingRaffleSales.Id;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+                        var TransactionSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, transactions.Transaction_id),
+                        };
+
+                        Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+
+                        Entity transactionEntity = new Entity("msnfp_transaction")
+                        {
+                            ["sifund_donor"] = new EntityReference("contact", contactID),
+                            ["lrx_campaign"] = campaignGuid != Guid.Empty ? new EntityReference("campaign", campaignGuid) : null,
+                            ["sifund_appeal"] = appealGuid != Guid.Empty ? new EntityReference("sifund_appeal", appealGuid) : null,
+                            ["sifund_package"] = packageGuid != Guid.Empty ? new EntityReference("sifund_package", packageGuid) : null,
+                            ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                            ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
+                            ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
+                            ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
+                            ["lrx_promocode"] = promoGuid != Guid.Empty ? new EntityReference("lrx_promocodeanddiscount", promoGuid) : null,
+                            ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
+                            ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
+                            ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                            ["statuscode"] = new OptionSetValue(856660001),
+                            ["sifund_typecode"] = new OptionSetValue(transactionType),
+                            ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                        };
+
+                        if (existingTransaction == null)
+                        {
+                            transactionId = this._service.Create(transactionEntity);
+                        }
+                        else if (this.updateTransaction)
+                        {
+                            transactionEntity.Id = existingTransaction.Id;
+                            this._service.Update(transactionEntity);
+                        }
+
+                        if (raffleSaleGuid != Guid.Empty)
+                        {
+                            this._service.Update(new Entity("lrx_rafflesales", raffleSaleGuid)
+                            {
+                                ["lrx_transaction"] = existingTransaction != null ? new EntityReference("msnfp_transaction", existingTransaction.Id) : new EntityReference("msnfp_transaction", transactionId)
+                            });
+                        }
+                    }//end of Raffle transaction
 
                     if (transactions.Transaction_type == "refund")
                     {
@@ -1554,54 +1725,38 @@ namespace FundraisinApp_Integration.Plugins.Service
                             };
 
                                 Entity existingRefund = FindExistingRecord("lrx_refund", RefundSearchConditions);
+
+                                var refundEntity = new Entity("lrx_refund")
+                                {
+                                    ["lrx_customer"] = new EntityReference("contact", donorId),
+                                    ["lrx_transaction"] = new EntityReference("msnfp_transaction", existingTransaction.Id),
+                                    ["lrx_totalamountpaidrefund"] = new Money(transactionAmount),
+                                    ["lrx_amountreceiptablerefund"] = new Money(transactionAmount),
+                                    ["lrx_totalamountpaid"] = new Money(transactionAmount),
+                                    ["lrx_amountreceiptable"] = new Money(transactionAmount),
+                                    ["lrx_refunddate"] = DateTime.Parse(transactions.Date_created),
+                                    ["lrx_refundtype"] = new OptionSetValue(844060002),
+                                    ["statuscode"] = new OptionSetValue(376750001),
+                                    ["lrx_fundraisinrefundid"] = int.Parse(transactions.Transaction_id)
+                                };
+
                                 if (existingRefund == null)
                                 {
-                                    Guid RefundRecordId = this._service.Create(new Entity("lrx_refund")
-                                    {
-                                        ["lrx_customer"] = (object)new EntityReference("contact", donorId),
-                                        ["lrx_transaction"] = (object)new EntityReference("msnfp_transaction", existingTransaction.Id),
-                                        ["lrx_totalamountpaidrefund"] = new Money(transactionAmount),
-                                        ["lrx_amountreceiptablerefund"] = new Money(transactionAmount),
-                                        ["lrx_totalamountpaid"] = new Money(transactionAmount),
-                                        ["lrx_amountreceiptable"] = new Money(transactionAmount),
-                                        ["lrx_refunddate"] = DateTime.Parse(transactions.Date_created),
-                                        ["lrx_refundtype"] = new OptionSetValue(844060002),
-                                        ["statuscode"] = new OptionSetValue(376750001),
-                                        ["lrx_fundraisinrefundid"] = int.Parse(transactions.Transaction_id)
-                                    });
-
-                                    this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
-                                    {
-                                        ["statuscode"] = new OptionSetValue(856660005)
-                                    });
+                                    refundEntity.Id = this._service.Create(refundEntity);
                                 }
-                                else
+                                else if (this.updateTransaction)
                                 {
-                                    if (this.updateTransaction)
-                                    {
-                                        this._service.Update(new Entity("lrx_refund", existingRefund.Id)
-                                        {
-                                            ["lrx_customer"] = (object)new EntityReference("contact", donorId),
-                                            ["lrx_transaction"] = (object)new EntityReference("msnfp_transaction", existingTransaction.Id),
-                                            ["lrx_totalamountpaidrefund"] = new Money(transactionAmount),
-                                            ["lrx_amountreceiptablerefund"] = new Money(transactionAmount),
-                                            ["lrx_totalamountpaid"] = new Money(transactionAmount),
-                                            ["lrx_amountreceiptable"] = new Money(transactionAmount),
-                                            ["lrx_refunddate"] = DateTime.Parse(transactions.Date_created),
-                                            ["lrx_refundtype"] = new OptionSetValue(844060002),
-                                            ["statuscode"] = new OptionSetValue(376750001),
-                                            ["lrx_fundraisinrefundid"] = int.Parse(transactions.Transaction_id)
-                                        });
-
-                                        this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
-                                        {
-                                            ["statuscode"] = new OptionSetValue(856660005)
-                                        });
-                                    }
+                                    refundEntity.Id = existingRefund.Id;
+                                    this._service.Update(refundEntity);
                                 }
+                            
+                                this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
+                                {
+                                    ["statuscode"] = new OptionSetValue(856660005)
+                                });      
                             }
                         }
-                    }
+                    }//End of Refund
                 }
             }
 
@@ -1777,7 +1932,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             return contactID;
         }
 
-        private Guid UpsertContactFromRaffleSales(RaffleSalesModel raffleSales)
+        private Guid UpsertContactFromRaffleSales(dynamic raffleSales)
         {
             // Define search conditions to find an existing contact
             var contactSearchConditions = new List<ConditionExpression>
