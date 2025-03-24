@@ -1031,7 +1031,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                 Entity raffleTicketEntity = new Entity("lrx_raffleticketoption")
                 {
                     ["lrx_name"] = raffleTicket.option_description,
-                    ["lrx_tickets"] = raffleTicket.option_tickets,
+                    ["lrx_tickets"] = int.Parse(raffleTicket.option_tickets),
                     ["lrx_price"] = decimal.TryParse(raffleTicket.option_price, out decimal price) ? new Money(price) : new Money(0),
                     ["lrx_raffle"] = raffleID != Guid.Empty ? new EntityReference("lrx_raffle", raffleID) : null,
                     ["lrx_fundraisinraffleoptionid"] = int.Parse(raffleTicket.option_id)
@@ -1108,9 +1108,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                     ["lrx_raffleoption"] = raffleOptionD != Guid.Empty ? new EntityReference("lrx_raffleticketoption", raffleOptionD) : null,
                     ["lrx_amountpaid"] = decimal.TryParse(raffleSales.sub_total, out decimal price) ? new Money(price) : new Money(0),
                     ["lrx_ponumber"] = raffleSales.po_number,
-                    ["lrx_tickets"] = int.Parse(raffleSales.number_tickets),
-                    ["lrx_startingnumber"] = int.Parse(raffleSales.ticket_start),
-                    ["lrx_endingnumber"] = int.Parse(raffleSales.ticket_end),
+                    ["lrx_tickets"] = raffleSales.number_tickets,
+                    ["lrx_startingnumber"] = raffleSales.ticket_start,
+                    ["lrx_endingnumber"] = raffleSales.ticket_end,
                     ["lrx_fundraisinrafflesalesid"] = int.Parse(raffleSales.sale_id)
                 };
 
