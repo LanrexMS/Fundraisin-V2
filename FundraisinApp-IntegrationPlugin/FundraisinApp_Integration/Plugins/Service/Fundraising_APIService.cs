@@ -89,15 +89,6 @@ namespace FundraisinApp_Integration.Plugins.Service
         {
             List<EventModel> fundraisingEvents = this.ParseCsvHelper<EventModel, EventModelMap>(this.CallFundRaisinAPI((object)(this.baseURL + "events")));
 
-            Guid campaignId = Guid.Empty;
-            Entity existingCampaign = this.FindExistingRecord("campaign", new List<ConditionExpression>()
-            {
-                new ConditionExpression("name", ConditionOperator.Equal, (object)this.campaignName)
-            });
-
-            if (existingCampaign != null)
-                campaignId = existingCampaign.Id;
-
             foreach (EventModel eventModel in fundraisingEvents)
             {
                 Guid eventRecordId = Guid.Empty;
@@ -113,7 +104,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                         ["lrx_name"] = (object)eventModel.EventName,
                         ["lrx_goal"] = (object)new Money(Decimal.Parse(eventModel.EventTarget)),
                         ["lrx_description"] = (object)eventModel.EventShortDesc,
-                        //["lrx_campaign"] = campaignId != Guid.Empty ? (object)new EntityReference("campaign", campaignId) : null,
                         ["lrx_fundraisineventid"] = int.Parse(eventModel.EventId),
                         ["lrx_location"] = (object)eventModel.EventLocation
                     };
@@ -136,7 +126,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                         ["lrx_name"] = (object)eventModel.EventName,
                         ["lrx_goal"] = (object)new Money(Decimal.Parse(eventModel.EventTarget)),
                         ["lrx_description"] = (object)eventModel.EventShortDesc,
-                        //["lrx_campaign"] = campaignId != Guid.Empty ? (object)new EntityReference("campaign", campaignId) : null,
                         ["lrx_fundraisineventid"] = int.Parse(eventModel.EventId),
                         ["lrx_location"] = (object)eventModel.EventLocation
                     };
@@ -938,6 +927,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         public Task GetFundraisinRaffleRecords()
         {
             var raffleList = this.GetData<RaffleModel, RaffleModelMap>(this.baseURL, "raffles");
+            
             foreach (var raffle in raffleList)
             {
                 Guid raffleID = Guid.Empty;
@@ -1198,10 +1188,13 @@ namespace FundraisinApp_Integration.Plugins.Service
                             continue;
                         }
                         var matchDonationID = donationList.FirstOrDefault(d => d.Donation_id == transactions.Donation_id);
-
+                        if (matchDonationID != null) { 
+                            
+                        }
+                        contactID = UpsertContact(matchDonationID);
                         if (matchDonationID != null)
                         {
-                            contactID = UpsertContact(matchDonationID);
+                            
 
                             string pMethodUniqueName = (object)this.paymentMethod + " - Default";
                             var PMethodSearchConditions = new List<ConditionExpression>
@@ -1337,7 +1330,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_donationpaymenttype"] = new OptionSetValue(scheduleID != Guid.Empty ? 856660001 : 856660000),
                             ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(844060000),
-                            ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                            ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
                         };
 
                         if (existingTransaction == null)
