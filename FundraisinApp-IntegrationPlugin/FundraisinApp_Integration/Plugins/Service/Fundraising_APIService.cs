@@ -482,7 +482,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                     transactionObj is EntityReference transactionRef)
                     {
                         TransactionID = transactionRef.Id;
-                        _tracingService.Trace($"Transaction ID: {TransactionID}");
                     }
                 }                
 
