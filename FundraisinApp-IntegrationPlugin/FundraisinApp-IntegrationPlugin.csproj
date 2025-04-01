@@ -138,6 +138,8 @@
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\DonationModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventModelMap.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventTableModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventTableModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventTeamModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventTeamModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\OrganisationModel.cs" />

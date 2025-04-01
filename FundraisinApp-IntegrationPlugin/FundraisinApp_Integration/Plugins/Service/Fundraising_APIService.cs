@@ -28,6 +28,8 @@ using System.Diagnostics.Tracing;
 using System.Web.Util;
 using System.Data.Common;
 using System.Threading.Tasks;
+using Microsoft.SqlServer.Server;
+using System.Net;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -439,6 +441,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                 Guid ticketId = Guid.Empty;
                 Guid TransactionID = Guid.Empty;
                 Guid contactID = Guid.Empty;
+                Guid eventTable = Guid.Empty;
 
                 string EventName = string.Empty;
 
@@ -498,7 +501,11 @@ namespace FundraisinApp_Integration.Plugins.Service
                 {
                     continue;
                 }
-                
+                if (ticketHolder.table_id != "0") 
+                {
+                    eventTable = GetFundraisinTableRecord(ticketHolder.event_id, ticketHolder.table_id, eventId, ticketId);
+                }             
+
                 if (ticketHolder.related_member_id == "0" && ticketHolder.related_history_id == "0")
                 {
                     string ContactFullName = ticketHolder.g_fname + " " + ticketHolder.g_lname;
@@ -563,6 +570,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         ["lrx_event"] = new EntityReference("lrx_event", eventId),
                         ["lrx_name"] = identifierName,
                         ["lrx_eventticket"] = ticketId != Guid.Empty ? new EntityReference("lrx_eventticket", ticketId) : null,
+                        ["lrx_eventtable"] = eventTable != Guid.Empty ? new EntityReference("lrx_eventtable", eventTable) : null,
                         ["lrx_priceperregistration"] = new Money(0),
                         ["lrx_constituentorganization"] = new EntityReference("contact", guestId),
                         ["lrx_transaction"] = TransactionID != Guid.Empty ? new EntityReference("msnfp_transaction", TransactionID) : null,
@@ -605,6 +613,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 }
                                 this._service.Update(new Entity("lrx_registrations", registrationId)
                                 {
+                                    ["lrx_eventtable"] = eventTable != Guid.Empty ? new EntityReference("lrx_eventtable", eventTable) : null,
                                     ["lrx_eventticket"] = ticketId != Guid.Empty ? (object)new EntityReference("lrx_eventticket", ticketId) : (object)null,
                                     ["lrx_registrationpaidby"] = relatedRegistrationId != Guid.Empty ? (object)new EntityReference("lrx_registrations", relatedRegistrationId) : (object)null
                                 });
@@ -614,6 +623,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         {
                             this._service.Update(new Entity("lrx_registrations", registrationId)
                             {
+                                ["lrx_eventtable"] = eventTable != Guid.Empty ? new EntityReference("lrx_eventtable", eventTable) : null,
                                 ["lrx_eventticket"] = ticketId != Guid.Empty ? (object)new EntityReference("lrx_eventticket", ticketId) : (object)null
                             });
                         }
@@ -1130,35 +1140,17 @@ namespace FundraisinApp_Integration.Plugins.Service
         {
             var TransactionList = this.GetData<TransactionModel, TransactionModelMap>(this.baseURL, "transactions");
             var donationList = this.GetData<DonationModel, DonationModelMap>(this.baseURL, "donations");
-            var scheduledDonationList = this.GetData<ScheduleModel, ScheduleModelMap>(this.baseURL, "scheduleddonations");
+            var scheduledDonationList = this.GetAllData<ScheduleModel, ScheduleModelMap>(this.baseURL, "scheduleddonations");
             var saleItemList = this.GetData<SaleItemModel, SaleItemModelMap>(this.baseURL, "salesitems");
-            var productList = this.GetData<ProductModel, ProductModelMap>(this.baseURL, "products");
-            var productOptionList = this.GetData<ProductOptionModel, ProductOptionModelMap>(this.baseURL, "productoptions");
+            var productList = this.GetAllData<ProductModel, ProductModelMap>(this.baseURL, "products");
+            var productOptionList = this.GetAllData<ProductOptionModel, ProductOptionModelMap>(this.baseURL, "productoptions");
             var participantList = this.GetData<ParticipantModel, ParticipantModelMap>(this.baseURL, "participants");
-            var eventList = this.GetData<EventModel, EventModelMap>(this.baseURL, "events");
+            var eventList = this.GetAllData<EventModel, EventModelMap>(this.baseURL, "events");
             var raffleSalesList = this.GetData<RaffleSalesModel, RaffleSalesModelMap>(this.baseURL, "rafflesales");
 
             if (TransactionList != null &&
-                donationList != null &&
-                scheduledDonationList != null &&
-                saleItemList != null &&
-                productList != null &&
-                productOptionList != null &&
-                participantList != null &&
-                eventList != null)
+                donationList != null)
             {
-                Guid defaultCampaignID = Guid.Empty;
-                var CampaignSearchConditions = new List<ConditionExpression>
-                {
-                    new ConditionExpression("name", ConditionOperator.Equal, (object)this.campaignName)
-                };
-
-                Entity existingCampaign = FindExistingRecord("campaign", CampaignSearchConditions);
-                if (existingCampaign != null)
-                {
-                    defaultCampaignID = existingCampaign.Id;
-                }
-
                 foreach (var transactions in TransactionList)
                 {
                     Guid defaultPaymentMethodId = Guid.Empty;
@@ -1174,6 +1166,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Guid packageGuid = Guid.Empty;
                     Guid raffleSaleGuid = Guid.Empty;
                     Guid transactionId = Guid.Empty;
+                    string CustomDonationDate = "";
 
                     if (transactions.Event_id.Trim() != "0")
                     {          
@@ -1188,14 +1181,27 @@ namespace FundraisinApp_Integration.Plugins.Service
                             continue;
                         }
                         var matchDonationID = donationList.FirstOrDefault(d => d.Donation_id == transactions.Donation_id);
-                        if (matchDonationID != null) { 
-                            
+                        if (matchDonationID == null) //Check from previous transaction if donation id already made and get date
+                        {
+                            var PreviousTransactionSearchConditions = new List<ConditionExpression>
+                            {
+                                new ConditionExpression("lrx_fundraisindonationid", ConditionOperator.Equal, transactions.Donation_id),
+                            };
+
+                            Entity previousTransaction = FindExistingRecord("msnfp_transaction", PreviousTransactionSearchConditions);
+                            if (previousTransaction != null && previousTransaction.Contains("lrx_fundraisindonationdate"))
+                            {
+                                CustomDonationDate = previousTransaction.GetAttributeValue<string>("lrx_fundraisindonationdate");
+
+                                var customDonationList = this.GetData<DonationModel, DonationModelMap>(this.baseURL, "donations", CustomDonationDate);
+                                if (customDonationList != null)
+                                    matchDonationID = customDonationList.FirstOrDefault(d => d.Donation_id == transactions.Donation_id);
+                            }
                         }
-                        contactID = UpsertContact(matchDonationID);
+
                         if (matchDonationID != null)
                         {
-                            
-
+                            contactID = UpsertContact(matchDonationID);
                             string pMethodUniqueName = (object)this.paymentMethod + " - Default";
                             var PMethodSearchConditions = new List<ConditionExpression>
                             {
@@ -1304,7 +1310,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     teamID = existingEventTeam.Id;
                                 }
                             }
-                        } // end of match donation variable
+                        }
 
                         var TransactionSearchConditions = new List<ConditionExpression>
                         {
@@ -1331,6 +1337,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(844060000),
                             ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
+                            ["lrx_fundraisindonationid"] = int.Parse(matchDonationID.Donation_id),
+                            ["lrx_fundraisindonationdate"] = matchDonationID.Date_created
                         };
 
                         if (existingTransaction == null)
@@ -1437,7 +1445,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
                                 ["statuscode"] = new OptionSetValue(856660001),
                                 ["sifund_typecode"] = new OptionSetValue(transactionType),
-                                ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                                ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
+                                ["lrx_fundraisindonationid"] = int.Parse(transactions.Donation_id),
+                                ["lrx_fundraisindonationdate"] = transactions.Date_created
                             });
                         }
                         else
@@ -1460,7 +1470,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
                                     ["statuscode"] = new OptionSetValue(856660001),
                                     ["sifund_typecode"] = new OptionSetValue(transactionType),
-                                    ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                                    ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
+                                    ["lrx_fundraisindonationid"] = int.Parse(transactions.Donation_id),
+                                    ["lrx_fundraisindonationdate"] = transactions.Date_created
                                 });   
                             }
                         }
@@ -1666,7 +1678,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
                             ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(transactionType),
-                            ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id)
+                            ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
+                            ["lrx_fundraisindonationid"] = int.Parse(transactions.Donation_id),
+                            ["lrx_fundraisindonationdate"] = transactions.Date_created
                         };
 
                         if (existingTransaction == null)
@@ -1801,13 +1815,27 @@ namespace FundraisinApp_Integration.Plugins.Service
             return resultList;
         }
 
-        public string CallFundRaisinAPI(object apiEndpoint)
+        public string CallFundRaisinAPI(object apiEndpoint, string customDate = "")
         {
 
             string requestUri = "";
             if (dateFrom != "" && dateTo != "")
             {
                 requestUri = string.Format("{0}?apikey={1}&date_from={2}&date_to={3}", (object)apiEndpoint, (object)this.apikey, (object)this.dateFrom, (object)this.dateTo);
+            }
+            else
+            if (customDate != "") 
+            {
+                string convertedDate = "";
+                string format = "dd/MM/yyyy hh:mm:ss tt";
+                CultureInfo provider = CultureInfo.InvariantCulture;
+
+                if (DateTime.TryParseExact(customDate, format, provider, DateTimeStyles.None, out DateTime parsedDateFrom))
+                {
+                    convertedDate = parsedDateFrom.ToString("yyyy-MM-dd");
+                }
+
+                requestUri = string.Format("{0}?apikey={1}&date_from={2}&date_to={3}", (object)apiEndpoint, (object)this.apikey, (object)convertedDate, (object)convertedDate);
             }
             else
             {
@@ -1861,11 +1889,48 @@ namespace FundraisinApp_Integration.Plugins.Service
             return csvContent;
         }
 
-        public List<T> GetData<T, TMap>(string baseUrl, string endpoint)
+        public string CallFundRaisinAPIAllData(object apiEndpoint, string customDate = "")
+        {
+
+            string requestUri = "";
+            
+            requestUri = string.Format("{0}?apikey={1}", (object)apiEndpoint, (object)this.apikey);
+
+            string csvContent = "";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+                try
+                {
+                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        csvContent = result.Content.ReadAsStringAsync().Result;
+                    }
+                    else
+                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
+                }
+                catch (HttpRequestException ex)
+                {
+                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
+                }
+            }
+            return csvContent;
+        }
+
+        public List<T> GetData<T, TMap>(string baseUrl, string endpoint, string customDate = "")
         where TMap : ClassMap<T>, new()
         {
             string fullUrl = baseUrl + endpoint;
-            string csvContent = CallFundRaisinAPI((object)fullUrl);
+            string csvContent = CallFundRaisinAPI((object)fullUrl, customDate);
+            return ParseCsvHelper<T, TMap>(csvContent);
+        }
+
+        public List<T> GetAllData<T, TMap>(string baseUrl, string endpoint, string customDate = "")
+        where TMap : ClassMap<T>, new()
+        {
+            string fullUrl = baseUrl + endpoint;
+            string csvContent = CallFundRaisinAPIAllData((object)fullUrl, customDate);
             return ParseCsvHelper<T, TMap>(csvContent);
         }
 
@@ -1978,6 +2043,68 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             return contactID;
+        }
+
+        private Guid GetFundraisinTableRecord(string eventId, string tableID, Guid eventCRM, Guid ticketCRM)
+        {
+            Guid eventTableGuid = Guid.Empty;
+            string customPageDetailURL = baseURLCustom + "getEventsTables";
+            string requestUri = string.Format("{0}?apikey={1}&event_ids={2}", (object)customPageDetailURL, (object)this.apikey, eventId);
+            string csvContent = "";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+                try
+                {
+                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        csvContent = result.Content.ReadAsStringAsync().Result;
+                    }
+                    else
+                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
+                }
+                catch (HttpRequestException ex)
+                {
+                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
+                }
+            }
+
+            var eventTableList = ParseCsvHelper<EventTableModel, EventTableModelMap>(csvContent);
+
+            var eventTableRecord = eventTableList.FirstOrDefault(et => et.table_id == tableID);
+            if (eventTableRecord != null) 
+            {
+                var eventTableSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisintableid", ConditionOperator.Equal, eventTableRecord.table_id)
+                };
+
+                Entity existingEventTable = FindExistingRecord("lrx_eventtable", eventTableSearchConditions);
+                Entity eventTableEntity = new Entity("lrx_eventtable")
+                {
+                    ["lrx_name"] = eventTableRecord.table_name,
+                    ["lrx_tablecapacity"] = int.Parse(eventTableRecord.number_seats),
+                    ["lrx_tablenumber"] = int.Parse(eventTableRecord.table_number),
+                    ["lrx_event"] = eventCRM != Guid.Empty ? new EntityReference("lrx_event", eventCRM) : null,
+                    ["lrx_eventticket"] = ticketCRM != Guid.Empty ? new EntityReference("lrx_eventticket", ticketCRM) : null,
+                    ["lrx_pricepertable"] = new Money(decimal.Parse(eventTableRecord.table_price)),
+                    ["lrx_fundraisintableid"] = eventTableRecord.table_id
+                };
+
+                if (existingEventTable == null)
+                {
+                    eventTableGuid = this._service.Create(eventTableEntity);
+                }
+                else if (this.updateTransaction)
+                {
+                    eventTableEntity.Id = existingEventTable.Id;
+                    eventTableGuid = existingEventTable.Id;
+                    this._service.Update(eventTableEntity);
+                }
+            }
+
+            return eventTableGuid;
         }
 
         private Guid CheckAndUpdateEvent(
