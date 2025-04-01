@@ -1055,7 +1055,7 @@ namespace FundraisinApp_Integration.Plugins.Service
         public Task GetFundraisinRaffleSalesRecords()
         {
             var raffleSalesList = this.GetData<RaffleSalesModel, RaffleSalesModelMap>(this.baseURL, "rafflesales");
-            var raffleList = this.GetData<RaffleModel, RaffleModelMap>(this.baseURL, "raffles");
+            var raffleList = this.GetAllData<RaffleModel, RaffleModelMap>(this.baseURL, "raffles");
             foreach (var raffleSales in raffleSalesList)
             {
                 Guid raffleSalesID = Guid.Empty;

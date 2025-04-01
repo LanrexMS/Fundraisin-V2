@@ -34,11 +34,12 @@ namespace Fundraising_Engagement.Plugins.Service
             _tracingService = tracingService;
         }
 
-        public void AutoCompleteCashTransactions(MsnFp_Transaction transaction)
+        public void AutoCompleteTransactions(MsnFp_Transaction transaction)
         {
+            //Auto complete transaction if gift type is not CreditDebitCard
             MsnFp_Transaction transactionrecord = (MsnFp_Transaction)RetrieveRecord(MsnFp_Transaction.EntityLogicalName, transaction.Id, MsnFp_Transaction.Fields.SiFund_PaymentTypeCode);
 
-            if (transactionrecord.SiFund_PaymentTypeCode != null && transactionrecord.SiFund_PaymentTypeCode == SiFund_PaymentTypeCode.Cash)
+            if (transactionrecord.SiFund_PaymentTypeCode != null && transactionrecord.SiFund_PaymentTypeCode != SiFund_PaymentTypeCode.CreditDebitCard) 
             {
                 var updateTransaction = new MsnFp_Transaction
                 {

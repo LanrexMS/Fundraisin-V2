@@ -36,7 +36,7 @@ namespace Fundraising_Engagement.Plugins
                     {
                         case "Create":
                             fundraisingService.CheckPledgeMatch(transaction.Id, "transaction");
-                            fundraisingService.AutoCompleteCashTransactions(transaction);
+                            fundraisingService.AutoCompleteTransactions(transaction);
                             fundraisingService.AutoPopulateRefundAmounts(transaction);
                             fundraisingService.YearlyGiving(transaction);
                             fundraisingService.UpdateLatestTransaction(transaction, transactionrecord);
