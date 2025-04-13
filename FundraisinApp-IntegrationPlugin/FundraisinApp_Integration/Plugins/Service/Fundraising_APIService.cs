@@ -246,7 +246,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                 Guid paidMemberRegistration = Guid.Empty;
                 Guid TeamId = Guid.Empty;
                 Guid TransactionID = Guid.Empty;
-                decimal ticketAmount = 0;
+                decimal entreeAmount = 0;
                 string ContactFullName = "";
                 string EventName = "";
 
@@ -291,32 +291,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                 //Get or Create Ticket
                 decimal entryFeeRecord = decimal.Parse(participantEvent.Total_Paid_Entry.ToString());
-                ticketAmount = entryFeeRecord;
-                string eventTicketName = EventName + " - Entree Fee ";
-                var TicketSearchConditions = new List<ConditionExpression>
-                {
-                    new ConditionExpression("lrx_name", ConditionOperator.Equal, eventTicketName),
-                    new ConditionExpression("lrx_event", ConditionOperator.Equal, eventID),
-                    new ConditionExpression("lrx_amount", ConditionOperator.Equal, entryFeeRecord)
-                };
-
-                Entity existingTicket = FindExistingRecord("lrx_eventticket", TicketSearchConditions);
-
-                if (existingTicket == null)
-                {
-                    TicketID = this._service.Create(new Entity("lrx_eventticket")
-                    {
-                        ["lrx_name"] = (object)eventTicketName,
-                        ["lrx_quantity"] = 1000,
-                        ["lrx_eventticketdescription"] = "Fundraisin ticket for registering in event " + EventName,
-                        ["lrx_amount"] = new Money(entryFeeRecord),
-                        ["lrx_event"] = (object)new EntityReference("lrx_event", eventID),
-                    });
-                }
-                else
-                {
-                    TicketID = (Guid)existingTicket.Id;
-                }
+                entreeAmount = entryFeeRecord;
 
                 //Get Member / Contact who paid for registration
                 if (participantEvent.Paid_Member_Id.Trim() != "0")
@@ -338,9 +313,31 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 TransactionID = transactionRef.Id;
                             }
                         }
+
+                        var PaidMemberSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, participantEvent.Paid_Member_Id)
+                        };
+
+                        Entity existingPaidMember = FindExistingRecord("contact", PaidMemberSearchConditions);
+                        if (existingPaidMember != null) 
+                        {
+                            paidByMember = existingPaidMember.Id;
+                        }
                     }
                 }
-                
+
+                var EventTeamSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinteamid", ConditionOperator.Equal, participantEvent.Team_Id)
+                };
+
+                Entity existingEventTeam = FindExistingRecord("lrx_eventteam", EventTeamSearchConditions);
+                if (existingEventTeam != null)
+                { 
+                    TeamId = existingEventTeam.Id;
+                }
+
                 var RegistrationSearchConditions = new List<ConditionExpression>
                 {
                     new ConditionExpression("lrx_fundraisinregistrationid", ConditionOperator.Equal, participantEvent.History_Id)
@@ -352,14 +349,20 @@ namespace FundraisinApp_Integration.Plugins.Service
                     ["lrx_event"] = new EntityReference("lrx_event", eventID),
                     ["lrx_name"] = identifierName,
                     ["lrx_eventticket"] = TicketID != Guid.Empty ? new EntityReference("lrx_eventticket", TicketID) : null,
-                    ["lrx_priceperregistration"] = new Money(ticketAmount),
+                    ["lrx_priceperregistration"] = new Money(entreeAmount),
                     ["lrx_constituentorganization"] = new EntityReference("contact", contactID),
+                    ["lrx_eventteam"] = TeamId != Guid.Empty ? new EntityReference("lrx_eventteam", TeamId) : null,
                     ["lrx_transaction"] = TransactionID != Guid.Empty ? new EntityReference("msnfp_transaction", TransactionID) : null,
                     ["lrx_registeredby"] = paidByMember != Guid.Empty ? new EntityReference("contact", paidByMember) : new EntityReference("contact", contactID),
                     ["lrx_registrationpaidby"] = paidMemberRegistration != Guid.Empty ? new EntityReference("lrx_registrations", paidMemberRegistration) : null,
                     ["lrx_promoid"] = int.TryParse(participantEvent.Promo_Id.ToString(), out int promoId) ? promoId : (int?)null,
                     ["lrx_fundraisinregistrationid"] = int.TryParse(participantEvent.History_Id, out int historyId) ? historyId : (int?)null
                 };
+
+                if (participantEvent.Is_Paid != "Y") 
+                {
+                    entity["statuscode"] = new OptionSetValue(856660002);
+                }
 
                 if (existingRegistration == null)
                 {
@@ -378,10 +381,8 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundraisinTicketRecords()
         {
-            string ticketURL = baseURL + "tickets";
-            string csvContent = CallFundRaisinAPI((object)ticketURL);
+            var ticketList = this.GetAllData<TicketsModel, TicketsModelMap>(this.baseURL, "tickets");
 
-            var ticketList = ParseCsvHelper<TicketsModel, TicketsModelMap>(csvContent);
             foreach (var tickets in ticketList)
             {
                 Guid eventID = Guid.Empty;
@@ -460,7 +461,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         EventName = existingEvent["lrx_name"].ToString();
                     }
                 }
-
+                
                 Entity existingTicket = this.FindExistingRecord("lrx_eventticket", new List<ConditionExpression>()
                 {
                     new ConditionExpression("lrx_fundraisinticketid", ConditionOperator.Equal, (object)ticketHolder.ticket_id)
@@ -473,9 +474,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                 new List<ConditionExpression>
                 {
                     new ConditionExpression("lrx_fundraisinregistrationid", ConditionOperator.Equal, ticketHolder.history_id)
-                },
-                new ColumnSet("lrx_transaction"));
+                });
 
+                
                 if (existingRegistration != null) {
                     registrationId = existingRegistration.Id;
                     if (existingRegistration.Attributes.TryGetValue("lrx_transaction", out var transactionObj) &&
@@ -583,10 +584,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                     }
                     else
                     {
-                        if (registrationId == existingTicketRegistration.Id)
-                        {
-                            registrationEntity["lrx_registrationpaidby"] = null;
-                        }
                         registrationEntity.Id = existingTicketRegistration.Id;
                         this._service.Update(registrationEntity);
                     }
@@ -595,7 +592,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                 {
                     if (ticketId != Guid.Empty)
                     {
-                        if (ticketHolder.history_id != ticketHolder.related_history_id)
+                        if (ticketHolder.history_id.Trim() != ticketHolder.related_history_id.Trim())
                         {
                             Entity relatedRegistration = this.FindExistingRecord("lrx_registrations", new List<ConditionExpression>()
                             {
@@ -607,14 +604,11 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                             if (relatedRegistrationId != Guid.Empty)
                             {
-                                if (registrationId == relatedRegistrationId) {
-                                    relatedRegistrationId = Guid.Empty; //making sure that the payor is not related to her own registration
-                                }
-                                this._service.Update(new Entity("lrx_registrations", registrationId)
+                                this._service.Update(new Entity("lrx_registrations", relatedRegistrationId)
                                 {
                                     ["lrx_eventtable"] = eventTable != Guid.Empty ? new EntityReference("lrx_eventtable", eventTable) : null,
                                     ["lrx_eventticket"] = ticketId != Guid.Empty ? (object)new EntityReference("lrx_eventticket", ticketId) : (object)null,
-                                    ["lrx_registrationpaidby"] = relatedRegistrationId != Guid.Empty ? (object)new EntityReference("lrx_registrations", relatedRegistrationId) : (object)null
+                                    ["lrx_registrationpaidby"] = registrationId != Guid.Empty ? (object)new EntityReference("lrx_registrations", registrationId) : (object)null
                                 });
                             }
                         }
@@ -623,7 +617,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                             this._service.Update(new Entity("lrx_registrations", registrationId)
                             {
                                 ["lrx_eventtable"] = eventTable != Guid.Empty ? new EntityReference("lrx_eventtable", eventTable) : null,
-                                ["lrx_eventticket"] = ticketId != Guid.Empty ? (object)new EntityReference("lrx_eventticket", ticketId) : (object)null
+                                ["lrx_eventticket"] = ticketId != Guid.Empty ? (object)new EntityReference("lrx_eventticket", ticketId) : (object)null,
+                                ["lrx_registrationpaidby"] = (object)null //do not reference self as paid by self
                             });
                         }
                     }
@@ -642,48 +637,36 @@ namespace FundraisinApp_Integration.Plugins.Service
             var productList = ParseCsvHelper<ProductModel, ProductModelMap>(csvContent);
             foreach (var products in productList)
             {
-                var productType = 856660000; //Default to product type
-                if (products.product_type == "ecard")
-                    productType = 856660001; //change to virtual type if ecard
+                var productType = products.product_type?.Trim() == "ecard" ? 856660001 : 856660000;
 
-                var ProductSearchConditions = new List<ConditionExpression>
+                var productIdTrimmed = products.product_id?.Trim();
+                var productSearchConditions = new List<ConditionExpression>
                 {
-                    new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, products.product_id)
+                    new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, productIdTrimmed)
                 };
-                Entity existingProduct = FindExistingRecord("lrx_inventoryproduct", ProductSearchConditions);
+
+                Entity existingProduct = FindExistingRecord("lrx_inventoryproduct", productSearchConditions);
+
+                Entity productEntity = new Entity("lrx_inventoryproduct");
+
+                if (existingProduct != null)
+                    productEntity.Id = existingProduct.Id;
+
+                productEntity["lrx_name"] = products.product_name?.Trim();
+                productEntity["lrx_producttype"] = new OptionSetValue(productType);
+                productEntity["lrx_productprice"] = new Money(decimal.Parse(products.product_price.Trim()));
+                productEntity["lrx_productcost"] = new Money(decimal.Parse(products.product_cost.Trim()));
+                productEntity["lrx_maximumbuyqty"] = int.Parse(products.max_buy_limit.Trim());
+                productEntity["lrx_minimumbuyqty"] = int.Parse(products.min_buy_limit.Trim());
+                productEntity["lrx_stocklevels"] = int.Parse(products.product_stock.Trim());
+                productEntity["lrx_crmid"] = products.crm_product_id?.Trim();
+                productEntity["lrx_description"] = products.product_description?.Trim();
+                productEntity["lrx_fundraisinproductid"] = int.Parse(productIdTrimmed);
 
                 if (existingProduct == null)
-                {
-                    Guid productID = this._service.Create(new Entity("lrx_inventoryproduct")
-                    {
-                        ["lrx_name"] = (object)products.product_name,
-                        ["lrx_producttype"] = new OptionSetValue(productType),
-                        ["lrx_productprice"] = (object)new Money(decimal.Parse(products.product_price)),
-                        ["lrx_productcost"] = (object)new Money(decimal.Parse(products.product_cost)),
-                        ["lrx_maximumbuyqty"] = int.Parse(products.max_buy_limit),
-                        ["lrx_minimumbuyqty"] = int.Parse(products.min_buy_limit),
-                        ["lrx_stocklevels"] = int.Parse(products.product_stock),
-                        ["lrx_crmid"] = (object)products.crm_product_id,
-                        ["lrx_description"] = (object)products.product_description,
-                        ["lrx_fundraisinproductid"] = int.Parse(products.product_id)
-                    });
-                }
+                    this._service.Create(productEntity);
                 else
-                {
-                    this._service.Update(new Entity("lrx_inventoryproduct", existingProduct.Id)
-                    {
-                        ["lrx_name"] = (object)products.product_name,
-                        ["lrx_producttype"] = new OptionSetValue(productType),
-                        ["lrx_productprice"] = (object)new Money(decimal.Parse(products.product_price)),
-                        ["lrx_productcost"] = (object)new Money(decimal.Parse(products.product_cost)),
-                        ["lrx_maximumbuyqty"] = int.Parse(products.max_buy_limit),
-                        ["lrx_minimumbuyqty"] = int.Parse(products.min_buy_limit),
-                        ["lrx_stocklevels"] = int.Parse(products.product_stock),
-                        ["lrx_crmid"] = (object)products.crm_product_id,
-                        ["lrx_description"] = (object)products.product_description,
-                        ["lrx_fundraisinproductid"] = int.Parse(products.product_id)
-                    });
-                }
+                    this._service.Update(productEntity);
             }
 
             this._tracingService.Trace("Product Record Fundraisin API Completed");
@@ -1250,7 +1233,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     ["sifund_paymenttypecode"] = new OptionSetValue(existingRecord == null ? 844060008 : 844060002), // Handles different payment type codes
                                     ["msnfp_recurringamount"] = new Money(totalRecurringAmmount),
                                     ["msnfp_frequency"] = new OptionSetValue(frequencyType),
-                                    ["msnfp_frequencyinterval"] = int.Parse(matchScheduleDonationID.donation_day),
+                                    ["msnfp_frequencyinterval"] = 1,
                                     ["sifund_bookdate"] = DateTime.Parse(matchScheduleDonationID.date_created),
                                     ["msnfp_lastpaymentdate"] = DateTime.Parse(transactions.Date_created),
                                     ["lrx_fundraisinpaymentscheduleid"] = int.Parse(matchScheduleDonationID.ScheduleId)
@@ -1258,6 +1241,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                                 if (existingRecord == null)
                                 {
+                                    paymentSchedule["lrx_billingstartdate"] = DateTime.Parse(matchScheduleDonationID.date_created);
                                     scheduleID = this._service.Create(paymentSchedule);
                                 }
                                 else
