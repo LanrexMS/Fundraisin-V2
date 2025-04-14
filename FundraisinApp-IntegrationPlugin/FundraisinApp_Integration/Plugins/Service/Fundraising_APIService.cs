@@ -1079,7 +1079,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     new ConditionExpression("lrx_fundraisinrafflesalesid", ConditionOperator.Equal, raffleSales.sale_id)
                 };
 
-                var raffleRecord = raffleList.FirstOrDefault(r => r.raffle_id == raffleSales.raffle_id);
+                var raffleRecord = raffleList.FirstOrDefault(r => r.raffle_id.Trim() == raffleSales.raffle_id.Trim());
                 string identifierName = $"{raffleSales.first_name} {raffleSales.last_name} - {raffleRecord.raffle_name}";
                 Entity existingRaffleSales = FindExistingRecord("lrx_rafflesales", RaffleSalesSearchConditions);
                 Entity raffleSalesEntity = new Entity("lrx_rafflesales")
@@ -1162,7 +1162,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         {
                             continue;
                         }
-                        var matchDonationID = donationList.FirstOrDefault(d => d.Donation_id == transactions.Donation_id);
+                        var matchDonationID = donationList.FirstOrDefault(d => d.Donation_id.Trim() == transactions.Donation_id.Trim());
                         if (matchDonationID == null) //Check from previous transaction if donation id already made and get date
                         {
                             var PreviousTransactionSearchConditions = new List<ConditionExpression>
@@ -1177,7 +1177,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                                 var customDonationList = this.GetData<DonationModel, DonationModelMap>(this.baseURL, "donations", CustomDonationDate);
                                 if (customDonationList != null)
-                                    matchDonationID = customDonationList.FirstOrDefault(d => d.Donation_id == transactions.Donation_id);
+                                    matchDonationID = customDonationList.FirstOrDefault(d => d.Donation_id.Trim() == transactions.Donation_id.Trim());
                             }
                         }
 
@@ -1205,7 +1205,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 defaultPaymentMethodId = pmethodId;
                             }
 
-                            var matchScheduleDonationID = scheduledDonationList.FirstOrDefault(sd => sd.donation_id == transactions.Donation_id);
+                            var matchScheduleDonationID = scheduledDonationList.FirstOrDefault(sd => sd.donation_id.Trim() == transactions.Donation_id.Trim());
                             if (matchScheduleDonationID != null)
                             {
                                 var PScheduleSearchConditions = new List<ConditionExpression>
@@ -1470,7 +1470,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                         if (transactions.Sale_id != "0")
                         {
-                            var salesItemMatchID = saleItemList.FirstOrDefault(si => si.sale_id == transactions.Sale_id);
+                            var salesItemMatchID = saleItemList.FirstOrDefault(si => si.sale_id.Trim() == transactions.Sale_id.Trim());
 
                             if (salesItemMatchID != null)
                             {
@@ -1479,13 +1479,13 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 string productName = "";
                                 string productOptionName = "";
 
-                                var matchingProduct = productList.FirstOrDefault(p => p.product_id == salesItemMatchID.product_id);
+                                var matchingProduct = productList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
                                 if (matchingProduct != null)
                                 {
                                     productName = matchingProduct.product_name;
                                 }
 
-                                var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id == salesItemMatchID.product_id);
+                                var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
                                 if (matchingProductOption != null)
                                 {
                                     productOptionName = matchingProductOption.option_name;
@@ -1589,7 +1589,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     {
                         int transactionType = 844060005; //default raffle
 
-                        var raffleSalesRecord = raffleSalesList?.FirstOrDefault(rs => rs.sale_id == transactions.Sale_id);
+                        var raffleSalesRecord = raffleSalesList?.FirstOrDefault(rs => rs.sale_id.Trim() == transactions.Sale_id.Trim());
 
                         if(raffleSalesRecord != null)
                         {
@@ -1688,7 +1688,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     if (transactions.Transaction_type == "refund")
                     {
                         var originalTransaction = TransactionList
-                            .FirstOrDefault(t => t.Donation_id == transactions.Donation_id && t.Transaction_type != "refund");
+                            .FirstOrDefault(t => t.Donation_id.Trim() == transactions.Donation_id.Trim() && t.Transaction_type.Trim() != "refund");
 
                         if (originalTransaction != null)
                         {
@@ -2055,7 +2055,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
             var eventTableList = ParseCsvHelper<EventTableModel, EventTableModelMap>(csvContent);
 
-            var eventTableRecord = eventTableList.FirstOrDefault(et => et.table_id == tableID);
+            var eventTableRecord = eventTableList.FirstOrDefault(et => et.table_id.Trim() == tableID.Trim());
             if (eventTableRecord != null) 
             {
                 var eventTableSearchConditions = new List<ConditionExpression>
@@ -2101,7 +2101,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             appealId = Guid.Empty;
             packageId = Guid.Empty;
 
-            EventModel matchedEvent = eventList.FirstOrDefault(e => e.EventId == eventId);
+            EventModel matchedEvent = eventList.FirstOrDefault(e => e.EventId.Trim() == eventId.Trim());
             if (matchedEvent == null)
                 return Guid.Empty;
 
