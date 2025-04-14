@@ -57,20 +57,20 @@ namespace FundraisinApp_Integration.Plugins
             try
             {
                 object inputParameter = ((DataCollection<string, object>)((IExecutionContext)service1).InputParameters)["lrx_fundraisinIntegrationJSONParams"];
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinEventRecords();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinParticipantRecords();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinOrganisationRecord();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinEventTeamsRecord();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketRecords();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinPromoCodeRecord();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetRegistrationFromParticipantEventRecord();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinEventRecords();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinParticipantRecords();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinOrganisationRecord();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinEventTeamsRecord();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketRecords();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinPromoCodeRecord();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetRegistrationFromParticipantEventRecord();
                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketHolderRecord();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductRecord();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductOptionsRecord();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleRecords();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleTicketOptionRecords();
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleSalesRecords();              
-                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinTransactionRecord();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductRecord();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductOptionsRecord();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleRecords();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleTicketOptionRecords();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleSalesRecords();
+                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinTransactionRecord();
             }
             catch (Exception ex)
             {
