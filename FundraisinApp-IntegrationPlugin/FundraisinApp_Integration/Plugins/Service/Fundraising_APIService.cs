@@ -1254,26 +1254,18 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                                 var pageDetailList = ParseCsvHelper<CustomPageDetailsModel, CustomPageDetailsModelMap>(csvCustomPageDetailContent);
                                 string pageMemberId = pageDetailList.FirstOrDefault()?.member_id;
-                                string pageFname = pageDetailList.FirstOrDefault()?.m_fname;
-                                string pageLname = pageDetailList.FirstOrDefault()?.m_lname;
-
-                                string pageFullName = $"{pageFname} {pageLname}".Trim();
-                                string matchFullName = $"{matchDonationID.D_fname} {matchDonationID.D_lname}".Trim();
-
-                                if (!string.Equals(matchFullName, pageFullName, StringComparison.OrdinalIgnoreCase))
+                                
+                                var SolicitorSearchConditions = new List<ConditionExpression>
                                 {
-                                    var SolicitorSearchConditions = new List<ConditionExpression>
-                                    {
-                                        new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, int.Parse(pageMemberId)),
-                                    };
+                                    new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, int.Parse(pageMemberId)),
+                                };
 
-                                    Entity existingSolicitor = FindExistingRecord("contact", SolicitorSearchConditions);
-                                    if (existingSolicitor != null)
-                                    {
-                                        if(existingSolicitor.Id != contactID)
-                                            solicitorID = existingSolicitor.Id;
-                                    }
-                                }
+                                Entity existingSolicitor = FindExistingRecord("contact", SolicitorSearchConditions);
+                                if (existingSolicitor != null)
+                                {
+                                    if(existingSolicitor.Id != contactID)
+                                        solicitorID = existingSolicitor.Id;
+                                }         
                             }
 
                             if (matchDonationID.Team_id.Trim() != "0")
