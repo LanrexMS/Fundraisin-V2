@@ -631,10 +631,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundRaisinProductRecord()
         {
-            string url = baseURL + "products";
-            string csvContent = CallFundRaisinAPI((object)url);
-
-            var productList = ParseCsvHelper<ProductModel, ProductModelMap>(csvContent);
+            var productList = this.GetAllData<ProductModel, ProductModelMap>(this.baseURL, "products");
             foreach (var products in productList)
             {
                 var productType = products.product_type?.Trim() == "ecard" ? 856660001 : 856660000;
@@ -675,10 +672,8 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundRaisinProductOptionsRecord()
         {
-            string url = baseURL + "productoptions";
-            string csvContent = CallFundRaisinAPI((object)url);
+            var productOptionList = this.GetAllData<ProductOptionModel, ProductOptionModelMap>(this.baseURL, "productoptions");
 
-            var productOptionList = ParseCsvHelper<ProductOptionModel, ProductOptionModelMap>(csvContent);
             foreach (var productoptions in productOptionList)
             {
                 var productOptionType = 856660002; // default to others
