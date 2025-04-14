@@ -1270,7 +1270,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     Entity existingSolicitor = FindExistingRecord("contact", SolicitorSearchConditions);
                                     if (existingSolicitor != null)
                                     {
-                                        solicitorID = existingSolicitor.Id;
+                                        if(existingSolicitor.Id != contactID)
+                                            solicitorID = existingSolicitor.Id;
                                     }
                                 }
                             }
