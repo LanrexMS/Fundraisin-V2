@@ -30,6 +30,7 @@ using System.Data.Common;
 using System.Threading.Tasks;
 using Microsoft.SqlServer.Server;
 using System.Net;
+using System.Windows;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -1178,7 +1179,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                         if (matchDonationID != null)
                         {
-                            contactID = UpsertContact(matchDonationID);
+                            contactID = UpsertContact(matchDonationID, transactions.Member_id);
                             string pMethodUniqueName = (object)this.paymentMethod + " - Default";
                             var PMethodSearchConditions = new List<ConditionExpression>
                             {
@@ -1246,26 +1247,29 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     scheduleID = existingRecord.Id;
                                 }
                             }
-
+                            _tracingService.Trace("HistoryID: " + matchDonationID.History_id.Trim());
                             if (matchDonationID.History_id.Trim() != "0")
                             {
                                 string customPageDetailURL = baseURLCustom + "getFundraiserPageDetails";
                                 string csvCustomPageDetailContent = CallFundRaisinCustomAPI((object)customPageDetailURL, matchDonationID.History_id);
 
                                 var pageDetailList = ParseCsvHelper<CustomPageDetailsModel, CustomPageDetailsModelMap>(csvCustomPageDetailContent);
-                                string pageMemberId = pageDetailList.FirstOrDefault()?.member_id;
-                                
-                                var SolicitorSearchConditions = new List<ConditionExpression>
-                                {
-                                    new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, int.Parse(pageMemberId)),
-                                };
+                                string pageMemberId = pageDetailList.FirstOrDefault()?.member_id.Trim();
 
-                                Entity existingSolicitor = FindExistingRecord("contact", SolicitorSearchConditions);
-                                if (existingSolicitor != null)
+                                if (pageMemberId.Trim() != "" && pageMemberId.Trim() != string.Empty) 
                                 {
-                                    if(existingSolicitor.Id != contactID)
-                                        solicitorID = existingSolicitor.Id;
-                                }         
+                                    var SolicitorContactSearchConditions = new List<ConditionExpression>
+                                    {
+                                        new ConditionExpression("lrx_fundraisinmemberid", ConditionOperator.Equal, pageMemberId)
+                                    };
+
+                                    Entity existingSolicitorRecord = FindExistingRecord("contact", SolicitorContactSearchConditions);
+                                    if (existingSolicitorRecord != null)
+                                    {
+                                        if (existingSolicitorRecord.Id != contactID)
+                                            solicitorID = existingSolicitorRecord.Id;
+                                    }
+                                }                                   
                             }
 
                             if (matchDonationID.Team_id.Trim() != "0")
@@ -1905,7 +1909,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             return ParseCsvHelper<T, TMap>(csvContent);
         }
 
-        private Guid UpsertContact(dynamic matchDonationID)
+        private Guid UpsertContact(dynamic matchDonationID, string TransMemberID)
         {
             // Define search conditions to find an existing contact
             var contactSearchConditions = new List<ConditionExpression>
@@ -1931,7 +1935,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                 ["address1_postalcode"] = matchDonationID.D_address_pcode,
                 ["address1_stateorprovince"] = matchDonationID.D_address_state,
                 ["address1_country"] = matchDonationID.D_address_country,
-                ["lrx_fundraisinmemberid"] = int.Parse(matchDonationID.Member_id)
+                ["lrx_fundraisinmemberid"] = TransMemberID != "0" ? int.Parse(matchDonationID.Member_id) : null,
             };
 
             Guid contactID;
