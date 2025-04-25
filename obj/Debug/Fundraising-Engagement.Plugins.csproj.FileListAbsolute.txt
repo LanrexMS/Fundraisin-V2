@@ -107,6 +107,6 @@ C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\bin\Deb
 C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\bin\Debug\Microsoft.Bcl.HashCode.xml
 C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.csproj.AssemblyReference.cache
 C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.csproj.CoreCompileInputs.cache
-C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.csproj.CopyComplete
 C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.dll
 C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundraising-Engagement.Plugins.pdb
+C:\Users\Jaian Marie Abangan\source\repos\Fundraising-Engagement.Plugins\obj\Debug\Fundrais.AACB3BD1.Up2Date

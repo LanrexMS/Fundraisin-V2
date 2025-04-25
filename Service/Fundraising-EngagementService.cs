@@ -2344,17 +2344,16 @@ namespace Fundraising_Engagement.Plugins.Service
         {
             var fiscalYears = new Dictionary<string, (DateTime StartDate, DateTime EndDate)>();
 
-            // Define the fiscal year start and end dates for each year
+            // Determine the current fiscal year based on today's date
+            DateTime today = DateTime.Now;
+            int baseYear = today.Month >= 7 ? today.Year : today.Year - 1; //Check if date today is before or after July to 
+
             for (int i = 0; i <= numberOfYears; i++)
             {
-                // year of FY
-                int fiscalYear = DateTime.Now.Year - i;
-
-                // start and endDates of FY
+                int fiscalYear = baseYear - i;
                 DateTime startDate = new DateTime(fiscalYear, 7, 1);
                 DateTime endDate = new DateTime(fiscalYear + 1, 6, 30);
 
-                // Add the fiscal year to the dictionary
                 fiscalYears.Add($"Year {i}", (StartDate: startDate, EndDate: endDate));
             }
 
