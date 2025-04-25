@@ -128,10 +128,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\DataverseContext.cs" />
+    <Compile Include="Entities\Entities.cs" />
+    <Compile Include="Entities\EntityOptionSetEnum.cs" />
+    <Compile Include="Entities\OptionSets.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\CustomPageDetailModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\CustomPageDetailsModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\DonationModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\DonationModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventModelMap.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventTableModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventTableModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventTeamModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\EventTeamModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\OrganisationModel.cs" />
@@ -144,6 +152,16 @@
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ProductModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ProductOptionModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ProductOptionModelMap.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\PromoCodeModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\PromoCodeModelMap.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\RaffleModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\RaffleModelMap.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\RaffleSalesModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\RaffleSalesModelMap.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\RaffleTicketModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\RaffleTicketModelMap.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\SaleItemModel.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\SaleItemModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ScheduleModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ScheduleModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TicketHolderModel.cs" />
@@ -153,8 +171,10 @@
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TransactionModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TransactionModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\FundraisinIntegration.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\RegistrationAmountRaised.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Service\Fundraising_APIService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Fundraising-IntegrationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

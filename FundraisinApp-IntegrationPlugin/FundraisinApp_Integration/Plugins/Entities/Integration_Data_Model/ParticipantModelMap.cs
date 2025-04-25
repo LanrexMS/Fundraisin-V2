@@ -23,6 +23,8 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
             Map(m => m.MAddressState).Name("m_address_state"); // Maps to "address1_stateorprovince"
             Map(m => m.MAddressCountry).Name("m_address_country"); // Maps to "address1_country"
             Map(m => m.MemberId).Name("member_id"); // Maps to "lrx_fundraisinmemberid"
+            Map(m => m.MEmergencyContact).Name("m_emergency_contact");
+            Map(m => m.MEmergencyPhone).Name("m_emergency_phone");
         }
     }
 }

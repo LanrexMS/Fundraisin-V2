@@ -31,6 +31,9 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
             Map(m => m.Bib_Number).Name("bib_number");
             Map(m => m.Seat_Number).Name("seat_number");
             Map(m => m.Is_Active).Name("is_active");
+            Map(m => m.Promo_Id).Name("promo_id");
+            Map(m => m.Is_Paid).Name("is_paid");
+            Map(m => m.Total_Paid_Entry).Name("total_paid_entry");
         }
     }
 
