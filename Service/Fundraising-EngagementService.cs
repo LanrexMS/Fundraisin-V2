@@ -373,17 +373,19 @@ namespace Fundraising_Engagement.Plugins.Service
 
                     if (transactionrecord.SiFund_Donor.LogicalName == Contact.EntityLogicalName)
                     {
-                        //var parentContact = new Contact
-                        //{
-                        //    Id = donorId,
-                        //    LRx_LastTransactionDateContact = mostRecentBookDate, // Set the most recent MsnFp_BookDate
-                        //    LRx_LastTransaction = mostRecentTransactionReference, // Set the most recent transaction as a lookup field
-                        //};
-                        var parentContact = new Entity("contact", donorId);
+                        /*var parentContact = new Contact
+                        {
+                           Id = donorId,
+                           LRx_LastTransactionDateContact = mostRecentBookDate, // Set the most recent MsnFp_BookDate
+                           LRx_LastTransaction = mostRecentTransactionReference, // Set the most recent transaction as a lookup field
+                        };*/
+                        
+                        var parentContact = new Entity("contact");
 
                         parentContact["lrx_lasttransaction"] = mostRecentTransactionReference;
-                        parentContact["lrx_lasttransactiondate"] = mostRecentBookDate;
+                        parentContact["lrx_lasttransactiondatecontact"] = mostRecentBookDate;
                         parentContact["lrx_lasttransactionamount"] = mostRecentAmount;
+                        parentContact.Id = donorId;
 
                         _service.Update(parentContact);
                     }
