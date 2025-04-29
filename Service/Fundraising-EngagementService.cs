@@ -302,7 +302,7 @@ namespace Fundraising_Engagement.Plugins.Service
                     {
                         var parentAccount = new Entity("account", donorId);
 
-                        parentAccount["lrx_lasttransaction"] = mostRecentTransactionReference;
+                        parentAccount["lrx_lasttransactionid"] = mostRecentTransactionReference;
                         parentAccount["lrx_lasttransactiondate"] = mostRecentBookDate;
                         parentAccount["lrx_lasttransactionamount"] = mostRecentAmount;
                         _service.Update(parentAccount);
@@ -327,8 +327,7 @@ namespace Fundraising_Engagement.Plugins.Service
                );
             }
 
-            ColumnSet filterFields = new ColumnSet(
-             MsnFp_Transaction.Fields.MsnFp_BookDate);
+            ColumnSet filterFields = new ColumnSet(true);
 
             var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
             {
@@ -400,8 +399,8 @@ namespace Fundraising_Engagement.Plugins.Service
 
                         var parentAccount = new Entity("account", donorId);
 
-                        parentAccount["lrx_lasttransaction"] = mostRecentTransactionReference;
-                        parentAccount["lrx_lasttransactiondate"] = mostRecentBookDate;
+                        parentAccount["lrx_lasttransactionid"] = mostRecentTransactionReference;
+                        parentAccount["lrx_lasttransactiondateaccount"] = mostRecentBookDate;
                         parentAccount["lrx_lasttransactionamount"] = mostRecentAmount;
                         _service.Update(parentAccount);
 
@@ -519,107 +518,109 @@ namespace Fundraising_Engagement.Plugins.Service
 
         public void UpdateFirstandGreatestTransaction(MsnFp_Transaction transaction, MsnFp_Transaction transactionrecord)
         {
-            if (transaction.Id != Guid.Empty)
-            {
-                transactionrecord = (MsnFp_Transaction)RetrieveRecord(
-                    MsnFp_Transaction.EntityLogicalName,
-                    transaction.Id,
-                    MsnFp_Transaction.Fields.SiFund_Donor
-                );
-            }
+            try {
 
-            ColumnSet filterFields = new ColumnSet(
-             MsnFp_Transaction.Fields.MsnFp_BookDate);
-
-            var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
-            {
-                    { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
-                        {
-                            (int)MsnFp_Transaction_StatusCode.Completed,
-                            (int)MsnFp_Transaction_StatusCode.PartialRefund
-                        })
-                    },
-                    { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
-            };
-
-            if (transactionrecord.SiFund_Donor != null && transactionrecord.SiFund_Donor.Id != Guid.Empty)
-            {
-                var donorId = transactionrecord.SiFund_Donor.Id;
-
-                EntityCollection childRecords = RetrieveChildRecords(
-                    MsnFp_Transaction.EntityLogicalName,
-                    MsnFp_Transaction.Fields.SiFund_Donor,
-                    donorId,
-                    filterFields,
-                    donationCriteria,
-                    orderByField: MsnFp_Transaction.Fields.MsnFp_BookDate,
-                    isAscending: false
-                    );
-
-                var sortedTransactions = childRecords.Entities
-                //.Where(e =>
-                //    e.GetAttributeValue<OptionSetValue>("lrx_donationpaymenttype")?.Value == 856660000 &&
-                //    e.Contains(MsnFp_Transaction.Fields.MsnFp_BookDate)
-                //)
-                .OrderBy(e => e.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate))
-                .ToList();
-
-                var firstTransaction = sortedTransactions.First();
-
-                var greatestGiftTransaction = childRecords.Entities
-                   .Where(e => e.Contains(MsnFp_Transaction.Fields.MsnFp_Amount))
-                   .OrderByDescending(e => e.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount)?.Value ?? 0)
-                   .FirstOrDefault();
-
-                if (firstTransaction != null && greatestGiftTransaction != null)
+                if (transaction.Id != Guid.Empty)
                 {
-                    DateTime firstBookDate = firstTransaction.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate);
-                    DateTime greatestGiftBookDate = greatestGiftTransaction.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate);
-
-                    Money firstAmount = firstTransaction.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount);
-                    Money greatestGiftAmount = greatestGiftTransaction.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount);
-
-                    EntityReference firstTransactionReference = new EntityReference(
+                    transactionrecord = (MsnFp_Transaction)RetrieveRecord(
                         MsnFp_Transaction.EntityLogicalName,
-                        firstTransaction.Id
+                        transaction.Id,
+                        MsnFp_Transaction.Fields.SiFund_Donor
                     );
+                }
 
-                    EntityReference greatestGiftTransactionReference = new EntityReference(
+                ColumnSet filterFields = new ColumnSet(true);
+
+                var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
+                {
+                        { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
+                            {
+                                (int)MsnFp_Transaction_StatusCode.Completed,
+                                (int)MsnFp_Transaction_StatusCode.PartialRefund
+                            })
+                        },
+                        { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
+                };
+
+                if (transactionrecord.SiFund_Donor != null && transactionrecord.SiFund_Donor.Id != Guid.Empty)
+                {
+                    var donorId = transactionrecord.SiFund_Donor.Id;
+
+                    EntityCollection childRecords = RetrieveChildRecords(
                         MsnFp_Transaction.EntityLogicalName,
-                        greatestGiftTransaction.Id
-                    );
+                        MsnFp_Transaction.Fields.SiFund_Donor,
+                        donorId,
+                        filterFields,
+                        donationCriteria,
+                        orderByField: MsnFp_Transaction.Fields.MsnFp_BookDate,
+                        isAscending: false
+                        );
 
-                    if (transactionrecord.SiFund_Donor.LogicalName == Contact.EntityLogicalName)
+                    var sortedTransactions = childRecords.Entities
+                    .Where(e =>
+                        e.GetAttributeValue<OptionSetValue>("lrx_donationpaymenttype")?.Value == 856660000 &&
+                        e.Contains(MsnFp_Transaction.Fields.MsnFp_BookDate)
+                    )
+                    .OrderBy(e => e.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate))
+                    .ToList();
+
+                    var firstTransaction = sortedTransactions.First();
+
+                    var greatestGiftTransaction = childRecords.Entities
+                      .OrderByDescending(e => e.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount).Value)
+                      .FirstOrDefault();
+
+                    if (firstTransaction != null && greatestGiftTransaction != null)
                     {
-                        var parentContact = new Entity("contact", donorId);
+                        DateTime firstBookDate = firstTransaction.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate);
+                        DateTime greatestGiftBookDate = greatestGiftTransaction.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate);
 
-                        parentContact["lrx_firsttransaction"] = firstTransactionReference;
-                        parentContact["lrx_firsttransactiondate"] = firstBookDate;
-                        parentContact["lrx_firsttransactionamount"] = firstAmount;
+                        Money firstAmount = firstTransaction.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount);
+                        Money greatestGiftAmount = greatestGiftTransaction.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount);
 
-                        parentContact["lrx_greatestgift"] = greatestGiftTransactionReference;
-                        parentContact["lrx_greatestgiftdate"] = greatestGiftBookDate;
-                        parentContact["lrx_greatestgiftamount"] = greatestGiftAmount;
+                        EntityReference firstTransactionReference = new EntityReference(
+                            MsnFp_Transaction.EntityLogicalName,
+                            firstTransaction.Id
+                        );
 
-                        // Update the contact record
-                        _service.Update(parentContact);
-                    }
-                    else if (transactionrecord.SiFund_Donor.LogicalName == Account.EntityLogicalName)
-                    {
-                        var parentAccount = new Entity("account", donorId);
+                        EntityReference greatestGiftTransactionReference = new EntityReference(
+                            MsnFp_Transaction.EntityLogicalName,
+                            greatestGiftTransaction.Id
+                        );
+                        if (transactionrecord.SiFund_Donor.LogicalName == Contact.EntityLogicalName)
+                        {
+                            var parentContact = new Entity("contact", donorId);
 
-                        parentAccount["lrx_firsttransaction"] = firstTransactionReference;
-                        parentAccount["lrx_firsttransactiondate"] = firstBookDate;
-                        parentAccount["lrx_firsttransactionamount"] = firstAmount;
+                            parentContact["lrx_firsttransaction"] = firstTransactionReference;
+                            parentContact["lrx_firsttransactiondatenew"] = firstBookDate;
+                            parentContact["lrx_firsttransactionamount"] = firstAmount;
 
-                        parentAccount["lrx_greatestgift"] = greatestGiftTransactionReference;
-                        parentAccount["lrx_greatestgiftdate"] = greatestGiftBookDate;
-                        parentAccount["lrx_greatestgiftamount"] = greatestGiftAmount;
+                            parentContact["lrx_greatestgift"] = greatestGiftTransactionReference;
+                            parentContact["lrx_greatestgiftdatenew"] = greatestGiftBookDate;
+                            parentContact["lrx_greatestgiftamount"] = greatestGiftAmount;
 
-                        _service.Update(parentAccount);
+                            _service.Update(parentContact);
+                        }
+                        else if (transactionrecord.SiFund_Donor.LogicalName == Account.EntityLogicalName)
+                        {
+                            var parentAccount = new Entity("account", donorId);
 
+                            parentAccount["lrx_firsttransaction"] = firstTransactionReference;
+                            parentAccount["lrx_firsttransactiondatenew"] = firstBookDate;
+                            parentAccount["lrx_firsttransactionamount"] = firstAmount;
+
+                            parentAccount["lrx_greatestgift"] = greatestGiftTransactionReference;
+                            parentAccount["lrx_greatestgiftdatenew"] = greatestGiftBookDate;
+                            parentAccount["lrx_greatestgiftamount"] = greatestGiftAmount;
+
+                            _service.Update(parentAccount);
+
+                        }
                     }
                 }
+            }
+            catch (Exception ex) { 
+                _tracingService.Trace(ex.Message);
             }
         }
 
