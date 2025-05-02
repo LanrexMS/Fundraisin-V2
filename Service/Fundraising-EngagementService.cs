@@ -50,7 +50,6 @@ namespace Fundraising_Engagement.Plugins.Service
                 _service.Update(updateTransaction);
             }
         }
-
         public void YearlyGivingRecalculation(Guid donorId, string donorLogicalName)
         {
             var fiscalYears = GetFiscalYears(4);
@@ -519,7 +518,6 @@ namespace Fundraising_Engagement.Plugins.Service
         public void UpdateFirstandGreatestTransaction(MsnFp_Transaction transaction, MsnFp_Transaction transactionrecord)
         {
             try {
-
                 if (transaction.Id != Guid.Empty)
                 {
                     transactionrecord = (MsnFp_Transaction)RetrieveRecord(
@@ -558,13 +556,12 @@ namespace Fundraising_Engagement.Plugins.Service
 
                     var sortedTransactions = childRecords.Entities
                     .Where(e =>
-                        e.GetAttributeValue<OptionSetValue>("lrx_donationpaymenttype")?.Value == 856660000 &&
                         e.Contains(MsnFp_Transaction.Fields.MsnFp_BookDate)
                     )
-                    .OrderBy(e => e.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate))
+                    .OrderByDescending(e => e.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate))
                     .ToList();
 
-                    var firstTransaction = sortedTransactions.First();
+                    var firstTransaction = sortedTransactions.Last();
 
                     var greatestGiftTransaction = childRecords.Entities
                       .OrderByDescending(e => e.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount).Value)
