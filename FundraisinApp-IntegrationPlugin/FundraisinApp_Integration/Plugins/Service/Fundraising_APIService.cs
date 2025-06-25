@@ -1247,7 +1247,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     scheduleID = existingRecord.Id;
                                 }
                             }
-                            _tracingService.Trace("HistoryID: " + matchDonationID.History_id.Trim());
+
                             if (matchDonationID.History_id.Trim() != "0")
                             {
                                 string customPageDetailURL = baseURLCustom + "getFundraiserPageDetails";
@@ -1285,45 +1285,45 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     teamID = existingEventTeam.Id;
                                 }
                             }
-                        }
 
-                        var TransactionSearchConditions = new List<ConditionExpression>
-                        {
-                            new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, transactions.Transaction_id),
-                        };
+                            var TransactionSearchConditions = new List<ConditionExpression>
+                            {
+                                new ConditionExpression("lrx_fundraisintransactionid", ConditionOperator.Equal, transactions.Transaction_id),
+                            };
 
-                        Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
-                        Entity transactionEntity = new Entity("msnfp_transaction")
-                        {
-                            ["sifund_donor"] = new EntityReference("contact", contactID),
-                            ["lrx_solicitor"] = solicitorID != Guid.Empty ? new EntityReference("contact", solicitorID) : null,
-                            ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
-                            ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
-                            ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
-                            ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : null,
-                            ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : null,
-                            ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : null,
-                            ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
-                            ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? new EntityReference("msnfp_paymentschedule", scheduleID) : null,
-                            ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
-                            ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
-                            ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
-                            ["lrx_donationpaymenttype"] = new OptionSetValue(scheduleID != Guid.Empty ? 856660001 : 856660000),
-                            ["statuscode"] = new OptionSetValue(856660001),
-                            ["sifund_typecode"] = new OptionSetValue(844060000),
-                            ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
-                            ["lrx_fundraisindonationid"] = int.Parse(matchDonationID.Donation_id),
-                            ["lrx_fundraisindonationdate"] = matchDonationID.Date_created
-                        };
+                            Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+                            Entity transactionEntity = new Entity("msnfp_transaction")
+                            {
+                                ["sifund_donor"] = new EntityReference("contact", contactID),
+                                ["lrx_solicitor"] = solicitorID != Guid.Empty ? new EntityReference("contact", solicitorID) : null,
+                                ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
+                                ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
+                                ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
+                                ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : null,
+                                ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : null,
+                                ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : null,
+                                ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
+                                ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? new EntityReference("msnfp_paymentschedule", scheduleID) : null,
+                                ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
+                                ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
+                                ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                                ["lrx_donationpaymenttype"] = new OptionSetValue(scheduleID != Guid.Empty ? 856660001 : 856660000),
+                                ["statuscode"] = new OptionSetValue(856660001),
+                                ["sifund_typecode"] = new OptionSetValue(844060000),
+                                ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
+                                ["lrx_fundraisindonationid"] = int.Parse(matchDonationID.Donation_id),
+                                ["lrx_fundraisindonationdate"] = matchDonationID.Date_created
+                            };
 
-                        if (existingTransaction == null)
-                        {
-                            this._service.Create(transactionEntity);
-                        }
-                        else if (this.updateTransaction)
-                        {
-                            transactionEntity.Id = existingTransaction.Id;
-                            this._service.Update(transactionEntity);
+                            if (existingTransaction == null)
+                            {
+                                this._service.Create(transactionEntity);
+                            }
+                            else if (this.updateTransaction)
+                            {
+                                transactionEntity.Id = existingTransaction.Id;
+                                this._service.Update(transactionEntity);
+                            }
                         }
                     } //end of donation transaction type
 
