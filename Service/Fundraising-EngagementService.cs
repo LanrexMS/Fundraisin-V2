@@ -50,7 +50,6 @@ namespace Fundraising_Engagement.Plugins.Service
                 _service.Update(updateTransaction);
             }
         }
-
         public void YearlyGivingRecalculation(Guid donorId, string donorLogicalName)
         {
             var fiscalYears = GetFiscalYears(4);
@@ -286,29 +285,25 @@ namespace Fundraising_Engagement.Plugins.Service
                         mostRecentTransaction.Id
                     );
 
+                    Money mostRecentAmount = mostRecentTransaction.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount);
 
                     if (donorLogicalName == Contact.EntityLogicalName)
                     {
-                        var parentContact = new Contact
-                        {
-                            Id = donorId,
-                            LRx_LastTransactionDateContact = mostRecentBookDate, // Set the most recent MsnFp_BookDate
-                            LRx_LastTransaction = mostRecentTransactionReference // Set the most recent transaction as a lookup field
-                        };
+                        var parentContact = new Entity("contact", donorId);
 
-                        // Update the contact record
+                        parentContact["lrx_lasttransaction"] = mostRecentTransactionReference;
+                        parentContact["lrx_lasttransactiondate"] = mostRecentBookDate;
+                        parentContact["lrx_lasttransactionamount"] = mostRecentAmount;
+
                         _service.Update(parentContact);
                     }
                     else if (donorLogicalName == Account.EntityLogicalName)
                     {
-                        var parentAccount = new Account
-                        {
-                            Id = donorId,
-                            LRx_LastTransactionDateAccount = mostRecentBookDate,
-                            LRx_LastTransactionId = mostRecentTransactionReference
+                        var parentAccount = new Entity("account", donorId);
 
-                        };
-
+                        parentAccount["lrx_lasttransactionid"] = mostRecentTransactionReference;
+                        parentAccount["lrx_lasttransactiondate"] = mostRecentBookDate;
+                        parentAccount["lrx_lasttransactionamount"] = mostRecentAmount;
                         _service.Update(parentAccount);
 
                     }
@@ -331,8 +326,7 @@ namespace Fundraising_Engagement.Plugins.Service
                );
             }
 
-            ColumnSet filterFields = new ColumnSet(
-             MsnFp_Transaction.Fields.MsnFp_BookDate);
+            ColumnSet filterFields = new ColumnSet(true);
 
             var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
             {
@@ -373,34 +367,44 @@ namespace Fundraising_Engagement.Plugins.Service
                         mostRecentTransaction.Id
                     );
 
+                    Money mostRecentAmount = mostRecentTransaction.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount);
 
                     if (transactionrecord.SiFund_Donor.LogicalName == Contact.EntityLogicalName)
                     {
-                        var parentContact = new Contact
+                        /*var parentContact = new Contact
                         {
-                            Id = donorId,
-                            LRx_LastTransactionDateContact = mostRecentBookDate, // Set the most recent MsnFp_BookDate
-                            LRx_LastTransaction = mostRecentTransactionReference // Set the most recent transaction as a lookup field
-                        };
+                           Id = donorId,
+                           LRx_LastTransactionDateContact = mostRecentBookDate, // Set the most recent MsnFp_BookDate
+                           LRx_LastTransaction = mostRecentTransactionReference, // Set the most recent transaction as a lookup field
+                        };*/
+                        
+                        var parentContact = new Entity("contact");
 
-                        // Update the contact record
+                        parentContact["lrx_lasttransaction"] = mostRecentTransactionReference;
+                        parentContact["lrx_lasttransactiondatecontact"] = mostRecentBookDate;
+                        parentContact["lrx_lasttransactionamount"] = mostRecentAmount;
+                        parentContact.Id = donorId;
+
                         _service.Update(parentContact);
                     }
                     else if (transactionrecord.SiFund_Donor.LogicalName == Account.EntityLogicalName)
                     {
-                        var parentAccount = new Account
-                        {
-                            Id = donorId,
-                            LRx_LastTransactionDateAccount = mostRecentBookDate,
-                            LRx_LastTransactionId = mostRecentTransactionReference
+                        //var parentAccount = new Account
+                        //{
+                        //    Id = donorId,
+                        //    LRx_LastTransactionDateAccount = mostRecentBookDate,
+                        //    LRx_LastTransactionId = mostRecentTransactionReference
+                        //};
 
-                        };
+                        var parentAccount = new Entity("account", donorId);
 
+                        parentAccount["lrx_lasttransactionid"] = mostRecentTransactionReference;
+                        parentAccount["lrx_lasttransactiondateaccount"] = mostRecentBookDate;
+                        parentAccount["lrx_lasttransactionamount"] = mostRecentAmount;
                         _service.Update(parentAccount);
 
                     }
                 }
-
             };
 
             if (transactionrecord.LRx_Event != null && transactionrecord.LRx_Event.Id != Guid.Empty)
@@ -508,6 +512,112 @@ namespace Fundraising_Engagement.Plugins.Service
                 };
                 _service.Update(parentTeamDonation);
 
+            }
+        }
+
+        public void UpdateFirstandGreatestTransaction(MsnFp_Transaction transaction, MsnFp_Transaction transactionrecord)
+        {
+            try {
+                if (transaction.Id != Guid.Empty)
+                {
+                    transactionrecord = (MsnFp_Transaction)RetrieveRecord(
+                        MsnFp_Transaction.EntityLogicalName,
+                        transaction.Id,
+                        MsnFp_Transaction.Fields.SiFund_Donor
+                    );
+                }
+
+                ColumnSet filterFields = new ColumnSet(true);
+
+                var donationCriteria = new Dictionary<string, (ConditionOperator, object)>
+                {
+                        { MsnFp_Transaction.Fields.StatusCode, (ConditionOperator.In, new object[]
+                            {
+                                (int)MsnFp_Transaction_StatusCode.Completed,
+                                (int)MsnFp_Transaction_StatusCode.PartialRefund
+                            })
+                        },
+                        { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
+                };
+
+                if (transactionrecord.SiFund_Donor != null && transactionrecord.SiFund_Donor.Id != Guid.Empty)
+                {
+                    var donorId = transactionrecord.SiFund_Donor.Id;
+
+                    EntityCollection childRecords = RetrieveChildRecords(
+                        MsnFp_Transaction.EntityLogicalName,
+                        MsnFp_Transaction.Fields.SiFund_Donor,
+                        donorId,
+                        filterFields,
+                        donationCriteria,
+                        orderByField: MsnFp_Transaction.Fields.MsnFp_BookDate,
+                        isAscending: false
+                        );
+
+                    var sortedTransactions = childRecords.Entities
+                    .Where(e =>
+                        e.Contains(MsnFp_Transaction.Fields.MsnFp_BookDate)
+                    )
+                    .OrderByDescending(e => e.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate))
+                    .ToList();
+
+                    var firstTransaction = sortedTransactions.Last();
+
+                    var greatestGiftTransaction = childRecords.Entities
+                      .OrderByDescending(e => e.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount).Value)
+                      .FirstOrDefault();
+
+                    if (firstTransaction != null && greatestGiftTransaction != null)
+                    {
+                        DateTime firstBookDate = firstTransaction.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate);
+                        DateTime greatestGiftBookDate = greatestGiftTransaction.GetAttributeValue<DateTime>(MsnFp_Transaction.Fields.MsnFp_BookDate);
+
+                        Money firstAmount = firstTransaction.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount);
+                        Money greatestGiftAmount = greatestGiftTransaction.GetAttributeValue<Money>(MsnFp_Transaction.Fields.MsnFp_Amount);
+
+                        EntityReference firstTransactionReference = new EntityReference(
+                            MsnFp_Transaction.EntityLogicalName,
+                            firstTransaction.Id
+                        );
+
+                        EntityReference greatestGiftTransactionReference = new EntityReference(
+                            MsnFp_Transaction.EntityLogicalName,
+                            greatestGiftTransaction.Id
+                        );
+                        if (transactionrecord.SiFund_Donor.LogicalName == Contact.EntityLogicalName)
+                        {
+                            var parentContact = new Entity("contact", donorId);
+
+                            parentContact["lrx_firsttransaction"] = firstTransactionReference;
+                            parentContact["lrx_firsttransactiondatenew"] = firstBookDate;
+                            parentContact["lrx_firsttransactionamount"] = firstAmount;
+
+                            parentContact["lrx_greatestgift"] = greatestGiftTransactionReference;
+                            parentContact["lrx_greatestgiftdatenew"] = greatestGiftBookDate;
+                            parentContact["lrx_greatestgiftamount"] = greatestGiftAmount;
+
+                            _service.Update(parentContact);
+                        }
+                        else if (transactionrecord.SiFund_Donor.LogicalName == Account.EntityLogicalName)
+                        {
+                            var parentAccount = new Entity("account", donorId);
+
+                            parentAccount["lrx_firsttransaction"] = firstTransactionReference;
+                            parentAccount["lrx_firsttransactiondatenew"] = firstBookDate;
+                            parentAccount["lrx_firsttransactionamount"] = firstAmount;
+
+                            parentAccount["lrx_greatestgift"] = greatestGiftTransactionReference;
+                            parentAccount["lrx_greatestgiftdatenew"] = greatestGiftBookDate;
+                            parentAccount["lrx_greatestgiftamount"] = greatestGiftAmount;
+
+                            _service.Update(parentAccount);
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { 
+                _tracingService.Trace(ex.Message);
             }
         }
 
@@ -2359,17 +2469,16 @@ namespace Fundraising_Engagement.Plugins.Service
         {
             var fiscalYears = new Dictionary<string, (DateTime StartDate, DateTime EndDate)>();
 
-            // Define the fiscal year start and end dates for each year
+            // Determine the current fiscal year based on today's date
+            DateTime today = DateTime.Now;
+            int baseYear = today.Month >= 7 ? today.Year : today.Year - 1; //Check if date today is before or after July to 
+
             for (int i = 0; i <= numberOfYears; i++)
             {
-                // year of FY
-                int fiscalYear = DateTime.Now.Year - i;
-
-                // start and endDates of FY
+                int fiscalYear = baseYear - i;
                 DateTime startDate = new DateTime(fiscalYear, 7, 1);
                 DateTime endDate = new DateTime(fiscalYear + 1, 6, 30);
 
-                // Add the fiscal year to the dictionary
                 fiscalYears.Add($"Year {i}", (StartDate: startDate, EndDate: endDate));
             }
 

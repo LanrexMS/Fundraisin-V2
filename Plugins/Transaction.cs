@@ -40,6 +40,7 @@ namespace Fundraising_Engagement.Plugins
                             fundraisingService.AutoPopulateRefundAmounts(transaction);
                             fundraisingService.YearlyGiving(transaction);
                             fundraisingService.UpdateLatestTransaction(transaction, transactionrecord);
+                            fundraisingService.UpdateFirstandGreatestTransaction(transaction, transactionrecord);
                             fundraisingService.CampaignPerformanceTransaction(transaction);
                             fundraisingService.DonorCommitmentPaid(transaction);
                             break;
@@ -47,6 +48,7 @@ namespace Fundraising_Engagement.Plugins
                             //Plugin step should only trigger on update of statuscode (for refunds)
                             fundraisingService.YearlyGiving(transaction);
                             fundraisingService.UpdateLatestTransaction(transaction, transactionrecord);
+                            fundraisingService.UpdateFirstandGreatestTransaction(transaction, transactionrecord);
                             fundraisingService.DonorCommitmentPaid(transaction);
                             fundraisingService.CampaignPerformanceTransaction(transaction);
                             break;
@@ -108,6 +110,7 @@ namespace Fundraising_Engagement.Plugins
                     transactionrecord.LRx_EventTeam = preImage.LRx_EventTeam;
                     transactionrecord.Id = Guid.Empty;
                     fundraisingService.UpdateLatestTransaction(transactionrecord, transactionrecord);
+                    fundraisingService.UpdateFirstandGreatestTransaction(transactionrecord, transactionrecord);
                 }
             }
         }
