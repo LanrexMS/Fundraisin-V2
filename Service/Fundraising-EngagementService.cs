@@ -2354,7 +2354,7 @@ namespace Fundraising_Engagement.Plugins.Service
                     query.Criteria.AddCondition(new ConditionExpression(criterion.Key, criterion.Value.Item1, criterion.Value.Item2));
                 }
             }
-
+            
             // Add date range condition for MsnFp_BookDate if startDate and endDate are provided
             if (startDate.HasValue && endDate.HasValue)
             {
@@ -2476,8 +2476,8 @@ namespace Fundraising_Engagement.Plugins.Service
             for (int i = 0; i <= numberOfYears; i++)
             {
                 int fiscalYear = baseYear - i;
-                DateTime startDate = new DateTime(fiscalYear, 7, 1);
-                DateTime endDate = new DateTime(fiscalYear + 1, 6, 30);
+                DateTime startDate = new DateTime(fiscalYear, 7, 1, 0, 0, 0); // 12:00 AM
+                DateTime endDate = new DateTime(fiscalYear + 1, 6, 30, 23, 59, 59); // 11:59:59 PM
 
                 fiscalYears.Add($"Year {i}", (StartDate: startDate, EndDate: endDate));
             }
