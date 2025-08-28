@@ -443,7 +443,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundraisinTicketRecords()
         {
-            var ticketList = this.GetAllData<TicketsModel, TicketsModelMap>(this.baseURL, "tickets");
+            var ticketList = this.GetData<TicketsModel, TicketsModelMap>(this.baseURL, "tickets");
 
             foreach (var tickets in ticketList)
             {
@@ -693,7 +693,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundRaisinProductRecord()
         {
-            var productList = this.GetAllData<ProductModel, ProductModelMap>(this.baseURL, "products");
+            var productList = this.GetData<ProductModel, ProductModelMap>(this.baseURL, "products");
             foreach (var products in productList)
             {
                 var productType = products.product_type?.Trim() == "ecard" ? 856660001 : 856660000;
@@ -734,7 +734,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundRaisinProductOptionsRecord()
         {
-            var productOptionList = this.GetAllData<ProductOptionModel, ProductOptionModelMap>(this.baseURL, "productoptions");
+            var productOptionList = this.GetData<ProductOptionModel, ProductOptionModelMap>(this.baseURL, "productoptions");
 
             foreach (var productoptions in productOptionList)
             {

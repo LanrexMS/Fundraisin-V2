@@ -76,19 +76,19 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins
                         {
                             case "Create":
                                 object inputParameter = (object)jsonInput;
-                                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetAllFundraisinEventRecords();
+                                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetAllFundraisinEventRecords();
                                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinParticipantRecords();
                                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinOrganisationRecord();
                                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinEventTeamsRecord();
-                                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketRecords();
-                                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinPromoCodeRecord(); // for comment
+                                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketRecords();
+                                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinPromoCodeRecord(); // for comment
                                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetRegistrationFromParticipantEventRecord();
                                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketHolderRecord();
-                                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductRecord();
-                                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductOptionsRecord();
-                                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleRecords(); // for comment
-                                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleTicketOptionRecords(); // for comment
-                                await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleSalesRecords(); // for comment
+                                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductRecord();
+                                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductOptionsRecord();
+                                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleRecords(); // for comment
+                                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleTicketOptionRecords(); // for comment
+                                //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleSalesRecords(); // for comment
                                 await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinTransactionRecord();
 
                                 LRx_FunRaisinLogs logs = new LRx_FunRaisinLogs
