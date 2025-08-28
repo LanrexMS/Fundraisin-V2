@@ -69,17 +69,17 @@ namespace FundraisinApp_Integration.Plugins.Service
             this.paymentMethod = jsonInput["defaultPaymentMethodName"]?.ToString();
             this.updateTransaction = bool.Parse(jsonInput["updateTransaction"]?.ToString());
 
-            string format = "MM-dd-yyyy";
+            string format = "MM-dd-yyyy HH:mm:ss";
             CultureInfo provider = CultureInfo.InvariantCulture;
 
             if (DateTime.TryParseExact(jsonInput["dateFrom"]?.ToString(), format, provider, DateTimeStyles.None, out DateTime parsedDateFrom))
             {
-                this.dateFrom = parsedDateFrom.ToString("yyyy-MM-dd");
+                this.dateFrom = parsedDateFrom.ToString("yyyy-MM-dd HH:mm:ss");
             }
 
             if (DateTime.TryParseExact(jsonInput["dateTo"]?.ToString(), format, provider, DateTimeStyles.None, out DateTime parsedDateTo))
             {
-                this.dateTo = parsedDateTo.ToString("yyyy-MM-dd");
+                this.dateTo = parsedDateTo.ToString("yyyy-MM-dd HH:mm:ss");
             }
 
             if (!string.IsNullOrEmpty(baseURL) && baseURL.Length > 4)
@@ -91,6 +91,67 @@ namespace FundraisinApp_Integration.Plugins.Service
         public Task GetFundraisinEventRecords()
         {
             List<EventModel> fundraisingEvents = this.ParseCsvHelper<EventModel, EventModelMap>(this.CallFundRaisinAPI((object)(this.baseURL + "events")));
+
+            foreach (EventModel eventModel in fundraisingEvents)
+            {
+                Guid eventRecordId = Guid.Empty;
+                Entity existingEventRecord = this.FindExistingRecord("lrx_event", new List<ConditionExpression>()
+                {
+                    new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, (object)eventModel.EventId)
+                });
+
+                if (existingEventRecord != null)
+                {
+                    Entity updatedEventRecord = new Entity("lrx_event", existingEventRecord.Id)
+                    {
+                        ["lrx_name"] = (object)eventModel.EventName,
+                        ["lrx_goal"] = (object)new Money(Decimal.Parse(eventModel.EventTarget)),
+                        ["lrx_description"] = (object)eventModel.EventShortDesc,
+                        ["lrx_fundraisineventid"] = int.Parse(eventModel.EventId),
+                        ["lrx_location"] = (object)eventModel.EventLocation
+                    };
+
+                    DateTime eventStartDate;
+                    if (eventModel.EventDate != "0000-00-00" && DateTime.TryParse(eventModel.EventDate, out eventStartDate))
+                        updatedEventRecord["lrx_proposedstart"] = (object)eventStartDate;
+
+                    DateTime eventEndDate;
+                    if (eventModel.EventClosedDate != "0000-00-00" && DateTime.TryParse(eventModel.EventClosedDate, out eventEndDate))
+                        updatedEventRecord["lrx_proposedend"] = (object)eventEndDate;
+
+                    this._service.Update(updatedEventRecord);
+                    eventRecordId = existingEventRecord.Id;
+                }
+                else
+                {
+                    Entity newEventRecord = new Entity("lrx_event")
+                    {
+                        ["lrx_name"] = (object)eventModel.EventName,
+                        ["lrx_goal"] = (object)new Money(Decimal.Parse(eventModel.EventTarget)),
+                        ["lrx_description"] = (object)eventModel.EventShortDesc,
+                        ["lrx_fundraisineventid"] = int.Parse(eventModel.EventId),
+                        ["lrx_location"] = (object)eventModel.EventLocation
+                    };
+
+                    DateTime eventStartDate;
+                    if (eventModel.EventDate != "0000-00-00" && DateTime.TryParse(eventModel.EventDate, out eventStartDate))
+                        newEventRecord["lrx_proposedstart"] = (object)eventStartDate;
+
+                    DateTime eventEndDate;
+                    if (eventModel.EventClosedDate != "0000-00-00" && DateTime.TryParse(eventModel.EventClosedDate, out eventEndDate))
+                        newEventRecord["lrx_proposedend"] = (object)eventEndDate;
+
+                    eventRecordId = this._service.Create(newEventRecord);
+                }
+            }
+
+            this._tracingService.Trace("Fundraising Event Record Sync Completed", Array.Empty<object>());
+            return Task.CompletedTask;
+        }
+
+        public Task GetAllFundraisinEventRecords()
+        {
+            List<EventModel> fundraisingEvents = this.ParseCsvHelper<EventModel, EventModelMap>(this.CallFundRaisinAPIAllData((object)(this.baseURL + "events")));
 
             foreach (EventModel eventModel in fundraisingEvents)
             {

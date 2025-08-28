@@ -171,6 +171,7 @@
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TransactionModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\TransactionModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\FundraisinIntegration.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\HistoricalDataFunRaisin.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\RegistrationAmountRaised.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Service\Fundraising_APIService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

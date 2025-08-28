@@ -12,253 +12,495 @@
 
 namespace CrmEarlyBound
 {
-	
-	
-	/// <summary>
-	/// Represents a source of entities bound to a Dataverse service. It tracks and manages changes made to the retrieved entities.
-	/// </summary>
-	public partial class DataverseContext : Microsoft.Xrm.Sdk.Client.OrganizationServiceContext
-	{
-		
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		public DataverseContext(Microsoft.Xrm.Sdk.IOrganizationService service) : 
-				base(service)
-		{
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.Account"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.Account> AccountSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.Account>();
-			}
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.Campaign"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.Campaign> CampaignSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.Campaign>();
-			}
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.Contact"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.Contact> ContactSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.Contact>();
-			}
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_Refund"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.LRx_Refund> LRx_RefundSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.LRx_Refund>();
-			}
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_WriteOff"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.LRx_WriteOff> LRx_WriteOffSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.LRx_WriteOff>();
-			}
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.MsnFp_DonorCommitment"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.MsnFp_DonorCommitment> MsnFp_DonorCommitmentSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.MsnFp_DonorCommitment>();
-			}
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.MsnFp_PaymentSchedule"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.MsnFp_PaymentSchedule> MsnFp_PaymentScheduleSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.MsnFp_PaymentSchedule>();
-			}
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.MsnFp_Transaction"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.MsnFp_Transaction> MsnFp_TransactionSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.MsnFp_Transaction>();
-			}
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.SiFund_Appeal"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.SiFund_Appeal> SiFund_AppealSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.SiFund_Appeal>();
-			}
-		}
-		
-		/// <summary>
-		/// Gets a binding to the set of all <see cref="CrmEarlyBound.SiFund_Package"/> entities.
-		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.SiFund_Package> SiFund_PackageSet
-		{
-			get
-			{
-				return this.CreateQuery<CrmEarlyBound.SiFund_Package>();
-			}
-		}
-	}
-	
-	/// <summary>
-	/// Attribute to handle storing the OptionSet's Metadata.
-	/// </summary>
-	[System.AttributeUsageAttribute(System.AttributeTargets.Field)]
-	public sealed class OptionSetMetadataAttribute : System.Attribute
-	{
-		
-		private object[] _nameObjects;
-		
-		private System.Collections.Generic.Dictionary<int, string> _names;
-		
-		/// <summary>
-		/// Color of the OptionSetValue.
-		/// </summary>
-		public string Color { get; set; }
-		
-		/// <summary>
-		/// Description of the OptionSetValue.
-		/// </summary>
-		public string Description { get; set; }
-		
-		/// <summary>
-		/// Display order index of the OptionSetValue.
-		/// </summary>
-		public int DisplayIndex { get; set; }
-		
-		/// <summary>
-		/// External value of the OptionSetValue.
-		/// </summary>
-		public string ExternalValue { get; set; }
-		
-		/// <summary>
-		/// Name of the OptionSetValue.
-		/// </summary>
-		public string Name { get; set; }
-		
-		/// <summary>
-		/// Names of the OptionSetValue.
-		/// </summary>
-		public System.Collections.Generic.Dictionary<int, string> Names
-		{
-			get
-			{
-				return _names ?? (_names = CreateNames());
-			} 
-			set
-			{
-				_names = value;
-				if (value == null)
-				{
-				    _nameObjects = new object[0];
-				}
-				else
-				{
-				    _nameObjects = null;
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Initializes a new instance of the <see cref="OptionSetMetadataAttribute"/> class.
-		/// </summary>
-		/// <param name="name">Name of the value.</param>
-		/// <param name="displayIndex">Display order index of the value.</param>
-		/// <param name="color">Color of the value.</param>
-		/// <param name="description">Description of the value.</param>
-		/// <param name="externalValue">External value of the value.</param>
-		/// <param name="names">Names of the value.</param>
-		public OptionSetMetadataAttribute(string name, int displayIndex, string color = null, string description = null, string externalValue = null, params object[] names)
-		{
-			this.Color = color;
-			this.Description = description;
-			this._nameObjects = names;
-			this.ExternalValue = externalValue;
-			this.DisplayIndex = displayIndex;
-			this.Name = name;
-		}
-		
-		private System.Collections.Generic.Dictionary<int, string> CreateNames()
-		{
-			System.Collections.Generic.Dictionary<int, string> names = new System.Collections.Generic.Dictionary<int, string>();
-			for (int i = 0; (i < _nameObjects.Length); i = (i + 2))
-			{
-				names.Add(((int)(_nameObjects[i])), ((string)(_nameObjects[(i + 1)])));
-			}
-			return names;
-		}
-	}
-	
-	/// <summary>
-	/// Extension class to handle retrieving of OptionSetMetadataAttribute.
-	/// </summary>
-	public static class OptionSetExtension
-	{
-		
-		/// <summary>
-		/// Returns the OptionSetMetadataAttribute for the given enum value
-		/// </summary>
-		/// <typeparam name="T">OptionSet Enum Type</typeparam>
-		/// <param name="value">Enum Value with OptionSetMetadataAttribute</param>
-		public static OptionSetMetadataAttribute GetMetadata<T>(this T value)
-			where T :  struct, System.IConvertible
-		{
-			System.Type enumType = typeof(T);
-			if (!enumType.IsEnum)
-			{
-				throw new System.ArgumentException("T must be an enum!");
-			}
-			System.Reflection.MemberInfo[] members = enumType.GetMember(value.ToString());
-			for (int i = 0; (i < members.Length); i++
-			)
-			{
-				System.Attribute attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(members[i], typeof(OptionSetMetadataAttribute));
-				if (attribute != null)
-				{
-					return ((OptionSetMetadataAttribute)(attribute));
-				}
-			}
-			throw new System.ArgumentException("T must be an enum adorned with an OptionSetMetadataAttribute!");
-		}
-	}
+
+
+    /// <summary>
+    /// Represents a source of entities bound to a Dataverse service. It tracks and manages changes made to the retrieved entities.
+    /// </summary>
+    public partial class DataverseContext : Microsoft.Xrm.Sdk.Client.OrganizationServiceContext
+    {
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public DataverseContext(Microsoft.Xrm.Sdk.IOrganizationService service) :
+                base(service)
+        {
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.Account"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.Account> AccountSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.Account>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.Campaign"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.Campaign> CampaignSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.Campaign>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.Contact"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.Contact> ContactSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.Contact>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.EnvironmentVariableDefinition"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.EnvironmentVariableDefinition> EnvironmentVariableDefinitionSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.EnvironmentVariableDefinition>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.EnvironmentVariableValue"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.EnvironmentVariableValue> EnvironmentVariableValueSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.EnvironmentVariableValue>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_Event"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_Event> LRx_EventSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_Event>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_EventDonation"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_EventDonation> LRx_EventDonationSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_EventDonation>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_EventPackage"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_EventPackage> LRx_EventPackageSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_EventPackage>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_EventProduct"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_EventProduct> LRx_EventProductSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_EventProduct>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_EventSponsorship"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_EventSponsorship> LRx_EventSponsorshipSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_EventSponsorship>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_EventTable"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_EventTable> LRx_EventTableSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_EventTable>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_EventTeam"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_EventTeam> LRx_EventTeamSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_EventTeam>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_EventTicket"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_EventTicket> LRx_EventTicketSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_EventTicket>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_FunRaisinIntegrationLogs"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_FunRaisinIntegrationLogs> LRx_FunRaisinIntegrationLogsSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_FunRaisinIntegrationLogs>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_FunRaisinLogs"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_FunRaisinLogs> LRx_FunRaisinLogsSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_FunRaisinLogs>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_InventoryProduct"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_InventoryProduct> LRx_InventoryProductSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_InventoryProduct>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_Product"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_Product> LRx_ProductSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_Product>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_ProductOptions"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_ProductOptions> LRx_ProductOptionsSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_ProductOptions>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_PromoCodeAndDiscount"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_PromoCodeAndDiscount> LRx_PromoCodeAndDiscountSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_PromoCodeAndDiscount>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_Raffle"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_Raffle> LRx_RaffleSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_Raffle>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_RaffleSales"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_RaffleSales> LRx_RaffleSalesSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_RaffleSales>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_RaffleTicketOption"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_RaffleTicketOption> LRx_RaffleTicketOptionSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_RaffleTicketOption>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_Refund"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_Refund> LRx_RefundSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_Refund>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_Registrations"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_Registrations> LRx_RegistrationsSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_Registrations>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_Sponsorship"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_Sponsorship> LRx_SponsorshipSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_Sponsorship>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_TicketHolders"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_TicketHolders> LRx_TicketHoldersSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_TicketHolders>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.LRx_WriteOff"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.LRx_WriteOff> LRx_WriteOffSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.LRx_WriteOff>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.MsnFp_DonorCommitment"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.MsnFp_DonorCommitment> MsnFp_DonorCommitmentSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.MsnFp_DonorCommitment>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.MsnFp_PaymentSchedule"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.MsnFp_PaymentSchedule> MsnFp_PaymentScheduleSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.MsnFp_PaymentSchedule>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.MsnFp_Transaction"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.MsnFp_Transaction> MsnFp_TransactionSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.MsnFp_Transaction>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.SiFund_Appeal"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.SiFund_Appeal> SiFund_AppealSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.SiFund_Appeal>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a binding to the set of all <see cref="CrmEarlyBound.SiFund_Package"/> entities.
+        /// </summary>
+        public System.Linq.IQueryable<CrmEarlyBound.SiFund_Package> SiFund_PackageSet
+        {
+            get
+            {
+                return this.CreateQuery<CrmEarlyBound.SiFund_Package>();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Attribute to handle storing the OptionSet's Metadata.
+    /// </summary>
+    [System.AttributeUsageAttribute(System.AttributeTargets.Field)]
+    public sealed class OptionSetMetadataAttribute : System.Attribute
+    {
+
+        private object[] _nameObjects;
+
+        private System.Collections.Generic.Dictionary<int, string> _names;
+
+        /// <summary>
+        /// Color of the OptionSetValue.
+        /// </summary>
+        public string Color { get; set; }
+
+        /// <summary>
+        /// Description of the OptionSetValue.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Display order index of the OptionSetValue.
+        /// </summary>
+        public int DisplayIndex { get; set; }
+
+        /// <summary>
+        /// External value of the OptionSetValue.
+        /// </summary>
+        public string ExternalValue { get; set; }
+
+        /// <summary>
+        /// Name of the OptionSetValue.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Names of the OptionSetValue.
+        /// </summary>
+        public System.Collections.Generic.Dictionary<int, string> Names
+        {
+            get
+            {
+                return _names ?? (_names = CreateNames());
+            }
+            set
+            {
+                _names = value;
+                if (value == null)
+                {
+                    _nameObjects = new object[0];
+                }
+                else
+                {
+                    _nameObjects = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OptionSetMetadataAttribute"/> class.
+        /// </summary>
+        /// <param name="name">Name of the value.</param>
+        /// <param name="displayIndex">Display order index of the value.</param>
+        /// <param name="color">Color of the value.</param>
+        /// <param name="description">Description of the value.</param>
+        /// <param name="externalValue">External value of the value.</param>
+        /// <param name="names">Names of the value.</param>
+        public OptionSetMetadataAttribute(string name, int displayIndex, string color = null, string description = null, string externalValue = null, params object[] names)
+        {
+            this.Color = color;
+            this.Description = description;
+            this._nameObjects = names;
+            this.ExternalValue = externalValue;
+            this.DisplayIndex = displayIndex;
+            this.Name = name;
+        }
+
+        private System.Collections.Generic.Dictionary<int, string> CreateNames()
+        {
+            System.Collections.Generic.Dictionary<int, string> names = new System.Collections.Generic.Dictionary<int, string>();
+            for (int i = 0; (i < _nameObjects.Length); i = (i + 2))
+            {
+                names.Add(((int)(_nameObjects[i])), ((string)(_nameObjects[(i + 1)])));
+            }
+            return names;
+        }
+    }
+
+    /// <summary>
+    /// Extension class to handle retrieving of OptionSetMetadataAttribute.
+    /// </summary>
+    public static class OptionSetExtension
+    {
+
+        /// <summary>
+        /// Returns the OptionSetMetadataAttribute for the given enum value
+        /// </summary>
+        /// <typeparam name="T">OptionSet Enum Type</typeparam>
+        /// <param name="value">Enum Value with OptionSetMetadataAttribute</param>
+        public static OptionSetMetadataAttribute GetMetadata<T>(this T value)
+            where T : struct, System.IConvertible
+        {
+            System.Type enumType = typeof(T);
+            if (!enumType.IsEnum)
+            {
+                throw new System.ArgumentException("T must be an enum!");
+            }
+            System.Reflection.MemberInfo[] members = enumType.GetMember(value.ToString());
+            for (int i = 0; (i < members.Length); i++
+            )
+            {
+                System.Attribute attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(members[i], typeof(OptionSetMetadataAttribute));
+                if (attribute != null)
+                {
+                    return ((OptionSetMetadataAttribute)(attribute));
+                }
+            }
+            throw new System.ArgumentException("T must be an enum adorned with an OptionSetMetadataAttribute!");
+        }
+    }
 }
 #pragma warning restore CS1591
