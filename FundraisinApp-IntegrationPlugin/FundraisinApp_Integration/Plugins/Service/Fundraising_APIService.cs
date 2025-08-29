@@ -1832,23 +1832,22 @@ namespace FundraisinApp_Integration.Plugins.Service
         public List<TModel> ParseCsvHelper<TModel, TMap>(string csvContent)
         where TMap : ClassMap<TModel>
         {
-            var resultList = new List<TModel>();
-
             using (var reader = new StringReader(csvContent))
             using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true, // Read the header row
                 TrimOptions = CsvHelper.Configuration.TrimOptions.Trim, // Remove extra spaces
+                MissingFieldFound = null, // Ignore missing fields
+                HeaderValidated = null,   // Ignore header mismatches
+                BadDataFound = null       // Ignore bad data like trailing commas
             }))
             {
                 // Register the custom mapping
                 csv.Context.RegisterClassMap<TMap>();
 
                 // Read and map the records
-                resultList = csv.GetRecords<TModel>().ToList();
+                return csv.GetRecords<TModel>().ToList();
             }
-
-            return resultList;
         }
 
         public string CallFundRaisinAPI(object apiEndpoint, string customDate = "")

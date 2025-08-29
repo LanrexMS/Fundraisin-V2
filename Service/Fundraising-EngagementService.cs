@@ -1432,19 +1432,32 @@ namespace Fundraising_Engagement.Plugins.Service
 
         public void UpdateEventProductRevenue(Guid productID, LRx_Product productRecord)
         {
-            if (productID != Guid.Empty) {
-                productRecord = (LRx_Product)RetrieveRecord(
-                    LRx_Product.EntityLogicalName,
-                    productID,
-                    LRx_Product.Fields.LRx_Event,
-                    LRx_Product.Fields.LRx_EventProduct
-                );
-            }
-       
-            if (productRecord != null &&
-                productRecord.LRx_Event != null &&
-                productRecord.LRx_Event.Id != Guid.Empty)
+            try
             {
+                // If productID is provided, retrieve productRecord from Dataverse
+                if (productID != Guid.Empty)
+                {
+                    productRecord = (LRx_Product)RetrieveRecord(
+                        LRx_Product.EntityLogicalName,
+                        productID,
+                        LRx_Product.Fields.LRx_Event,
+                        LRx_Product.Fields.LRx_EventProduct
+                    );
+
+                    if (productRecord == null)
+                    {
+                        _tracingService.Trace("Product record not found for ProductID: {0}", productID);
+                        return;
+                    }
+                }
+
+                if (productRecord?.LRx_Event == null || productRecord.LRx_Event.Id == Guid.Empty)
+                {
+                    _tracingService.Trace("Product record has no valid Event reference. ProductID: {0}", productID);
+                    return;
+                }
+
+                // --- Update Event Totals ---
                 decimal totalProductRevenue = 0;
                 int productCount = 0;
 
@@ -1455,145 +1468,177 @@ namespace Fundraising_Engagement.Plugins.Service
                     productRecord.LRx_Event.Id,
                     out productCount
                 );
+
                 var parentEvent = new LRx_Event
                 {
                     Id = productRecord.LRx_Event.Id,
                     LRx_TotalProducts = new Money(totalProductRevenue),
-                    LRx_Products = (int)productCount
+                    LRx_Products = productCount
                 };
                 _service.Update(parentEvent);
-            }
 
-            LRx_EventProduct eventProductRecord;
+                // --- Event Product Record ---
+                if (productRecord.LRx_EventProduct == null || productRecord.LRx_EventProduct.Id == Guid.Empty)
+                {
+                    _tracingService.Trace("Product record has no valid EventProduct reference. ProductID: {0}", productID);
+                    return;
+                }
 
-            eventProductRecord = (LRx_EventProduct)RetrieveRecord(
-                LRx_EventProduct.EntityLogicalName,
-                productRecord.LRx_EventProduct.Id,
-                LRx_EventProduct.Fields.LRx_EventProductId
-            );
+                var eventProductRecord = (LRx_EventProduct)RetrieveRecord(
+                    LRx_EventProduct.EntityLogicalName,
+                    productRecord.LRx_EventProduct.Id,
+                    LRx_EventProduct.Fields.LRx_EventProductId
+                );
 
-            decimal totalEventProductRevenue = 0;
-            decimal EventProductCount = 0;
-            int tempHolder = 0;
+                if (eventProductRecord == null)
+                {
+                    _tracingService.Trace("EventProduct record not found. EventProductID: {0}", productRecord.LRx_EventProduct.Id);
+                    return;
+                }
 
-            totalEventProductRevenue = CalculateAmountRevenue(
+                decimal totalEventProductRevenue = 0;
+                decimal eventProductCount = 0;
+                int tempHolder = 0;
+
+                totalEventProductRevenue = CalculateAmountRevenue(
                     LRx_Product.EntityLogicalName,
                     LRx_Product.Fields.LRx_ProductAmount,
                     LRx_Product.Fields.LRx_EventProduct,
                     eventProductRecord.LRx_EventProductId.Value,
                     out tempHolder
-             );
+                );
 
-            EventProductCount = CalculateAmountRevenue(
+                eventProductCount = CalculateAmountRevenue(
                     LRx_Product.EntityLogicalName,
                     LRx_Product.Fields.LRx_Quantity,
                     LRx_Product.Fields.LRx_EventProduct,
                     eventProductRecord.LRx_EventProductId.Value,
                     out tempHolder
-             );
+                );
 
-            var parentEventProduct = new LRx_EventProduct
-            {
-                Id = eventProductRecord.LRx_EventProductId.Value,
-                LRx_TotalProductsOld = new Money(totalEventProductRevenue),
-                LRx_QuantitySold = (int)EventProductCount
-            };
-            _service.Update(parentEventProduct);
+                var parentEventProduct = new LRx_EventProduct
+                {
+                    Id = eventProductRecord.LRx_EventProductId.Value,
+                    LRx_TotalProductsOld = new Money(totalEventProductRevenue),
+                    LRx_QuantitySold = (int)eventProductCount
+                };
+                _service.Update(parentEventProduct);
 
-            LRx_Event EventParentRecord = (LRx_Event)RetrieveRecord(
-                LRx_Event.EntityLogicalName,
-                productRecord.LRx_Event.Id,
-                LRx_Event.Fields.LRx_Campaign,
-                LRx_Event.Fields.LRx_SiFund_Appeal,
-                LRx_Event.Fields.LRx_SiFund_Package
-            );
-
-            decimal totalCampaignProductRevenue = 0;
-            decimal totalCampaignProductCount = 0;
-            decimal totalAppealProductRevenue = 0;
-            decimal totalAppealProductCount = 0;
-            decimal totalPackageProductRevenue = 0;
-            decimal totalPackageProductCount = 0;
-
-            if (EventParentRecord.LRx_Campaign != null)
-            {
-                totalCampaignProductRevenue = CalculateAmountRevenue(
+                // --- Retrieve Parent Event ---
+                var eventParentRecord = (LRx_Event)RetrieveRecord(
                     LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_TotalProducts,
+                    productRecord.LRx_Event.Id,
                     LRx_Event.Fields.LRx_Campaign,
-                    EventParentRecord.LRx_Campaign.Id,
-                    out tempHolder
-                );
-
-                totalCampaignProductCount = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_Products,
-                    LRx_Event.Fields.LRx_Campaign,
-                    EventParentRecord.LRx_Campaign.Id,
-                    out tempHolder
-                );
-
-                var parentCampaign = new Campaign
-                {
-                    Id = EventParentRecord.LRx_Campaign.Id,
-                    LRx_TotalProductsSold = new Money(totalCampaignProductRevenue),
-                    LRx_ProductsOldCount = (int)totalCampaignProductCount
-                };
-                _service.Update(parentCampaign);
-            }
-
-            if (EventParentRecord.LRx_SiFund_Appeal != null)
-            {
-                totalAppealProductRevenue = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_TotalProducts,
                     LRx_Event.Fields.LRx_SiFund_Appeal,
-                    EventParentRecord.LRx_SiFund_Appeal.Id,
-                    out tempHolder
+                    LRx_Event.Fields.LRx_SiFund_Package
                 );
 
-                totalAppealProductCount = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_Products,
-                    LRx_Event.Fields.LRx_SiFund_Appeal,
-                    EventParentRecord.LRx_SiFund_Appeal.Id,
-                    out tempHolder
-                );
-
-                var parentAppeal = new SiFund_Appeal
+                if (eventParentRecord == null)
                 {
-                    Id = EventParentRecord.LRx_SiFund_Appeal.Id,
-                    LRx_TotalProductsSold = new Money(totalAppealProductRevenue),
-                    LRx_ProductsOldCount = (int)totalAppealProductCount
-                };
-                _service.Update(parentAppeal);
+                    _tracingService.Trace("Parent Event record not found. EventID: {0}", productRecord.LRx_Event.Id);
+                    return;
+                }
+
+                // --- Campaign ---
+                if (eventParentRecord.LRx_Campaign != null)
+                {
+                    decimal totalCampaignProductRevenue = CalculateAmountRevenue(
+                        LRx_Event.EntityLogicalName,
+                        LRx_Event.Fields.LRx_TotalProducts,
+                        LRx_Event.Fields.LRx_Campaign,
+                        eventParentRecord.LRx_Campaign.Id,
+                        out tempHolder
+                    );
+
+                    decimal totalCampaignProductCount = CalculateAmountRevenue(
+                        LRx_Event.EntityLogicalName,
+                        LRx_Event.Fields.LRx_Products,
+                        LRx_Event.Fields.LRx_Campaign,
+                        eventParentRecord.LRx_Campaign.Id,
+                        out tempHolder
+                    );
+
+                    var parentCampaign = new Campaign
+                    {
+                        Id = eventParentRecord.LRx_Campaign.Id,
+                        LRx_TotalProductsSold = new Money(totalCampaignProductRevenue),
+                        LRx_ProductsOldCount = (int)totalCampaignProductCount
+                    };
+                    _service.Update(parentCampaign);
+                }
+                else
+                {
+                    _tracingService.Trace("Event has no Campaign reference. EventID: {0}", eventParentRecord.Id);
+                }
+
+                // --- Appeal ---
+                if (eventParentRecord.LRx_SiFund_Appeal != null)
+                {
+                    decimal totalAppealProductRevenue = CalculateAmountRevenue(
+                        LRx_Event.EntityLogicalName,
+                        LRx_Event.Fields.LRx_TotalProducts,
+                        LRx_Event.Fields.LRx_SiFund_Appeal,
+                        eventParentRecord.LRx_SiFund_Appeal.Id,
+                        out tempHolder
+                    );
+
+                    decimal totalAppealProductCount = CalculateAmountRevenue(
+                        LRx_Event.EntityLogicalName,
+                        LRx_Event.Fields.LRx_Products,
+                        LRx_Event.Fields.LRx_SiFund_Appeal,
+                        eventParentRecord.LRx_SiFund_Appeal.Id,
+                        out tempHolder
+                    );
+
+                    var parentAppeal = new SiFund_Appeal
+                    {
+                        Id = eventParentRecord.LRx_SiFund_Appeal.Id,
+                        LRx_TotalProductsSold = new Money(totalAppealProductRevenue),
+                        LRx_ProductsOldCount = (int)totalAppealProductCount
+                    };
+                    _service.Update(parentAppeal);
+                }
+                else
+                {
+                    _tracingService.Trace("Event has no Appeal reference. EventID: {0}", eventParentRecord.Id);
+                }
+
+                // --- Package ---
+                if (eventParentRecord.LRx_SiFund_Package != null)
+                {
+                    decimal totalPackageProductRevenue = CalculateAmountRevenue(
+                        LRx_Event.EntityLogicalName,
+                        LRx_Event.Fields.LRx_TotalProducts,
+                        LRx_Event.Fields.LRx_SiFund_Package,
+                        eventParentRecord.LRx_SiFund_Package.Id,
+                        out tempHolder
+                    );
+
+                    decimal totalPackageProductCount = CalculateAmountRevenue(
+                        LRx_Event.EntityLogicalName,
+                        LRx_Event.Fields.LRx_Products,
+                        LRx_Event.Fields.LRx_SiFund_Package,
+                        eventParentRecord.LRx_SiFund_Package.Id,
+                        out tempHolder
+                    );
+
+                    var parentPackage = new SiFund_Package
+                    {
+                        Id = eventParentRecord.LRx_SiFund_Package.Id,
+                        LRx_TotalProductsSold = new Money(totalPackageProductRevenue),
+                        LRx_ProductsOldCount = (int)totalPackageProductCount
+                    };
+                    _service.Update(parentPackage);
+                }
+                else
+                {
+                    _tracingService.Trace("Event has no Package reference. EventID: {0}", eventParentRecord.Id);
+                }
             }
-
-            if (EventParentRecord.LRx_SiFund_Package != null)
+            catch (Exception ex)
             {
-                totalPackageProductRevenue = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_TotalProducts,
-                    LRx_Event.Fields.LRx_SiFund_Package,
-                    EventParentRecord.LRx_SiFund_Package.Id,
-                    out tempHolder
-                );
-
-                totalPackageProductCount = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_Products,
-                    LRx_Event.Fields.LRx_SiFund_Package,
-                    EventParentRecord.LRx_SiFund_Package.Id,
-                    out tempHolder
-                );
-
-                var parentPackage = new SiFund_Package
-                {
-                    Id = EventParentRecord.LRx_SiFund_Package.Id,
-                    LRx_TotalProductsSold = new Money(totalPackageProductRevenue),
-                    LRx_ProductsOldCount = (int)totalPackageProductCount
-                };
-                _service.Update(parentPackage);
+                _tracingService.Trace("Error in UpdateEventProductRevenue: {0}", ex.ToString());
+                throw; // rethrow so CRM logs it
             }
         }
 
