@@ -1843,6 +1843,35 @@ namespace FundraisinApp_Integration.Plugins.Service
             return this._service.RetrieveMultiple(queryExpression).Entities.FirstOrDefault();
         }
 
+        public Entity FindExistingRecordOr(string entityName, List<ConditionExpression> conditions, ColumnSet columnSet = null)
+        {
+            if (string.IsNullOrEmpty(entityName))
+                throw new ArgumentException("Entity name cannot be null or empty.", nameof(entityName));
+
+            if (conditions == null || conditions.Count == 0)
+                throw new ArgumentException("At least one condition must be provided.", nameof(conditions));
+
+            var queryExpression = new QueryExpression(entityName)
+            {
+                ColumnSet = columnSet ?? new ColumnSet(true)
+            };
+
+            // Always OR
+            var filter = new FilterExpression(LogicalOperator.Or);
+
+            foreach (var condition in conditions)
+            {
+                filter.Conditions.Add(condition);
+            }
+
+            queryExpression.Criteria.AddFilter(filter);
+
+            // Always order by createdon ascending → oldest record first
+            queryExpression.AddOrder("createdon", OrderType.Ascending);
+
+            return this._service.RetrieveMultiple(queryExpression).Entities.FirstOrDefault();
+        }
+
         public List<TModel> ParseCsvHelper<TModel, TMap>(string csvContent)
         where TMap : ClassMap<TModel>
         {
@@ -2171,9 +2200,10 @@ namespace FundraisinApp_Integration.Plugins.Service
             if (matchedEvent == null)
                 return Guid.Empty;
 
-            Entity existingEvent = FindExistingRecord("lrx_event", new List<ConditionExpression>
+            Entity existingEvent = FindExistingRecordOr("lrx_event", new List<ConditionExpression>
             {
-                new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, matchedEvent.EventId)
+                new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, matchedEvent.EventId),
+                new ConditionExpression("lrx_platformeventid", ConditionOperator.Equal, matchedEvent.EventId)
             });
 
             if (existingEvent != null)
