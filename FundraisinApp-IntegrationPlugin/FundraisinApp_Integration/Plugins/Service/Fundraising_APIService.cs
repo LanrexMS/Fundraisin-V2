@@ -1212,6 +1212,20 @@ namespace FundraisinApp_Integration.Plugins.Service
                         eventID = CheckAndUpdateEvent(transactions.Event_id.Trim(), eventList, out campaignGuid, out appealGuid, out packageGuid);                         
                     }
 
+                    if (this.campaignName != string.Empty && campaignGuid != Guid.Empty)
+                    {
+                        var CampaignSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("name", ConditionOperator.Equal, (object)this.campaignName)
+                        };
+
+                        Entity existingCampaign = FindExistingRecord("campaign", CampaignSearchConditions);
+                        if (existingCampaign != null)
+                        {
+                            campaignGuid = existingCampaign.Id;
+                        }
+                    }
+
                     if (transactions.Transaction_type == "donation")
                     {
                         decimal totalDonation = decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees);
