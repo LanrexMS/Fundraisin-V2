@@ -152,6 +152,8 @@
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ProductModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ProductOptionModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ProductOptionModelMap.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ProductSales.cs" />
+    <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\ProductSalesModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\PromoCodeModel.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\PromoCodeModelMap.cs" />
     <Compile Include="FundraisinApp_Integration\Plugins\Entities\Integration_Data_Model\RaffleModel.cs" />

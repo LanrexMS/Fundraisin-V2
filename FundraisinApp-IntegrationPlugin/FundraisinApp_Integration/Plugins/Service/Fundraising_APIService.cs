@@ -1205,6 +1205,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Guid packageGuid = Guid.Empty;
                     Guid raffleSaleGuid = Guid.Empty;
                     Guid transactionId = Guid.Empty;
+                    Guid membershipTypeId = Guid.Empty;
                     string CustomDonationDate = "";
 
                     if (transactions.Event_id.Trim() != "0")
@@ -1225,7 +1226,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             campaignGuid = existingCampaign.Id;
                         }
                     }
-
+                    
                     if (transactions.Transaction_type == "donation")
                     {
                         decimal totalDonation = decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees);
@@ -1392,19 +1393,29 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                             if (existingTransaction == null)
                             {
-                                this._service.Create(transactionEntity);
+                                // Create new transaction
+                                transactionId = this._service.Create(transactionEntity);
                             }
-                            else if (this.updateTransaction)
+                            else
                             {
-                                transactionEntity.Id = existingTransaction.Id;
-                                this._service.Update(transactionEntity);
+                                // Update only if flag is enabled
+                                if (this.updateTransaction)
+                                {
+                                    transactionEntity.Id = existingTransaction.Id;
+                                    this._service.Update(transactionEntity);
+                                }
+
+                                transactionId = existingTransaction.Id; // ✅ Always assign the ID
                             }
                         }
                     } //end of donation transaction type
 
+
                     if (transactions.Transaction_type == "registration" || transactions.Transaction_type == "merchandise")
                     {
+                        
                         int transactionType = 844060003; //default registration
+                        string contactFullName = string.Empty;
 
                         var ContactSearchConditions = new List<ConditionExpression>
                         {
@@ -1417,31 +1428,39 @@ namespace FundraisinApp_Integration.Plugins.Service
                             contactID = (Guid)existingContact.Id;
                         if (contactID == Guid.Empty)
                         {
-                            continue;
+                            if (transactions.Sale_id != "0")
+                            {
+                                contactFullName = string.Empty;
+                                contactID = UpsertContactFromSales(transactions.Sale_id, out contactFullName);
+
+                                _tracingService.Trace($"Contact processed: {contactFullName} (ID: {contactID})");
+                            }
+
+                            if (contactID == Guid.Empty)
+                                continue;
+                        }
+
+                        string pMethodUniqueName = (object)this.paymentMethod + " - Default";
+                        var PMethodSearchConditions = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
+                        };
+                        Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
+                        if (existingPMethod != null)
+                        {
+                            defaultPaymentMethodId = existingPMethod.Id;
                         }
                         else
                         {
-                            string pMethodUniqueName = (object)this.paymentMethod + " - Default";
-                            var PMethodSearchConditions = new List<ConditionExpression>
+                            Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
                             {
-                                new ConditionExpression("msnfp_name", ConditionOperator.Equal, pMethodUniqueName)
-                            };
-                            Entity existingPMethod = FindExistingRecord("msnfp_paymentmethod", PMethodSearchConditions);
-                            if (existingPMethod != null)
-                            {
-                                defaultPaymentMethodId = existingPMethod.Id;
-                            }
-                            else
-                            {
-                                Guid pmethodId = this._service.Create(new Entity("msnfp_paymentmethod")
-                                {
-                                    ["msnfp_name"] = pMethodUniqueName,
-                                    ["msnfp_type"] = new OptionSetValue(100000000)
+                                ["msnfp_name"] = pMethodUniqueName,
+                                ["msnfp_type"] = new OptionSetValue(100000000)
 
-                                });
-                                defaultPaymentMethodId = pmethodId;
-                            }
+                            });
+                            defaultPaymentMethodId = pmethodId;
                         }
+                        
                         if (transactions.Transaction_type == "merchandise")
                         {
                             transactionType = 844060004;
@@ -1502,6 +1521,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         }
                         else
                         {
+                            transactionId = existingTransaction.Id;
                             if (this.updateTransaction)
                             {
                                 this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
@@ -1534,7 +1554,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 ["lrx_transaction"] = existingTransaction != null ? new EntityReference("msnfp_transaction", existingTransaction.Id) : new EntityReference("msnfp_transaction", transactionId)
                             });
                         }
-
+                        _tracingService.Trace("Sales ID: " + transactions.Sale_id);
                         if (transactions.Sale_id != "0")
                         {
                             var salesItemMatchID = saleItemList.FirstOrDefault(si => si.sale_id.Trim() == transactions.Sale_id.Trim());
@@ -1551,102 +1571,216 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 {
                                     productName = matchingProduct.product_name;
                                 }
+                                
+                                if (!string.IsNullOrEmpty(productName))
+                                {
+                                    
+                                    string name = productName.ToLower();
+                                    membershipTypeId = Guid.Empty; // Initialize as empty GUID
+                                    string mappedMembershipName = string.Empty; // To store the matched mapping value
 
-                                var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
-                                if (matchingProductOption != null)
-                                {
-                                    productOptionName = matchingProductOption.option_name;
-                                }
-
-                                var productSearchConditions = new List<ConditionExpression>
-                                {
-                                    new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, salesItemMatchID.product_id)
-                                };
-                                Entity existingInventoryProduct = FindExistingRecord("lrx_inventoryproduct", productSearchConditions);
-
-                                if (existingInventoryProduct != null)
-                                {
-                                    productID = existingInventoryProduct.Id;
-                                }
-                                else
-                                {
-                                    continue;
-                                }
-
-                                var productOptionSearchConditions = new List<ConditionExpression>
-                                {
-                                    new ConditionExpression("lrx_fundraisinoptionid", ConditionOperator.Equal, salesItemMatchID.option_id)
-                                };
-                                Entity existingProductOption = FindExistingRecord("lrx_productoptions", productOptionSearchConditions);
-
-                                if (existingProductOption != null)
-                                {
-                                    productOption = existingProductOption.Id;
-                                }
-
-                                var eventProductSearchConditions = new List<ConditionExpression>
-                                {
-                                    new ConditionExpression("lrx_fundraisineventproductid", ConditionOperator.Equal, int.Parse(salesItemMatchID.id))
-                                };
-                                Entity existingEventProduct = FindExistingRecord("lrx_eventproduct", eventProductSearchConditions);
-
-                                if (existingEventProduct == null)
-                                {
-                                    var eventProduct = new Entity("lrx_eventproduct")
+                                    // Map product keywords to membership category names
+                                    var membershipMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
                                     {
-                                        ["lrx_name"] = $"{productName} - {productOptionName}",
-                                        ["lrx_priceperproduct"] = new Money(decimal.TryParse(salesItemMatchID.unit_cost, out var price) ? price : 0),
-                                        ["lrx_quantity"] = int.TryParse(salesItemMatchID.quantity, out var quantity) ? quantity : 0,
-                                        ["lrx_fundraisineventproductid"] = int.TryParse(salesItemMatchID.id, out var eventProductId) ? eventProductId : 0
+                                        { "large organisation membership", null },
+                                        { "small organisation membership", null },
+                                        { "concession membership", "Concession Membership (1 Year)" },
+                                        { "individual membership", "Individual Membership (1 Year)" },
+                                        { "household/family membership", "Household/Family Membership (1 Year)" },
+                                        { "gift membership", "Individual Membership (1 Year)" } // Gift uses Individual logic
                                     };
 
-                                    // Add lookup fields only if they have valid GUIDs
-                                    if (eventID != Guid.Empty)
+                                    foreach (var pair in membershipMap)
                                     {
-                                        eventProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
-                                    }
-                                    if (productID != Guid.Empty)
-                                    {
-                                        eventProduct["lrx_product"] = new EntityReference("lrx_inventoryproduct", productID);
+                                        if (name.Contains(pair.Key))
+                                        {
+                                            mappedMembershipName = pair.Value;
+
+                                            // Only search if a mapping is defined
+                                            if (!string.IsNullOrEmpty(mappedMembershipName))
+                                            {
+                                                var MembershipTypeSearchConditions = new List<ConditionExpression>
+                                                {
+                                                    new ConditionExpression("msnfp_name", ConditionOperator.Equal, mappedMembershipName)
+                                                };
+
+                                                Entity existingMembershipType = FindExistingRecord("msnfp_membershipcategory", MembershipTypeSearchConditions);
+                                                if (existingMembershipType != null)
+                                                {
+                                                    membershipTypeId = existingMembershipType.Id;
+                                                }
+                                            }
+                                            break; // Stop after the first match
+                                        }
                                     }
 
-                                    Guid eventProductID = _service.Create(eventProduct);
+                                    if (membershipTypeId != Guid.Empty)
+                                    {
+                                        
+                                        // Update transaction type to Membership
+                                        Entity updateTransaction = new Entity("msnfp_transaction")
+                                        {
+                                            Id = transactionId
+                                        };
+                                        updateTransaction["sifund_typecode"] = new OptionSetValue(844060002);
+                                        this._service.Update(updateTransaction);
 
-                                    var saleProduct = new Entity("lrx_product")
-                                    {
-                                        ["lrx_name"] = $"{productName} - {productOptionName}",
-                                        ["lrx_constituentorganisation"] = new EntityReference("contact", contactID)
-                                    };
+                                        // Execute update
+                                        this._service.Update(updateTransaction);
 
-                                    // Parse `quantity` safely
-                                    int parsedQuantity = 0;
-                                    if (int.TryParse(salesItemMatchID.quantity, out parsedQuantity))
-                                    {
-                                        saleProduct["lrx_quantity"] = parsedQuantity;
-                                    }
+                                        var membershipSearchConditions = new List<ConditionExpression>
+                                        {
+                                            new ConditionExpression("msnfp_customer", ConditionOperator.Equal, contactID),
+                                            new ConditionExpression("lrx_membership", ConditionOperator.Equal, membershipTypeId)
+                                        };
 
-                                    // Parse `unit_cost` safely
-                                    decimal parsedPrice = 0;
-                                    if (decimal.TryParse(salesItemMatchID.unit_cost, out parsedPrice))
-                                    {
-                                        saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
-                                    }
+                                        Entity existingMembership = FindExistingRecord("msnfp_membership", membershipSearchConditions);
 
-                                    // Add lookup fields only if they have valid GUIDs
-                                    if (eventID != Guid.Empty)
-                                    {
-                                        saleProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
-                                    }
-                                    if (eventProductID != Guid.Empty)
-                                    {
-                                        saleProduct["lrx_eventproduct"] = new EntityReference("lrx_eventproduct", eventProductID);
-                                    }
-                                    if (productOption != Guid.Empty)
-                                    {
-                                        saleProduct["lrx_productoption"] = new EntityReference("lrx_productoptions", productOption);
-                                    }
+                                        // Convert UTC to Sydney local time
+                                        TimeZoneInfo sydneyTimeZone = TimeZoneInfo.FindSystemTimeZoneById("AUS Eastern Standard Time");
+                                        DateTime sydneyNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, sydneyTimeZone);
 
-                                    _service.Create(saleProduct);
+                                        if (existingMembership == null)
+                                        {
+                                            
+                                            // Create new membership record
+                                            DateTime startDate = sydneyNow;
+                                            DateTime renewalDate = startDate.AddYears(1);
+
+                                            Entity membershipRecord = new Entity("msnfp_membership")
+                                            {
+                                                ["msnfp_name"] = contactFullName,
+                                                ["msnfp_customer"] = new EntityReference("contact", contactID),
+                                                ["lrx_membership"] = new EntityReference("msnfp_membershipcategory", membershipTypeId),
+                                                ["msnfp_startdate"] = startDate,
+                                                ["lrx_renewaldate"] = renewalDate
+                                            };
+
+                                            this._service.Create(membershipRecord);
+                                        }
+                                        else
+                                        {
+                                            if (!string.IsNullOrEmpty(mappedMembershipName) && mappedMembershipName.ToLower().Contains("1 year"))
+                                            {
+                                                // Extend renewal date by 1 year
+                                                DateTime? currentRenewalDate = existingMembership.Contains("lrx_renewaldate")
+                                                    ? (DateTime?)existingMembership["lrx_renewaldate"]
+                                                    : sydneyNow;
+
+                                                // If the current renewal date is in the past, use today's Sydney time instead
+                                                DateTime baseDate = currentRenewalDate.Value < sydneyNow ? sydneyNow : currentRenewalDate.Value;
+
+                                                DateTime newRenewalDate = baseDate.AddYears(1);
+
+                                                Entity updateMembership = new Entity("msnfp_membership")
+                                                {
+                                                    Id = existingMembership.Id
+                                                };
+                                                updateMembership["lrx_renewaldate"] = newRenewalDate;
+
+                                                this._service.Update(updateMembership);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
+                                        if (matchingProductOption != null)
+                                        {
+                                            productOptionName = matchingProductOption.option_name;
+                                        }
+
+                                        var productSearchConditions = new List<ConditionExpression>
+                                        {
+                                            new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, salesItemMatchID.product_id)
+                                        };
+                                        Entity existingInventoryProduct = FindExistingRecord("lrx_inventoryproduct", productSearchConditions);
+
+                                        if (existingInventoryProduct != null)
+                                        {
+                                            productID = existingInventoryProduct.Id;
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+
+                                        var productOptionSearchConditions = new List<ConditionExpression>
+                                        {
+                                            new ConditionExpression("lrx_fundraisinoptionid", ConditionOperator.Equal, salesItemMatchID.option_id)
+                                        };
+                                        Entity existingProductOption = FindExistingRecord("lrx_productoptions", productOptionSearchConditions);
+
+                                        if (existingProductOption != null)
+                                        {
+                                            productOption = existingProductOption.Id;
+                                        }
+
+                                        var eventProductSearchConditions = new List<ConditionExpression>
+                                        {
+                                            new ConditionExpression("lrx_fundraisineventproductid", ConditionOperator.Equal, int.Parse(salesItemMatchID.id))
+                                        };
+                                        Entity existingEventProduct = FindExistingRecord("lrx_eventproduct", eventProductSearchConditions);
+
+                                        if (existingEventProduct == null)
+                                        {
+                                            var eventProduct = new Entity("lrx_eventproduct")
+                                            {
+                                                ["lrx_name"] = $"{productName} - {productOptionName}",
+                                                ["lrx_priceperproduct"] = new Money(decimal.TryParse(salesItemMatchID.unit_cost, out var price) ? price : 0),
+                                                ["lrx_quantity"] = int.TryParse(salesItemMatchID.quantity, out var quantity) ? quantity : 0,
+                                                ["lrx_fundraisineventproductid"] = int.TryParse(salesItemMatchID.id, out var eventProductId) ? eventProductId : 0
+                                            };
+
+                                            // Add lookup fields only if they have valid GUIDs
+                                            if (eventID != Guid.Empty)
+                                            {
+                                                eventProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
+                                            }
+                                            if (productID != Guid.Empty)
+                                            {
+                                                eventProduct["lrx_product"] = new EntityReference("lrx_inventoryproduct", productID);
+                                            }
+
+                                            Guid eventProductID = _service.Create(eventProduct);
+
+                                            var saleProduct = new Entity("lrx_product")
+                                            {
+                                                ["lrx_name"] = $"{productName} - {productOptionName}",
+                                                ["lrx_constituentorganisation"] = new EntityReference("contact", contactID)
+                                            };
+
+                                            // Parse `quantity` safely
+                                            int parsedQuantity = 0;
+                                            if (int.TryParse(salesItemMatchID.quantity, out parsedQuantity))
+                                            {
+                                                saleProduct["lrx_quantity"] = parsedQuantity;
+                                            }
+
+                                            // Parse `unit_cost` safely
+                                            decimal parsedPrice = 0;
+                                            if (decimal.TryParse(salesItemMatchID.unit_cost, out parsedPrice))
+                                            {
+                                                saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
+                                            }
+
+                                            // Add lookup fields only if they have valid GUIDs
+                                            if (eventID != Guid.Empty)
+                                            {
+                                                saleProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
+                                            }
+                                            if (eventProductID != Guid.Empty)
+                                            {
+                                                saleProduct["lrx_eventproduct"] = new EntityReference("lrx_eventproduct", eventProductID);
+                                            }
+                                            if (productOption != Guid.Empty)
+                                            {
+                                                saleProduct["lrx_productoption"] = new EntityReference("lrx_productoptions", productOption);
+                                            }
+
+                                            _service.Create(saleProduct);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -2067,6 +2201,72 @@ namespace FundraisinApp_Integration.Plugins.Service
 
             return contactID;
         }
+
+        private Guid UpsertContactFromSales(string SalesID, out string fullName)
+        {
+            fullName = string.Empty;
+
+            var ProductSale = this.GetData<ProductSales, ProductSalesModelMap>(this.baseURL, "sales");
+            var matchSalesID = ProductSale.FirstOrDefault(p => p.sale_id.Trim() == SalesID.Trim());
+
+            if (matchSalesID == null)
+                return Guid.Empty;
+
+            // Build full name
+            fullName = $"{matchSalesID.first_name} {matchSalesID.last_name}".Trim();
+
+            // Define search conditions to find an existing contact
+            var contactSearchConditions = new List<ConditionExpression>
+            {
+                new ConditionExpression("firstname", ConditionOperator.Equal, matchSalesID.first_name),
+                new ConditionExpression("lastname", ConditionOperator.Equal, matchSalesID.last_name),
+                new ConditionExpression("emailaddress1", ConditionOperator.Equal, matchSalesID.email)
+            };
+
+            Entity existingContact = FindExistingRecord("contact", contactSearchConditions);
+            var addressStreet = matchSalesID.number + " " + matchSalesID.street;
+
+            // Prepare contact attributes
+            var contactAttributes = new Dictionary<string, object>
+            {
+                ["firstname"] = matchSalesID.first_name,
+                ["lastname"] = matchSalesID.last_name,
+                ["emailaddress1"] = matchSalesID.email,
+                ["mobilephone"] = matchSalesID.mobile_suffix + matchSalesID.mobile,
+                ["address1_line1"] = addressStreet,
+                ["address1_city"] = matchSalesID.suburb,
+                ["address1_postalcode"] = matchSalesID.postcode,
+                ["address1_stateorprovince"] = matchSalesID.state,
+                ["address1_country"] = matchSalesID.country,
+            };
+
+            Guid contactID;
+
+            if (existingContact == null)
+            {
+                var contactEntity = new Entity("contact");
+                foreach (var kvp in contactAttributes)
+                {
+                    contactEntity[kvp.Key] = kvp.Value;
+                }
+
+                contactID = this._service.Create(contactEntity);
+            }
+            else
+            {
+                var contactEntity = new Entity("contact", existingContact.Id);
+                foreach (var kvp in contactAttributes)
+                {
+                    contactEntity[kvp.Key] = kvp.Value;
+                }
+
+                this._service.Update(contactEntity);
+                contactID = existingContact.Id;
+            }
+
+            return contactID;
+        }
+
 
         private Guid UpsertContactFromRaffleSales(dynamic raffleSales)
         {
