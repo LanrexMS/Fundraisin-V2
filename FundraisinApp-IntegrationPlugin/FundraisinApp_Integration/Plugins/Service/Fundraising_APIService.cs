@@ -261,7 +261,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                         this._service.Create(newContact);
                     }
-
                     else
                     {
                         contactFields.Remove("firstname"); // Only update contact details, not name/email
@@ -1432,8 +1431,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                             {
                                 contactFullName = string.Empty;
                                 contactID = UpsertContactFromSales(transactions.Sale_id, out contactFullName);
-
-                                _tracingService.Trace($"Contact processed: {contactFullName} (ID: {contactID})");
                             }
 
                             if (contactID == Guid.Empty)
@@ -2218,12 +2215,17 @@ namespace FundraisinApp_Integration.Plugins.Service
             // Define search conditions to find an existing contact
             var contactSearchConditions = new List<ConditionExpression>
             {
-                new ConditionExpression("firstname", ConditionOperator.Equal, matchSalesID.first_name),
-                new ConditionExpression("lastname", ConditionOperator.Equal, matchSalesID.last_name),
-                new ConditionExpression("emailaddress1", ConditionOperator.Equal, matchSalesID.email)
+                new ConditionExpression("firstname", ConditionOperator.Equal, matchSalesID.first_name?.Trim()),
+                new ConditionExpression("lastname", ConditionOperator.Equal, matchSalesID.last_name?.Trim())
             };
 
+            if (!string.IsNullOrWhiteSpace(matchSalesID.email))
+            {
+                contactSearchConditions.Add(new ConditionExpression("emailaddress1", ConditionOperator.Equal, matchSalesID.email.Trim()));
+            }
+
             Entity existingContact = FindExistingRecord("contact", contactSearchConditions);
+
             var addressStreet = matchSalesID.number + " " + matchSalesID.street;
 
             // Prepare contact attributes
@@ -2273,10 +2275,16 @@ namespace FundraisinApp_Integration.Plugins.Service
             // Define search conditions to find an existing contact
             var contactSearchConditions = new List<ConditionExpression>
             {
-                new ConditionExpression("firstname", ConditionOperator.Equal, raffleSales.first_name),
-                new ConditionExpression("lastname", ConditionOperator.Equal, raffleSales.last_name),
-                new ConditionExpression("emailaddress1", ConditionOperator.Equal, raffleSales.email)
+                new ConditionExpression("firstname", ConditionOperator.Equal, raffleSales.first_name?.Trim()),
+                new ConditionExpression("lastname", ConditionOperator.Equal, raffleSales.last_name?.Trim())
             };
+
+            if (!string.IsNullOrWhiteSpace(raffleSales.email))
+            {
+                contactSearchConditions.Add(
+                    new ConditionExpression("emailaddress1", ConditionOperator.Equal, raffleSales.email.Trim())
+                );
+            }
 
             Entity existingContact = FindExistingRecord("contact", contactSearchConditions);
             var addressStreet = $"{raffleSales.address_number} {raffleSales.address_street}".Trim();
