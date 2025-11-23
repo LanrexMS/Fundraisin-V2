@@ -1186,8 +1186,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             var eventList = this.GetAllData<EventModel, EventModelMap>(this.baseURL, "events");
             var raffleSalesList = this.GetData<RaffleSalesModel, RaffleSalesModelMap>(this.baseURL, "rafflesales");
 
-            if (TransactionList != null &&
-                donationList != null)
+            if (TransactionList != null)
             {
                 foreach (var transactions in TransactionList)
                 {
@@ -1205,6 +1204,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Guid raffleSaleGuid = Guid.Empty;
                     Guid transactionId = Guid.Empty;
                     Guid membershipTypeId = Guid.Empty;
+                    Guid designationGUID = Guid.Empty;
                     string CustomDonationDate = "";
 
                     if (transactions.Event_id.Trim() != "0")
@@ -1212,7 +1212,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         eventID = CheckAndUpdateEvent(transactions.Event_id.Trim(), eventList, out campaignGuid, out appealGuid, out packageGuid);                         
                     }
 
-                    if (this.campaignName != string.Empty && campaignGuid != Guid.Empty)
+                    if (this.campaignName != string.Empty && campaignGuid == Guid.Empty)
                     {
                         var CampaignSearchConditions = new List<ConditionExpression>
                         {
@@ -1225,7 +1225,36 @@ namespace FundraisinApp_Integration.Plugins.Service
                             campaignGuid = existingCampaign.Id;
                         }
                     }
-                    
+
+                    Entity existingDesignation = null;
+
+                    if (!string.IsNullOrWhiteSpace(transactions.Gl_code1))
+                    {
+                        var condition1 = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("msnfp_designationcode", ConditionOperator.Equal, transactions.Gl_code1.Trim())
+                        };
+
+                        existingDesignation = FindExistingRecord("msnfp_designation", condition1);
+                    }
+
+                    if (existingDesignation == null && !string.IsNullOrWhiteSpace(transactions.Gl_code2))
+                    {
+                        var condition2 = new List<ConditionExpression>
+                        {
+                            new ConditionExpression("msnfp_designationcode", ConditionOperator.Equal, transactions.Gl_code2.Trim())
+                        };
+
+                        existingDesignation = FindExistingRecord("msnfp_designation", condition2);
+                    }
+
+                    if (existingDesignation != null)
+                    {
+                        designationGUID = existingDesignation.Id;
+                    }
+
+
+
                     if (transactions.Transaction_type == "donation")
                     {
                         decimal totalDonation = decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees);
@@ -1375,6 +1404,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
                                 ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
                                 ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : null,
+                                ["sifund_primarydesignation"] = designationGUID != Guid.Empty ? (object)new EntityReference("msnfp_designation", designationGUID) : null,
                                 ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : null,
                                 ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : null,
                                 ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
@@ -1499,6 +1529,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             {
                                 ["sifund_donor"] = new EntityReference("contact", contactID),
                                 ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
+                                ["sifund_primarydesignation"] = designationGUID != Guid.Empty ? (object)new EntityReference("msnfp_designation", designationGUID) : null,
                                 ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
                                 ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
                                 ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
@@ -1525,6 +1556,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 {
                                     ["sifund_donor"] = new EntityReference("contact", contactID),
                                     ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
+                                    ["sifund_primarydesignation"] = designationGUID != Guid.Empty ? (object)new EntityReference("msnfp_designation", designationGUID) : null,
                                     ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
                                     ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
                                     ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
@@ -1551,7 +1583,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 ["lrx_transaction"] = existingTransaction != null ? new EntityReference("msnfp_transaction", existingTransaction.Id) : new EntityReference("msnfp_transaction", transactionId)
                             });
                         }
-                        _tracingService.Trace("Sales ID: " + transactions.Sale_id);
+                        
                         if (transactions.Sale_id != "0")
                         {
                             var salesItemMatchID = saleItemList.FirstOrDefault(si => si.sale_id.Trim() == transactions.Sale_id.Trim());
@@ -1847,6 +1879,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         {
                             ["sifund_donor"] = new EntityReference("contact", contactID),
                             ["lrx_campaign"] = campaignGuid != Guid.Empty ? new EntityReference("campaign", campaignGuid) : null,
+                            ["sifund_primarydesignation"] = designationGUID != Guid.Empty ? (object)new EntityReference("msnfp_designation", designationGUID) : null,
                             ["sifund_appeal"] = appealGuid != Guid.Empty ? new EntityReference("sifund_appeal", appealGuid) : null,
                             ["sifund_package"] = packageGuid != Guid.Empty ? new EntityReference("sifund_package", packageGuid) : null,
                             ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
@@ -2028,23 +2061,27 @@ namespace FundraisinApp_Integration.Plugins.Service
         {
 
             string requestUri = "";
-            if (dateFrom != "" && dateTo != "")
-            {
-                requestUri = string.Format("{0}?apikey={1}&date_from={2}&date_to={3}", (object)apiEndpoint, (object)this.apikey, (object)this.dateFrom, (object)this.dateTo);
-            }
-            else
-            if (customDate != "") 
+            if (customDate != "")
             {
                 string convertedDate = "";
-                string format = "dd/MM/yyyy hh:mm:ss tt";
-                CultureInfo provider = CultureInfo.InvariantCulture;
+                string[] formats = {
+                    "dd/MM/yyyy hh:mm:ss tt",
+                    "dd/MM/yyyy HH:mm:ss",
+                    "d/M/yyyy hh:mm:ss tt",
+                };
 
-                if (DateTime.TryParseExact(customDate, format, provider, DateTimeStyles.None, out DateTime parsedDateFrom))
+                if (DateTime.TryParseExact(customDate, formats, CultureInfo.InvariantCulture,
+                    DateTimeStyles.None, out DateTime parsedDate))
                 {
-                    convertedDate = parsedDateFrom.ToString("yyyy-MM-dd");
+                    convertedDate = parsedDate.ToString("yyyy-MM-dd");
                 }
 
                 requestUri = string.Format("{0}?apikey={1}&date_from={2}&date_to={3}", (object)apiEndpoint, (object)this.apikey, (object)convertedDate, (object)convertedDate);
+            }
+            else
+            if (dateFrom != "" && dateTo != "")
+            {
+                requestUri = string.Format("{0}?apikey={1}&date_from={2}&date_to={3}", (object)apiEndpoint, (object)this.apikey, (object)this.dateFrom, (object)this.dateTo);
             }
             else
             {
