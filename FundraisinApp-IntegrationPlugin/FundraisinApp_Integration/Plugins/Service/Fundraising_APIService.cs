@@ -1744,15 +1744,14 @@ namespace FundraisinApp_Integration.Plugins.Service
                                         {
                                             productOption = existingProductOption.Id;
                                         }
-
+                                        
                                         var eventProductSearchConditions = new List<ConditionExpression>
                                         {
                                             new ConditionExpression("lrx_fundraisineventproductid", ConditionOperator.Equal, int.Parse(salesItemMatchID.id))
                                         };
                                         Entity existingEventProduct = FindExistingRecord("lrx_eventproduct", eventProductSearchConditions);
-
-                                        if (existingEventProduct == null)
-                                        {
+                                        Guid eventProductID = Guid.Empty;
+                                        if (existingEventProduct == null) {
                                             var eventProduct = new Entity("lrx_eventproduct")
                                             {
                                                 ["lrx_name"] = $"{productName} - {productOptionName}",
@@ -1771,44 +1770,51 @@ namespace FundraisinApp_Integration.Plugins.Service
                                                 eventProduct["lrx_product"] = new EntityReference("lrx_inventoryproduct", productID);
                                             }
 
-                                            Guid eventProductID = _service.Create(eventProduct);
-
-                                            var saleProduct = new Entity("lrx_product")
-                                            {
-                                                ["lrx_name"] = $"{productName} - {productOptionName}",
-                                                ["lrx_constituentorganisation"] = new EntityReference("contact", contactID)
-                                            };
-
-                                            // Parse `quantity` safely
-                                            int parsedQuantity = 0;
-                                            if (int.TryParse(salesItemMatchID.quantity, out parsedQuantity))
-                                            {
-                                                saleProduct["lrx_quantity"] = parsedQuantity;
-                                            }
-
-                                            // Parse `unit_cost` safely
-                                            decimal parsedPrice = 0;
-                                            if (decimal.TryParse(salesItemMatchID.unit_cost, out parsedPrice))
-                                            {
-                                                saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
-                                            }
-
-                                            // Add lookup fields only if they have valid GUIDs
-                                            if (eventID != Guid.Empty)
-                                            {
-                                                saleProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
-                                            }
-                                            if (eventProductID != Guid.Empty)
-                                            {
-                                                saleProduct["lrx_eventproduct"] = new EntityReference("lrx_eventproduct", eventProductID);
-                                            }
-                                            if (productOption != Guid.Empty)
-                                            {
-                                                saleProduct["lrx_productoption"] = new EntityReference("lrx_productoptions", productOption);
-                                            }
-
-                                            _service.Create(saleProduct);
+                                            eventProductID = _service.Create(eventProduct);
                                         }
+                                        else
+                                        {
+                                            eventProductID = existingEventProduct.Id;
+                                        }
+
+                                        var saleProduct = new Entity("lrx_product")
+                                        {
+                                            ["lrx_name"] = $"{productName} - {productOptionName}",
+                                            ["lrx_constituentorganisation"] = new EntityReference("contact", contactID)
+                                        };
+
+                                        // Parse `quantity` safely
+                                        int parsedQuantity = 0;
+                                        if (int.TryParse(salesItemMatchID.quantity, out parsedQuantity))
+                                        {
+                                            saleProduct["lrx_quantity"] = parsedQuantity;
+                                        }
+
+                                        // Parse `unit_cost` safely
+                                        decimal parsedPrice = 0;
+                                        if (decimal.TryParse(salesItemMatchID.unit_cost, out parsedPrice))
+                                        {
+                                            saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
+                                        }
+
+                                        // Add lookup fields only if they have valid GUIDs
+                                        if (eventID != Guid.Empty)
+                                        {
+                                            saleProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
+                                        }
+                                        if (eventProductID != Guid.Empty)
+                                        {
+                                            saleProduct["lrx_eventproduct"] = new EntityReference("lrx_eventproduct", eventProductID);
+                                        }
+                                        if (productOption != Guid.Empty)
+                                        {
+                                            saleProduct["lrx_productoption"] = new EntityReference("lrx_productoptions", productOption);
+                                        }
+
+                                        saleProduct["lrx_transaction"] = transactionId != Guid.Empty ? new EntityReference("msnfp_transaction", transactionId) : null;
+
+                                        _service.Create(saleProduct);
+                                        
                                     }
                                 }
                             }
