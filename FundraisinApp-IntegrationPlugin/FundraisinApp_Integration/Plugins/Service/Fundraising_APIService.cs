@@ -4,32 +4,33 @@
 // MVID: A80D178E-91E0-4361-9810-5F6936033CCA
 // Assembly location: C:\Users\Nico Benito\Downloads\NicoTestSolution_1_0_0_2\PluginAssemblies\FundraisinApp-IntegrationPlugin-AD40DC3F-2002-4C54-899F-1599020D0AFB\FundraisinApp-IntegrationPlugin.dll
 
-using FundraisinApp_Integration.Plugins.Entities.Integration_Data_Model;
-using FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Entities.Integration_Data_Model;
-using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Query;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using CrmEarlyBound;
 using CsvHelper;
 using CsvHelper.Configuration;
-using System.Text.RegularExpressions;
-using System.Runtime.CompilerServices;
-using System.Activities;
-using System.Diagnostics.Eventing.Reader;
-using System.IdentityModel.Protocols.WSTrust;
-using Microsoft.Xrm.Sdk.PluginTelemetry;
-using Newtonsoft.Json.Linq;
-using System.Diagnostics.Tracing;
-using System.Web.Util;
-using System.Data.Common;
-using System.Threading.Tasks;
+using FundraisinApp_Integration.Plugins.Entities.Integration_Data_Model;
+using FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Entities.Integration_Data_Model;
 using Microsoft.SqlServer.Server;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.PluginTelemetry;
+using Microsoft.Xrm.Sdk.Query;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Activities;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Diagnostics.Eventing.Reader;
+using System.Diagnostics.Tracing;
+using System.Globalization;
+using System.IdentityModel.Protocols.WSTrust;
+using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Web.Util;
 using System.Windows;
 
 #nullable disable
@@ -1868,6 +1869,27 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                         if (existingRaffleSales != null) {
                             raffleSaleGuid = existingRaffleSales.Id;
+
+                            Guid raffleID = existingRaffleSales.Contains("lrx_raffle")
+                                            ? ((EntityReference)existingRaffleSales["lrx_raffle"]).Id
+                                            : Guid.Empty;
+
+                            var RaffleSearchConditions = new List<ConditionExpression>
+                            {
+                                new ConditionExpression("lrx_raffleid", ConditionOperator.Equal, raffleID)
+                            };
+
+                            Entity existingRaffle = FindExistingRecord("lrx_raffle", RaffleSearchConditions);
+
+                            if (existingRaffle != null) {
+                                campaignGuid = existingRaffle.Contains("lrx_campaign")
+                                                ? ((EntityReference)existingRaffle["lrx_campaign"]).Id
+                                                : Guid.Empty;
+
+                                eventID = existingRaffle.Contains("lrx_event")
+                                            ? ((EntityReference)existingRaffle["lrx_event"]).Id
+                                            : Guid.Empty;
+                            }
                         }
                         else
                         {
