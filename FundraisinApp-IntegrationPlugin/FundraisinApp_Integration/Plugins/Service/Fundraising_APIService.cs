@@ -14,6 +14,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.PluginTelemetry;
 using Microsoft.Xrm.Sdk.Query;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Activities;
 using System.Collections.Generic;
@@ -975,7 +976,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundraisinRaffleRecords()
         {
-            var raffleList = this.GetData<RaffleModel, RaffleModelMap>(this.baseURL, "raffles");
+            var raffleList = this.GetAllData<RaffleModel, RaffleModelMap>(this.baseURL, "raffles");
             
             foreach (var raffle in raffleList)
             {
@@ -1039,7 +1040,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundraisinRaffleTicketOptionRecords()
         {
-            var raffleTicketList = this.GetData<RaffleTicketModel, RaffleTicketModelMap>(this.baseURL, "raffletickets");
+            var raffleTicketList = this.GetAllData<RaffleTicketModel, RaffleTicketModelMap>(this.baseURL, "raffletickets");
             foreach (var raffleTicket in raffleTicketList)
             {
                 Guid raffleTicketID = Guid.Empty;
@@ -1171,7 +1172,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
             }
 
-            this._tracingService.Trace("Raffle Record Fundraisin API Completed");
+            this._tracingService.Trace("Raffle Sales Record Fundraisin API Completed");
             return Task.CompletedTask;
         }
 
@@ -1443,9 +1444,11 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                     if (transactions.Transaction_type == "registration" || transactions.Transaction_type == "merchandise")
                     {
-                        
+                        _tracingService.Trace("came here 1");
                         int transactionType = 844060003; //default registration
                         string contactFullName = string.Empty;
+                        int includeGST = 0;
+                        decimal GSTamount = 0;
 
                         var ContactSearchConditions = new List<ConditionExpression>
                         {
@@ -1461,7 +1464,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             if (transactions.Sale_id != "0")
                             {
                                 contactFullName = string.Empty;
-                                contactID = UpsertContactFromSales(transactions.Sale_id, out contactFullName);
+                                contactID = UpsertContactFromSales(transactions.Sale_id, out contactFullName, out GSTamount);
                             }
 
                             if (contactID == Guid.Empty)
@@ -1524,56 +1527,50 @@ namespace FundraisinApp_Integration.Plugins.Service
                         };
 
                         Entity existingTransaction = FindExistingRecord("msnfp_transaction", TransactionSearchConditions);
+                        var transaction = existingTransaction == null
+                            ? new Entity("msnfp_transaction")
+                            : new Entity("msnfp_transaction", existingTransaction.Id);
+
+                        // ✅ Common fields
+                        transaction["sifund_donor"] = new EntityReference("contact", contactID);
+                        transaction["lrx_campaign"] = campaignGuid != Guid.Empty ? new EntityReference("campaign", campaignGuid) : null;
+                        transaction["sifund_primarydesignation"] = designationGUID != Guid.Empty ? new EntityReference("msnfp_designation", designationGUID) : null;
+                        transaction["sifund_appeal"] = appealGuid != Guid.Empty ? new EntityReference("sifund_appeal", appealGuid) : null;
+                        transaction["sifund_package"] = packageGuid != Guid.Empty ? new EntityReference("sifund_package", packageGuid) : null;
+                        transaction["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty
+                                ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId)
+                                : null;
+                        transaction["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null;
+                        transaction["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null;
+                        transaction["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null;
+                        transaction["lrx_promocode"] = promoGuid != Guid.Empty ? new EntityReference("lrx_promocodeanddiscount", promoGuid) : null;
+
+                        transaction["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees));
+
+                        transaction["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created);
+                        transaction["sifund_paymenttypecode"] = new OptionSetValue(844060002);
+                        transaction["statuscode"] = new OptionSetValue(856660001);
+                        transaction["sifund_typecode"] = new OptionSetValue(transactionType);
+                        transaction["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id);
+                        transaction["lrx_fundraisindonationid"] = int.Parse(transactions.Donation_id);
+                        transaction["lrx_fundraisindonationdate"] = transactions.Date_created;
+
+                        if (GSTamount > 0)
+                        {
+                            transaction["sifund_amount_tax"] = new Money(GSTamount);
+                        }
+
                         if (existingTransaction == null)
                         {
-                            transactionId = this._service.Create(new Entity("msnfp_transaction")
-                            {
-                                ["sifund_donor"] = new EntityReference("contact", contactID),
-                                ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
-                                ["sifund_primarydesignation"] = designationGUID != Guid.Empty ? (object)new EntityReference("msnfp_designation", designationGUID) : null,
-                                ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
-                                ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
-                                ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
-                                ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
-                                ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
-                                ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
-                                ["lrx_promocode"] = promoGuid != Guid.Empty ? new EntityReference("lrx_promocodeanddiscount", promoGuid) : null,
-                                ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
-                                ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
-                                ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
-                                ["statuscode"] = new OptionSetValue(856660001),
-                                ["sifund_typecode"] = new OptionSetValue(transactionType),
-                                ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
-                                ["lrx_fundraisindonationid"] = int.Parse(transactions.Donation_id),
-                                ["lrx_fundraisindonationdate"] = transactions.Date_created
-                            });
+                            transactionId = this._service.Create(transaction);
                         }
                         else
                         {
                             transactionId = existingTransaction.Id;
+
                             if (this.updateTransaction)
                             {
-                                this._service.Update(new Entity("msnfp_transaction", existingTransaction.Id)
-                                {
-                                    ["sifund_donor"] = new EntityReference("contact", contactID),
-                                    ["lrx_campaign"] = campaignGuid != Guid.Empty ? (object)new EntityReference("campaign", campaignGuid) : (object)(EntityReference)null,
-                                    ["sifund_primarydesignation"] = designationGUID != Guid.Empty ? (object)new EntityReference("msnfp_designation", designationGUID) : null,
-                                    ["sifund_appeal"] = appealGuid != Guid.Empty ? (object)new EntityReference("sifund_appeal", appealGuid) : (object)(EntityReference)null,
-                                    ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : (object)(EntityReference)null,
-                                    ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
-                                    ["lrx_event"] = eventID != Guid.Empty ? new EntityReference("lrx_event", eventID) : null,
-                                    ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
-                                    ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
-                                    ["lrx_promocode"] = promoGuid != Guid.Empty ? new EntityReference("lrx_promocodeanddiscount", promoGuid) : null,
-                                    ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
-                                    ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
-                                    ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
-                                    ["statuscode"] = new OptionSetValue(856660001),
-                                    ["sifund_typecode"] = new OptionSetValue(transactionType),
-                                    ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
-                                    ["lrx_fundraisindonationid"] = int.Parse(transactions.Donation_id),
-                                    ["lrx_fundraisindonationdate"] = transactions.Date_created
-                                });   
+                                this._service.Update(transaction);
                             }
                         }
 
@@ -1824,6 +1821,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                     if (transactions.Transaction_type == "raffle")
                     {
+                        _tracingService.Trace("came here 2");
                         int transactionType = 844060005; //default raffle
 
                         var raffleSalesRecord = raffleSalesList?.FirstOrDefault(rs => rs.sale_id.Trim() == transactions.Sale_id.Trim());
@@ -2120,20 +2118,13 @@ namespace FundraisinApp_Integration.Plugins.Service
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-                try
+                HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
+                if (result.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        csvContent = result.Content.ReadAsStringAsync().Result;
-                    }
-                    else
-                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
+                    csvContent = result.Content.ReadAsStringAsync().Result;
                 }
-                catch (HttpRequestException ex)
-                {
-                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
-                }
+                else
+                    this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());               
             }
             return csvContent;
         }
@@ -2145,20 +2136,13 @@ namespace FundraisinApp_Integration.Plugins.Service
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-                try
+                HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
+                if (result.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        csvContent = result.Content.ReadAsStringAsync().Result;
-                    }
-                    else
-                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
+                    csvContent = result.Content.ReadAsStringAsync().Result;
                 }
-                catch (HttpRequestException ex)
-                {
-                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
-                }
+                else
+                    this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
             }
             return csvContent;
         }
@@ -2174,20 +2158,13 @@ namespace FundraisinApp_Integration.Plugins.Service
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-                try
+                HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
+                if (result.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        csvContent = result.Content.ReadAsStringAsync().Result;
-                    }
-                    else
-                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
+                    csvContent = result.Content.ReadAsStringAsync().Result;
                 }
-                catch (HttpRequestException ex)
-                {
-                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
-                }
+                else
+                    this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
             }
             return csvContent;
         }
@@ -2264,18 +2241,25 @@ namespace FundraisinApp_Integration.Plugins.Service
             return contactID;
         }
 
-        private Guid UpsertContactFromSales(string SalesID, out string fullName)
+        private Guid UpsertContactFromSales(string SalesID, out string fullName, out decimal GSTamount)
         {
             fullName = string.Empty;
+            GSTamount = 0;
 
             var ProductSale = this.GetData<ProductSales, ProductSalesModelMap>(this.baseURL, "sales");
             var matchSalesID = ProductSale.FirstOrDefault(p => p.sale_id.Trim() == SalesID.Trim());
-
+            
             if (matchSalesID == null)
                 return Guid.Empty;
 
             // Build full name
             fullName = $"{matchSalesID.first_name} {matchSalesID.last_name}".Trim();
+            decimal.TryParse(
+                        matchSalesID.gst,
+                        NumberStyles.Any,
+                        CultureInfo.InvariantCulture,
+                        out GSTamount
+                    );
 
             // Define search conditions to find an existing contact
             var contactSearchConditions = new List<ConditionExpression>
@@ -2405,20 +2389,13 @@ namespace FundraisinApp_Integration.Plugins.Service
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-                try
+                HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
+                if (result.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage result = httpClient.GetAsync(requestUri).Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        csvContent = result.Content.ReadAsStringAsync().Result;
-                    }
-                    else
-                        this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
+                    csvContent = result.Content.ReadAsStringAsync().Result;
                 }
-                catch (HttpRequestException ex)
-                {
-                    this._tracingService.Trace("API Request exception: " + ex.Message, Array.Empty<object>());
-                }
+                else
+                    this._tracingService.Trace("API Request failed with status code: " + result.StatusCode.ToString(), Array.Empty<object>());
             }
 
             var eventTableList = ParseCsvHelper<EventTableModel, EventTableModelMap>(csvContent);
