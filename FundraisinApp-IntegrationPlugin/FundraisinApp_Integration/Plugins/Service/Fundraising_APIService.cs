@@ -226,20 +226,37 @@ namespace FundraisinApp_Integration.Plugins.Service
                 };
 
                 Entity existingMember = FindExistingRecord("contact", MemberSearchConditions);
-                var contactFields = new Dictionary<string, object>
+                var contactFields = new Dictionary<string, object>();
+
+                void AddIfValid(string key, object value)
                 {
-                    ["firstname"] = participant.MFname,
-                    ["lastname"] = participant.MLname,
-                    ["emailaddress1"] = participant.MEmail,
-                    ["telephone1"] = participant.MPhoneHome,
-                    ["mobilephone"] = participant.MPhoneMobile,
-                    ["address1_line1"] = participant.MAddressStreet,
-                    ["address1_city"] = participant.MAddressSuburb,
-                    ["address1_postalcode"] = participant.MAddressPCode,
-                    ["address1_stateorprovince"] = participant.MAddressState,
-                    ["address1_country"] = participant.MAddressCountry,
-                    ["lrx_fundraisinmemberid"] = int.TryParse(participant.MemberId, out int memberId) ? memberId : (int?)null
-                };
+                    if (value == null)
+                        return;
+
+                    if (value is string str && string.IsNullOrWhiteSpace(str))
+                        return;
+
+                    contactFields[key] = value;
+                }
+
+                // Safely parse MemberId
+                int? memberIdValue = int.TryParse(participant.MemberId, out int parsedMemberId)
+                    ? parsedMemberId
+                    : (int?)null;
+
+                // Add fields
+                AddIfValid("firstname", participant.MFname);
+                AddIfValid("lastname", participant.MLname);
+                AddIfValid("emailaddress1", participant.MEmail);
+                AddIfValid("telephone1", participant.MPhoneHome);
+                AddIfValid("mobilephone", participant.MPhoneMobile);
+                AddIfValid("address1_line1", participant.MAddressStreet);
+                AddIfValid("address1_city", participant.MAddressSuburb);
+                AddIfValid("address1_postalcode", participant.MAddressPCode);
+                AddIfValid("address1_stateorprovince", participant.MAddressState);
+                AddIfValid("address1_country", participant.MAddressCountry);
+                AddIfValid("lrx_fundraisinmemberid", memberIdValue);
+
 
                 if (existingMember == null)
                 {
@@ -2199,20 +2216,37 @@ namespace FundraisinApp_Integration.Plugins.Service
             var addressStreet = matchDonationID.D_address_number + matchDonationID.D_address_street;
 
             // Prepare contact attributes
-            var contactAttributes = new Dictionary<string, object>
+            var contactAttributes = new Dictionary<string, object>();
+            void AddIfValid(string key, object value)
             {
-                ["firstname"] = matchDonationID.D_fname,
-                ["lastname"] = matchDonationID.D_lname,
-                ["emailaddress1"] = matchDonationID.D_email,
-                ["telephone1"] = matchDonationID.D_phone,
-                ["mobilephone"] = matchDonationID.D_phone_mobile,
-                ["address1_line1"] = addressStreet,
-                ["address1_city"] = matchDonationID.D_address_suburb,
-                ["address1_postalcode"] = matchDonationID.D_address_pcode,
-                ["address1_stateorprovince"] = matchDonationID.D_address_state,
-                ["address1_country"] = matchDonationID.D_address_country,
-                ["lrx_fundraisinmemberid"] = TransMemberID != "0" ? int.Parse(matchDonationID.Member_id) : null,
-            };
+                // Ignore null
+                if (value == null)
+                    return;
+
+                // If value is string, ignore empty/whitespace
+                if (value is string strValue && string.IsNullOrWhiteSpace(strValue))
+                    return;
+
+                contactAttributes[key] = value;
+            }
+            _tracingService.Trace("Mobile number: " + matchDonationID.D_phone_mobile);
+            AddIfValid("firstname", matchDonationID.D_fname);
+            AddIfValid("lastname", matchDonationID.D_lname);
+            AddIfValid("emailaddress1", matchDonationID.D_email);
+            AddIfValid("telephone1", matchDonationID.D_phone);
+            AddIfValid("mobilephone", matchDonationID.D_phone_mobile);
+            AddIfValid("address1_line1", addressStreet);
+            AddIfValid("address1_city", matchDonationID.D_address_suburb);
+            AddIfValid("address1_postalcode", matchDonationID.D_address_pcode);
+            AddIfValid("address1_stateorprovince", matchDonationID.D_address_state);
+            AddIfValid("address1_country", matchDonationID.D_address_country);
+
+            // Conditional integer field
+            int? memberIdValue = TransMemberID != "0"
+                ? int.Parse(matchDonationID.Member_id)
+                : (int?)null;
+
+            AddIfValid("lrx_fundraisinmemberid", memberIdValue);
 
             Guid contactID;
 
@@ -2278,18 +2312,32 @@ namespace FundraisinApp_Integration.Plugins.Service
             var addressStreet = matchSalesID.number + " " + matchSalesID.street;
 
             // Prepare contact attributes
-            var contactAttributes = new Dictionary<string, object>
+            var contactAttributes = new Dictionary<string, object>();
+
+            void AddIfValid(string key, object value)
             {
-                ["firstname"] = matchSalesID.first_name,
-                ["lastname"] = matchSalesID.last_name,
-                ["emailaddress1"] = matchSalesID.email,
-                ["mobilephone"] = matchSalesID.mobile_suffix + matchSalesID.mobile,
-                ["address1_line1"] = addressStreet,
-                ["address1_city"] = matchSalesID.suburb,
-                ["address1_postalcode"] = matchSalesID.postcode,
-                ["address1_stateorprovince"] = matchSalesID.state,
-                ["address1_country"] = matchSalesID.country,
-            };
+                if (value == null)
+                    return;
+
+                if (value is string str && string.IsNullOrWhiteSpace(str))
+                    return;
+
+                contactAttributes[key] = value;
+            }
+
+            // Build mobile number safely
+            string mobileNumber = (matchSalesID.mobile_suffix ?? "") + (matchSalesID.mobile ?? "");
+
+            // Add fields with validation
+            AddIfValid("firstname", matchSalesID.first_name);
+            AddIfValid("lastname", matchSalesID.last_name);
+            AddIfValid("emailaddress1", matchSalesID.email);
+            AddIfValid("mobilephone", mobileNumber);
+            AddIfValid("address1_line1", addressStreet);
+            AddIfValid("address1_city", matchSalesID.suburb);
+            AddIfValid("address1_postalcode", matchSalesID.postcode);
+            AddIfValid("address1_stateorprovince", matchSalesID.state);
+            AddIfValid("address1_country", matchSalesID.country);
 
             Guid contactID;
 
@@ -2339,19 +2387,25 @@ namespace FundraisinApp_Integration.Plugins.Service
             var addressStreet = $"{raffleSales.address_number} {raffleSales.address_street}".Trim();
 
             // Prepare contact attributes
-            var contactAttributes = new Dictionary<string, object>
+            var contactAttributes = new Dictionary<string, object>();
+
+            void AddIfNotEmpty(string key, string value)
             {
-                ["firstname"] = raffleSales.first_name,
-                ["lastname"] = raffleSales.last_name,
-                ["emailaddress1"] = raffleSales.email,
-                ["telephone1"] = raffleSales.phone,
-                ["mobilephone"] = raffleSales.mobile,
-                ["address1_line1"] = addressStreet,
-                ["address1_city"] = raffleSales.address_suburb,
-                ["address1_postalcode"] = raffleSales.address_postcode,
-                ["address1_stateorprovince"] = raffleSales.address_state,
-                ["address1_country"] = raffleSales.address_country,
-            };
+                if (!string.IsNullOrWhiteSpace(value))
+                    contactAttributes[key] = value;
+            }
+
+            // Build attributes safely
+            AddIfNotEmpty("firstname", raffleSales.first_name);
+            AddIfNotEmpty("lastname", raffleSales.last_name);
+            AddIfNotEmpty("emailaddress1", raffleSales.email);
+            AddIfNotEmpty("telephone1", raffleSales.phone);
+            AddIfNotEmpty("mobilephone", raffleSales.mobile);
+            AddIfNotEmpty("address1_line1", addressStreet);
+            AddIfNotEmpty("address1_city", raffleSales.address_suburb);
+            AddIfNotEmpty("address1_postalcode", raffleSales.address_postcode);
+            AddIfNotEmpty("address1_stateorprovince", raffleSales.address_state);
+            AddIfNotEmpty("address1_country", raffleSales.address_country);
 
             Guid contactID;
 
