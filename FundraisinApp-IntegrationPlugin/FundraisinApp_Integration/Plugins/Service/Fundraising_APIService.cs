@@ -1230,7 +1230,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                     if (transactions.Event_id.Trim() != "0")
                     {          
-                        eventID = CheckAndUpdateEvent(transactions.Event_id.Trim(), eventList, out campaignGuid, out appealGuid, out packageGuid);                         
+                        eventID = CheckAndUpdateEvent(transactions.Event_id.Trim(), eventList, out campaignGuid, out appealGuid, out packageGuid, out designationGUID);                         
                     }
 
                     if (this.campaignName != string.Empty && campaignGuid == Guid.Empty)
@@ -1273,8 +1273,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                     {
                         designationGUID = existingDesignation.Id;
                     }
-
-
 
                     if (transactions.Transaction_type == "donation")
                     {
@@ -1670,9 +1668,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                                         updateTransaction["sifund_typecode"] = new OptionSetValue(844060002);
                                         this._service.Update(updateTransaction);
 
-                                        // Execute update
-                                        this._service.Update(updateTransaction);
-
                                         var membershipSearchConditions = new List<ConditionExpression>
                                         {
                                             new ConditionExpression("msnfp_customer", ConditionOperator.Equal, contactID),
@@ -1767,70 +1762,115 @@ namespace FundraisinApp_Integration.Plugins.Service
                                         };
                                         Entity existingEventProduct = FindExistingRecord("lrx_eventproduct", eventProductSearchConditions);
                                         Guid eventProductID = Guid.Empty;
-                                        if (existingEventProduct == null) {
-                                            var eventProduct = new Entity("lrx_eventproduct")
+                                        if (transactions.Event_id.Trim() != "0") {
+                                            if (existingEventProduct == null && transactions.Event_id != "")
                                             {
-                                                ["lrx_name"] = $"{productName} - {productOptionName}",
-                                                ["lrx_priceperproduct"] = new Money(decimal.TryParse(salesItemMatchID.unit_cost, out var price) ? price : 0),
-                                                ["lrx_quantity"] = int.TryParse(salesItemMatchID.quantity, out var quantity) ? quantity : 0,
-                                                ["lrx_fundraisineventproductid"] = int.TryParse(salesItemMatchID.id, out var eventProductId) ? eventProductId : 0
-                                            };
+                                                var eventProduct = new Entity("lrx_eventproduct")
+                                                {
+                                                    ["lrx_name"] = $"{productName} - {productOptionName}",
+                                                    ["lrx_priceperproduct"] = new Money(decimal.TryParse(salesItemMatchID.unit_cost, out var price) ? price : 0),
+                                                    ["lrx_quantity"] = int.TryParse(salesItemMatchID.quantity, out var quantity) ? quantity : 0,
+                                                    ["lrx_fundraisineventproductid"] = int.TryParse(salesItemMatchID.id, out var eventProductId) ? eventProductId : 0
+                                                };
 
-                                            // Add lookup fields only if they have valid GUIDs
-                                            if (eventID != Guid.Empty)
-                                            {
-                                                eventProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
+                                                // Add lookup fields only if they have valid GUIDs
+                                                if (eventID != Guid.Empty)
+                                                {
+                                                    eventProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
+                                                }
+                                                if (productID != Guid.Empty)
+                                                {
+                                                    eventProduct["lrx_product"] = new EntityReference("lrx_inventoryproduct", productID);
+                                                }
+
+                                                eventProductID = _service.Create(eventProduct);
                                             }
-                                            if (productID != Guid.Empty)
+                                            else
                                             {
-                                                eventProduct["lrx_product"] = new EntityReference("lrx_inventoryproduct", productID);
+                                                eventProductID = existingEventProduct.Id;
                                             }
-
-                                            eventProductID = _service.Create(eventProduct);
                                         }
-                                        else
-                                        {
-                                            eventProductID = existingEventProduct.Id;
-                                        }
-
+                                        
                                         var saleProduct = new Entity("lrx_product")
                                         {
                                             ["lrx_name"] = $"{productName} - {productOptionName}",
-                                            ["lrx_constituentorganisation"] = new EntityReference("contact", contactID)
+                                            ["lrx_constituentorganisation"] = new EntityReference("contact", contactID),
+                                            ["lrx_date"] = DateTime.Parse(transactions.Date_created),
+                                            ["lrx_productmigrationid"] = transactions.Sale_id.Trim()
                                         };
 
-                                        // Parse `quantity` safely
-                                        int parsedQuantity = 0;
-                                        if (int.TryParse(salesItemMatchID.quantity, out parsedQuantity))
+                                        // Parse quantity safely
+                                        if (int.TryParse(salesItemMatchID.quantity, out int parsedQuantity))
                                         {
                                             saleProduct["lrx_quantity"] = parsedQuantity;
                                         }
 
-                                        // Parse `unit_cost` safely
-                                        decimal parsedPrice = 0;
-                                        if (decimal.TryParse(salesItemMatchID.unit_cost, out parsedPrice))
+                                        // Parse unit cost safely
+                                        if (decimal.TryParse(salesItemMatchID.unit_cost, out decimal parsedPrice))
                                         {
                                             saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
                                         }
 
-                                        // Add lookup fields only if they have valid GUIDs
+                                        Entity updateTransaction = new Entity("msnfp_transaction")
+                                        {
+                                            Id = transactionId
+                                        };
+
                                         if (eventID != Guid.Empty)
                                         {
                                             saleProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
                                         }
+
                                         if (eventProductID != Guid.Empty)
                                         {
                                             saleProduct["lrx_eventproduct"] = new EntityReference("lrx_eventproduct", eventProductID);
+                                            updateTransaction["lrx_eventproduct"] = new EntityReference("lrx_eventproduct", eventProductID);
                                         }
+
                                         if (productOption != Guid.Empty)
                                         {
-                                            saleProduct["lrx_productoption"] = new EntityReference("lrx_productoptions", productOption);
+                                            saleProduct["lrx_productoption"] =
+                                                new EntityReference("lrx_productoptions", productOption);
                                         }
 
-                                        saleProduct["lrx_transaction"] = transactionId != Guid.Empty ? new EntityReference("msnfp_transaction", transactionId) : null;
+                                        if (transactionId != Guid.Empty)
+                                        {
+                                            saleProduct["lrx_transaction"] =
+                                                new EntityReference("msnfp_transaction", transactionId);
+                                        }
 
-                                        _service.Create(saleProduct);
-                                        
+                                        // 🔍 Check existing product sale
+                                        var productSaleSearchConditions = new List<ConditionExpression>
+                                        {
+                                            new ConditionExpression(
+                                                "lrx_productmigrationid",
+                                                ConditionOperator.Equal,
+                                                transactions.Sale_id.Trim()
+                                            )
+                                        };
+
+                                        Guid ProductSaleGuid = Guid.Empty;
+
+                                        Entity existingProductSale =
+                                            FindExistingRecord("lrx_product", productSaleSearchConditions);
+
+                                        if (existingProductSale == null)
+                                        {
+                                            ProductSaleGuid = _service.Create(saleProduct);
+                                        }
+                                        else
+                                        {
+                                            ProductSaleGuid = existingProductSale.Id;
+                                            var saleProductUpdate =
+                                                new Entity("lrx_product", existingProductSale.Id);
+
+                                            saleProductUpdate.Attributes.AddRange(saleProduct.Attributes);
+
+                                            _service.Update(saleProductUpdate);
+                                        }
+
+                                        updateTransaction["lrx_product"] = ProductSaleGuid != Guid.Empty ? new EntityReference("lrx_product", ProductSaleGuid) : null;
+                                        this._service.Update(updateTransaction);
                                     }
                                 }
                             }
@@ -2510,38 +2550,60 @@ namespace FundraisinApp_Integration.Plugins.Service
             List<EventModel> eventList,
             out Guid campaignId,
             out Guid appealId,
-            out Guid packageId)
+            out Guid packageId,
+            out Guid designationId)
         {
             campaignId = Guid.Empty;
             appealId = Guid.Empty;
             packageId = Guid.Empty;
+            designationId = Guid.Empty;
 
             EventModel matchedEvent = eventList.FirstOrDefault(e => e.EventId.Trim() == eventId.Trim());
             if (matchedEvent == null)
                 return Guid.Empty;
 
-            Entity existingEvent = FindExistingRecordOr("lrx_event", new List<ConditionExpression>
+            // 1️⃣ Try Fundraisin Event ID first
+            Entity existingEvent = FindExistingRecord(
+                "lrx_event",
+                new List<ConditionExpression>
+                {
+                    new ConditionExpression(
+                        "lrx_fundraisineventid",
+                        ConditionOperator.Equal,
+                        matchedEvent.EventId
+                    )
+                }
+            );
+
+            // 2️⃣ Fallback to Platform Event ID only if not found
+            if (existingEvent == null)
             {
-                new ConditionExpression("lrx_fundraisineventid", ConditionOperator.Equal, matchedEvent.EventId),
-                new ConditionExpression("lrx_platformeventid", ConditionOperator.Equal, matchedEvent.EventId)
-            });
+                existingEvent = FindExistingRecord(
+                    "lrx_event",
+                    new List<ConditionExpression>
+                    {
+                        new ConditionExpression(
+                            "lrx_platformeventid",
+                            ConditionOperator.Equal,
+                            matchedEvent.EventId
+                        )
+                    }
+                );
+            }
 
             if (existingEvent != null)
             {
                 if (existingEvent.Contains("lrx_campaign") && existingEvent["lrx_campaign"] is EntityReference campaignRef)
                     campaignId = campaignRef.Id;
-                else
-                    campaignId = Guid.Empty;
 
                 if (existingEvent.Contains("lrx_sifund_appeal") && existingEvent["lrx_sifund_appeal"] is EntityReference appealRef)
                     appealId = appealRef.Id;
-                else
-                    appealId = Guid.Empty;
 
                 if (existingEvent.Contains("lrx_sifund_package") && existingEvent["lrx_sifund_package"] is EntityReference packageRef)
                     packageId = packageRef.Id;
-                else
-                    packageId = Guid.Empty;
+
+                if (existingEvent.Contains("lrx_designation") && existingEvent["lrx_designation"] is EntityReference designationRef)
+                    designationId = designationRef.Id;
 
                 return existingEvent.Id;
             }
