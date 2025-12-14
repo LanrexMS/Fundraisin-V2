@@ -1575,7 +1575,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                         if (GSTamount > 0)
                         {
-                            transaction["sifund_amount_tax"] = new Money(GSTamount);
+                            //transaction["sifund_amount_tax"] = new Money(GSTamount); //for confirmation as the business rule hinders the change of GST
                         }
 
                         if (existingTransaction == null)
