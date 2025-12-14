@@ -437,12 +437,13 @@ namespace FundraisinApp_Integration.Plugins.Service
                     ["lrx_registeredby"] = paidByMember != Guid.Empty ? new EntityReference("contact", paidByMember) : new EntityReference("contact", contactID),
                     ["lrx_registrationpaidby"] = paidMemberRegistration != Guid.Empty ? new EntityReference("lrx_registrations", paidMemberRegistration) : null,
                     ["lrx_promoid"] = int.TryParse(participantEvent.Promo_Id.ToString(), out int promoId) ? promoId : (int?)null,
+                    ["lrx_date"] = DateTime.Parse(participantEvent.Date_Created),
                     ["lrx_fundraisinregistrationid"] = int.TryParse(participantEvent.History_Id, out int historyId) ? historyId : (int?)null
                 };
 
                 if (participantEvent.Is_Paid != "Y") 
                 {
-                    entity["statuscode"] = new OptionSetValue(856660002);
+                    entity["statuscode"] = new OptionSetValue(1);
                 }
 
                 if (existingRegistration == null)
@@ -656,6 +657,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         ["lrx_constituentorganization"] = new EntityReference("contact", guestId),
                         ["lrx_transaction"] = TransactionID != Guid.Empty ? new EntityReference("msnfp_transaction", TransactionID) : null,
                         ["lrx_registeredby"] = contactID != Guid.Empty ? new EntityReference("contact", contactID) : null,
+                        ["lrx_date"] = DateTime.Parse(ticketHolder.date_created),
                         ["lrx_registrationpaidby"] = registrationId != Guid.Empty ? new EntityReference("lrx_registrations", registrationId) : null
                     };
 
@@ -1594,7 +1596,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                         {
                             this._service.Update(new Entity("lrx_registrations", registrationID)
                             {
-                                ["lrx_transaction"] = existingTransaction != null ? new EntityReference("msnfp_transaction", existingTransaction.Id) : new EntityReference("msnfp_transaction", transactionId)
+                                ["lrx_transaction"] = existingTransaction != null ? new EntityReference("msnfp_transaction", existingTransaction.Id) : new EntityReference("msnfp_transaction", transactionId),
+                                ["statuscode"] = new OptionSetValue(1)
                             });
                         }
                         
