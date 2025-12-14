@@ -31,6 +31,7 @@ using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web.Services.Description;
 using System.Web.Util;
 using System.Windows;
 
@@ -1221,6 +1222,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Guid appealGuid = Guid.Empty;
                     Guid packageGuid = Guid.Empty;
                     Guid raffleSaleGuid = Guid.Empty;
+                    Guid raffleGuid = Guid.Empty;
                     Guid transactionId = Guid.Empty;
                     Guid membershipTypeId = Guid.Empty;
                     Guid designationGUID = Guid.Empty;
@@ -1461,7 +1463,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                     if (transactions.Transaction_type == "registration" || transactions.Transaction_type == "merchandise")
                     {
-                        _tracingService.Trace("came here 1");
                         int transactionType = 844060003; //default registration
                         string contactFullName = string.Empty;
                         int includeGST = 0;
@@ -1838,7 +1839,6 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                     if (transactions.Transaction_type == "raffle")
                     {
-                        _tracingService.Trace("came here 2");
                         int transactionType = 844060005; //default raffle
 
                         var raffleSalesRecord = raffleSalesList?.FirstOrDefault(rs => rs.sale_id.Trim() == transactions.Sale_id.Trim());
@@ -1894,9 +1894,14 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 new ConditionExpression("lrx_raffleid", ConditionOperator.Equal, raffleID)
                             };
 
-                            Entity existingRaffle = FindExistingRecord("lrx_raffle", RaffleSearchConditions);
+                            Entity existingRaffle = FindExistingRecord(
+                                                        "lrx_raffle",
+                                                        RaffleSearchConditions,
+                                                        new ColumnSet("lrx_campaign", "lrx_event")
+                                                    );
 
                             if (existingRaffle != null) {
+                                raffleGuid = existingRaffle.Id;
                                 campaignGuid = existingRaffle.Contains("lrx_campaign")
                                                 ? ((EntityReference)existingRaffle["lrx_campaign"]).Id
                                                 : Guid.Empty;
@@ -1904,6 +1909,15 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 eventID = existingRaffle.Contains("lrx_event")
                                             ? ((EntityReference)existingRaffle["lrx_event"]).Id
                                             : Guid.Empty;
+
+                                if (eventID != Guid.Empty)
+                                {
+                                    var raffleSalesUpdate = new Entity("lrx_rafflesales", raffleSaleGuid);
+                                    raffleSalesUpdate["lrx_event"] =
+                                        new EntityReference("lrx_event", eventID);
+
+                                    _service.Update(raffleSalesUpdate);
+                                }
                             }
                         }
                         else
@@ -1933,6 +1947,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
                             ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
+                            ["lrx_raffle"] = raffleGuid != Guid.Empty ? new EntityReference("lrx_raffle", raffleGuid) : null,
+                            ["lrx_rafflesales"] = raffleSaleGuid != Guid.Empty ? new EntityReference("lrx_rafflesales", raffleSaleGuid) : null,
                             ["statuscode"] = new OptionSetValue(856660001),
                             ["sifund_typecode"] = new OptionSetValue(transactionType),
                             ["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id),
