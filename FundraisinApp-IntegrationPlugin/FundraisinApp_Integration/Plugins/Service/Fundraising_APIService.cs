@@ -32,8 +32,10 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Services.Description;
+using System.Web.UI;
 using System.Web.Util;
 using System.Windows;
+using System.Workflow.Runtime.Tracking;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -755,7 +757,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundRaisinProductOptionsRecord()
         {
-            var productOptionList = this.GetData<ProductOptionModel, ProductOptionModelMap>(this.baseURL, "productoptions");
+            var productOptionList = this.GetAllData<ProductOptionModel, ProductOptionModelMap>(this.baseURL, "productoptions");
 
             foreach (var productoptions in productOptionList)
             {
@@ -813,6 +815,131 @@ namespace FundraisinApp_Integration.Plugins.Service
             }
 
             this._tracingService.Trace("Product Option Record Fundraisin API Completed");
+            return Task.CompletedTask;
+        }
+
+        public Task GetFundraisinProductSalesItem()
+        {
+            var saleItemList = this.GetData<SaleItemModel, SaleItemModelMap>(this.baseURL, "salesitems");
+            var productList = this.GetAllData<ProductModel, ProductModelMap>(this.baseURL, "products");
+            var productOptionList = this.GetAllData<ProductOptionModel, ProductOptionModelMap>(this.baseURL, "productoptions");
+            string previousSaleID = string.Empty;
+            Guid contactID = Guid.Empty;
+            saleItemList = saleItemList.OrderBy(x => x.sale_id).ToList();
+
+            foreach (var saleitem in saleItemList)
+            {
+                Guid productID = Guid.Empty;
+                Guid productOption = Guid.Empty;
+
+                string contactFullName = string.Empty;
+                decimal GSTamount = 0;
+                string productName = "";
+                string productOptionName = "";
+
+                var currentSaleID = saleitem.sale_id.Trim();
+
+                if (!string.Equals(previousSaleID, currentSaleID, StringComparison.Ordinal))
+                {
+                    contactID = UpsertContactFromSales(currentSaleID, out contactFullName, out GSTamount);
+                    previousSaleID = currentSaleID;
+                }
+
+                var matchingProduct = productList.FirstOrDefault(p => p.product_id.Trim() == saleitem.product_id.Trim());
+
+                if (matchingProduct != null)
+                {
+                    productName = matchingProduct.product_name;
+                }
+
+                var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id.Trim() == saleitem.product_id.Trim());
+                if (matchingProductOption != null)
+                {
+                    productOptionName = matchingProductOption.option_name;
+                }
+
+                var productSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, saleitem.product_id)
+                };
+                Entity existingInventoryProduct = FindExistingRecord("lrx_inventoryproduct", productSearchConditions);
+
+                if (existingInventoryProduct != null)
+                {
+                    productID = existingInventoryProduct.Id;
+                }
+                else
+                {
+                    continue;
+                }
+
+                var productOptionSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression("lrx_fundraisinoptionid", ConditionOperator.Equal, saleitem.option_id)
+                };
+                Entity existingProductOption = FindExistingRecord("lrx_productoptions", productOptionSearchConditions);
+
+                if (existingProductOption != null)
+                {
+                    productOption = existingProductOption.Id;
+                }
+
+                var saleProduct = new Entity("lrx_product")
+                {
+                    ["lrx_name"] = $"{productName} - {productOptionName}",
+                    ["lrx_constituentorganisation"] = new EntityReference("contact", contactID),
+                    ["lrx_date"] = DateTime.Parse(saleitem.date_created),
+                    ["lrx_productmigrationid"] = saleitem.id.Trim(),
+                    ["lrx_fundraisinsalesid"] = int.Parse(saleitem.sale_id.Trim())
+                };
+
+                // Parse quantity safely
+                if (int.TryParse(saleitem.quantity, out int parsedQuantity))
+                {
+                    saleProduct["lrx_quantity"] = parsedQuantity;
+                }
+
+                // Parse unit cost safely
+                if (decimal.TryParse(saleitem.unit_cost, out decimal parsedPrice))
+                {
+                    saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
+                }
+
+
+                if (productOption != Guid.Empty)
+                {
+                    saleProduct["lrx_productoption"] = new EntityReference("lrx_productoptions", productOption);
+                }
+
+                // 🔍 Check existing product sale
+                var productSaleSearchConditions = new List<ConditionExpression>
+                {
+                    new ConditionExpression(
+                        "lrx_productmigrationid",
+                        ConditionOperator.Equal,
+                        saleitem.id.Trim()
+                    )
+                };
+
+                Guid ProductSaleGuid = Guid.Empty;
+
+                Entity existingProductSale = FindExistingRecord("lrx_product", productSaleSearchConditions);
+
+                if (existingProductSale == null)
+                {
+                    ProductSaleGuid = _service.Create(saleProduct);
+                }
+                else
+                {
+                    ProductSaleGuid = existingProductSale.Id;
+                    var saleProductUpdate = new Entity("lrx_product", existingProductSale.Id);
+
+                    saleProductUpdate.Attributes.AddRange(saleProduct.Attributes);
+
+                    _service.Update(saleProductUpdate);
+                }
+            }
+
             return Task.CompletedTask;
         }
 
@@ -1479,7 +1606,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                             contactID = (Guid)existingContact.Id;
                         if (contactID == Guid.Empty)
                         {
-                            if (transactions.Sale_id != "0")
+                            if (transactions.Sale_id.Trim() != "0")
                             {
                                 contactFullName = string.Empty;
                                 contactID = UpsertContactFromSales(transactions.Sale_id, out contactFullName, out GSTamount);
@@ -1603,8 +1730,16 @@ namespace FundraisinApp_Integration.Plugins.Service
                         
                         if (transactions.Sale_id != "0")
                         {
-                            var salesItemMatchID = saleItemList.FirstOrDefault(si => si.sale_id.Trim() == transactions.Sale_id.Trim());
+                            //var salesItemMatchID = saleItemList.FirstOrDefault(si => si.sale_id.Trim() == transactions.Sale_id.Trim());
+                            
+                            decimal netTransactionAmount = decimal.Parse(transactions.Transaction_value, CultureInfo.InvariantCulture) - decimal.Parse(transactions.Transaction_fees, CultureInfo.InvariantCulture);
 
+                            var salesItemMatchID = saleItemList.FirstOrDefault(si =>
+                                string.Equals(si.sale_id?.Trim(), transactions.Sale_id?.Trim(), StringComparison.Ordinal)
+                                && decimal.TryParse(si.unit_cost, NumberStyles.Any, CultureInfo.InvariantCulture, out var unitCost)
+                                && unitCost == netTransactionAmount
+                            );
+                            
                             if (salesItemMatchID != null)
                             {
                                 Guid productID = Guid.Empty;
@@ -1617,43 +1752,42 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 {
                                     productName = matchingProduct.product_name;
                                 }
-                                
+
+                                var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
+                                if (matchingProductOption != null)
+                                {
+                                    productOptionName = matchingProductOption.option_name;
+                                }
+
+                                var productSearchConditions = new List<ConditionExpression>
+                                {
+                                    new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, salesItemMatchID.product_id)
+                                };
+                                Entity existingInventoryProduct = FindExistingRecord("lrx_inventoryproduct", productSearchConditions);
+
+                                if (existingInventoryProduct != null)
+                                {
+                                    productID = existingInventoryProduct.Id;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+
+                                var productOptionSearchConditions = new List<ConditionExpression>
+                                {
+                                    new ConditionExpression("lrx_fundraisinoptionid", ConditionOperator.Equal, salesItemMatchID.option_id)
+                                };
+                                Entity existingProductOption = FindExistingRecord("lrx_productoptions", productOptionSearchConditions);
+
+                                if (existingProductOption != null)
+                                {
+                                    productOption = existingProductOption.Id;
+                                }
+
                                 if (!string.IsNullOrEmpty(productName))
                                 {
                                     
-                                    string name = productName.ToLower();
-                                    var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
-                                    if (matchingProductOption != null)
-                                    {
-                                        productOptionName = matchingProductOption.option_name;
-                                    }
-
-                                    var productSearchConditions = new List<ConditionExpression>
-                                    {
-                                        new ConditionExpression("lrx_fundraisinproductid", ConditionOperator.Equal, salesItemMatchID.product_id)
-                                    };
-                                    Entity existingInventoryProduct = FindExistingRecord("lrx_inventoryproduct", productSearchConditions);
-
-                                    if (existingInventoryProduct != null)
-                                    {
-                                        productID = existingInventoryProduct.Id;
-                                    }
-                                    else
-                                    {
-                                        continue;
-                                    }
-
-                                    var productOptionSearchConditions = new List<ConditionExpression>
-                                    {
-                                        new ConditionExpression("lrx_fundraisinoptionid", ConditionOperator.Equal, salesItemMatchID.option_id)
-                                    };
-                                    Entity existingProductOption = FindExistingRecord("lrx_productoptions", productOptionSearchConditions);
-
-                                    if (existingProductOption != null)
-                                    {
-                                        productOption = existingProductOption.Id;
-                                    }
-                                        
                                     var eventProductSearchConditions = new List<ConditionExpression>
                                     {
                                         new ConditionExpression("lrx_fundraisineventproductid", ConditionOperator.Equal, int.Parse(salesItemMatchID.id))
@@ -1663,6 +1797,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     if (transactions.Event_id.Trim() != "0") {
                                         if (existingEventProduct == null && transactions.Event_id != "")
                                         {
+                                            
                                             var eventProduct = new Entity("lrx_eventproduct")
                                             {
                                                 ["lrx_name"] = $"{productName} - {productOptionName}",
@@ -1677,24 +1812,25 @@ namespace FundraisinApp_Integration.Plugins.Service
                                                 eventProduct["lrx_event"] = new EntityReference("lrx_event", eventID);
                                             }
                                             if (productID != Guid.Empty)
-                                            {
+                                            {                                               
                                                 eventProduct["lrx_product"] = new EntityReference("lrx_inventoryproduct", productID);
                                             }
-
+                                            
                                             eventProductID = _service.Create(eventProduct);
                                         }
                                         else
-                                        {
+                                        {                                          
                                             eventProductID = existingEventProduct.Id;
-                                        }
+                                        }                                      
                                     }
-                                        
+                                    
                                     var saleProduct = new Entity("lrx_product")
                                     {
                                         ["lrx_name"] = $"{productName} - {productOptionName}",
                                         ["lrx_constituentorganisation"] = new EntityReference("contact", contactID),
                                         ["lrx_date"] = DateTime.Parse(transactions.Date_created),
-                                        ["lrx_productmigrationid"] = transactions.Sale_id.Trim()
+                                        ["lrx_productmigrationid"] = salesItemMatchID.id.Trim(),
+                                        ["lrx_fundraisinsalesid"] = int.Parse(salesItemMatchID.sale_id.Trim())
                                     };
 
                                     // Parse quantity safely
@@ -1736,14 +1872,14 @@ namespace FundraisinApp_Integration.Plugins.Service
                                         saleProduct["lrx_transaction"] =
                                             new EntityReference("msnfp_transaction", transactionId);
                                     }
-
+                                    
                                     // 🔍 Check existing product sale
                                     var productSaleSearchConditions = new List<ConditionExpression>
                                     {
                                         new ConditionExpression(
                                             "lrx_productmigrationid",
                                             ConditionOperator.Equal,
-                                            transactions.Sale_id.Trim()
+                                            salesItemMatchID.id.Trim()
                                         )
                                     };
 
@@ -1751,7 +1887,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                                     Entity existingProductSale =
                                         FindExistingRecord("lrx_product", productSaleSearchConditions);
-
+                                    
                                     if (existingProductSale == null)
                                     {
                                         ProductSaleGuid = _service.Create(saleProduct);
@@ -1766,14 +1902,40 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                                         _service.Update(saleProductUpdate);
                                     }
-
+                                    
                                     updateTransaction["lrx_product"] = ProductSaleGuid != Guid.Empty ? new EntityReference("lrx_product", ProductSaleGuid) : null;
                                     this._service.Update(updateTransaction);
-                                    
+
+                                    var productSaleEventSearchConditions = new List<ConditionExpression>
+                                    {
+                                        new ConditionExpression(
+                                            "lrx_fundraisinsalesid",
+                                            ConditionOperator.Equal,
+                                            salesItemMatchID.sale_id.Trim()
+                                        )
+                                    };
+
+                                    var matchingProducts = FindAllRecords("lrx_product", productSaleEventSearchConditions);
+
+                                    if (matchingProducts.Count > 1)
+                                    {
+                                        foreach (var product in matchingProducts)
+                                        {
+                                            _tracingService.Trace("ProductSaleID: " + product.Id);
+                                            // Update the entity as needed
+                                            if (eventID != Guid.Empty)
+                                            {
+                                                product["lrx_event"] = new EntityReference("lrx_event", eventID);
+                                            }
+
+                                            // Persist update
+                                            _service.Update(product);
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }//end of registration transaction
+                    }//end of registration or merchandise transaction
 
                     if (transactions.Transaction_type == "raffle")
                     {
@@ -2004,7 +2166,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             return this._service.RetrieveMultiple(queryExpression).Entities.FirstOrDefault();
         }
 
-        public Entity FindExistingRecordOr(string entityName, List<ConditionExpression> conditions, ColumnSet columnSet = null)
+        public List<Entity> FindAllRecords(string entityName, List<ConditionExpression> conditions, ColumnSet columnSet = null)
         {
             if (string.IsNullOrEmpty(entityName))
                 throw new ArgumentException("Entity name cannot be null or empty.", nameof(entityName));
@@ -2017,20 +2179,12 @@ namespace FundraisinApp_Integration.Plugins.Service
                 ColumnSet = columnSet ?? new ColumnSet(true)
             };
 
-            // Always OR
-            var filter = new FilterExpression(LogicalOperator.Or);
-
             foreach (var condition in conditions)
             {
-                filter.Conditions.Add(condition);
+                queryExpression.Criteria.AddCondition(condition);
             }
 
-            queryExpression.Criteria.AddFilter(filter);
-
-            // Always order by createdon ascending → oldest record first
-            queryExpression.AddOrder("createdon", OrderType.Ascending);
-
-            return this._service.RetrieveMultiple(queryExpression).Entities.FirstOrDefault();
+            return _service.RetrieveMultiple(queryExpression).Entities.ToList();
         }
 
         public List<TModel> ParseCsvHelper<TModel, TMap>(string csvContent)
