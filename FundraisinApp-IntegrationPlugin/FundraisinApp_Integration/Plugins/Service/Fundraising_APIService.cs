@@ -903,6 +903,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                 if (decimal.TryParse(saleitem.unit_cost, out decimal parsedPrice))
                 {
                     saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
+                    saleProduct["lrx_productamount"] = new Money(parsedPrice);
                 }
 
 
