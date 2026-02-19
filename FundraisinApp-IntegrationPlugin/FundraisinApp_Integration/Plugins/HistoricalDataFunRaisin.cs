@@ -84,9 +84,9 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins
                             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductRecord();
                             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductOptionsRecord();
                             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinProductSalesItem();
-                            //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleRecords(); // for comment
-                            //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleTicketOptionRecords(); // for comment
-                            //await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleSalesRecords(); // for comment
+                            await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleRecords(); // for comment
+                            await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleTicketOptionRecords(); // for comment
+                            await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinRaffleSalesRecords(); // for comment
                             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinTransactionRecord();
 
                             LRx_FunRaisinLogs logs = new LRx_FunRaisinLogs

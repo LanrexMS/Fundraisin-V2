@@ -1922,7 +1922,6 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     {
                                         foreach (var product in matchingProducts)
                                         {
-                                            _tracingService.Trace("ProductSaleID: " + product.Id);
                                             // Update the entity as needed
                                             if (eventID != Guid.Empty)
                                             {
@@ -1944,7 +1943,7 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                         var raffleSalesRecord = raffleSalesList?.FirstOrDefault(rs => rs.sale_id.Trim() == transactions.Sale_id.Trim());
 
-                        if(raffleSalesRecord != null)
+                        if (raffleSalesRecord != null)
                         {
                             contactID = UpsertContactFromRaffleSales(raffleSalesRecord);
                         }
@@ -2337,8 +2336,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                     return;
 
                 contactAttributes[key] = value;
-            }
-            _tracingService.Trace("Mobile number: " + matchDonationID.D_phone_mobile);
+            }            
             AddIfValid("firstname", matchDonationID.D_fname);
             AddIfValid("lastname", matchDonationID.D_lname);
             AddIfValid("emailaddress1", matchDonationID.D_email);
