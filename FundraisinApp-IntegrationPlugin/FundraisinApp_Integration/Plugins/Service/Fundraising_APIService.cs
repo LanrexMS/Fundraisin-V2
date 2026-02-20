@@ -443,7 +443,11 @@ namespace FundraisinApp_Integration.Plugins.Service
                     ["lrx_fundraisinregistrationid"] = int.TryParse(participantEvent.History_Id, out int historyId) ? historyId : (int?)null
                 };
 
-                if (participantEvent.Is_Paid != "Y") 
+                if (participantEvent.Is_Paid != "Y")
+                {
+                    entity["statuscode"] = new OptionSetValue(856660002);
+                }
+                else
                 {
                     entity["statuscode"] = new OptionSetValue(1);
                 }
