@@ -945,6 +945,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                 }
             }
 
+            _tracingService.Trace("Product Sales Record Fundraisin API Completed");
             return Task.CompletedTask;
         }
 

@@ -62,7 +62,7 @@ namespace FundraisinApp_Integration.Plugins
             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinEventTeamsRecord();
             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketRecords();
             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinPromoCodeRecord();
-            await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetRegistrationFromParticipantEventRecord();
+            await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetRegistrationFromParticipantEventRecord(); //registration
             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundraisinTicketHolderRecord();
             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductRecord();
             await new Fundraising_APIService(organizationService, service1, service2, inputParameter).GetFundRaisinProductOptionsRecord();
