@@ -58115,6 +58115,730 @@ namespace CrmEarlyBound
             }
         }
 
+
+
+        #region
+
+        /// <summary>
+        /// Status of the Configuration
+        /// </summary>
+        [System.Runtime.Serialization.DataContractAttribute()]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.182")]
+        public enum lrx_configuration_statecode
+        {
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            Active = 0,
+
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            Inactive = 1,
+        }
+
+        /// <summary>
+        /// Reason for the status of the Configuration
+        /// </summary>
+        [System.Runtime.Serialization.DataContractAttribute()]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.182")]
+        public enum lrx_configuration_statuscode
+        {
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            Active = 1,
+
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            Inactive = 2,
+        }
+
+        [System.Runtime.Serialization.DataContractAttribute()]
+        [Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("lrx_configuration")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.182")]
+        public partial class lrx_Configuration : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+        {
+            /// <summary>
+            /// Available fields, at the time of codegen, for the lrx_configuration entity
+            /// </summary>
+            public partial class Fields
+            {
+                public const string Id = "lrx_configurationid";
+                public const string lrx_ConfigurationId = "lrx_configurationid";
+                public const string CreatedBy = "createdby";
+                public const string CreatedOn = "createdon";
+                public const string CreatedOnBehalfBy = "createdonbehalfby";
+                public const string ImportSequenceNumber = "importsequencenumber";
+                public const string lrx_DefaultCampaign = "lrx_defaultcampaign";
+                public const string lrx_DefaultCampaignName = "lrx_defaultcampaignname";
+                public const string lrx_DefaultPaymentMethod = "lrx_defaultpaymentmethod";
+                public const string lrx_DefaultPaymentMethodName = "lrx_defaultpaymentmethodname";
+                public const string lrx_FundraisinAPIKey = "lrx_fundraisinapikey";
+                public const string lrx_FundraisinAPIURL = "lrx_fundraisinapiurl";
+                public const string lrx_GetFundraisinEventRecords = "lrx_getfundraisineventrecords";
+                public const string lrx_GetFundraisinEventRecordsName = "lrx_getfundraisineventrecordsname";
+                public const string lrx_GetFundRaisinEventTeamsRecord = "lrx_getfundraisineventteamsrecord";
+                public const string lrx_GetFundRaisinEventTeamsRecordName = "lrx_getfundraisineventteamsrecordname";
+                public const string lrx_GetFundRaisinOrganisationRecord = "lrx_getfundraisinorganisationrecord";
+                public const string lrx_GetFundRaisinOrganisationRecordName = "lrx_getfundraisinorganisationrecordname";
+                public const string lrx_GetFundraisinParticipantRecords = "lrx_getfundraisinparticipantrecords";
+                public const string lrx_GetFundraisinParticipantRecordsName = "lrx_getfundraisinparticipantrecordsname";
+                public const string lrx_GetFundRaisinProductOptionsRecord = "lrx_getfundraisinproductoptionsrecord";
+                public const string lrx_GetFundRaisinProductOptionsRecordName = "lrx_getfundraisinproductoptionsrecordname";
+                public const string lrx_GetFundRaisinProductRecord = "lrx_getfundraisinproductrecord";
+                public const string lrx_GetFundRaisinProductRecordName = "lrx_getfundraisinproductrecordname";
+                public const string lrx_GetFundraisinProductSalesItem = "lrx_getfundraisinproductsalesitem";
+                public const string lrx_GetFundraisinProductSalesItemName = "lrx_getfundraisinproductsalesitemname";
+                public const string lrx_GetFundRaisinPromoCodeRecord = "lrx_getfundraisinpromocoderecord";
+                public const string lrx_GetFundRaisinPromoCodeRecordName = "lrx_getfundraisinpromocoderecordname";
+                public const string lrx_GetFundraisinRaffleRecords = "lrx_getfundraisinrafflerecords";
+                public const string lrx_GetFundraisinRaffleRecordsName = "lrx_getfundraisinrafflerecordsname";
+                public const string lrx_GetFundraisinRaffleSalesRecords = "lrx_getfundraisinrafflesalesrecords";
+                public const string lrx_GetFundraisinRaffleSalesRecordsName = "lrx_getfundraisinrafflesalesrecordsname";
+                public const string lrx_GetFundraisinRaffleTicketOptionRecords = "lrx_getfundraisinraffleticketoptionrecords";
+                public const string lrx_GetFundraisinRaffleTicketOptionRecordsName = "lrx_getfundraisinraffleticketoptionrecordsname";
+                public const string lrx_GetFundraisinTicketHolderRecord = "lrx_getfundraisinticketholderrecord";
+                public const string lrx_GetFundraisinTicketHolderRecordName = "lrx_getfundraisinticketholderrecordname";
+                public const string lrx_GetFundraisinTicketRecords = "lrx_getfundraisinticketrecords";
+                public const string lrx_GetFundraisinTicketRecordsName = "lrx_getfundraisinticketrecordsname";
+                public const string lrx_GetFundRaisinTransactionRecord = "lrx_getfundraisintransactionrecord";
+                public const string lrx_GetFundRaisinTransactionRecordName = "lrx_getfundraisintransactionrecordname";
+                public const string lrx_GetRegistrationFromParticipantEventRecord = "lrx_getregistrationfromparticipanteventrecord";
+                public const string lrx_GetRegistrationFromParticipantEventRecordName = "lrx_getregistrationfromparticipanteventrecordname";
+                public const string lrx_Name = "lrx_name";
+                public const string ModifiedBy = "modifiedby";
+                public const string ModifiedOn = "modifiedon";
+                public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
+                public const string OrganizationId = "organizationid";
+                public const string OverriddenCreatedOn = "overriddencreatedon";
+                public const string statecode = "statecode";
+                public const string statecodename = "statecodename";
+                public const string statuscode = "statuscode";
+                public const string statuscodename = "statuscodename";
+                public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+                public const string UTCConversionTimeZoneCode = "utcconversiontimezonecode";
+                public const string VersionNumber = "versionnumber";
+            }
+
+            /// <summary>
+            /// Default Constructor.
+            /// </summary>
+            public lrx_Configuration() : base(EntityLogicalName)
+            {
+            }
+
+            public const string PrimaryIdAttribute = "lrx_configurationid";
+            public const string PrimaryNameAttribute = "lrx_name";
+            public const string EntitySchemaName = "lrx_Configuration";
+            public const string EntityLogicalName = "lrx_configuration";
+            public const string EntityLogicalCollectionName = "lrx_configurations";
+            public const string EntitySetName = "lrx_configurations";
+            public const int EntityTypeCode = 10943;
+
+            public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+
+            private void OnPropertyChanged(string propertyName)
+            {
+                if ((this.PropertyChanged != null))
+                {
+                    this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+                }
+            }
+
+            private void OnPropertyChanging(string propertyName)
+            {
+                if ((this.PropertyChanging != null))
+                {
+                    this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+            public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+            {
+                get { return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby"); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+            public System.Nullable<System.DateTime> CreatedOn
+            {
+                get { return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon"); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+            public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+            {
+                get { return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby"); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+            public System.Nullable<int> ImportSequenceNumber
+            {
+                get { return this.GetAttributeValue<System.Nullable<int>>("importsequencenumber"); }
+                set
+                {
+                    this.OnPropertyChanging("ImportSequenceNumber");
+                    this.SetAttributeValue("importsequencenumber", value);
+                    this.OnPropertyChanged("ImportSequenceNumber");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_configurationid")]
+            public System.Nullable<System.Guid> lrx_ConfigurationId
+            {
+                get { return this.GetAttributeValue<System.Nullable<System.Guid>>("lrx_configurationid"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_ConfigurationId");
+                    this.SetAttributeValue("lrx_configurationid", value);
+                    if (value.HasValue) base.Id = value.Value;
+                    else base.Id = System.Guid.Empty;
+                    this.OnPropertyChanged("lrx_ConfigurationId");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_configurationid")]
+            public override System.Guid Id
+            {
+                get { return base.Id; }
+                set { this.lrx_ConfigurationId = value; }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_defaultcampaign")]
+            public Microsoft.Xrm.Sdk.EntityReference lrx_DefaultCampaign
+            {
+                get { return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_defaultcampaign"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_DefaultCampaign");
+                    this.SetAttributeValue("lrx_defaultcampaign", value);
+                    this.OnPropertyChanged("lrx_DefaultCampaign");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_defaultcampaignname")]
+            public string lrx_DefaultCampaignName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_defaultcampaign"))
+                        return this.FormattedValues["lrx_defaultcampaign"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_defaultpaymentmethod")]
+            public Microsoft.Xrm.Sdk.EntityReference lrx_DefaultPaymentMethod
+            {
+                get { return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_defaultpaymentmethod"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_DefaultPaymentMethod");
+                    this.SetAttributeValue("lrx_defaultpaymentmethod", value);
+                    this.OnPropertyChanged("lrx_DefaultPaymentMethod");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_defaultpaymentmethodname")]
+            public string lrx_DefaultPaymentMethodName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_defaultpaymentmethod"))
+                        return this.FormattedValues["lrx_defaultpaymentmethod"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_fundraisinapikey")]
+            public string lrx_FundraisinAPIKey
+            {
+                get { return this.GetAttributeValue<string>("lrx_fundraisinapikey"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_FundraisinAPIKey");
+                    this.SetAttributeValue("lrx_fundraisinapikey", value);
+                    this.OnPropertyChanged("lrx_FundraisinAPIKey");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_fundraisinapiurl")]
+            public string lrx_FundraisinAPIURL
+            {
+                get { return this.GetAttributeValue<string>("lrx_fundraisinapiurl"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_FundraisinAPIURL");
+                    this.SetAttributeValue("lrx_fundraisinapiurl", value);
+                    this.OnPropertyChanged("lrx_FundraisinAPIURL");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisineventrecords")]
+            public System.Nullable<bool> lrx_GetFundraisinEventRecords
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisineventrecords"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundraisinEventRecords");
+                    this.SetAttributeValue("lrx_getfundraisineventrecords", value);
+                    this.OnPropertyChanged("lrx_GetFundraisinEventRecords");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisineventrecordsname")]
+            public string lrx_GetFundraisinEventRecordsName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisineventrecords"))
+                        return this.FormattedValues["lrx_getfundraisineventrecords"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisineventteamsrecord")]
+            public System.Nullable<bool> lrx_GetFundRaisinEventTeamsRecord
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisineventteamsrecord"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundRaisinEventTeamsRecord");
+                    this.SetAttributeValue("lrx_getfundraisineventteamsrecord", value);
+                    this.OnPropertyChanged("lrx_GetFundRaisinEventTeamsRecord");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisineventteamsrecordname")]
+            public string lrx_GetFundRaisinEventTeamsRecordName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisineventteamsrecord"))
+                        return this.FormattedValues["lrx_getfundraisineventteamsrecord"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinorganisationrecord")]
+            public System.Nullable<bool> lrx_GetFundRaisinOrganisationRecord
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinorganisationrecord"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundRaisinOrganisationRecord");
+                    this.SetAttributeValue("lrx_getfundraisinorganisationrecord", value);
+                    this.OnPropertyChanged("lrx_GetFundRaisinOrganisationRecord");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinorganisationrecordname")]
+            public string lrx_GetFundRaisinOrganisationRecordName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinorganisationrecord"))
+                        return this.FormattedValues["lrx_getfundraisinorganisationrecord"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinparticipantrecords")]
+            public System.Nullable<bool> lrx_GetFundraisinParticipantRecords
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinparticipantrecords"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundraisinParticipantRecords");
+                    this.SetAttributeValue("lrx_getfundraisinparticipantrecords", value);
+                    this.OnPropertyChanged("lrx_GetFundraisinParticipantRecords");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinparticipantrecordsname")]
+            public string lrx_GetFundraisinParticipantRecordsName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinparticipantrecords"))
+                        return this.FormattedValues["lrx_getfundraisinparticipantrecords"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinproductoptionsrecord")]
+            public System.Nullable<bool> lrx_GetFundRaisinProductOptionsRecord
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinproductoptionsrecord"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundRaisinProductOptionsRecord");
+                    this.SetAttributeValue("lrx_getfundraisinproductoptionsrecord", value);
+                    this.OnPropertyChanged("lrx_GetFundRaisinProductOptionsRecord");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinproductoptionsrecordname")]
+            public string lrx_GetFundRaisinProductOptionsRecordName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinproductoptionsrecord"))
+                        return this.FormattedValues["lrx_getfundraisinproductoptionsrecord"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinproductrecord")]
+            public System.Nullable<bool> lrx_GetFundRaisinProductRecord
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinproductrecord"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundRaisinProductRecord");
+                    this.SetAttributeValue("lrx_getfundraisinproductrecord", value);
+                    this.OnPropertyChanged("lrx_GetFundRaisinProductRecord");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinproductrecordname")]
+            public string lrx_GetFundRaisinProductRecordName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinproductrecord"))
+                        return this.FormattedValues["lrx_getfundraisinproductrecord"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinproductsalesitem")]
+            public System.Nullable<bool> lrx_GetFundraisinProductSalesItem
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinproductsalesitem"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundraisinProductSalesItem");
+                    this.SetAttributeValue("lrx_getfundraisinproductsalesitem", value);
+                    this.OnPropertyChanged("lrx_GetFundraisinProductSalesItem");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinproductsalesitemname")]
+            public string lrx_GetFundraisinProductSalesItemName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinproductsalesitem"))
+                        return this.FormattedValues["lrx_getfundraisinproductsalesitem"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinpromocoderecord")]
+            public System.Nullable<bool> lrx_GetFundRaisinPromoCodeRecord
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinpromocoderecord"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundRaisinPromoCodeRecord");
+                    this.SetAttributeValue("lrx_getfundraisinpromocoderecord", value);
+                    this.OnPropertyChanged("lrx_GetFundRaisinPromoCodeRecord");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinpromocoderecordname")]
+            public string lrx_GetFundRaisinPromoCodeRecordName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinpromocoderecord"))
+                        return this.FormattedValues["lrx_getfundraisinpromocoderecord"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinrafflerecords")]
+            public System.Nullable<bool> lrx_GetFundraisinRaffleRecords
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinrafflerecords"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundraisinRaffleRecords");
+                    this.SetAttributeValue("lrx_getfundraisinrafflerecords", value);
+                    this.OnPropertyChanged("lrx_GetFundraisinRaffleRecords");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinrafflerecordsname")]
+            public string lrx_GetFundraisinRaffleRecordsName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinrafflerecords"))
+                        return this.FormattedValues["lrx_getfundraisinrafflerecords"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinrafflesalesrecords")]
+            public System.Nullable<bool> lrx_GetFundraisinRaffleSalesRecords
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinrafflesalesrecords"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundraisinRaffleSalesRecords");
+                    this.SetAttributeValue("lrx_getfundraisinrafflesalesrecords", value);
+                    this.OnPropertyChanged("lrx_GetFundraisinRaffleSalesRecords");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinrafflesalesrecordsname")]
+            public string lrx_GetFundraisinRaffleSalesRecordsName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinrafflesalesrecords"))
+                        return this.FormattedValues["lrx_getfundraisinrafflesalesrecords"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinraffleticketoptionrecords")]
+            public System.Nullable<bool> lrx_GetFundraisinRaffleTicketOptionRecords
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinraffleticketoptionrecords"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundraisinRaffleTicketOptionRecords");
+                    this.SetAttributeValue("lrx_getfundraisinraffleticketoptionrecords", value);
+                    this.OnPropertyChanged("lrx_GetFundraisinRaffleTicketOptionRecords");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinraffleticketoptionrecordsname")]
+            public string lrx_GetFundraisinRaffleTicketOptionRecordsName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinraffleticketoptionrecords"))
+                        return this.FormattedValues["lrx_getfundraisinraffleticketoptionrecords"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinticketholderrecord")]
+            public System.Nullable<bool> lrx_GetFundraisinTicketHolderRecord
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinticketholderrecord"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundraisinTicketHolderRecord");
+                    this.SetAttributeValue("lrx_getfundraisinticketholderrecord", value);
+                    this.OnPropertyChanged("lrx_GetFundraisinTicketHolderRecord");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinticketholderrecordname")]
+            public string lrx_GetFundraisinTicketHolderRecordName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinticketholderrecord"))
+                        return this.FormattedValues["lrx_getfundraisinticketholderrecord"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinticketrecords")]
+            public System.Nullable<bool> lrx_GetFundraisinTicketRecords
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisinticketrecords"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundraisinTicketRecords");
+                    this.SetAttributeValue("lrx_getfundraisinticketrecords", value);
+                    this.OnPropertyChanged("lrx_GetFundraisinTicketRecords");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisinticketrecordsname")]
+            public string lrx_GetFundraisinTicketRecordsName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisinticketrecords"))
+                        return this.FormattedValues["lrx_getfundraisinticketrecords"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisintransactionrecord")]
+            public System.Nullable<bool> lrx_GetFundRaisinTransactionRecord
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getfundraisintransactionrecord"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetFundRaisinTransactionRecord");
+                    this.SetAttributeValue("lrx_getfundraisintransactionrecord", value);
+                    this.OnPropertyChanged("lrx_GetFundRaisinTransactionRecord");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getfundraisintransactionrecordname")]
+            public string lrx_GetFundRaisinTransactionRecordName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getfundraisintransactionrecord"))
+                        return this.FormattedValues["lrx_getfundraisintransactionrecord"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getregistrationfromparticipanteventrecord")]
+            public System.Nullable<bool> lrx_GetRegistrationFromParticipantEventRecord
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_getregistrationfromparticipanteventrecord"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_GetRegistrationFromParticipantEventRecord");
+                    this.SetAttributeValue("lrx_getregistrationfromparticipanteventrecord", value);
+                    this.OnPropertyChanged("lrx_GetRegistrationFromParticipantEventRecord");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getregistrationfromparticipanteventrecordname")]
+            public string lrx_GetRegistrationFromParticipantEventRecordName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_getregistrationfromparticipanteventrecord"))
+                        return this.FormattedValues["lrx_getregistrationfromparticipanteventrecord"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_name")]
+            public string lrx_Name
+            {
+                get { return this.GetAttributeValue<string>("lrx_name"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_Name");
+                    this.SetAttributeValue("lrx_name", value);
+                    this.OnPropertyChanged("lrx_Name");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+            public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+            {
+                get { return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby"); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+            public System.Nullable<System.DateTime> ModifiedOn
+            {
+                get { return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon"); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+            public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+            {
+                get { return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby"); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+            public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+            {
+                get { return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid"); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overriddencreatedon")]
+            public System.Nullable<System.DateTime> OverriddenCreatedOn
+            {
+                get { return this.GetAttributeValue<System.Nullable<System.DateTime>>("overriddencreatedon"); }
+                set
+                {
+                    this.OnPropertyChanging("OverriddenCreatedOn");
+                    this.SetAttributeValue("overriddencreatedon", value);
+                    this.OnPropertyChanged("OverriddenCreatedOn");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
+            public virtual lrx_configuration_statecode? statecode
+            {
+                get { return ((lrx_configuration_statecode?)(EntityOptionSetEnum.GetEnum(this, "statecode"))); }
+                set
+                {
+                    this.OnPropertyChanging("statecode");
+                    this.SetAttributeValue("statecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+                    this.OnPropertyChanged("statecode");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecodename")]
+            public string statecodename
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("statecode"))
+                        return this.FormattedValues["statecode"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
+            public virtual lrx_configuration_statuscode? statuscode
+            {
+                get { return ((lrx_configuration_statuscode?)(EntityOptionSetEnum.GetEnum(this, "statuscode"))); }
+                set
+                {
+                    this.OnPropertyChanging("statuscode");
+                    this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+                    this.OnPropertyChanged("statuscode");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscodename")]
+            public string statuscodename
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("statuscode"))
+                        return this.FormattedValues["statuscode"];
+                    return default(string);
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+            public System.Nullable<int> TimeZoneRuleVersionNumber
+            {
+                get { return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber"); }
+                set
+                {
+                    this.OnPropertyChanging("TimeZoneRuleVersionNumber");
+                    this.SetAttributeValue("timezoneruleversionnumber", value);
+                    this.OnPropertyChanged("TimeZoneRuleVersionNumber");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+            public System.Nullable<int> UTCConversionTimeZoneCode
+            {
+                get { return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode"); }
+                set
+                {
+                    this.OnPropertyChanging("UTCConversionTimeZoneCode");
+                    this.SetAttributeValue("utcconversiontimezonecode", value);
+                    this.OnPropertyChanged("UTCConversionTimeZoneCode");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+            public System.Nullable<long> VersionNumber
+            {
+                get { return this.GetAttributeValue<System.Nullable<long>>("versionnumber"); }
+            }
+        }
+        #endregion
         /// <summary>
         /// Constructor for populating via LINQ queries given a LINQ anonymous type
         /// <param name="anonymousType">LINQ anonymous type.</param>

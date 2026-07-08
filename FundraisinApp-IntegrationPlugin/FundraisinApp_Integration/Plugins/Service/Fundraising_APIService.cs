@@ -13,6 +13,7 @@ using Microsoft.SqlServer.Server;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.PluginTelemetry;
 using Microsoft.Xrm.Sdk.Query;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -36,6 +37,7 @@ using System.Web.UI;
 using System.Web.Util;
 using System.Windows;
 using System.Workflow.Runtime.Tracking;
+using static CrmEarlyBound.SiFund_Package;
 
 #nullable disable
 namespace FundraisinApp_Integration.Plugins.Service
@@ -53,44 +55,78 @@ namespace FundraisinApp_Integration.Plugins.Service
         private string dateFrom = "";
         private string dateTo = "";
         bool updateTransaction = false;
+        private TransactionModel _transaction;
 
         public Fundraising_APIService(
         IOrganizationService service,
         IPluginExecutionContext context,
         ITracingService tracingService,
+        lrx_Configuration configuration,
         object JSONinput)
         {
+            //    this._service = service;
+            //    this._context = context;
+            //    this._tracingService = tracingService;
+
+            //    // Parse the JSON input
+            //    JObject jsonInput = JObject.Parse(JSONinput.ToString());
+            //    _transaction = JsonConvert.DeserializeObject<TransactionModel>(JSONinput.ToString());
+
+            //    // Assign the values to the variables
+            //    this.baseURL = jsonInput["baseURL"]?.ToString();
+            //    this.apikey = jsonInput["apikey"]?.ToString();
+            //    this.campaignName = jsonInput["defaultCampaignName"]?.ToString();
+            //    this.paymentMethod = jsonInput["defaultPaymentMethodName"]?.ToString();
+            //    this.updateTransaction = bool.Parse(jsonInput["updateTransaction"]?.ToString());
+
+            //    string format = "MM-dd-yyyy HH:mm:ss";
+            //    CultureInfo provider = CultureInfo.InvariantCulture;
+
+            //    if (DateTime.TryParseExact(jsonInput["dateFrom"]?.ToString(), format, provider, DateTimeStyles.None, out DateTime parsedDateFrom))
+            //    {
+            //        this.dateFrom = parsedDateFrom.ToString("yyyy-MM-dd HH:mm:ss");
+            //    }
+
+            //    if (DateTime.TryParseExact(jsonInput["dateTo"]?.ToString(), format, provider, DateTimeStyles.None, out DateTime parsedDateTo))
+            //    {
+            //        this.dateTo = parsedDateTo.ToString("yyyy-MM-dd HH:mm:ss");
+            //    }
+
+            //    if (!string.IsNullOrEmpty(baseURL) && baseURL.Length > 4)
+            //    {
+            //        baseURLCustom = baseURL.Substring(0, this.baseURL.Length - 4) + "customcode/";
+            //    }
+            //}
             this._service = service;
             this._context = context;
             this._tracingService = tracingService;
 
-            // Parse the JSON input
-            JObject jsonInput = JObject.Parse(JSONinput.ToString());
+            // Deserialize the transaction received from Power Automate
+            _transaction = JsonConvert.DeserializeObject<TransactionModel>(JSONinput.ToString());
 
-            // Assign the values to the variables
-            this.baseURL = jsonInput["baseURL"]?.ToString();
-            this.apikey = jsonInput["apikey"]?.ToString();
-            this.campaignName = jsonInput["defaultCampaignName"]?.ToString();
-            this.paymentMethod = jsonInput["defaultPaymentMethodName"]?.ToString();
-            this.updateTransaction = bool.Parse(jsonInput["updateTransaction"]?.ToString());
+            // Read configuration from Dataverse
+            this.baseURL = configuration.lrx_FundraisinAPIURL;
+            this.apikey = configuration.lrx_FundraisinAPIKey;
 
-            string format = "MM-dd-yyyy HH:mm:ss";
-            CultureInfo provider = CultureInfo.InvariantCulture;
+            // Lookup fields
+            this.campaignName = configuration.lrx_DefaultCampaign?.Name ?? string.Empty;
+            this.paymentMethod = configuration.lrx_DefaultPaymentMethod?.Name ?? string.Empty;
 
-            if (DateTime.TryParseExact(jsonInput["dateFrom"]?.ToString(), format, provider, DateTimeStyles.None, out DateTime parsedDateFrom))
+            // If you still want this hardcoded for now
+            this.updateTransaction = true;
+
+            // Build Custom Code URL
+            if (!string.IsNullOrWhiteSpace(baseURL) && baseURL.EndsWith("/api/"))
             {
-                this.dateFrom = parsedDateFrom.ToString("yyyy-MM-dd HH:mm:ss");
+                baseURLCustom = baseURL.Replace("/api/", "/customcode/");
             }
 
-            if (DateTime.TryParseExact(jsonInput["dateTo"]?.ToString(), format, provider, DateTimeStyles.None, out DateTime parsedDateTo))
-            {
-                this.dateTo = parsedDateTo.ToString("yyyy-MM-dd HH:mm:ss");
-            }
-
-            if (!string.IsNullOrEmpty(baseURL) && baseURL.Length > 4)
-            {
-                baseURLCustom = baseURL.Substring(0, this.baseURL.Length - 4) + "customcode/";
-            }
+            _tracingService.Trace("===== Configuration Loaded =====");
+            _tracingService.Trace($"Base URL : {baseURL}");
+            _tracingService.Trace($"API Key : {apikey}");
+            _tracingService.Trace($"Campaign : {campaignName}");
+            _tracingService.Trace($"Payment Method : {paymentMethod}");
+            _tracingService.Trace($"Transaction Id : {_transaction?.Transaction_id}");
         }
 
         public Task GetFundraisinEventRecords()
@@ -1331,7 +1367,13 @@ namespace FundraisinApp_Integration.Plugins.Service
 
         public Task GetFundRaisinTransactionRecord()
         {
-            var TransactionList = this.GetData<TransactionModel, TransactionModelMap>(this.baseURL, "transactions");
+            if (_transaction == null)
+            {
+                _tracingService.Trace("Transaction is null.");
+                return Task.CompletedTask;
+            }
+            //var TransactionList = this.GetData<TransactionModel, TransactionModelMap>(this.baseURL, "transactions");
+            TransactionModel transactions = _transaction;
             var donationList = this.GetData<DonationModel, DonationModelMap>(this.baseURL, "donations");
             var scheduledDonationList = this.GetAllData<ScheduleModel, ScheduleModelMap>(this.baseURL, "scheduleddonations");
             var saleItemList = this.GetData<SaleItemModel, SaleItemModelMap>(this.baseURL, "salesitems");
@@ -1341,10 +1383,9 @@ namespace FundraisinApp_Integration.Plugins.Service
             var eventList = this.GetAllData<EventModel, EventModelMap>(this.baseURL, "events");
             var raffleSalesList = this.GetData<RaffleSalesModel, RaffleSalesModelMap>(this.baseURL, "rafflesales");
 
-            if (TransactionList != null)
+            if (transactions != null)
             {
-                foreach (var transactions in TransactionList)
-                {
+               
                     Guid defaultPaymentMethodId = Guid.Empty;
                     Guid registrationID = Guid.Empty;
                     Guid teamID = Guid.Empty;
@@ -1363,7 +1404,8 @@ namespace FundraisinApp_Integration.Plugins.Service
                     Guid designationGUID = Guid.Empty;
                     string CustomDonationDate = "";
 
-                    if (transactions.Event_id.Trim() != "0")
+                    if (!string.IsNullOrWhiteSpace(transactions.Event_id) &&
+    transactions.Event_id.Trim() != "0")
                     {          
                         eventID = CheckAndUpdateEvent(transactions.Event_id.Trim(), eventList, out campaignGuid, out appealGuid, out packageGuid, out designationGUID);                         
                     }
@@ -1411,12 +1453,14 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                     if (transactions.Transaction_type == "donation")
                     {
-                        decimal totalDonation = decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees);
-                        if (totalDonation == 0)
-                        {
-                            continue;
-                        }
-                        var matchDonationID = donationList.FirstOrDefault(d => d.Donation_id.Trim() == transactions.Donation_id.Trim());
+                        decimal totalDonation = decimal.Parse(
+    transactions.Transaction_value,
+    CultureInfo.InvariantCulture) - decimal.Parse(transactions.Transaction_fees);
+                    if (totalDonation >0)
+                    {
+                        //var matchDonationID = donationList.FirstOrDefault(d => d.Donation_id.Trim() == transactions.Donation_id.Trim());
+                        var matchDonationID = donationList.FirstOrDefault(d =>
+    string.Equals(d.Donation_id?.Trim(), transactions.Donation_id?.Trim(), StringComparison.Ordinal));
                         if (matchDonationID == null) //Check from previous transaction if donation id already made and get date
                         {
                             var PreviousTransactionSearchConditions = new List<ConditionExpression>
@@ -1431,7 +1475,8 @@ namespace FundraisinApp_Integration.Plugins.Service
 
                                 var customDonationList = this.GetData<DonationModel, DonationModelMap>(this.baseURL, "donations", CustomDonationDate);
                                 if (customDonationList != null)
-                                    matchDonationID = customDonationList.FirstOrDefault(d => d.Donation_id.Trim() == transactions.Donation_id.Trim());
+                                    //matchDonationID = customDonationList.FirstOrDefault(d => d.Donation_id.Trim() == transactions.Donation_id.Trim());
+                                    matchDonationID = customDonationList.FirstOrDefault(d => string.Equals(d.Donation_id?.Trim(),transactions.Donation_id?.Trim(),StringComparison.Ordinal));
                             }
                         }
 
@@ -1459,7 +1504,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 defaultPaymentMethodId = pmethodId;
                             }
 
-                            var matchScheduleDonationID = scheduledDonationList.FirstOrDefault(sd => sd.donation_id.Trim() == transactions.Donation_id.Trim());
+                            //var matchScheduleDonationID = scheduledDonationList.FirstOrDefault(sd => sd.donation_id.Trim() == transactions.Donation_id.Trim());
+                            var matchScheduleDonationID = scheduledDonationList.FirstOrDefault(sd =>string.Equals(sd.donation_id?.Trim(), transactions.Donation_id?.Trim(), StringComparison.Ordinal));
+
                             if (matchScheduleDonationID != null)
                             {
                                 var PScheduleSearchConditions = new List<ConditionExpression>
@@ -1477,7 +1524,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 if (matchScheduleDonationID.donation_frequency == "fortnightly")
                                     frequencyType = 856660005; //change to forthnightly
 
-                                decimal totalRecurringAmmount = decimal.Parse(matchScheduleDonationID.d_amount) - decimal.Parse(transactions.Transaction_fees);
+                                decimal totalRecurringAmmount = decimal.Parse(matchScheduleDonationID.d_amount, CultureInfo.InvariantCulture) - decimal.Parse(transactions.Transaction_fees, CultureInfo.InvariantCulture);
 
                                 Entity paymentSchedule = new Entity("msnfp_paymentschedule")
                                 {
@@ -1506,7 +1553,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 }
                             }
 
-                            if (matchDonationID.History_id.Trim() != "0")
+                            if (!string.IsNullOrWhiteSpace(matchDonationID.History_id) && matchDonationID.History_id.Trim() != "0")
                             {
                                 string customPageDetailURL = baseURLCustom + "getFundraiserPageDetails";
                                 string csvCustomPageDetailContent = CallFundRaisinCustomAPI((object)customPageDetailURL, matchDonationID.History_id);
@@ -1514,7 +1561,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 var pageDetailList = ParseCsvHelper<CustomPageDetailsModel, CustomPageDetailsModelMap>(csvCustomPageDetailContent);
                                 string pageMemberId = pageDetailList.FirstOrDefault()?.member_id.Trim();
 
-                                if (pageMemberId.Trim() != "" && pageMemberId.Trim() != string.Empty) 
+                                if (!string.IsNullOrWhiteSpace(pageMemberId)) 
                                 {
                                     var SolicitorContactSearchConditions = new List<ConditionExpression>
                                     {
@@ -1530,7 +1577,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 }                                   
                             }
 
-                            if (matchDonationID.Team_id.Trim() != "0")
+                            if (!string.IsNullOrWhiteSpace(matchDonationID.Team_id) && matchDonationID.Team_id.Trim() != "0")
                             {
                                 var EventTeamSearchConditions = new List<ConditionExpression>
                                 {
@@ -1563,7 +1610,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 ["sifund_package"] = packageGuid != Guid.Empty ? (object)new EntityReference("sifund_package", packageGuid) : null,
                                 ["msnfp_transaction_paymentmethodid"] = defaultPaymentMethodId != Guid.Empty ? new EntityReference("msnfp_paymentmethod", defaultPaymentMethodId) : null,
                                 ["msnfp_transaction_paymentscheduleid"] = scheduleID != Guid.Empty ? new EntityReference("msnfp_paymentschedule", scheduleID) : null,
-                                ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
+                                ["msnfp_amount"] = new Money(decimal.Parse(
+    transactions.Transaction_value,
+    CultureInfo.InvariantCulture) - decimal.Parse(transactions.Transaction_fees)),
                                 ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
                                 ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
                                 ["lrx_donationpaymenttype"] = new OptionSetValue(scheduleID != Guid.Empty ? 856660001 : 856660000),
@@ -1591,6 +1640,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 transactionId = existingTransaction.Id; // ✅ Always assign the ID
                             }
                         }
+                        }
                     } //end of donation transaction type
 
 
@@ -1612,14 +1662,14 @@ namespace FundraisinApp_Integration.Plugins.Service
                             contactID = (Guid)existingContact.Id;
                         if (contactID == Guid.Empty)
                         {
-                            if (transactions.Sale_id.Trim() != "0")
+                            if (!string.IsNullOrWhiteSpace(transactions.Sale_id) && transactions.Sale_id.Trim() != "0")
                             {
                                 contactFullName = string.Empty;
                                 contactID = UpsertContactFromSales(transactions.Sale_id, out contactFullName, out GSTamount);
                             }
 
-                            if (contactID == Guid.Empty)
-                                continue;
+                            //if (contactID == Guid.Empty)
+                            //    continue;
                         }
 
                         string pMethodUniqueName = (object)this.paymentMethod + " - Default";
@@ -1696,15 +1746,19 @@ namespace FundraisinApp_Integration.Plugins.Service
                         transaction["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null;
                         transaction["lrx_promocode"] = promoGuid != Guid.Empty ? new EntityReference("lrx_promocodeanddiscount", promoGuid) : null;
 
-                        transaction["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees));
+                        transaction["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value,CultureInfo.InvariantCulture) - decimal.Parse(transactions.Transaction_fees));
 
                         transaction["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created);
                         transaction["sifund_paymenttypecode"] = new OptionSetValue(844060002);
                         transaction["statuscode"] = new OptionSetValue(856660001);
                         transaction["sifund_typecode"] = new OptionSetValue(transactionType);
                         transaction["lrx_fundraisintransactionid"] = int.Parse(transactions.Transaction_id);
-                        transaction["lrx_fundraisindonationid"] = int.Parse(transactions.Donation_id);
-                        transaction["lrx_fundraisindonationdate"] = transactions.Date_created;
+                    //transaction["lrx_fundraisindonationid"] = int.Parse(transactions.Donation_id);
+                    if (int.TryParse(transactions.Donation_id, out int donationId))
+                    {
+                        transaction["lrx_fundraisindonationid"] = donationId;
+                    }
+                    transaction["lrx_fundraisindonationdate"] = transactions.Date_created;
 
                         if (GSTamount > 0)
                         {
@@ -1753,14 +1807,17 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 string productName = "";
                                 string productOptionName = "";
 
-                                var matchingProduct = productList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
-                                if (matchingProduct != null)
+                            //var matchingProduct = productList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
+                            var matchingProduct = productList.FirstOrDefault(p =>string.Equals(p.product_id?.Trim(),salesItemMatchID.product_id?.Trim(),StringComparison.Ordinal));
+                            if (matchingProduct != null)
                                 {
                                     productName = matchingProduct.product_name;
                                 }
 
-                                var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
-                                if (matchingProductOption != null)
+                            //var matchingProductOption = productOptionList.FirstOrDefault(p => p.product_id.Trim() == salesItemMatchID.product_id.Trim());
+                            var matchingProductOption = productOptionList.FirstOrDefault(p =>string.Equals(p.product_id?.Trim(),salesItemMatchID.product_id?.Trim(),StringComparison.Ordinal));
+
+                            if (matchingProductOption != null)
                                 {
                                     productOptionName = matchingProductOption.option_name;
                                 }
@@ -1775,10 +1832,10 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 {
                                     productID = existingInventoryProduct.Id;
                                 }
-                                else
-                                {
-                                    continue;
-                                }
+                                //else
+                                //{
+                                //    continue;
+                                //}
 
                                 var productOptionSearchConditions = new List<ConditionExpression>
                                 {
@@ -1800,14 +1857,14 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     };
                                     Entity existingEventProduct = FindExistingRecord("lrx_eventproduct", eventProductSearchConditions);
                                     Guid eventProductID = Guid.Empty;
-                                    if (transactions.Event_id.Trim() != "0") {
+                                    if (!string.IsNullOrWhiteSpace(transactions.Event_id) && transactions.Event_id.Trim() != "0") {
                                         if (existingEventProduct == null && transactions.Event_id != "")
                                         {
                                             
                                             var eventProduct = new Entity("lrx_eventproduct")
                                             {
                                                 ["lrx_name"] = $"{productName} - {productOptionName}",
-                                                ["lrx_priceperproduct"] = new Money(decimal.TryParse(salesItemMatchID.unit_cost, out var price) ? price : 0),
+                                                ["lrx_priceperproduct"] = new Money(decimal.TryParse(salesItemMatchID.unit_cost, NumberStyles.Any, CultureInfo.InvariantCulture, out var price) ? price : 0),
                                                 ["lrx_quantity"] = int.TryParse(salesItemMatchID.quantity, out var quantity) ? quantity : 0,
                                                 ["lrx_fundraisineventproductid"] = int.TryParse(salesItemMatchID.id, out var eventProductId) ? eventProductId : 0
                                             };
@@ -1846,7 +1903,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                                     }
 
                                     // Parse unit cost safely
-                                    if (decimal.TryParse(salesItemMatchID.unit_cost, out decimal parsedPrice))
+                                    if (decimal.TryParse(salesItemMatchID.unit_cost, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal parsedPrice))
                                     {
                                         saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
                                     }
@@ -1946,16 +2003,18 @@ namespace FundraisinApp_Integration.Plugins.Service
                     {
                         int transactionType = 844060005; //default raffle
 
-                        var raffleSalesRecord = raffleSalesList?.FirstOrDefault(rs => rs.sale_id.Trim() == transactions.Sale_id.Trim());
+                    //var raffleSalesRecord = raffleSalesList?.FirstOrDefault(rs => rs.sale_id.Trim() == transactions.Sale_id.Trim());
 
-                        if (raffleSalesRecord != null)
+                    var raffleSalesRecord = raffleSalesList?.FirstOrDefault(rs =>
+    string.Equals(rs.sale_id?.Trim(), transactions.Sale_id?.Trim(), StringComparison.Ordinal));
+                    if (raffleSalesRecord != null)
                         {
                             contactID = UpsertContactFromRaffleSales(raffleSalesRecord);
                         }
 
                         if (contactID == Guid.Empty)
                         {
-                            continue;
+                            //continue;
                         }
                         else
                         {
@@ -1979,8 +2038,12 @@ namespace FundraisinApp_Integration.Plugins.Service
                                 defaultPaymentMethodId = pmethodId;
                             }
                         }
-
-                        var RaffleSalesSearchConditions = new List<ConditionExpression>
+                    if (raffleSalesRecord == null)
+                    {
+                        _tracingService.Trace("No raffle sales record found.");
+                        return Task.CompletedTask;
+                    }
+                    var RaffleSalesSearchConditions = new List<ConditionExpression>
                         {
                             new ConditionExpression("lrx_fundraisinrafflesalesid", ConditionOperator.Equal, raffleSalesRecord.sale_id)
                         };
@@ -2027,7 +2090,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         }
                         else
                         {
-                            continue;
+                            //continue;
                         }
 
                         var TransactionSearchConditions = new List<ConditionExpression>
@@ -2049,7 +2112,9 @@ namespace FundraisinApp_Integration.Plugins.Service
                             ["lrx_registrations"] = registrationID != Guid.Empty ? new EntityReference("lrx_registrations", registrationID) : null,
                             ["lrx_eventteam"] = teamID != Guid.Empty ? new EntityReference("lrx_eventteam", teamID) : null,
                             ["lrx_promocode"] = promoGuid != Guid.Empty ? new EntityReference("lrx_promocodeanddiscount", promoGuid) : null,
-                            ["msnfp_amount"] = new Money(decimal.Parse(transactions.Transaction_value) - decimal.Parse(transactions.Transaction_fees)),
+                            ["msnfp_amount"] = new Money(decimal.Parse(
+    transactions.Transaction_value,
+    CultureInfo.InvariantCulture) - decimal.Parse(transactions.Transaction_fees)),
                             ["msnfp_bookdate"] = DateTime.Parse(transactions.Date_created),
                             ["sifund_paymenttypecode"] = new OptionSetValue(844060002),
                             ["lrx_raffle"] = raffleGuid != Guid.Empty ? new EntityReference("lrx_raffle", raffleGuid) : null,
@@ -2079,16 +2144,32 @@ namespace FundraisinApp_Integration.Plugins.Service
                             });
                         }
                     }//end of Raffle transaction
-
+               
                     if (transactions.Transaction_type == "refund")
                     {
-                        var originalTransaction = TransactionList
-                            .FirstOrDefault(t => t.Donation_id.Trim() == transactions.Donation_id.Trim() && t.Transaction_type.Trim() != "refund");
+                    //To review the process we need to change it.
+                    //var originalTransaction = new TransactionModel();
 
-                        if (originalTransaction != null)
+                    //var originalTransaction = TransactionList
+                    //        .FirstOrDefault(t => t.Donation_id.Trim() == transactions.Donation_id.Trim() && t.Transaction_type.Trim() != "refund");
+                    TransactionModel originalTransaction = null;
+
+                    if (!string.IsNullOrWhiteSpace(transactions.Donation_id))
+                    {
+                        var refundTransactionList = this.GetData<TransactionModel, TransactionModelMap>(
+                                            this.baseURL,
+                                            "transactions",
+                                            transactions.Donation_id);
+
+                        originalTransaction = refundTransactionList?
+                            .FirstOrDefault(t =>
+                                !string.Equals(t.Transaction_type, "refund", StringComparison.OrdinalIgnoreCase));
+                    }
+
+                    if (originalTransaction != null)
                         {
                             var originalTransactionId = originalTransaction.Transaction_id;
-                            decimal transactionAmount = decimal.Parse(originalTransaction.Transaction_value) - decimal.Parse(originalTransaction.Transaction_fees);
+                            decimal transactionAmount = decimal.Parse(originalTransaction.Transaction_value, CultureInfo.InvariantCulture) - decimal.Parse(originalTransaction.Transaction_fees, CultureInfo.InvariantCulture);
 
                             var TransactionSearchConditions = new List<ConditionExpression>
                             {
@@ -2143,7 +2224,7 @@ namespace FundraisinApp_Integration.Plugins.Service
                         }
                     }//End of Refund
                 }
-            }
+            
 
             this._tracingService.Trace("Transaction Record Fundraisin API Completed");
             return Task.CompletedTask;
