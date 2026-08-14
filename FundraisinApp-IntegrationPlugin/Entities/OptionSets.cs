@@ -4316,5 +4316,28 @@ namespace CrmEarlyBound
         [OptionSetMetadataAttribute("Seasonal", 3)]
         Seasonal = 863850003,
     }
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public enum LRx_Waves_StateCode
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        [OptionSetMetadataAttribute("Active", 0)]
+        Active = 0,
+
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        [OptionSetMetadataAttribute("Inactive", 1)]
+        Inactive = 1,
+    }
+
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public enum LRx_Waves_StatusCode
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        [OptionSetMetadataAttribute("Active", 1)]
+        Active = 1,
+
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        [OptionSetMetadataAttribute("Inactive", 2)]
+        Inactive = 2,
+    }
 }
 #pragma warning restore CS1591

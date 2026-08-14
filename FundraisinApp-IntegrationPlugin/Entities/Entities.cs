@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace CrmEarlyBound
 {
 
@@ -33110,6 +33112,8 @@ namespace CrmEarlyBound
             public const string TransactionCurrencyIdName = "transactioncurrencyidname";
             public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
             public const string VersionNumber = "versionnumber";
+            public const string LRx_InventoryProduct = "lrx_inventoryproduct";
+            public const string LRx_Type = "lrx_type";
         }
 
         [System.Diagnostics.DebuggerNonUserCode()]
@@ -33178,6 +33182,36 @@ namespace CrmEarlyBound
                 {
                     return default(string);
                 }
+            }
+        }
+
+        //Addded on 13/8/2026
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_inventoryproduct")]
+        public Microsoft.Xrm.Sdk.EntityReference LRx_InventoryProduct
+        {
+            [System.Diagnostics.DebuggerNonUserCode()]
+            get
+            {
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_inventoryproduct");
+            }
+            [System.Diagnostics.DebuggerNonUserCode()]
+            set
+            {
+                this.SetAttributeValue("lrx_inventoryproduct", value);
+            }
+        }
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_type")]
+        public System.Nullable<bool> LRx_Type
+        {
+            [System.Diagnostics.DebuggerNonUserCode()]
+            get
+            {
+                return this.GetAttributeValue<System.Nullable<bool>>("lrx_type");
+            }
+            [System.Diagnostics.DebuggerNonUserCode()]
+            set
+            {
+                this.SetAttributeValue("lrx_type", value);
             }
         }
 
@@ -40630,6 +40664,8 @@ namespace CrmEarlyBound
             public const string TransactionCurrencyIdName = "transactioncurrencyidname";
             public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
             public const string VersionNumber = "versionnumber";
+            public const string LRx_AmountRaised = "lrx_amountraised";
+            
         }
 
         [System.Diagnostics.DebuggerNonUserCode()]
@@ -40715,6 +40751,21 @@ namespace CrmEarlyBound
                 {
                     return default(string);
                 }
+            }
+        }
+
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_amountraised")]
+        public Microsoft.Xrm.Sdk.Money LRx_AmuntRaised
+        {
+            [System.Diagnostics.DebuggerNonUserCode()]
+            get
+            {
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_amountraised");
+            }
+            [System.Diagnostics.DebuggerNonUserCode()]
+            set
+            {
+                this.SetAttributeValue("lrx_amountraised", value);
             }
         }
 
@@ -51213,6 +51264,8 @@ namespace CrmEarlyBound
             public const string LRx_DonorId = "lrx_donorid";
             public const string LRx_Event = "lrx_event";
             public const string LRx_Event_LRx_Event_MsnFp_Transaction = "lrx_Event_lrx_Event_msnfp_Transaction";
+            public const string LRx_EventTicket = "lrx_eventticket";
+            public const string LRx_EventTicket_LRx_Event_MsnFp_Transaction = "lrx_msnfp_transaction_EventTicket_lrx_eventticket";
             public const string LRx_EventName = "lrx_eventname";
             public const string LRx_EventTeam = "lrx_eventteam";
             public const string LRx_EventTeam_LRx_EventTeam_MsnFp_Transaction = "lrx_EventTeam_lrx_EventTeam_msnfp_Transaction";
@@ -51987,6 +52040,21 @@ namespace CrmEarlyBound
             set
             {
                 this.SetAttributeValue("lrx_event", value);
+            }
+        }
+
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_eventticket")]
+        public Microsoft.Xrm.Sdk.EntityReference LRx_EventTicket
+        {
+            [System.Diagnostics.DebuggerNonUserCode()]
+            get
+            {
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_eventticket");
+            }
+            [System.Diagnostics.DebuggerNonUserCode()]
+            set
+            {
+                this.SetAttributeValue("lrx_eventticket", value);
             }
         }
 
@@ -58167,6 +58235,8 @@ namespace CrmEarlyBound
                 public const string lrx_DefaultCampaignName = "lrx_defaultcampaignname";
                 public const string lrx_DefaultPaymentMethod = "lrx_defaultpaymentmethod";
                 public const string lrx_DefaultPaymentMethodName = "lrx_defaultpaymentmethodname";
+                public const string lrx_DefaultPrimaryDesignation = "lrx_defaultprimarydesignation";
+                public const string lrx_DefaultPrimaryDesignationName = "lrx_defaultprimarydesignationname";
                 public const string lrx_FundraisinAPIKey = "lrx_fundraisinapikey";
                 public const string lrx_FundraisinAPIURL = "lrx_fundraisinapiurl";
                 public const string lrx_GetFundraisinEventRecords = "lrx_getfundraisineventrecords";
@@ -58212,6 +58282,9 @@ namespace CrmEarlyBound
                 public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
                 public const string UTCConversionTimeZoneCode = "utcconversiontimezonecode";
                 public const string VersionNumber = "versionnumber";
+                public const string lrx_FirstNameLastNameEmail = "lrx_firstnamelastnameemail";
+                public const string lrx_FirstNameLastNameMobile = "lrx_firstnamelastnamemobile";
+                public const string lrx_FirstNameLastNameDob = "lrx_firstnamelastnamedob";
             }
 
             /// <summary>
@@ -58318,6 +58391,28 @@ namespace CrmEarlyBound
                 {
                     if (this.FormattedValues.Contains("lrx_defaultcampaign"))
                         return this.FormattedValues["lrx_defaultcampaign"];
+                    return default(string);
+                }
+            }
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_defaultprimarydesignation")]
+            public Microsoft.Xrm.Sdk.EntityReference lrx_DefaultPrimaryDesignation
+            {
+                get { return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_defaultprimarydesignation"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_DefaultPrimaryDesignation");
+                    this.SetAttributeValue("lrx_defaultprimarydesignation", value);
+                    this.OnPropertyChanged("lrx_DefaultPrimaryDesignation");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_defaultprimarydesignationname")]
+            public string lrx_DefaultPrimaryDesignationName
+            {
+                get
+                {
+                    if (this.FormattedValues.Contains("lrx_defaultprimarydesignation"))
+                        return this.FormattedValues["lrx_defaultprimarydesignation"];
                     return default(string);
                 }
             }
@@ -58702,6 +58797,41 @@ namespace CrmEarlyBound
                     this.OnPropertyChanged("lrx_GetRegistrationFromParticipantEventRecord");
                 }
             }
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_firstnamelastnameemail")]
+            public System.Nullable<bool> lrx_FirstNameLastNameEmail
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_firstnamelastnameemail"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_FirstNameLastNameEmail");
+                    this.SetAttributeValue("lrx_firstnamelastnameemail", value);
+                    this.OnPropertyChanged("lrx_FirstNameLastNameEmail");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_firstnamelastnamemobile")]
+            public System.Nullable<bool> lrx_FirstNameLastNameMobile
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_firstnamelastnamemobile"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_FirstNameLastNameMobile");
+                    this.SetAttributeValue("lrx_firstnamelastnamemobile", value);
+                    this.OnPropertyChanged("lrx_FirstNameLastNameMobile");
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_firstnamelastnamedob")]
+            public System.Nullable<bool> lrx_FirstNameLastNameDob
+            {
+                get { return this.GetAttributeValue<System.Nullable<bool>>("lrx_firstnamelastnamedob"); }
+                set
+                {
+                    this.OnPropertyChanging("lrx_FirstNameLastNameDob");
+                    this.SetAttributeValue("lrx_firstnamelastnamedob", value);
+                    this.OnPropertyChanged("lrx_FirstNameLastNameDob");
+                }
+            }
 
             [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_getregistrationfromparticipanteventrecordname")]
             public string lrx_GetRegistrationFromParticipantEventRecordName
@@ -58713,6 +58843,7 @@ namespace CrmEarlyBound
                     return default(string);
                 }
             }
+
 
             [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_name")]
             public string lrx_Name
@@ -58839,6 +58970,7 @@ namespace CrmEarlyBound
             }
         }
         #endregion
+       
         /// <summary>
         /// Constructor for populating via LINQ queries given a LINQ anonymous type
         /// <param name="anonymousType">LINQ anonymous type.</param>
@@ -58880,6 +59012,608 @@ namespace CrmEarlyBound
                 }
             }
         }
+        #region Added by Samir on 24 July
+        [System.Runtime.Serialization.DataContractAttribute()]
+        [Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("lrx_waves")]
+        public partial class LRx_Waves : Microsoft.Xrm.Sdk.Entity
+        {
+            /// <summary>
+            /// Available fields, at the time of codegen, for the lrx_waves entity
+            /// </summary>
+            public partial class Fields
+            {
+                public const string CreatedBy = "createdby";
+                public const string CreatedOn = "createdon";
+                public const string CreatedOnBehalfBy = "createdonbehalfby";
+                public const string Exchangerate = "exchangerate";
+                public const string ImportSequenceNumber = "importsequencenumber";
+
+                public const string LRx_Event = "lrx_event";
+                public const string LRx_ParentWave = "lrx_parentwave";
+                public const string LRx_WaveCode = "lrx_wavecode";
+                public const string LRx_WaveDate = "lrx_wavedate";
+                public const string LRx_WaveDescription = "lrx_wavedescription";
+                public const string LRx_WaveID = "lrx_waveid";
+                public const string LRx_WaveLimit = "lrx_wavelimit";
+                public const string LRx_WaveName = "lrx_wavename";
+                public const string LRx_WavePrice = "lrx_waveprice";
+                public const string LRx_WavePrice_Base = "lrx_waveprice_base";
+                public const string LRx_WavesId = "lrx_wavesid";
+                public const string Id = "lrx_wavesid";
+                public const string LRx_WaveTag = "lrx_wavetag";
+                public const string LRx_WaveTime = "lrx_wavetime";
+
+                public const string ModifiedBy = "modifiedby";
+                public const string ModifiedOn = "modifiedon";
+                public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
+                public const string OverriddenCreatedOn = "overriddencreatedon";
+                public const string OwnerId = "ownerid";
+                public const string OwningBusinessUnit = "owningbusinessunit";
+                public const string OwningTeam = "owningteam";
+                public const string OwningUser = "owninguser";
+                public const string StateCode = "statecode";
+                public const string StatusCode = "statuscode";
+                public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+                public const string TransactionCurrencyId = "transactioncurrencyid";
+                public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
+                public const string VersionNumber = "versionnumber";
+
+                public const string Referencedlrx_waves_ParentWave_lrx_waves = "lrx_waves_ParentWave_lrx_waves";
+                public const string Referencinglrx_waves_ParentWave_lrx_waves = "lrx_waves_ParentWave_lrx_waves";
+            }
+
+            [System.Diagnostics.DebuggerNonUserCode()]
+            public LRx_Waves(Guid id)
+                : base(EntityLogicalName, id)
+            {
+            }
+
+            [System.Diagnostics.DebuggerNonUserCode()]
+            public LRx_Waves(string keyName, object keyValue)
+                : base(EntityLogicalName, keyName, keyValue)
+            {
+            }
+
+            [System.Diagnostics.DebuggerNonUserCode()]
+            public LRx_Waves(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes)
+                : base(EntityLogicalName, keyAttributes)
+            {
+            }
+
+            /// <summary>
+            /// Default Constructor.
+            /// </summary>
+            [System.Diagnostics.DebuggerNonUserCode()]
+            public LRx_Waves()
+                : base(EntityLogicalName)
+            {
+            }
+
+            public const string PrimaryIdAttribute = "lrx_wavesid";
+
+            public const string PrimaryNameAttribute = "lrx_wavename";
+
+            public const string EntitySchemaName = "lrx_Waves";
+
+            public const string EntityLogicalName = "lrx_waves";
+
+            public const string EntityLogicalCollectionName = "lrx_waveses";
+
+            public const string EntitySetName = "lrx_waveses";
+
+            /// <summary>
+            /// Unique identifier of the user who created the record.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("createdby")]
+            public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby"); }
+            }
+
+            /// <summary>
+            /// Date and time when the record was created.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("createdon")]
+            public System.Nullable<System.DateTime> CreatedOn
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<System.Nullable<System.DateTime>>("createdon"); }
+            }
+
+            /// <summary>
+            /// Unique identifier of the delegate user who created the record.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("createdonbehalfby")]
+            public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("createdonbehalfby", value); }
+            }
+
+            /// <summary>
+            /// Exchange rate.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("exchangerate")]
+            public System.Nullable<decimal> Exchangerate
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<System.Nullable<decimal>>("exchangerate"); }
+            }
+
+            /// <summary>
+            /// Import Sequence Number.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("importsequencenumber")]
+            public System.Nullable<int> ImportSequenceNumber
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<System.Nullable<int>>("importsequencenumber"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("importsequencenumber", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_event")]
+            public Microsoft.Xrm.Sdk.EntityReference LRx_Event
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_event"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_event", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_parentwave")]
+            public Microsoft.Xrm.Sdk.EntityReference LRx_ParentWave
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_parentwave"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_parentwave", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_wavecode")]
+            public string LRx_WaveCode
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<string>("lrx_wavecode"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_wavecode", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_wavedate")]
+            public System.Nullable<System.DateTime> LRx_WaveDate
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<System.Nullable<System.DateTime>>("lrx_wavedate"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_wavedate", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_wavedescription")]
+            public string LRx_WaveDescription
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<string>("lrx_wavedescription"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_wavedescription", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_waveid")]
+            public string LRx_WaveID
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<string>("lrx_waveid"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_waveid", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_wavelimit")]
+            public System.Nullable<int> LRx_WaveLimit
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<System.Nullable<int>>("lrx_wavelimit"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_wavelimit", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_wavename")]
+            public string LRx_WaveName
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<string>("lrx_wavename"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_wavename", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_waveprice")]
+            public Microsoft.Xrm.Sdk.Money LRx_WavePrice
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_waveprice"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_waveprice", value); }
+            }
+
+            /// <summary>
+            /// Value of the Wave Price in base currency.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_waveprice_base")]
+            public Microsoft.Xrm.Sdk.Money LRx_WavePrice_Base
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_waveprice_base"); }
+            }
+
+            /// <summary>
+            /// Unique identifier for entity instances
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_wavesid")]
+            public System.Nullable<System.Guid> LRx_WavesId
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<System.Nullable<System.Guid>>("lrx_wavesid"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set
+                {
+                    SetAttributeValue("lrx_wavesid", value);
+                    if (value.HasValue)
+                        base.Id = value.Value;
+                    else
+                        base.Id = System.Guid.Empty;
+                }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_wavesid")]
+            public override Guid Id
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return base.Id; }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { LRx_WavesId = value; }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_wavetag")]
+            public string LRx_WaveTag
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<string>("lrx_wavetag"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_wavetag", value); }
+            }
+
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("lrx_wavetime")]
+            public string LRx_WaveTime
+            {
+                [System.Diagnostics.DebuggerNonUserCode]
+                get { return GetAttributeValue<string>("lrx_wavetime"); }
+                [System.Diagnostics.DebuggerNonUserCode]
+                set { SetAttributeValue("lrx_wavetime", value); }
+            }
+            /// <summary>
+            /// Unique identifier of the user who modified the record.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("modifiedby")]
+            public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+                }
+            }
+
+            /// <summary>
+            /// Date and time when the record was modified.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("modifiedon")]
+            public System.Nullable<System.DateTime> ModifiedOn
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+                }
+            }
+
+            /// <summary>
+            /// Unique identifier of the delegate user who modified the record.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("modifiedonbehalfby")]
+            public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetAttributeValue("modifiedonbehalfby", value);
+                }
+            }
+
+            /// <summary>
+            /// Date and time that the record was migrated.
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("overriddencreatedon")]
+            public System.Nullable<System.DateTime> OverriddenCreatedOn
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<System.Nullable<System.DateTime>>("overriddencreatedon");
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetAttributeValue("overriddencreatedon", value);
+                }
+            }
+
+            /// <summary>
+            /// Owner Id
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("ownerid")]
+            public Microsoft.Xrm.Sdk.EntityReference OwnerId
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ownerid");
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetAttributeValue("ownerid", value);
+                }
+            }
+
+            /// <summary>
+            /// Business Unit
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("owningbusinessunit")]
+            public Microsoft.Xrm.Sdk.EntityReference OwningBusinessUnit
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
+                }
+            }
+
+            /// <summary>
+            /// Owning Team
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("owningteam")]
+            public Microsoft.Xrm.Sdk.EntityReference OwningTeam
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
+                }
+            }
+
+            /// <summary>
+            /// Owning User
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("owninguser")]
+            public Microsoft.Xrm.Sdk.EntityReference OwningUser
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
+                }
+            }
+
+            /// <summary>
+            /// Status of the Waves
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("statecode")]
+            public virtual LRx_Waves_StateCode? StateCode
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return ((LRx_Waves_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetAttributeValue("statecode",
+                        value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+                }
+            }
+
+            /// <summary>
+            /// Reason for the status of the Waves
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("statuscode")]
+            public virtual LRx_Waves_StatusCode? StatusCode
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return ((LRx_Waves_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetAttributeValue("statuscode",
+                        value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+                }
+            }
+
+            /// <summary>
+            /// Time Zone Rule Version Number
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("timezoneruleversionnumber")]
+            public System.Nullable<int> TimeZoneRuleVersionNumber
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber");
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetAttributeValue("timezoneruleversionnumber", value);
+                }
+            }
+
+            /// <summary>
+            /// Currency
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("transactioncurrencyid")]
+            public Microsoft.Xrm.Sdk.EntityReference TransactionCurrencyId
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("transactioncurrencyid");
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetAttributeValue("transactioncurrencyid", value);
+                }
+            }
+
+            /// <summary>
+            /// UTC Conversion Time Zone Code
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("utcconversiontimezonecode")]
+            public System.Nullable<int> UtcConversionTimeZoneCode
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode");
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetAttributeValue("utcconversiontimezonecode", value);
+                }
+            }
+
+            /// <summary>
+            /// Version Number
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalName("versionnumber")]
+            public System.Nullable<long> VersionNumber
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+                }
+            }
+            /// <summary>
+            /// 1:N lrx_waves_ParentWave_lrx_waves
+            /// </summary>
+            [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(
+                "lrx_waves_ParentWave_lrx_waves",
+                Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+            public System.Collections.Generic.IEnumerable<LRx_Waves> Referencedlrx_waves_ParentWave_lrx_waves
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetRelatedEntities<LRx_Waves>(
+                        "lrx_waves_ParentWave_lrx_waves",
+                        Microsoft.Xrm.Sdk.EntityRole.Referenced);
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetRelatedEntities<LRx_Waves>(
+                        "lrx_waves_ParentWave_lrx_waves",
+                        Microsoft.Xrm.Sdk.EntityRole.Referenced,
+                        value);
+                }
+            }
+
+            /// <summary>
+            /// N:1 lrx_waves_ParentWave_lrx_waves
+            /// </summary>
+            [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_parentwave")]
+            [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(
+                "lrx_waves_ParentWave_lrx_waves",
+                Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+            public LRx_Waves Referencinglrx_waves_ParentWave_lrx_waves
+            {
+                [System.Diagnostics.DebuggerNonUserCode()]
+                get
+                {
+                    return this.GetRelatedEntity<LRx_Waves>(
+                        "lrx_waves_ParentWave_lrx_waves",
+                        Microsoft.Xrm.Sdk.EntityRole.Referencing);
+                }
+                [System.Diagnostics.DebuggerNonUserCode()]
+                set
+                {
+                    this.SetRelatedEntity<LRx_Waves>(
+                        "lrx_waves_ParentWave_lrx_waves",
+                        Microsoft.Xrm.Sdk.EntityRole.Referencing,
+                        value);
+                }
+            }
+
+            /// <summary>
+            /// Constructor for populating via LINQ queries given a LINQ anonymous type
+            /// </summary>
+            [System.Diagnostics.DebuggerNonUserCode()]
+            public LRx_Waves(object anonymousType)
+                : this()
+            {
+                foreach (var p in anonymousType.GetType().GetProperties())
+                {
+                    var value = p.GetValue(anonymousType, null);
+                    var name = p.Name.ToLower();
+
+                    if (value != null &&
+                        name.EndsWith("enum") &&
+                        value.GetType().BaseType == typeof(System.Enum))
+                    {
+                        value = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
+                        name = name.Remove(name.Length - "enum".Length);
+                    }
+
+                    switch (name)
+                    {
+                        case "id":
+                            base.Id = (System.Guid)value;
+                            Attributes["lrx_wavesid"] = base.Id;
+                            break;
+
+                        case "lrx_wavesid":
+                            var id = (System.Nullable<System.Guid>)value;
+                            if (id == null)
+                                continue;
+
+                            base.Id = id.Value;
+                            Attributes[name] = base.Id;
+                            break;
+
+                        case "formattedvalues":
+                            FormattedValues.AddRange(
+                                (Microsoft.Xrm.Sdk.FormattedValueCollection)value);
+                            break;
+
+                        default:
+                            Attributes[name] = value;
+                            break;
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }
 #pragma warning restore CS1591

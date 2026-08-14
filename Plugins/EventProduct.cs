@@ -14,11 +14,15 @@ namespace Fundraising_Engagement.Plugins
     {
         public void Execute(IServiceProvider serviceProvider)
         {
+
             var context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             var service = serviceFactory.CreateOrganizationService(context.UserId);
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
             var fundraisingService = new FundraisingService(service, context, tracingService);
+
+            tracingService.Trace(
+     $"EventProduct Plugin FIRED. Message={context.MessageName}, PrimaryEntity={context.PrimaryEntityName}");
 
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
             {    
@@ -46,6 +50,7 @@ namespace Fundraising_Engagement.Plugins
             else if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is EntityReference && context.MessageName == "Delete")
             {
                 // Handle logic on transaction deletion
+                tracingService.Trace("Enters in delete plugin");
                 var preImageEntity = context.PreEntityImages["ProductPreImage"];
 
                 if (context.PreEntityImages != null && context.PreEntityImages.Contains("ProductPreImage"))

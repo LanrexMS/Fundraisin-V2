@@ -54,6 +54,11 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
             Map(m => m.ecrm_last_synced_date).Name("ecrm_last_synced_date");
             Map(m => m.last_updated).Name("last_updated");
             Map(m => m.date_created).Name("date_created");
+            Map(m => m.g_guardian_fname).Name("g_guardian_fname");
+            Map(m => m.g_guardian_lname).Name("g_guardian_lname");
+            Map(m => m.g_guardian_phone).Name("g_guardian_phone");
+            Map(m => m.g_guardian_email).Name("g_guardian_email");
+            Map(m => m.g_guardian_relationship).Name("g_guardian_relationship");
         }
     }
 }

@@ -69,8 +69,22 @@ namespace FundraisinApp_Integration.Plugins
             service2.Trace("Input Parameter Type: " + inputParameter.GetType().FullName);
             service2.Trace("Input Parameter Value:");
             service2.Trace(inputParameter.ToString());
-            service2.Trace("===== Plugin Completed Successfully =====");
 
+            string entityName = string.Empty;
+
+            if (service1.InputParameters.Contains("lrx_entity") &&
+                service1.InputParameters["lrx_entity"] != null)
+            {
+                entityName = service1.InputParameters["lrx_entity"].ToString().Trim().ToLower();
+            }
+
+            if (string.IsNullOrWhiteSpace(entityName))
+            {
+                service2.Trace("Entity Name was not supplied.");
+                return;
+            }
+
+            service2.Trace($"Entity Name : {entityName}");
 
             var config = GetConfigurationRecord(organizationService, service2);
 
@@ -78,157 +92,87 @@ namespace FundraisinApp_Integration.Plugins
             {
                 return;
             }
-            Fundraising_APIService apiService = new Fundraising_APIService(organizationService,service1,service2,config, inputParameter);
+            Fundraising_APIService apiService = new Fundraising_APIService(organizationService, service1, service2, config, inputParameter, entityName);
+            switch (entityName)
+            {
+                case "event":
+                    apiService.GetFundraisinEventRecords();
+                    break;
 
-            if (config.lrx_GetFundraisinEventRecords == true)
-            {
-                service2.Trace("Executing GetFundraisinEventRecords");
-                apiService.GetFundraisinEventRecords();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundraisinEventRecords");
-            }
+                case "participant":
+                    apiService.GetFundraisinParticipantRecords();
+                    break;
 
-            if (config.lrx_GetFundraisinParticipantRecords == true)
-            {
-                service2.Trace("Executing GetFundraisinParticipantRecords");
-                apiService.GetFundraisinParticipantRecords();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundraisinParticipantRecords");
-            }
+                case "organisation":
+                    apiService.GetFundRaisinOrganisationRecord();
+                    break;
 
-            if (config.lrx_GetFundRaisinOrganisationRecord == true)
-            {
-                service2.Trace("Executing GetFundRaisinOrganisationRecord");
-                apiService.GetFundRaisinOrganisationRecord();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundRaisinOrganisationRecord");
-            }
+                case "eventteam":
+                    apiService.GetFundRaisinEventTeamsRecord();
+                    break;
 
-            if (config.lrx_GetFundRaisinEventTeamsRecord == true)
-            {
-                service2.Trace("Executing GetFundRaisinEventTeamsRecord");
-                apiService.GetFundRaisinEventTeamsRecord();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundRaisinEventTeamsRecord");
-            }
+                case "ticket":
+                    apiService.GetFundraisinTicketRecords();
+                    break;
 
-            if (config.lrx_GetFundraisinTicketRecords == true)
-            {
-                service2.Trace("Executing GetFundraisinTicketRecords");
-                apiService.GetFundraisinTicketRecords();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundraisinTicketRecords");
-            }
+                case "promocode":
+                    apiService.GetFundRaisinPromoCodeRecord();
+                    break;
 
-            if (config.lrx_GetFundRaisinPromoCodeRecord == true)
-            {
-                service2.Trace("Executing GetFundRaisinPromoCodeRecord");
-                apiService.GetFundRaisinPromoCodeRecord();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundRaisinPromoCodeRecord");
-            }
+                case "registration":
+                    apiService.GetRegistrationFromParticipantEventRecord();
+                    break;
 
-            if (config.lrx_GetRegistrationFromParticipantEventRecord == true)
-            {
-                service2.Trace("Executing GetRegistrationFromParticipantEventRecord");
-                apiService.GetRegistrationFromParticipantEventRecord();
-            }
-            else
-            {
-                service2.Trace("Skipped GetRegistrationFromParticipantEventRecord");
-            }
+                case "ticketholder":
+                    apiService.GetFundraisinTicketHolderRecord();
+                    break;
 
-            if (config.lrx_GetFundraisinTicketHolderRecord == true)
-            {
-                service2.Trace("Executing GetFundraisinTicketHolderRecord");
-                apiService.GetFundraisinTicketHolderRecord();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundraisinTicketHolderRecord");
-            }
+                case "product":
+                    apiService.GetFundRaisinProductRecord();
+                    break;
 
-            if (config.lrx_GetFundRaisinProductRecord == true)
-            {
-                service2.Trace("Executing GetFundRaisinProductRecord");
-                apiService.GetFundRaisinProductRecord();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundRaisinProductRecord");
-            }
+                case "productoption":
+                    apiService.GetFundRaisinProductOptionsRecord();
+                    break;
 
-            if (config.lrx_GetFundRaisinProductOptionsRecord == true)
-            {
-                service2.Trace("Executing GetFundRaisinProductOptionsRecord");
-                apiService.GetFundRaisinProductOptionsRecord();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundRaisinProductOptionsRecord");
-            }
+                case "salesitem":
+                    apiService.GetFundraisinProductSalesItem();
+                    break;
 
-            if (config.lrx_GetFundraisinProductSalesItem == true)
-            {
-                service2.Trace("Executing GetFundraisinProductSalesItem");
-                apiService.GetFundraisinProductSalesItem();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundraisinProductSalesItem");
-            }
+                case "raffle":
+                    apiService.GetFundraisinRaffleRecords();
+                    break;
 
-            if (config.lrx_GetFundraisinRaffleRecords == true)
-            {
-                service2.Trace("Executing GetFundraisinRaffleRecords");
-                apiService.GetFundraisinRaffleRecords();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundraisinRaffleRecords");
-            }
+                case "raffleticketoption":
+                    apiService.GetFundraisinRaffleTicketOptionRecords();
+                    break;
 
-            if (config.lrx_GetFundraisinRaffleTicketOptionRecords == true)
-            {
-                service2.Trace("Executing GetFundraisinRaffleTicketOptionRecords");
-                apiService.GetFundraisinRaffleTicketOptionRecords();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundraisinRaffleTicketOptionRecords");
-            }
+                case "rafflesales":
+                    apiService.GetFundraisinRaffleSalesRecords();
+                    break;
 
-            if (config.lrx_GetFundraisinRaffleSalesRecords == true)
-            {
-                service2.Trace("Executing GetFundraisinRaffleSalesRecords");
-                apiService.GetFundraisinRaffleSalesRecords();
-            }
-            else
-            {
-                service2.Trace("Skipped GetFundraisinRaffleSalesRecords");
-            }
+                case "transaction":
+                    apiService.GetFundRaisinTransactionRecord();
+                    break;
 
-            if (config.lrx_GetFundRaisinTransactionRecord == true)
-            {
-                service2.Trace("Executing GetFundRaisinTransactionRecord");
-                apiService.GetFundRaisinTransactionRecord();
+                case "donation":
+                    apiService.GetFundRaisinOflineDonation();
+                    break;
+
+                case "waves":
+                    apiService.GetFundraisinWaveRecords();
+                    break;
+                case "eventproduct":
+                    apiService.GetFundraisinEventProducts();
+                    break;
+                case "pages":
+                    apiService.GetFundraisinPages();
+                    break;
+                default:
+                    service2.Trace($"Unknown Entity Name : {entityName}");
+                    break;
             }
-            else
-            {
-                service2.Trace("Skipped GetFundRaisinTransactionRecord");
-            }
+            service2.Trace("===== Plugin Completed Successfully =====");
             return;
         }
 
@@ -241,26 +185,14 @@ namespace FundraisinApp_Integration.Plugins
             {
                 TopCount = 1,
                 ColumnSet = new ColumnSet(
-                    lrx_Configuration.Fields.lrx_GetFundraisinEventRecords,
-                    lrx_Configuration.Fields.lrx_GetFundraisinParticipantRecords,
-                    lrx_Configuration.Fields.lrx_GetFundRaisinOrganisationRecord,
-                    lrx_Configuration.Fields.lrx_GetFundRaisinEventTeamsRecord,
-                    lrx_Configuration.Fields.lrx_GetFundraisinTicketRecords,
-                    lrx_Configuration.Fields.lrx_GetFundRaisinPromoCodeRecord,
-                    lrx_Configuration.Fields.lrx_GetRegistrationFromParticipantEventRecord,
-                    lrx_Configuration.Fields.lrx_GetFundraisinTicketHolderRecord,
-                    lrx_Configuration.Fields.lrx_GetFundRaisinProductRecord,
-                    lrx_Configuration.Fields.lrx_GetFundRaisinProductOptionsRecord,
-                    lrx_Configuration.Fields.lrx_GetFundraisinProductSalesItem,
-                    lrx_Configuration.Fields.lrx_GetFundraisinRaffleRecords,
-                    lrx_Configuration.Fields.lrx_GetFundraisinRaffleTicketOptionRecords,
-                    lrx_Configuration.Fields.lrx_GetFundraisinRaffleSalesRecords,
-                    lrx_Configuration.Fields.lrx_GetFundRaisinTransactionRecord,
-                    lrx_Configuration.Fields.statecode,
                     lrx_Configuration.Fields.lrx_FundraisinAPIURL,
                     lrx_Configuration.Fields.lrx_FundraisinAPIKey,
                     lrx_Configuration.Fields.lrx_DefaultCampaign,
-                    lrx_Configuration.Fields.lrx_DefaultPaymentMethod
+                    lrx_Configuration.Fields.lrx_DefaultPaymentMethod,
+                    lrx_Configuration.Fields.lrx_DefaultPrimaryDesignation,
+                    lrx_Configuration.Fields.lrx_FirstNameLastNameEmail,
+                    lrx_Configuration.Fields.lrx_FirstNameLastNameMobile,
+                    lrx_Configuration.Fields.lrx_FirstNameLastNameDob
                 )
             };
 

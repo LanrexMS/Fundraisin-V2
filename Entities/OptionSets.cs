@@ -13717,7 +13717,11 @@ namespace CrmEarlyBound
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Soft Credit", 2, "#0000ff")]
 		SoftCredit = 844060001,
-	}
+
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        [OptionSetMetadataAttribute("Sponsorship", 3, "#0000ff")]
+        Sponsorship = 856660003,
+    }
 	
 	/// <summary>
 	/// Status of the Transaction

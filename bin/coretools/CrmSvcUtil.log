@@ -1,0 +1,169 @@
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : ERROR REQUESTING Token FROM THE Authentication context - General ADAL Error
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: VerifyAuthorizationResult
+Date	: 24-07-2026
+Time	: 10:27:10
+Error	: user_interaction_required: One of two conditions was encountered: 1. The PromptBehavior.Never flag was passed, but the constraint could not be honored, because user interaction was required. 2. An error occurred during a silent web authentication that prevented the http authentication flow from completing in a short enough time frame
+Stack Trace	: at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenInteractiveHandler.VerifyAuthorizationResult()
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenInteractiveHandler.<PreTokenRequestAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.<AcquireTokenCommonAsync>d__39.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.<AcquireTokenAsync>d__28.MoveNext()
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to connect to CRM: user_interaction_required: One of two conditions was encountered: 1. The PromptBehavior.Never flag was passed, but the constraint could not be honored, because user interaction was required. 2. An error occurred during a silent web authentication that prevented the http authentication flow from completing in a short enough time frame
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: VerifyAuthorizationResult
+Date	: 24-07-2026
+Time	: 10:27:10
+Error	: user_interaction_required: One of two conditions was encountered: 1. The PromptBehavior.Never flag was passed, but the constraint could not be honored, because user interaction was required. 2. An error occurred during a silent web authentication that prevented the http authentication flow from completing in a short enough time frame
+Stack Trace	: at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ProcessAdalExecption(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier& user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, CrmLogEntry logSink, Boolean useDefaultCreds, String& authToken, AdalException adalEx)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ExecuteAuthenticateServiceProcess(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, UserIdentifier& userIdent, CrmLogEntry logSink, Boolean useDefaultCreds, SecureString clientSecret)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ConnectAndInitCrmOrgService(OrganizationDetail orgdata, Boolean IsOnPrem, Uri homeRealmUri)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DoDirectLogin(Boolean IsOnPrem)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.InitCRM2011Service()
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to Login to Dynamics CRM
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to Login to Dynamics CRM
+Source	: Not Provided
+Method	: Not Provided
+Date	: 24-07-2026
+Time	: 10:27:10
+Error	: Unable to Login to Dynamics CRM
+Stack Trace	: Not Provided
+======================================================================================================================
+
+CrmSvcUtil Error: 2 : Exiting program with exit code 2 due to exception : System.Exception: Connection to Dataverse is not established. Aborting process.
+   at Microsoft.Crm.Services.Utility.SdkMetadataProviderService.LoadMetadata(IServiceProvider service)
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Run()
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Main(String[] args)
+CrmSvcUtil Error: 2 : ===== DETAIL ======
+CrmSvcUtil Error: 2 : Source	: CrmSvcUtil
+Method	: LoadMetadata
+Date	: 10:27:10
+Time	: 24-07-2026
+Error	: Connection to Dataverse is not established. Aborting process.
+Stack Trace	: at Microsoft.Crm.Services.Utility.SdkMetadataProviderService.LoadMetadata(IServiceProvider service)
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Run()
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Main(String[] args)
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : ERROR REQUESTING Token FROM THE Authentication context - USER intervention required but not permitted by prompt behavior
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 24-07-2026
+Time	: 10:28:50
+Error	: AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: d2db7a8a-a8f3-4d1f-97d9-5ba262130800 Correlation ID: 68a7af6d-3f82-478c-9b90-7c7c09250732 Timestamp: 2026-07-24 04:58:52Z
+Stack Trace	: at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__22`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http.AdalHttpClient.<GetResponseAsync>d__21`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendHttpMessageAsync>d__72.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<SendTokenRequestAsync>d__69.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<CheckAndAcquireTokenUsingBrokerAsync>d__59.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Flows.AcquireTokenHandlerBase.<RunAsync>d__57.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.<AcquireTokenCommonAsync>d__37.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContextIntegratedAuthExtensions.<AcquireTokenAsync>d__0.MoveNext()
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: Not Provided
+Method	: Not Provided
+Date	: 24-07-2026
+Time	: 10:28:50
+Error	: Response status code does not indicate success: 400 (BadRequest).
+Stack Trace	: Not Provided
+======================================================================================================================
+Inner Exception Level 2	: 
+Source	: Not Provided
+Method	: Not Provided
+Date	: 24-07-2026
+Time	: 10:28:50
+Error	: {"error":"interaction_required","error_description":"AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: d2db7a8a-a8f3-4d1f-97d9-5ba262130800 Correlation ID: 68a7af6d-3f82-478c-9b90-7c7c09250732 Timestamp: 2026-07-24 04:58:52Z","error_codes":[50076],"timestamp":"2026-07-24 04:58:52Z","trace_id":"d2db7a8a-a8f3-4d1f-97d9-5ba262130800","correlation_id":"68a7af6d-3f82-478c-9b90-7c7c09250732","error_uri":"https://login.microsoftonline.com/error?code=50076","suberror":"basic_action"}: Unknown error
+Stack Trace	: Not Provided
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to connect to CRM: Response status code does not indicate success: 400 (BadRequest).
+Source	: Microsoft.IdentityModel.Clients.ActiveDirectory
+Method	: MoveNext
+Date	: 24-07-2026
+Time	: 10:28:50
+Error	: AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: d2db7a8a-a8f3-4d1f-97d9-5ba262130800 Correlation ID: 68a7af6d-3f82-478c-9b90-7c7c09250732 Timestamp: 2026-07-24 04:58:52Z
+Stack Trace	: at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ProcessAdalExecption(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier& user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, CrmLogEntry logSink, Boolean useDefaultCreds, String& authToken, AdalException adalEx)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ExecuteAuthenticateServiceProcess(Uri serviceUrl, ClientCredentials clientCredentials, X509Certificate2 userCert, UserIdentifier user, String clientId, Uri redirectUri, PromptBehavior promptBehavior, String tokenCachePath, Boolean isOnPrem, String authority, Uri& targetServiceUrl, AuthenticationContext& authContext, String& resource, UserIdentifier& userIdent, CrmLogEntry logSink, Boolean useDefaultCreds, SecureString clientSecret)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.ConnectAndInitCrmOrgService(OrganizationDetail orgdata, Boolean IsOnPrem, Uri homeRealmUri)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.DoDirectLogin(Boolean IsOnPrem)
+   at Microsoft.Xrm.Tooling.Connector.CrmWebSvc.InitCRM2011Service()
+======================================================================================================================
+Inner Exception Level 1	: 
+Source	: Not Provided
+Method	: Not Provided
+Date	: 24-07-2026
+Time	: 10:28:50
+Error	: Response status code does not indicate success: 400 (BadRequest).
+Stack Trace	: Not Provided
+======================================================================================================================
+Inner Exception Level 2	: 
+Source	: Not Provided
+Method	: Not Provided
+Date	: 24-07-2026
+Time	: 10:28:50
+Error	: {"error":"interaction_required","error_description":"AADSTS50076: Due to a configuration change made by your administrator, or because you moved to a new location, you must use multi-factor authentication to access '00000007-0000-0000-c000-000000000000'. Trace ID: d2db7a8a-a8f3-4d1f-97d9-5ba262130800 Correlation ID: 68a7af6d-3f82-478c-9b90-7c7c09250732 Timestamp: 2026-07-24 04:58:52Z","error_codes":[50076],"timestamp":"2026-07-24 04:58:52Z","trace_id":"d2db7a8a-a8f3-4d1f-97d9-5ba262130800","correlation_id":"68a7af6d-3f82-478c-9b90-7c7c09250732","error_uri":"https://login.microsoftonline.com/error?code=50076","suberror":"basic_action"}: Unknown error
+Stack Trace	: Not Provided
+======================================================================================================================
+
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to Login to Dynamics CRM
+Microsoft.Xrm.Tooling.Connector.CrmServiceClient Error: 2 : Unable to Login to Dynamics CRM
+Source	: Not Provided
+Method	: Not Provided
+Date	: 24-07-2026
+Time	: 10:28:50
+Error	: Unable to Login to Dynamics CRM
+Stack Trace	: Not Provided
+======================================================================================================================
+
+CrmSvcUtil Error: 2 : Exiting program with exit code 2 due to exception : System.Exception: Connection to Dataverse is not established. Aborting process.
+   at Microsoft.Crm.Services.Utility.SdkMetadataProviderService.LoadMetadata(IServiceProvider service)
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Run()
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Main(String[] args)
+CrmSvcUtil Error: 2 : ===== DETAIL ======
+CrmSvcUtil Error: 2 : Source	: CrmSvcUtil
+Method	: LoadMetadata
+Date	: 10:28:50
+Time	: 24-07-2026
+Error	: Connection to Dataverse is not established. Aborting process.
+Stack Trace	: at Microsoft.Crm.Services.Utility.SdkMetadataProviderService.LoadMetadata(IServiceProvider service)
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Run()
+   at Microsoft.Crm.Services.Utility.CrmSvcUtil.Main(String[] args)
+======================================================================================================================
+

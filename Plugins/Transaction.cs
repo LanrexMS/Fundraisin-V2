@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CrmEarlyBound;
 using Fundraising_Engagement.Plugins.Service;
+using DataverseModel;
 using System.IdentityModel.Metadata;
 
 
@@ -20,6 +21,8 @@ namespace Fundraising_Engagement.Plugins
             var service = serviceFactory.CreateOrganizationService(context.UserId);
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
             var fundraisingService = new FundraisingService(service, context, tracingService);
+            tracingService.Trace(
+     $"EventProduct Plugin FIRED. Message={context.MessageName}, PrimaryEntity={context.PrimaryEntityName}");
 
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
             {
@@ -102,6 +105,18 @@ namespace Fundraising_Engagement.Plugins
                     {
                         fundraisingService.DonationsRollup(SiFund_Package.EntityLogicalName, preImage.SiFund_Package.Id, MsnFp_Transaction.Fields.SiFund_Package);
 
+                    }
+
+                    //Registration Performance -Package
+                    if (preImage.LRx_Registrations != null && preImage.LRx_Registrations.Id != Guid.Empty)
+                    {
+                        fundraisingService.DonationsRollup(LRx_Registrations.EntityLogicalName, preImage.LRx_Registrations.Id, MsnFp_Transaction.Fields.LRx_Registrations);
+                    }
+
+                    //Event Sponsorship 
+                    if (preImage.LRx_EventSponsorship != null && preImage.LRx_EventSponsorship.Id != Guid.Empty)
+                    {
+                        fundraisingService.DonationsRollup(LRx_EventSponsorship.EntityLogicalName, preImage.LRx_EventSponsorship.Id, MsnFp_Transaction.Fields.LRx_EventSponsorship);
                     }
 
                     MsnFp_Transaction transactionrecord = new MsnFp_Transaction();

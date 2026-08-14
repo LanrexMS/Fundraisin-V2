@@ -51,5 +51,11 @@ namespace FundraisinApp_IntegrationPlugin.FundraisinApp_Integration.Plugins.Enti
         public string ecrm_last_synced_date { get; set; }
         public string last_updated { get; set; }
         public string date_created { get; set; }
+
+        public string g_guardian_fname { get; set; }
+        public string g_guardian_lname { get; set; }
+        public string g_guardian_phone { get; set; }
+        public string g_guardian_email { get; set; }
+        public string g_guardian_relationship { get; set; }
     }
 }

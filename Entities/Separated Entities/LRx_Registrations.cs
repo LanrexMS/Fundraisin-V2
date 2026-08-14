@@ -170,7 +170,8 @@ namespace DataverseModel
 			public const string TransactionCurrencyIdName = "transactioncurrencyidname";
 			public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
 			public const string VersionNumber = "versionnumber";
-		}
+            public const string LRx_AmountRaised = "lrx_amountraised";
+        }
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		public LRx_Registrations(System.Guid id) : 
@@ -240,8 +241,23 @@ namespace DataverseModel
 				}
 			}
 		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyyominame")]
+
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_amountraised")]
+        public Microsoft.Xrm.Sdk.Money LRx_AmuntRaised
+        {
+            [System.Diagnostics.DebuggerNonUserCode()]
+            get
+            {
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("lrx_amountraised");
+            }
+            [System.Diagnostics.DebuggerNonUserCode()]
+            set
+            {
+                this.SetAttributeValue("lrx_amountraised", value);
+            }
+        }
+
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyyominame")]
 		public string CreatedByYomiName
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]

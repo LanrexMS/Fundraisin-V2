@@ -712,7 +712,9 @@ namespace Fundraising_Engagement.Plugins.Service
                 transaction.Id,
                 MsnFp_Transaction.Fields.LRx_Campaign,
                 MsnFp_Transaction.Fields.SiFund_Appeal,
-                MsnFp_Transaction.Fields.SiFund_Package
+                MsnFp_Transaction.Fields.SiFund_Package,
+                MsnFp_Transaction.Fields.LRx_Registrations,
+                MsnFp_Transaction.Fields.LRx_EventSponsorship
             );
 
             // Total Donations for Campaign
@@ -734,9 +736,19 @@ namespace Fundraising_Engagement.Plugins.Service
 
             }
 
+            if(transactionrecord.LRx_Registrations != null && transactionrecord.LRx_Registrations.Id != Guid.Empty)
+            {
+                DonationsRollup(LRx_Registrations.EntityLogicalName, transactionrecord.LRx_Registrations.Id, MsnFp_Transaction.Fields.LRx_Registrations);
+            }
+           
+            if(transactionrecord.LRx_EventSponsorship != null && transactionrecord.LRx_EventSponsorship.Id != Guid.Empty)
+            {
+                DonationsRollup(LRx_EventSponsorship.EntityLogicalName, transactionrecord.LRx_EventSponsorship.Id, MsnFp_Transaction.Fields.LRx_EventSponsorship);
+            }
+
         }
 
-        public void DonationsRollup(String entityLogicalName, Guid entityId, String parentFieldName)
+        public void     DonationsRollup(String entityLogicalName, Guid entityId, String parentFieldName)
         {
             ColumnSet filterFields = new ColumnSet(
                   MsnFp_Transaction.Fields.StatusCode,
@@ -756,10 +768,54 @@ namespace Fundraising_Engagement.Plugins.Service
                     { MsnFp_Transaction.Fields.SiFund_TypeCode, (ConditionOperator.Equal, (int)MsnFp_Transaction_SiFund_TypeCode.Donation) }
             };
 
+            //Added to calculate Amount Raised in Registration on 13-8-2026
+            var registrationDonationCriteria = new Dictionary<string, (ConditionOperator, object)>
+            {
+                {
+                    MsnFp_Transaction.Fields.StatusCode,
+                    (
+                        ConditionOperator.Equal,
+                        (int)MsnFp_Transaction_StatusCode.Completed
+                    )
+                },
+                {
+                    MsnFp_Transaction.Fields.SiFund_TypeCode,
+                    (
+                        ConditionOperator.Equal,
+                        (int)MsnFp_Transaction_SiFund_TypeCode.Donation
+                    )
+                }
+            };
+
+            //Event Sponsorship Criateria
+            var eventSponsorshipCriateria = new Dictionary<string, (ConditionOperator, object)>
+            {
+                {
+                     MsnFp_Transaction.Fields.StatusCode,
+                    (
+                        ConditionOperator.Equal,
+                        (int)MsnFp_Transaction_StatusCode.Completed
+                    )
+
+                },
+                {
+                    MsnFp_Transaction.Fields.SiFund_TypeCode,
+                    (
+                        ConditionOperator.Equal,
+                        (int)MsnFp_Transaction_SiFund_TypeCode.Sponsorship
+                    )
+                }
+            };
+
             if (entityId != Guid.Empty)
             {
                 decimal donationsAmount = CalculateGivingRollup(entityLogicalName, entityId, MsnFp_Transaction.EntityLogicalName, parentFieldName, MsnFp_Transaction.Fields.MsnFp_Amount,
                    filterFields, donationCriteria);
+                decimal registrationAmountRaised = CalculateGivingRollup(entityLogicalName, entityId, MsnFp_Transaction.EntityLogicalName,parentFieldName,MsnFp_Transaction.Fields.MsnFp_Amount,
+                    filterFields, registrationDonationCriteria);
+
+                decimal totalSponsorship = CalculateGivingRollup(entityLogicalName, entityId, MsnFp_Transaction.EntityLogicalName, parentFieldName, MsnFp_Transaction.Fields.MsnFp_Amount,
+                    filterFields, eventSponsorshipCriateria);
 
                 decimal donationsCount = CalculateCount(entityLogicalName, entityId, MsnFp_Transaction.EntityLogicalName, parentFieldName,
                    filterFields, donationCriteria);
@@ -801,6 +857,30 @@ namespace Fundraising_Engagement.Plugins.Service
                     };
 
                     _service.Update(parentAppeal);
+                }
+
+
+                if (entityLogicalName == LRx_Registrations.EntityLogicalName)
+                {
+                    var registration = new LRx_Registrations
+                    {
+                        Id = entityId,
+                        LRx_AmuntRaised = new Money(registrationAmountRaised)
+                    };
+
+                    _service.Update(registration);
+                }
+
+                //Update total sponsorship 
+                if (entityLogicalName == LRx_EventSponsorship.EntityLogicalName)
+                {
+                    var eventSponsorship = new LRx_EventSponsorship
+                    {
+                        Id = entityId,
+                        LRx_TotalSponsorships = new Money(totalSponsorship)
+                    };
+
+                    _service.Update(eventSponsorship);
                 }
             }
 
@@ -1258,6 +1338,7 @@ namespace Fundraising_Engagement.Plugins.Service
                         LRx_EventTicket.Fields.LRx_TableTicket,
                         LRx_EventTicket.Fields.LRx_EventTicketId
                     );
+
                 }
                 else
                 {
@@ -1270,7 +1351,7 @@ namespace Fundraising_Engagement.Plugins.Service
                         LRx_EventTable.Fields.LRx_EventTicket
                         );
 
-                        if (eventTable.LRx_EventTicket != null &&
+                        if (eventTable != null && eventTable.LRx_EventTicket != null &&
                         eventTable.LRx_EventTicket.Id != Guid.Empty)
                         {
                             eventTicketRecord = (LRx_EventTicket)RetrieveRecord(
@@ -1279,6 +1360,7 @@ namespace Fundraising_Engagement.Plugins.Service
                             LRx_EventTicket.Fields.LRx_TableTicket,
                             LRx_EventTicket.Fields.LRx_EventTicketId
                             );
+                            
                         }
                     }
                 }
@@ -1289,7 +1371,7 @@ namespace Fundraising_Engagement.Plugins.Service
 
                 if (isTableTicket)
                 { //calculate table revenue
-                    if (eventTicketRecord != null)
+                    if (eventTicketRecord != null && eventTicketRecord.LRx_EventTicketId.HasValue && eventTicketRecord.LRx_EventTicketId.Value != Guid.Empty)
                     {
                         totalTicketRevenue = CalculateAmountRevenue(
                         LRx_EventTable.EntityLogicalName,
@@ -1299,16 +1381,14 @@ namespace Fundraising_Engagement.Plugins.Service
                         out TicketCount
                         );
 
-                        if (eventTicketRecord.LRx_EventTicketId != Guid.Empty && eventTicketRecord.LRx_EventTicketId.HasValue)
-                        {
-                            var parentEventTicket = new LRx_EventTicket
+                           var parentEventTicket = new LRx_EventTicket
                             {
                                 Id = eventTicketRecord.LRx_EventTicketId.Value,
                                 LRx_TotalRegistrationsOld = new Money(totalTicketRevenue),
                                 LRx_TicketsOldCount = (int)TicketCount
                             };
                             _service.Update(parentEventTicket);
-                        }
+                        
                     }
                 }
                 else //calculate individual registrations
@@ -1335,6 +1415,12 @@ namespace Fundraising_Engagement.Plugins.Service
                     }
                 }
 
+                if (registrationRecord.LRx_Event == null ||
+     registrationRecord.LRx_Event.Id == Guid.Empty)
+                {
+                    return;
+                }
+
                 LRx_Event EventParentRecord = (LRx_Event)RetrieveRecord(
                     LRx_Event.EntityLogicalName,
                     registrationRecord.LRx_Event.Id,
@@ -1342,6 +1428,10 @@ namespace Fundraising_Engagement.Plugins.Service
                     LRx_Event.Fields.LRx_SiFund_Appeal,
                     LRx_Event.Fields.LRx_SiFund_Package
                 );
+                if (EventParentRecord == null)
+                {
+                    return;
+                }
 
                 decimal totalCampaignRegistrationRevenue = 0;
                 decimal totalCampaignRegistrationCount = 0;
@@ -1351,7 +1441,7 @@ namespace Fundraising_Engagement.Plugins.Service
                 decimal totalPackageRegistrationCount = 0;
                 int tempHolder = 0;
 
-                if (EventParentRecord.LRx_Campaign != null)
+                if (EventParentRecord != null && EventParentRecord.LRx_Campaign != null)
                 {
                     totalCampaignRegistrationRevenue = CalculateAmountRevenue(
                         LRx_Event.EntityLogicalName,
@@ -1378,7 +1468,7 @@ namespace Fundraising_Engagement.Plugins.Service
                     _service.Update(parentCampaign);
                 }
 
-                if (EventParentRecord.LRx_SiFund_Appeal != null)
+                if (EventParentRecord != null && EventParentRecord.LRx_SiFund_Appeal != null)
                 {
                     totalAppealRegistrationRevenue = CalculateAmountRevenue(
                         LRx_Event.EntityLogicalName,
@@ -1403,7 +1493,7 @@ namespace Fundraising_Engagement.Plugins.Service
                     _service.Update(parentAppeal);
                 }
 
-                if (EventParentRecord.LRx_SiFund_Package != null)
+                if (EventParentRecord != null && EventParentRecord.LRx_SiFund_Package != null)
                 {
                     totalPackageRegistrationRevenue = CalculateAmountRevenue(
                         LRx_Event.EntityLogicalName,
@@ -1684,21 +1774,21 @@ namespace Fundraising_Engagement.Plugins.Service
                 LRx_EventSponsorship.Fields.LRx_EventSponsorshipId
             );
 
-            decimal totalEventSponsorRevenue = 0;
+            //decimal totalEventSponsorRevenue = 0;
             int EventSponsorCount = 0;
 
-            totalEventSponsorRevenue = CalculateAmountRevenue(
-                    LRx_Sponsorship.EntityLogicalName,
-                    LRx_Sponsorship.Fields.LRx_PricePerSponsorship,
-                    LRx_Sponsorship.Fields.LRx_EventSponsorship,
-                    eventSponsorRecord.LRx_EventSponsorshipId.Value,
-                    out EventSponsorCount
-                );
+            //totalEventSponsorRevenue = CalculateAmountRevenue(
+            //        LRx_Sponsorship.EntityLogicalName,
+            //        LRx_Sponsorship.Fields.LRx_PricePerSponsorship,
+            //        LRx_Sponsorship.Fields.LRx_EventSponsorship,
+            //        eventSponsorRecord.LRx_EventSponsorshipId.Value,
+            //        out EventSponsorCount
+            //    );
 
             var parentEventSponsor = new LRx_EventSponsorship
             {
                 Id = eventSponsorRecord.LRx_EventSponsorshipId.Value,
-                LRx_TotalSponsorships = new Money(totalEventSponsorRevenue),
+               // LRx_TotalSponsorships = new Money(totalEventSponsorRevenue),
                 LRx_SponsorshipsOld = (int)EventSponsorCount
             };
             _service.Update(parentEventSponsor);

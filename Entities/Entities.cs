@@ -15,6 +15,7 @@ namespace CrmEarlyBound
 	/// <summary>
 	/// Business that represents a customer or potential customer. The company that is billed in business transactions.
 	/// </summary>
+
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("account")]
 	public partial class Account : Microsoft.Xrm.Sdk.Entity
@@ -24534,7 +24535,9 @@ namespace CrmEarlyBound
 			public const string LRx_Contact_LastTransaction_MsnFp_Transaction = "LRx_Contact_LastTransaction_MsnFp_Transaction";
 			public const string LRx_Contact_MsnFp_Transaction_223 = "lrx_contact_msnfp_transaction_223";
 			public const string LRx_Event = "lrx_event";
-			public const string LRx_EventName = "lrx_eventname";
+            public const string LRx_EventSponsorship = "lrx_eventsponsorship";
+            public const string LRx_Sponsorship = "lrx_sponsorship";
+            public const string LRx_EventName = "lrx_eventname";
 			public const string LRx_EventTeam = "lrx_eventteam";
 			public const string LRx_EventTeamName = "lrx_eventteamname";
 			public const string LRx_FundRaisinDonationId = "lrx_fundraisindonationid";
@@ -25114,8 +25117,38 @@ namespace CrmEarlyBound
 				this.SetAttributeValue("lrx_event", value);
 			}
 		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_eventname")]
+
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_eventsponsorship")]
+        public Microsoft.Xrm.Sdk.EntityReference LRx_EventSponsorship
+        {
+            [System.Diagnostics.DebuggerNonUserCode()]
+            get
+            {
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_eventsponsorship");
+            }
+            [System.Diagnostics.DebuggerNonUserCode()]
+            set
+            {
+                this.SetAttributeValue("lrx_eventsponsorship", value);
+            }
+        }
+
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_sponsorship")]
+        public Microsoft.Xrm.Sdk.EntityReference LRx_Sponsorship
+        {
+            [System.Diagnostics.DebuggerNonUserCode()]
+            get
+            {
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("lrx_sponsorship");
+            }
+            [System.Diagnostics.DebuggerNonUserCode()]
+            set
+            {
+                this.SetAttributeValue("lrx_sponsorship", value);
+            }
+        }
+
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_eventname")]
 		public string LRx_EventName
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
