@@ -1951,6 +1951,23 @@ namespace FundraisinApp_Integration.Plugins.Service
                 ["lrx_fundraisinsalesid"] = int.Parse(saleitem.id.Trim())
             };
 
+            //Mark product as inventory Product
+            if (decimal.TryParse(NullIfMissing(saleitem.unit_cost), out decimal unitCost) && unitCost == 0)
+            {
+                if (existingInventoryProduct != null)
+                {
+                    saleProduct["lrx_inventoryproduct"] =
+                        new EntityReference(
+                            "lrx_inventoryproduct",
+                            existingInventoryProduct.Id);
+
+                    saleProduct["lrx_type"] = true;
+
+                    _tracingService.Trace(
+                        $"Unit Cost is 0. Linked Inventory Product: {existingInventoryProduct.Id} and set Type = Inventory Product.");
+                }
+            }
+
             // Parse quantity safely
             if (int.TryParse(saleitem.quantity, out int parsedQuantity))
             {
@@ -1961,7 +1978,7 @@ namespace FundraisinApp_Integration.Plugins.Service
             if (decimal.TryParse(saleitem.unit_cost, out decimal parsedPrice))
             {
                 saleProduct["lrx_priceperproduct"] = new Money(parsedPrice);
-                saleProduct["lrx_productamount"] = new Money(parsedPrice);
+                //saleProduct["lrx_productamount"] = new Money(parsedPrice);
             }
 
 
