@@ -78,31 +78,55 @@ namespace Fundraising_Engagement.Plugins.Plugins
             }
             else if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is EntityReference && context.MessageName == "Delete")
             {
-                // Handle logic on donorcommitment deletion
-                var preImageEntity = context.PreEntityImages["DonorCommitmentPreImage"];
 
-                if (context.PreEntityImages != null && context.PreEntityImages.Contains("DonorCommitmentPreImage"))
+                // Handle logic on donorcommitment deletion
+
+
+                tracingService.Trace("DonorCommitment Delete started.");
+
+                if (context.PreEntityImages != null &&
+                    context.PreEntityImages.Contains("DonorCommitmentPreImage"))
                 {
+                    tracingService.Trace("PreImage found.");
+
+                    var preImageEntity = context.PreEntityImages["DonorCommitmentPreImage"];
                     var preImage = preImageEntity.ToEntity<MsnFp_DonorCommitment>();
 
                     if (preImage.SiFund_Appeal != null)
                     {
-                        var siFundAppeal = preImage.SiFund_Appeal;
-                        fundraisingService.PledgesRollup(SiFund_Appeal.EntityLogicalName, siFundAppeal.Id, MsnFp_DonorCommitment.Fields.SiFund_Appeal);
+                        tracingService.Trace("Processing Appeal.");
 
+                        fundraisingService.PledgesRollup(
+                            SiFund_Appeal.EntityLogicalName,
+                            preImage.SiFund_Appeal.Id,
+                            MsnFp_DonorCommitment.Fields.SiFund_Appeal);
                     }
 
                     if (preImage.SiFund_Package != null)
                     {
-                        var siFundPackage = preImage.SiFund_Package;
-                        fundraisingService.PledgesRollup(SiFund_Package.EntityLogicalName, siFundPackage.Id, MsnFp_DonorCommitment.Fields.SiFund_Package);
+                        tracingService.Trace("Processing Package.");
+
+                        fundraisingService.PledgesRollup(
+                            SiFund_Package.EntityLogicalName,
+                            preImage.SiFund_Package.Id,
+                            MsnFp_DonorCommitment.Fields.SiFund_Package);
                     }
 
                     if (preImage.LRx_Campaign != null)
                     {
-                        var lRxCampaign = preImage.LRx_Campaign;
-                        fundraisingService.PledgesRollup(Campaign.EntityLogicalName, lRxCampaign.Id, MsnFp_DonorCommitment.Fields.LRx_Campaign);
+                        tracingService.Trace("Processing Campaign.");
+
+                        fundraisingService.PledgesRollup(
+                            Campaign.EntityLogicalName,
+                            preImage.LRx_Campaign.Id,
+                            MsnFp_DonorCommitment.Fields.LRx_Campaign);
                     }
+
+                    tracingService.Trace("DonorCommitment Delete completed.");
+                }
+                else
+                {
+                    tracingService.Trace("DonorCommitmentPreImage not found.");
                 }
             }
         }

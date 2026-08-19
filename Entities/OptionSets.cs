@@ -13721,6 +13721,15 @@ namespace CrmEarlyBound
         [System.Runtime.Serialization.EnumMemberAttribute()]
         [OptionSetMetadataAttribute("Sponsorship", 3, "#0000ff")]
         Sponsorship = 856660003,
+
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        [OptionSetMetadataAttribute("Registration ", 4, "#0000ff")]
+        Registration = 844060003,
+
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        [OptionSetMetadataAttribute("Merchandise ", 5, "#0000ff")]
+        Merchandise = 844060004,
+
     }
 	
 	/// <summary>

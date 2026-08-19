@@ -129,6 +129,7 @@
     <Compile Include="Entities\Separated Entities\Opportunity.cs" />
     <Compile Include="Entities\OptionSets.cs" />
     <Compile Include="Plugins\DonorCommitment.cs" />
+    <Compile Include="Plugins\Event.cs" />
     <Compile Include="Plugins\EventProduct.cs" />
     <Compile Include="Plugins\EventRegistration.cs" />
     <Compile Include="Plugins\EventSponsor.cs" />
