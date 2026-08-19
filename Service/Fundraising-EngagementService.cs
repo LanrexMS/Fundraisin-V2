@@ -2876,5 +2876,87 @@ namespace Fundraising_Engagement.Plugins.Service
                 $"Campaign totals updated successfully. CampaignId={campaignId}");
         }
         #endregion
+
+        #region Added on 19-08-2026
+        public void UpdateRegistrationTicketHolderCount(
+    Guid ticketHolderId,
+    Guid oldRegistrationId)
+        {
+            Guid newRegistrationId = Guid.Empty;
+
+            // Get current Ticket Holder and Registration
+            if (ticketHolderId != Guid.Empty)
+            {
+                var ticketHolder = (lrx_TicketHolders)RetrieveRecord(
+                    lrx_TicketHolders.EntityLogicalName,
+                    ticketHolderId,
+                    lrx_TicketHolders.Fields.lrx_ParentRegistration
+                );
+
+                if (ticketHolder != null &&
+                    ticketHolder.lrx_ParentRegistration != null)
+                {
+                    newRegistrationId = ticketHolder.lrx_ParentRegistration.Id;
+                }
+            }
+
+            _tracingService.Trace(
+                $"UpdateRegistrationTicketHolderCount started. " +
+                $"TicketHolderId={ticketHolderId}, " +
+                $"OldRegistrationId={oldRegistrationId}, " +
+                $"NewRegistrationId={newRegistrationId}");
+
+            // Recalculate old Registration
+            // This handles Delete and moving Ticket Holder to another Registration
+            if (oldRegistrationId != Guid.Empty &&
+                oldRegistrationId != newRegistrationId)
+            {
+                CalculateAndUpdateRegistrationTicketHolderCount(
+                    oldRegistrationId);
+            }
+
+            // Recalculate new/current Registration
+            if (newRegistrationId != Guid.Empty)
+            {
+                CalculateAndUpdateRegistrationTicketHolderCount(
+                    newRegistrationId);
+            }
+        }
+
+        private void CalculateAndUpdateRegistrationTicketHolderCount(
+    Guid registrationId)
+        {
+            _tracingService.Trace(
+                $"Calculating Ticket Holder count. " +
+                $"RegistrationId={registrationId}");
+
+            decimal ticketHolderCount = CalculateCount(
+                LRx_Registrations.EntityLogicalName,
+                registrationId,
+                lrx_TicketHolders.EntityLogicalName,
+                lrx_TicketHolders.Fields.lrx_ParentRegistration,
+                new ColumnSet(false),
+                new Dictionary<string, (ConditionOperator, object)>()
+            );
+
+            _tracingService.Trace(
+                $"Ticket Holder count calculated. " +
+                $"RegistrationId={registrationId}, " +
+                $"TicketHolderCount={ticketHolderCount}");
+
+            var registration = new LRx_Registrations
+            {
+                Id = registrationId,
+                LRx_TotalNoOfTicketHolders = (int)ticketHolderCount
+            };
+
+            _service.Update(registration);
+
+            _tracingService.Trace(
+                $"Registration Ticket Holder count updated successfully. " +
+                $"RegistrationId={registrationId}, " +
+                $"TotalNoOfTicketHolders={(int)ticketHolderCount}");
+        }
+        #endregion
     }
 }

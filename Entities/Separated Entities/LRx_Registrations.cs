@@ -84,7 +84,8 @@ namespace DataverseModel
 		/// </summary>
 		public partial class Fields
 		{
-			public const string CreatedBy = "createdby";
+            public const string LRx_TotalNoOfTicketHolders = "lrx_totalnoofticketholders";
+            public const string CreatedBy = "createdby";
 			public const string CreatedByName = "createdbyname";
 			public const string CreatedByYomiName = "createdbyyominame";
 			public const string CreatedOn = "createdon";
@@ -224,8 +225,26 @@ namespace DataverseModel
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
 			}
 		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyname")]
+
+        /// <summary>
+        /// Total number of ticket holders.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_totalnoofticketholders")]
+        public System.Nullable<int> LRx_TotalNoOfTicketHolders
+        {
+            [System.Diagnostics.DebuggerNonUserCode()]
+            get
+            {
+                return this.GetAttributeValue<System.Nullable<int>>("lrx_totalnoofticketholders");
+            }
+            [System.Diagnostics.DebuggerNonUserCode()]
+            set
+            {
+                this.SetAttributeValue("lrx_totalnoofticketholders", value);
+            }
+        }
+
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdbyname")]
 		public string CreatedByName
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]

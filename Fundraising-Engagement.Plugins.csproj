@@ -126,6 +126,7 @@
     <Compile Include="Entities\Separated Entities\LRx_Product.cs" />
     <Compile Include="Entities\Separated Entities\LRx_Registrations.cs" />
     <Compile Include="Entities\Separated Entities\LRx_Sponsorship.cs" />
+    <Compile Include="Entities\Separated Entities\LRx_TicketHolders.cs" />
     <Compile Include="Entities\Separated Entities\Opportunity.cs" />
     <Compile Include="Entities\OptionSets.cs" />
     <Compile Include="Plugins\DonorCommitment.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Plugins\FundingPaymentSchedule.cs" />
     <Compile Include="Plugins\PaymentSchedule.cs" />
     <Compile Include="Plugins\Refund.cs" />
+    <Compile Include="Plugins\TicketHolder.cs" />
     <Compile Include="Plugins\Transaction.cs" />
     <Compile Include="Plugins\WriteOff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
