@@ -1506,90 +1506,90 @@ namespace Fundraising_Engagement.Plugins.Service
                     return;
                 }
 
-                decimal totalCampaignRegistrationRevenue = 0;
-                decimal totalCampaignRegistrationCount = 0;
-                decimal totalAppealRegistrationRevenue = 0;
-                decimal totalAppealRegistrationCount = 0;
-                decimal totalPackageRegistrationRevenue = 0;
-                decimal totalPackageRegistrationCount = 0;
-                int tempHolder = 0;
+                //decimal totalCampaignRegistrationRevenue = 0;
+                //decimal totalCampaignRegistrationCount = 0;
+                //decimal totalAppealRegistrationRevenue = 0;
+                //decimal totalAppealRegistrationCount = 0;
+                //decimal totalPackageRegistrationRevenue = 0;
+                //decimal totalPackageRegistrationCount = 0;
+                //int tempHolder = 0;
 
-                if (EventParentRecord != null && EventParentRecord.LRx_Campaign != null)
-                {
-                    totalCampaignRegistrationRevenue = CalculateAmountRevenue(
-                        LRx_Event.EntityLogicalName,
-                        LRx_Event.Fields.LRx_TotalRegistrations,
-                        LRx_Event.Fields.LRx_Campaign,
-                        EventParentRecord.LRx_Campaign.Id,
-                        out tempHolder
-                    );
+                //if (EventParentRecord != null && EventParentRecord.LRx_Campaign != null)
+                //{
+                //    totalCampaignRegistrationRevenue = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_TotalRegistrations,
+                //        LRx_Event.Fields.LRx_Campaign,
+                //        EventParentRecord.LRx_Campaign.Id,
+                //        out tempHolder
+                //    );
 
-                    totalCampaignRegistrationCount = CalculateAmountRevenue(
-                        LRx_Event.EntityLogicalName,
-                        LRx_Event.Fields.LRx_Registrations,
-                        LRx_Event.Fields.LRx_Campaign,
-                        EventParentRecord.LRx_Campaign.Id,
-                        out tempHolder
-                    );
+                //    totalCampaignRegistrationCount = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_Registrations,
+                //        LRx_Event.Fields.LRx_Campaign,
+                //        EventParentRecord.LRx_Campaign.Id,
+                //        out tempHolder
+                //    );
 
-                    var parentCampaign = new Campaign
-                    {
-                        Id = EventParentRecord.LRx_Campaign.Id,
-                        LRx_TotalRegistrations = new Money(totalCampaignRegistrationRevenue),
-                        LRx_RegistrationCount = (int)totalCampaignRegistrationCount
-                    };
-                    _service.Update(parentCampaign);
-                }
+                //    var parentCampaign = new Campaign
+                //    {
+                //        Id = EventParentRecord.LRx_Campaign.Id,
+                //        LRx_TotalRegistrations = new Money(totalCampaignRegistrationRevenue),
+                //        LRx_RegistrationCount = (int)totalCampaignRegistrationCount
+                //    };
+                //    _service.Update(parentCampaign);
+                //}
 
-                if (EventParentRecord != null && EventParentRecord.LRx_SiFund_Appeal != null)
-                {
-                    totalAppealRegistrationRevenue = CalculateAmountRevenue(
-                        LRx_Event.EntityLogicalName,
-                        LRx_Event.Fields.LRx_TotalRegistrations,
-                        LRx_Event.Fields.LRx_SiFund_Appeal,
-                        EventParentRecord.LRx_SiFund_Appeal.Id,
-                        out tempHolder
-                    );
-                    totalAppealRegistrationCount = CalculateAmountRevenue(
-                        LRx_Event.EntityLogicalName,
-                        LRx_Event.Fields.LRx_Registrations,
-                        LRx_Event.Fields.LRx_SiFund_Appeal,
-                        EventParentRecord.LRx_SiFund_Appeal.Id,
-                        out tempHolder
-                    );
-                    var parentAppeal = new SiFund_Appeal
-                    {
-                        Id = EventParentRecord.LRx_SiFund_Appeal.Id,
-                        LRx_TotalRegistrations = new Money(totalAppealRegistrationRevenue),
-                        LRx_RegistrationCount = (int)totalAppealRegistrationCount
-                    };
-                    _service.Update(parentAppeal);
-                }
+                //if (EventParentRecord != null && EventParentRecord.LRx_SiFund_Appeal != null)
+                //{
+                //    totalAppealRegistrationRevenue = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_TotalRegistrations,
+                //        LRx_Event.Fields.LRx_SiFund_Appeal,
+                //        EventParentRecord.LRx_SiFund_Appeal.Id,
+                //        out tempHolder
+                //    );
+                //    totalAppealRegistrationCount = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_Registrations,
+                //        LRx_Event.Fields.LRx_SiFund_Appeal,
+                //        EventParentRecord.LRx_SiFund_Appeal.Id,
+                //        out tempHolder
+                //    );
+                //    var parentAppeal = new SiFund_Appeal
+                //    {
+                //        Id = EventParentRecord.LRx_SiFund_Appeal.Id,
+                //        LRx_TotalRegistrations = new Money(totalAppealRegistrationRevenue),
+                //        LRx_RegistrationCount = (int)totalAppealRegistrationCount
+                //    };
+                //    _service.Update(parentAppeal);
+                //}
 
-                if (EventParentRecord != null && EventParentRecord.LRx_SiFund_Package != null)
-                {
-                    totalPackageRegistrationRevenue = CalculateAmountRevenue(
-                        LRx_Event.EntityLogicalName,
-                        LRx_Event.Fields.LRx_TotalRegistrations,
-                        LRx_Event.Fields.LRx_SiFund_Package,
-                        EventParentRecord.LRx_SiFund_Package.Id,
-                        out tempHolder
-                    );
-                    totalPackageRegistrationCount = CalculateAmountRevenue(
-                        LRx_Event.EntityLogicalName,
-                        LRx_Event.Fields.LRx_Registrations,
-                        LRx_Event.Fields.LRx_SiFund_Package,
-                        EventParentRecord.LRx_SiFund_Package.Id,
-                        out tempHolder
-                    );
-                    var parentPackage = new SiFund_Package
-                    {
-                        Id = EventParentRecord.LRx_SiFund_Package.Id,
-                        LRx_TotalRegistrations = new Money(totalPackageRegistrationRevenue),
-                        LRx_RegistrationCount = (int)totalPackageRegistrationCount
-                    };
-                    _service.Update(parentPackage);
-                }
+                //if (EventParentRecord != null && EventParentRecord.LRx_SiFund_Package != null)
+                //{
+                //    totalPackageRegistrationRevenue = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_TotalRegistrations,
+                //        LRx_Event.Fields.LRx_SiFund_Package,
+                //        EventParentRecord.LRx_SiFund_Package.Id,
+                //        out tempHolder
+                //    );
+                //    totalPackageRegistrationCount = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_Registrations,
+                //        LRx_Event.Fields.LRx_SiFund_Package,
+                //        EventParentRecord.LRx_SiFund_Package.Id,
+                //        out tempHolder
+                //    );
+                //    var parentPackage = new SiFund_Package
+                //    {
+                //        Id = EventParentRecord.LRx_SiFund_Package.Id,
+                //        LRx_TotalRegistrations = new Money(totalPackageRegistrationRevenue),
+                //        LRx_RegistrationCount = (int)totalPackageRegistrationCount
+                //    };
+                //    _service.Update(parentPackage);
+                //}
             }
         }
 
@@ -1966,15 +1966,22 @@ namespace Fundraising_Engagement.Plugins.Service
 
         public void UpdateEventTableRevenue(Guid tableID, LRx_EventTable eventTableRecord)
         {
-            if (tableID != Guid.Empty) {
+            // Create / Update
+            // For Delete, tableID is Guid.Empty and eventTableRecord comes from Pre Image.
+            if (tableID != Guid.Empty)
+            {
                 eventTableRecord = (LRx_EventTable)RetrieveRecord(
                     LRx_EventTable.EntityLogicalName,
                     tableID,
                     LRx_EventTable.Fields.LRx_Event,
-                    LRx_EventTable.Fields.LRx_EventTableId
+                    LRx_EventTable.Fields.LRx_EventTableId,
+                    LRx_EventTable.Fields.LRx_EventTicket
                 );
             }
-            
+
+            // ============================================================
+            // 1. Update Parent Event
+            // ============================================================
             if (eventTableRecord != null &&
                 eventTableRecord.LRx_Event != null &&
                 eventTableRecord.LRx_Event.Id != Guid.Empty)
@@ -1989,149 +1996,187 @@ namespace Fundraising_Engagement.Plugins.Service
                     eventTableRecord.LRx_Event.Id,
                     out eventTableCount
                 );
+
                 var parentEvent = new LRx_Event
                 {
                     Id = eventTableRecord.LRx_Event.Id,
                     LRx_TotalEventTables = new Money(totalEventTableRevenue),
-                    LRx_EventTable = (int)eventTableCount
+                    LRx_EventTable = eventTableCount
                 };
+
                 _service.Update(parentEvent);
             }
 
-            LRx_EventTable eventTable = (LRx_EventTable)RetrieveRecord(
-                LRx_EventTable.EntityLogicalName,
-                eventTableRecord.LRx_EventTableId.Value,
-                LRx_EventTable.Fields.LRx_EventTicket
-            );
-
-            var eventTicketRecord = (LRx_EventTicket)RetrieveRecord(
-                LRx_EventTicket.EntityLogicalName,
-                eventTable.LRx_EventTicket.Id,
-                LRx_EventTicket.Fields.LRx_TableTicket,
-                LRx_EventTicket.Fields.LRx_EventTicketId
-            );
-
-            decimal totalTicketRevenue = 0;
-            int TicketCount = 0;
-
-            totalTicketRevenue = CalculateAmountRevenue(
-                    LRx_EventTable.EntityLogicalName,
-                    LRx_EventTable.Fields.LRx_PricePerTable,
-                    LRx_EventTable.Fields.LRx_EventTicket,
-                    eventTicketRecord.LRx_EventTicketId.Value,
-                    out TicketCount
+            // ============================================================
+            // 2. Update Parent Event Ticket
+            // ============================================================
+            // IMPORTANT:
+            // Do NOT retrieve LRx_EventTable here because on Delete
+            // the Event Table record has already been deleted.
+            // Use the EventTicket lookup from the EventTable record
+            // / Delete Pre Image.
+            if (eventTableRecord != null &&
+                eventTableRecord.LRx_EventTicket != null &&
+                eventTableRecord.LRx_EventTicket.Id != Guid.Empty)
+            {
+                var eventTicketRecord = (LRx_EventTicket)RetrieveRecord(
+                    LRx_EventTicket.EntityLogicalName,
+                    eventTableRecord.LRx_EventTicket.Id,
+                    LRx_EventTicket.Fields.LRx_TableTicket,
+                    LRx_EventTicket.Fields.LRx_EventTicketId
                 );
 
-            if (eventTicketRecord.LRx_EventTicketId != Guid.Empty && eventTicketRecord.LRx_EventTicketId.HasValue)
-            {
-                var parentEventTicket = new LRx_EventTicket
+                if (eventTicketRecord != null &&
+                    eventTicketRecord.LRx_EventTicketId.HasValue &&
+                    eventTicketRecord.LRx_EventTicketId.Value != Guid.Empty)
                 {
-                    Id = eventTicketRecord.LRx_EventTicketId.Value,
-                    LRx_TotalRegistrationsOld = new Money(totalTicketRevenue),
-                    LRx_TicketsOldCount = (int)TicketCount
-                };
-                _service.Update(parentEventTicket);
+                    decimal totalTicketRevenue = CalculateAmountRevenue(
+                        LRx_EventTable.EntityLogicalName,
+                        LRx_EventTable.Fields.LRx_PricePerTable,
+                        LRx_EventTable.Fields.LRx_EventTicket,
+                        eventTicketRecord.LRx_EventTicketId.Value,
+                        out int ticketCount
+                    );
+
+                    var parentEventTicket = new LRx_EventTicket
+                    {
+                        Id = eventTicketRecord.LRx_EventTicketId.Value,
+                        LRx_TotalRegistrationsOld = new Money(totalTicketRevenue),
+                        LRx_TicketsOldCount = ticketCount
+                    };
+
+                    _service.Update(parentEventTicket);
+                }
             }
 
-            LRx_Event EventParentRecord = (LRx_Event)RetrieveRecord(
-                LRx_Event.EntityLogicalName,
-                eventTableRecord.LRx_Event.Id,
-                LRx_Event.Fields.LRx_Campaign,
-                LRx_Event.Fields.LRx_SiFund_Appeal,
-                LRx_Event.Fields.LRx_SiFund_Package
-            );
-
-            decimal totalCampaignTableRevenue = 0;
-            decimal totalCampaignTableCount = 0;
-            decimal totalAppealTableRevenue = 0;
-            decimal totalAppealTableCount = 0;
-            decimal totalPackageTableRevenue = 0;
-            decimal totalPackageTableCount = 0;
-            int tempHolder = 0;
-
-            if (EventParentRecord.LRx_Campaign != null)
+            // ============================================================
+            // 3. Get Parent Event
+            // ============================================================
+            if (eventTableRecord != null &&
+                eventTableRecord.LRx_Event != null &&
+                eventTableRecord.LRx_Event.Id != Guid.Empty)
             {
-                totalCampaignTableRevenue = CalculateAmountRevenue(
+                LRx_Event eventParentRecord = (LRx_Event)RetrieveRecord(
                     LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_TotalEventTables,
+                    eventTableRecord.LRx_Event.Id,
                     LRx_Event.Fields.LRx_Campaign,
-                    EventParentRecord.LRx_Campaign.Id,
-                    out tempHolder
-                );
-
-                totalCampaignTableCount = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_EventTable,
-                    LRx_Event.Fields.LRx_Campaign,
-                    EventParentRecord.LRx_Campaign.Id,
-                    out tempHolder
-                );
-
-                var parentCampaign = new Campaign
-                {
-                    Id = EventParentRecord.LRx_Campaign.Id,
-                    LRx_TotalEventTablesSold = new Money(totalCampaignTableRevenue),
-                    LRx_EventTablesSoldCount = (int)totalCampaignTableCount
-                };
-                _service.Update(parentCampaign);
-            }
-
-            if (EventParentRecord.LRx_SiFund_Appeal != null)
-            {
-                totalAppealTableRevenue = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_TotalEventTables,
                     LRx_Event.Fields.LRx_SiFund_Appeal,
-                    EventParentRecord.LRx_SiFund_Appeal.Id,
-                    out tempHolder
+                    LRx_Event.Fields.LRx_SiFund_Package
                 );
 
-                totalAppealTableCount = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_EventTable,
-                    LRx_Event.Fields.LRx_SiFund_Appeal,
-                    EventParentRecord.LRx_SiFund_Appeal.Id,
-                    out tempHolder
-                );
-
-                var parentAppeal = new SiFund_Appeal
+                if (eventParentRecord == null)
                 {
-                    Id = EventParentRecord.LRx_SiFund_Appeal.Id,
-                    LRx_TotalEventTablesSold = new Money(totalAppealTableRevenue),
-                    LRx_EventTablesSoldCount = (int)totalAppealTableCount
-                };
-                _service.Update(parentAppeal);
+                    return;
+                }
+
+                //decimal totalCampaignTableRevenue = 0;
+                //decimal totalCampaignTableCount = 0;
+
+                //decimal totalAppealTableRevenue = 0;
+                //decimal totalAppealTableCount = 0;
+
+                //decimal totalPackageTableRevenue = 0;
+                //decimal totalPackageTableCount = 0;
+
+                int tempHolder = 0;
+
+                // ========================================================
+                // 4. Update Campaign
+                // ========================================================
+                //if (eventParentRecord.LRx_Campaign != null &&
+                //    eventParentRecord.LRx_Campaign.Id != Guid.Empty)
+                //{
+                //    totalCampaignTableRevenue = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_TotalEventTables,
+                //        LRx_Event.Fields.LRx_Campaign,
+                //        eventParentRecord.LRx_Campaign.Id,
+                //        out tempHolder
+                //    );
+
+                //    totalCampaignTableCount = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_EventTable,
+                //        LRx_Event.Fields.LRx_Campaign,
+                //        eventParentRecord.LRx_Campaign.Id,
+                //        out tempHolder
+                //    );
+
+                //    var parentCampaign = new Campaign
+                //    {
+                //        Id = eventParentRecord.LRx_Campaign.Id,
+                //        LRx_TotalEventTablesSold = new Money(totalCampaignTableRevenue),
+                //        LRx_EventTablesSoldCount = (int)totalCampaignTableCount
+                //    };
+
+                //    _service.Update(parentCampaign);
+                //}
+
+                // ========================================================
+                // 5. Update Appeal
+                // ========================================================
+                //if (eventParentRecord.LRx_SiFund_Appeal != null &&
+                //    eventParentRecord.LRx_SiFund_Appeal.Id != Guid.Empty)
+                //{
+                //    totalAppealTableRevenue = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_TotalEventTables,
+                //        LRx_Event.Fields.LRx_SiFund_Appeal,
+                //        eventParentRecord.LRx_SiFund_Appeal.Id,
+                //        out tempHolder
+                //    );
+
+                //    totalAppealTableCount = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_EventTable,
+                //        LRx_Event.Fields.LRx_SiFund_Appeal,
+                //        eventParentRecord.LRx_SiFund_Appeal.Id,
+                //        out tempHolder
+                //    );
+
+                //    var parentAppeal = new SiFund_Appeal
+                //    {
+                //        Id = eventParentRecord.LRx_SiFund_Appeal.Id,
+                //        LRx_TotalEventTablesSold = new Money(totalAppealTableRevenue),
+                //        LRx_EventTablesSoldCount = (int)totalAppealTableCount
+                //    };
+
+                //    _service.Update(parentAppeal);
+                //}
+
+                // ========================================================
+                // 6. Update Package
+                // ========================================================
+                //if (eventParentRecord.LRx_SiFund_Package != null &&
+                //    eventParentRecord.LRx_SiFund_Package.Id != Guid.Empty)
+                //{
+                //    totalPackageTableRevenue = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_TotalEventTables,
+                //        LRx_Event.Fields.LRx_SiFund_Package,
+                //        eventParentRecord.LRx_SiFund_Package.Id,
+                //        out tempHolder
+                //    );
+
+                //    totalPackageTableCount = CalculateAmountRevenue(
+                //        LRx_Event.EntityLogicalName,
+                //        LRx_Event.Fields.LRx_EventTable,
+                //        LRx_Event.Fields.LRx_SiFund_Package,
+                //        eventParentRecord.LRx_SiFund_Package.Id,
+                //        out tempHolder
+                //    );
+
+                //    var parentPackage = new SiFund_Package
+                //    {
+                //        Id = eventParentRecord.LRx_SiFund_Package.Id,
+                //        LRx_TotalEventTablesSold = new Money(totalPackageTableRevenue),
+                //        LRx_EventTablesSoldCount = (int)totalPackageTableCount
+                //    };
+
+                //    _service.Update(parentPackage);
+                //}
             }
-
-            if (EventParentRecord.LRx_SiFund_Package != null)
-            {
-                totalPackageTableRevenue = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_TotalEventTables,
-                    LRx_Event.Fields.LRx_SiFund_Package,
-                    EventParentRecord.LRx_SiFund_Package.Id,
-                    out tempHolder
-                );
-
-                totalPackageTableCount = CalculateAmountRevenue(
-                    LRx_Event.EntityLogicalName,
-                    LRx_Event.Fields.LRx_EventTable,
-                    LRx_Event.Fields.LRx_SiFund_Package,
-                    EventParentRecord.LRx_SiFund_Package.Id,
-                    out tempHolder
-                );
-
-                var parentPackage = new SiFund_Package
-                {
-                    Id = EventParentRecord.LRx_SiFund_Package.Id,
-                    LRx_TotalEventTablesSold = new Money(totalPackageTableRevenue),
-                    LRx_EventTablesSoldCount = (int)totalPackageTableCount
-                };
-                _service.Update(parentPackage);
-            }
-
         }
-
         public void UpdateFinancialSummary(Guid financialID, LRx_FinAnaCiaL financialRecord) 
         {
             if (financialID != Guid.Empty) {
@@ -2815,6 +2860,22 @@ namespace Fundraising_Engagement.Plugins.Service
                 out tempCount
             );
 
+            decimal totalEventTable = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_TotalEventTables,
+                LRx_Event.Fields.LRx_Campaign,
+                campaignId,
+                out tempCount
+                );
+
+            decimal totalEventTableCount = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_EventTable,
+                LRx_Event.Fields.LRx_Campaign,
+                campaignId,
+                out tempCount
+                );
+
             decimal totalProducts = CalculateAmountRevenue(
                 LRx_Event.EntityLogicalName,
                 LRx_Event.Fields.LRx_TotalProducts,
@@ -2867,7 +2928,11 @@ namespace Fundraising_Engagement.Plugins.Service
                 LRx_ProductsOldCount = (int)productsCount,
 
                 LRx_TotalSponsorship = new Money(totalSponsorships),
-                LRx_SponsorshipCount = (int)sponsorshipCount
+                LRx_SponsorshipCount = (int)sponsorshipCount,
+
+                LRx_TotalEventTablesSold = new Money(totalEventTable),
+                LRx_EventTablesSoldCount = (int)totalEventTableCount
+
             };
 
             _service.Update(campaign);
@@ -2956,6 +3021,302 @@ namespace Fundraising_Engagement.Plugins.Service
                 $"Registration Ticket Holder count updated successfully. " +
                 $"RegistrationId={registrationId}, " +
                 $"TotalNoOfTicketHolders={(int)ticketHolderCount}");
+        }
+        #endregion
+
+        #region Appeal Event Fields Calculation
+        public void UpdateAppealEventTotals(
+    Guid eventId,
+    Guid oldAppealId)
+        {
+            Guid newAppealId = Guid.Empty;
+
+            // Get current Event and Appeal
+            if (eventId != Guid.Empty)
+            {
+                var eventRecord = (LRx_Event)RetrieveRecord(
+                    LRx_Event.EntityLogicalName,
+                    eventId,
+                    LRx_Event.Fields.LRx_SiFund_Appeal
+                );
+
+                if (eventRecord != null &&
+                    eventRecord.LRx_SiFund_Appeal != null)
+                {
+                    newAppealId = eventRecord.LRx_SiFund_Appeal.Id;
+                }
+            }
+
+            _tracingService.Trace(
+                $"UpdateAppealEventTotals started. EventId={eventId}, " +
+                $"OldAppealId={oldAppealId}, NewAppealId={newAppealId}");
+
+            // Recalculate old Appeal if Event was moved/deleted
+            if (oldAppealId != Guid.Empty &&
+                oldAppealId != newAppealId)
+            {
+                CalculateAndUpdateAppealTotals(oldAppealId);
+            }
+
+            // Recalculate new/current Appeal
+            if (newAppealId != Guid.Empty)
+            {
+                CalculateAndUpdateAppealTotals(newAppealId);
+            }
+        }
+
+        private void CalculateAndUpdateAppealTotals(Guid appealId)
+        {
+            _tracingService.Trace(
+                $"Calculating Appeal totals. AppealId={appealId}");
+
+            int tempCount;
+
+            decimal totalRegistrations = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_TotalRegistrations,
+                LRx_Event.Fields.LRx_SiFund_Appeal,
+                appealId,
+                out tempCount
+            );
+
+            decimal registrationCount = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_Registrations,
+                LRx_Event.Fields.LRx_SiFund_Appeal,
+                appealId,
+                out tempCount
+            );
+
+            //event table
+            decimal totalEventTable = CalculateAmountRevenue(
+               LRx_Event.EntityLogicalName,
+               LRx_Event.Fields.LRx_TotalEventTables,
+               LRx_Event.Fields.LRx_SiFund_Appeal,
+               appealId,
+               out tempCount
+           );
+
+            decimal eventTableCount = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_EventTable,
+                LRx_Event.Fields.LRx_SiFund_Appeal,
+                appealId,
+                out tempCount
+            );
+
+
+            decimal totalProducts = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_TotalProducts,
+                LRx_Event.Fields.LRx_SiFund_Appeal,
+                appealId,
+                out tempCount
+            );
+
+            decimal productsCount = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_Products,
+                LRx_Event.Fields.LRx_SiFund_Appeal,
+                appealId,
+                out tempCount
+            );
+
+            decimal totalSponsorships = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_TotalSponsorships,
+                LRx_Event.Fields.LRx_SiFund_Appeal,
+                appealId,
+                out tempCount
+            );
+
+            decimal sponsorshipCount = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_Sponsorships,
+                LRx_Event.Fields.LRx_SiFund_Appeal,
+                appealId,
+                out tempCount
+            );
+
+            _tracingService.Trace(
+                $"Appeal totals calculated. " +
+                $"Registrations={totalRegistrations}, " +
+                $"RegistrationCount={registrationCount}, " +
+                $"Products={totalProducts}, " +
+                $"ProductsCount={productsCount}, " +
+                $"Sponsorships={totalSponsorships}, " +
+                $"SponsorshipCount={sponsorshipCount}");
+
+            var appeal = new SiFund_Appeal
+            {
+                Id = appealId,
+
+                LRx_TotalRegistrations = new Money(totalRegistrations),
+                LRx_RegistrationCount = (int)registrationCount,
+
+                LRx_TotalProductsSold = new Money(totalProducts),
+                LRx_ProductsOldCount = (int)productsCount,
+
+                LRx_TotalSponsorship = new Money(totalSponsorships),
+                LRx_SponsorshipCount = (int)sponsorshipCount,
+
+                LRx_TotalEventTablesSold = new Money(totalEventTable),
+                LRx_EventTablesSoldCount = (int)eventTableCount
+
+               
+            };
+
+            _service.Update(appeal);
+
+            _tracingService.Trace(
+                $"Appeal totals updated successfully. AppealId={appealId}");
+        }
+
+
+        //Package Calculation
+        public void UpdatePackageEventTotals(
+    Guid eventId,
+    Guid oldPackageId)
+        {
+            Guid newPackageId = Guid.Empty;
+
+            // Get current Event and Package
+            if (eventId != Guid.Empty)
+            {
+                var eventRecord = (LRx_Event)RetrieveRecord(
+                    LRx_Event.EntityLogicalName,
+                    eventId,
+                    LRx_Event.Fields.LRx_SiFund_Package
+                );
+
+                if (eventRecord != null &&
+                    eventRecord.LRx_SiFund_Package != null)
+                {
+                    newPackageId = eventRecord.LRx_SiFund_Package.Id;
+                }
+            }
+
+            _tracingService.Trace(
+                $"UpdatePackageEventTotals started. EventId={eventId}, " +
+                $"OldPackageId={oldPackageId}, NewPackageId={newPackageId}");
+
+            // Recalculate old Package if Event was moved/deleted
+            if (oldPackageId != Guid.Empty &&
+                oldPackageId != newPackageId)
+            {
+                CalculateAndUpdatePackageTotals(oldPackageId);
+            }
+
+            // Recalculate new/current Package
+            if (newPackageId != Guid.Empty)
+            {
+                CalculateAndUpdatePackageTotals(newPackageId);
+            }
+        }
+
+
+        private void CalculateAndUpdatePackageTotals(Guid packageId)
+        {
+            _tracingService.Trace(
+                $"Calculating Package totals. PackageId={packageId}");
+
+            int tempCount;
+
+            decimal totalRegistrations = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_TotalRegistrations,
+                LRx_Event.Fields.LRx_SiFund_Package,
+                packageId,
+                out tempCount
+            );
+
+            decimal registrationCount = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_Registrations,
+                LRx_Event.Fields.LRx_SiFund_Package,
+                packageId,
+                out tempCount
+            );
+
+            //Event Table
+            decimal totalEventTable = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_TotalEventTables,
+                LRx_Event.Fields.LRx_SiFund_Package,
+                packageId,
+                out tempCount
+            );
+
+            decimal eventTableCount = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_EventTable,
+                LRx_Event.Fields.LRx_SiFund_Package,
+                packageId,
+                out tempCount
+            );
+
+            decimal totalProducts = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_TotalProducts,
+                LRx_Event.Fields.LRx_SiFund_Package,
+                packageId,
+                out tempCount
+            );
+
+            decimal productsCount = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_Products,
+                LRx_Event.Fields.LRx_SiFund_Package,
+                packageId,
+                out tempCount
+            );
+
+            decimal totalSponsorships = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_TotalSponsorships,
+                LRx_Event.Fields.LRx_SiFund_Package,
+                packageId,
+                out tempCount
+            );
+
+            decimal sponsorshipCount = CalculateAmountRevenue(
+                LRx_Event.EntityLogicalName,
+                LRx_Event.Fields.LRx_Sponsorships,
+                LRx_Event.Fields.LRx_SiFund_Package,
+                packageId,
+                out tempCount
+            );
+
+            _tracingService.Trace(
+                $"Package totals calculated. " +
+                $"Registrations={totalRegistrations}, " +
+                $"RegistrationCount={registrationCount}, " +
+                $"Products={totalProducts}, " +
+                $"ProductsCount={productsCount}, " +
+                $"Sponsorships={totalSponsorships}, " +
+                $"SponsorshipCount={sponsorshipCount}");
+
+            var package = new SiFund_Package
+            {
+                Id = packageId,
+
+                LRx_TotalRegistrations = new Money(totalRegistrations),
+                LRx_RegistrationCount = (int)registrationCount,
+
+                LRx_TotalProductsSold = new Money(totalProducts),
+                LRx_ProductsOldCount = (int)productsCount,
+
+                LRx_TotalSponsorship = new Money(totalSponsorships),
+                LRx_SponsorshipCount = (int)sponsorshipCount,
+
+                LRx_TotalEventTablesSold = new Money(totalEventTable),
+                LRx_EventTablesSoldCount = (int)eventTableCount
+            };
+
+            _service.Update(package);
+
+            _tracingService.Trace(
+                $"Package totals updated successfully. PackageId={packageId}");
         }
         #endregion
     }

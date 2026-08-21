@@ -6814,8 +6814,9 @@ namespace CrmEarlyBound
 				}
 			}
 		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donationcount")]
+
+       
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lrx_donationcount")]
 		public System.Nullable<int> LRx_DonationCount
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]

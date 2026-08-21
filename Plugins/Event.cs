@@ -49,11 +49,21 @@ namespace Fundraising_Engagement.Plugins.Plugins
                         fundraisingService.UpdateCampaignEventTotals(
                             targetEntity.Id,
                             Guid.Empty);
+
+                        fundraisingService.UpdateAppealEventTotals(
+                            targetEntity.Id,
+                            Guid.Empty);
+
+                        fundraisingService.UpdatePackageEventTotals(
+                            targetEntity.Id,
+                        Guid.Empty);
                     }
                 }
                 else if (context.MessageName == "Update")
                 {
                     Guid oldCampaignId = Guid.Empty;
+                    Guid oldAppealId = Guid.Empty;
+                    Guid oldPackageId = Guid.Empty;
 
                     // Get old Campaign from Pre Image
                     if (context.PreEntityImages.Contains("EventPreImage"))
@@ -65,11 +75,29 @@ namespace Fundraising_Engagement.Plugins.Plugins
                         {
                             oldCampaignId = preImage.LRx_Campaign.Id;
                         }
+
+                        if (preImage.LRx_SiFund_Appeal != null)
+                        {
+                            oldAppealId = preImage.LRx_SiFund_Appeal.Id;
+                        }
+
+                        if (preImage.LRx_SiFund_Package != null)
+                        {
+                            oldPackageId = preImage.LRx_SiFund_Package.Id;
+                        }
                     }
 
                     fundraisingService.UpdateCampaignEventTotals(
                         targetEntity.Id,
                         oldCampaignId);
+
+                    fundraisingService.UpdateAppealEventTotals(
+                     targetEntity.Id,
+                    oldAppealId);
+
+                    fundraisingService.UpdatePackageEventTotals(
+                    targetEntity.Id,
+                    oldPackageId);
                 }
             }
 
@@ -94,15 +122,35 @@ namespace Fundraising_Engagement.Plugins.Plugins
                 }
 
                 Guid oldCampaignId = Guid.Empty;
+                Guid oldAppealId = Guid.Empty;
+                Guid oldPackageId = Guid.Empty;
 
                 if (preImage.LRx_Campaign != null)
                 {
                     oldCampaignId = preImage.LRx_Campaign.Id;
                 }
 
+                if (preImage.LRx_SiFund_Appeal != null)
+                {
+                    oldAppealId = preImage.LRx_SiFund_Appeal.Id;
+                }
+
+                if (preImage.LRx_SiFund_Package != null)
+                {
+                    oldPackageId = preImage.LRx_SiFund_Package.Id;
+                }
+
                 fundraisingService.UpdateCampaignEventTotals(
                     Guid.Empty,
                     oldCampaignId);
+
+                fundraisingService.UpdateAppealEventTotals(
+                Guid.Empty,
+                oldAppealId);
+
+                fundraisingService.UpdatePackageEventTotals(
+                    Guid.Empty,
+                    oldPackageId);
             }
         }
     }
